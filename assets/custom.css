@@ -13,6 +13,33 @@ slideshow-controls.carousel-controls .icon-play {
     display: none !important;
 }
 
+.header__drawer.active-desktop-drawer + header-menu {
+    display: none !important;
+}
+
+.header__drawer.active-desktop-drawer .menu-drawer__close-button {
+    margin-left: auto;
+}
+.header__icon--summary .header-drawer-icon {
+    width: var(--icon-size-lg) !important;
+    height: var(--icon-size-lg) !important;
+}
+
+.menu-drawer__close-button {
+    border-radius: 50%;
+    background: var(--color-foreground) !important;
+    color: var(--color-background) !important;
+    padding: var(--padding-md) !important;
+    margin-top: var(--drawer-padding);
+    margin-right: var(--drawer-padding);
+}
+
+@media (min-width: 990px) {
+    :root {
+        --menu-font-2xl--size: 2.5rem !important;
+    }
+}
+
 @media (max-width: 749px) {
     :is(.carousel--mobile-full-width) > .resource-list__carousel, :is(.carousel--mobile-full-width) > .custom-section-content {
         grid-column: 1 / -1;

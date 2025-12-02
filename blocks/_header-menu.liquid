@@ -13,7 +13,7 @@
 {% case variant %}
   {% when 'mobile' %}
     <div
-      class="header__drawer desktop:hidden"
+      class="header__drawer {% if block_settings.use_drawer_desktop == true %} active-desktop-drawer {% else %} desktop:hidden{% endif %}"
       ref="headerDrawerContainer"
       {{ block.shopify_attributes }}
     >
@@ -595,6 +595,13 @@
   "name": "t:names.menu",
   "tag": null,
   "settings": [
+    {
+      "type": "checkbox",
+      "id": "use_drawer_desktop",
+      "label": "Use Drawer",
+      "default": false,
+      "info": "Use drawer for all screens"
+    },
     {
       "type": "link_list",
       "id": "menu",
