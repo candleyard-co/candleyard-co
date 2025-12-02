@@ -29,7 +29,7 @@
     aria-describedby="cart-bubble-text"
     data-testid="cart-drawer-trigger"
   >
-    {% render 'cart-icon-component' %}
+    {% render 'cart-icon-component' %} <span class="cart-text">{{ 'accessibility.cart' | t }}</span>
   </button>
 
   <dialog
