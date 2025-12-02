@@ -2860,7 +2860,7 @@
                 "font": "var(--font-body--family)",
                 "font_size": "",
                 "enable_mobile_size": true,
-                "mobile_font_size": "1.5rem",
+                "mobile_font_size": "1.25rem",
                 "line_height": "normal",
                 "letter_spacing": "normal",
                 "case": "none",
@@ -3034,7 +3034,8 @@
         }
       },
       "custom_css": [
-        "{--page-width: calc(78rem + (var(--page-margin) * 2));}"
+        "{--page-width: calc(78rem + (var(--page-margin) * 2));}",
+        "@media (max-width: 989px) {.section-resource-list__header .button {--button-padding-inline: 6px; --button-padding-block: 2px; font-size: var(--font-size--xs); }}"
       ],
       "name": "t:names.featured_collection",
       "settings": {
@@ -3047,8 +3048,8 @@
         "mobile_card_size": "60cqw",
         "columns_gap": 24,
         "rows_gap": 24,
-        "enable_mobile_rows_gap": false,
-        "mobile_rows_gap": 12,
+        "enable_mobile_rows_gap": true,
+        "mobile_rows_gap": 28,
         "icons_style": "arrow",
         "icons_shape": "none",
         "section_width": "page-width",
