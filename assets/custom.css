@@ -21,16 +21,21 @@ slideshow-controls.carousel-controls .icon-play {
     font-weight: var(--font-accent--weight);
 }
 
-.header__drawer.active-desktop-drawer + header-menu {
+.header__column--left:has(.active-desktop-drawer) header-menu {
     display: none !important;
 }
 
 .header__drawer.active-desktop-drawer .menu-drawer__close-button {
     margin-left: auto;
 }
-.header__icon--summary .header-drawer-icon {
+
+.header__icon--summary .header-drawer-icon, .header-actions__action svg {
     width: var(--icon-size-lg) !important;
     height: var(--icon-size-lg) !important;
+}
+
+header-actions .account-button.header-actions__action {
+    height: 100%;
 }
 
 .menu-drawer__close-button {
@@ -89,6 +94,10 @@ slideshow-arrows .slideshow-control {
     color: var(--button-background-color);
 }
 
+header-actions {
+    gap: var(--gap-sm);
+}
+
 @media (min-width: 990px) {
     :root {
         --menu-font-2xl--size: 2.5rem !important;
@@ -125,6 +134,10 @@ slideshow-arrows .slideshow-control {
         box-shadow: inset 0 0 0 var(--button-border-width) var(--button-border-color);
         padding-block: var(--button-padding-block);
         padding-inline: var(--button-padding-inline);
+    }
+
+    .resource-list__carousel {
+        --peek-next-slide-size: 0rem;
     }
 
     .header-actions__action[data-testid="cart-drawer-trigger"] .svg-wrapper {
