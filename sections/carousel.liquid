@@ -11,6 +11,9 @@
       capture styles
         echo '--resource-list-column-gap-desktop: ' | append: section.settings.columns_gap | append: 'px;'
         echo '--resource-list-row-gap-desktop: ' | append: section.settings.rows_gap | append: 'px;'
+        if section.settings.enable_mobile_rows_gap
+          echo '--resource-list-mobile-gap-max: ' | append: section.settings.mobile_rows_gap | append: 'px;'
+        endif
         echo '--resource-list-columns: repeat(' | append: section.settings.columns | append: ', 1fr);'
         echo '--resource-list-columns-mobile: repeat(' | append: section.settings.mobile_columns | append: ', 1fr);'
         echo '--column-count-mobile: ' | append: section.settings.mobile_columns | append: ';'
@@ -29,6 +32,21 @@
         echo '--mobile-card-size: ' | append: section.settings.mobile_card_size | append: ';'
       endcapture
   endcase
+%}
+
+{% liquid
+
+  capture vertical_mobile_styles
+    echo '--resource-list-column-gap-desktop: ' | append: section.settings.columns_gap | append: 'px;'
+    echo '--resource-list-row-gap-desktop: ' | append: section.settings.rows_gap | append: 'px;'
+    if section.settings.enable_mobile_rows_gap
+      echo '--resource-list-row-gap-mobile: ' | append: section.settings.mobile_rows_gap | append: 'px;'
+    endif
+    echo '--resource-list-columns: repeat(' | append: section.settings.columns | append: ', 1fr);'
+    echo '--resource-list-columns-mobile: repeat(' | append: section.settings.mobile_columns | append: ', 1fr);'
+    echo '--column-count-mobile: ' | append: section.settings.mobile_columns | append: ';'
+  endcapture
+
 %}
 
 <div class="section-background color-{{ section.settings.color_scheme }}"></div>
@@ -87,6 +105,7 @@
         {% if section.settings.carousel_on_mobile and section.settings.layout_type != 'carousel' %}
           hidden--mobile
         {% endif %}
+        {% if section.settings.layout_type == 'carousel' and section.settings.vertical_on_mobile == true %}hidden--mobile{% endif %}
         {{ classes }}
       "
       style="{{ styles }}"
@@ -107,6 +126,16 @@
           %}
       {% endcase %}
     </div>
+
+    {% if section.settings.layout_type == 'carousel' and section.settings.vertical_on_mobile == true %}
+      <div class="
+        resource-list
+        carousel-list
+        hidden--desktop
+        resource-list--grid" style="{{ vertical_mobile_styles }}">
+          {{ list_items }}
+      </div>
+    {% endif %}
 
     {% if section.settings.layout_type != 'carousel' and section.settings.carousel_on_mobile %}
       {% liquid
@@ -254,6 +283,13 @@
     },
     {
       "type": "checkbox",
+      "id": "vertical_on_mobile",
+      "label": "t:settings.vertical_on_mobile",
+      "default": false,
+      "visible_if": "{{ section.settings.layout_type == 'carousel' }}"
+    },
+    {
+      "type": "checkbox",
       "id": "enable_dots",
       "label": "Enable dots",
       "default": false,
@@ -365,6 +401,23 @@
       "unit": "px",
       "default": 8,
       "visible_if": "{{ section.settings.layout_type == 'grid'}}"
+    },
+    {
+      "type": "checkbox",
+      "id": "enable_mobile_rows_gap",
+      "label": "Custom mobile vertical gap",
+      "default": false
+    },
+    {
+      "type": "range",
+      "id": "mobile_rows_gap",
+      "label": "Mobile vertical gap",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "default": 12,
+      "visible_if": "{{ section.settings.enable_mobile_rows_gap == true }}"
     },
     {
       "type": "header",

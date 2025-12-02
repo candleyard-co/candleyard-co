@@ -6,6 +6,7 @@
   @param {string} [name] - The name of the CSS variable to set. Default: 'gap'
   @param {number} [scale_min] - Value above which gap scaling will be applied. Default: 20
   @param {boolean} [disable_scaling] - If true, disables scaling and outputs the original value.
+  @param {string} [settings] - The block setting
 
   @example
   <div class="gap-style" style="{% render 'gap-style', value: block.settings.gap %}">
@@ -23,3 +24,7 @@
     --{{ name }}: {{ value }}px;
   {%- endif -%}
 {%- endif -%}
+
+{% if settings.enable_mobile_gap %}
+  --mobile-gap: {{ settings.mobile_gap }}px;
+{% endif %}

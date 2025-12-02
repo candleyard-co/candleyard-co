@@ -205,6 +205,23 @@
       "visible_if": "{{ section.settings.layout_type == 'grid'}}"
     },
     {
+      "type": "checkbox",
+      "id": "enable_mobile_rows_gap",
+      "label": "Custom mobile vertical gap",
+      "default": false
+    },
+    {
+      "type": "range",
+      "id": "mobile_rows_gap",
+      "label": "Mobile vertical gap",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "default": 12,
+      "visible_if": "{{ section.settings.enable_mobile_rows_gap == true }}"
+    },
+    {
       "type": "header",
       "content": "t:content.carousel_navigation",
       "visible_if": "{{ section.settings.layout_type == 'carousel' or section.settings.carousel_on_mobile == true }}"

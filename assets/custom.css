@@ -16,7 +16,7 @@ slideshow-controls.carousel-controls .icon-play {
 :root {
     --button-padding-block: 12px !important;
 }
-
+ 
 .button {
     font-weight: var(--font-accent--weight);
 }
@@ -218,5 +218,9 @@ header-actions {
 
     [style*="--mobile-ratio"] > img,  [style*="--mobile-ratio"] > video {
        aspect-ratio: var(--mobile-ratio) !important;
+    }
+
+    .resource-list--grid[style*="--resource-list-row-gap-mobile"]{
+        row-gap: var(--resource-list-row-gap-mobile) !important; 
     }
 }
