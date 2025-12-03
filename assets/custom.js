@@ -3,99 +3,83 @@ document.querySelectorAll('.slider-scrollings').forEach((scrollingElement) => {
   let startX;
   let scrollLeft;
   let scrollInterval;
-  let dragSpeed = 1.2;
+  const dragSpeed = 1.2;
   const autoScrollSpeed = Number(scrollingElement.dataset.speed) || 1;
 
-  // --- 1) DUPLICATE CHILDREN FOR SEAMLESS LOOP ---
+  // --- 1) DUPLICATE CONTENT FOR SEAMLESS LOOP ---
   const children = Array.from(scrollingElement.children);
-  children.forEach(child => scrollingElement.appendChild(child.cloneNode(true))); // safe clone
-
-  const half = scrollingElement.scrollWidth / 2; // cached half width
+  children.forEach(child => scrollingElement.appendChild(child.cloneNode(true)));
+  const half = scrollingElement.scrollWidth / 2;
 
   // --- 2) AUTOPLAY ---
   const startAutoScroll = () => {
     stopAutoScroll();
     scrollInterval = setInterval(() => {
       scrollingElement.scrollLeft += autoScrollSpeed;
-
-      // seamless loop
-      if (scrollingElement.scrollLeft >= half) {
-        scrollingElement.scrollLeft -= half;
-      }
+      if (scrollingElement.scrollLeft >= half) scrollingElement.scrollLeft -= half;
     }, 16);
   };
-
   const stopAutoScroll = () => clearInterval(scrollInterval);
 
-  // --- 3) DRAG EVENTS (DESKTOP) ---
-  scrollingElement.addEventListener("mousedown", (e) => {
+  // --- 3) DRAG FUNCTION (SHARED) ---
+  const handleDrag = (clientX) => {
+    const walk = (clientX - startX) * dragSpeed;
+    let newScroll = scrollLeft - walk;
+
+    // --- WRAP LOOP ---
+    if (newScroll >= half) newScroll -= half;
+    else if (newScroll <= 0) newScroll += half;
+
+    scrollingElement.scrollLeft = newScroll;
+  };
+
+  // --- 4) DESKTOP EVENTS ---
+  scrollingElement.addEventListener('mousedown', (e) => {
     isDragging = true;
     stopAutoScroll();
-    startX = e.pageX - scrollingElement.offsetLeft;
+    startX = e.clientX;
     scrollLeft = scrollingElement.scrollLeft;
-    scrollingElement.style.cursor = "grabbing";
+    scrollingElement.style.cursor = 'grabbing';
   });
 
-  scrollingElement.addEventListener("mouseleave", () => {
-    if (!isDragging) return;
-    isDragging = false;
-    scrollingElement.style.cursor = "default";
-    startAutoScroll();
-  });
-
-  scrollingElement.addEventListener("mouseup", () => {
-    isDragging = false;
-    scrollingElement.style.cursor = "default";
-    startAutoScroll();
-  });
-
-  scrollingElement.addEventListener('mousemove', (e) => {
+  window.addEventListener('mousemove', (e) => {
     if (!isDragging) return;
     e.preventDefault();
-
-    const x = e.pageX - scrollingElement.offsetLeft;
-    const walk = (x - startX) * dragSpeed;
-    scrollingElement.scrollLeft = scrollLeft - walk;
-
-    // --- CONTINUOUS LOOP FIX FOR DESKTOP DRAG ---
-    if (scrollingElement.scrollLeft >= half) {
-      scrollingElement.scrollLeft -= half;
-      scrollLeft = scrollingElement.scrollLeft + walk;
-      startX = x;
-    } else if (scrollingElement.scrollLeft <= 0) {
-      scrollingElement.scrollLeft += half;
-      scrollLeft = scrollingElement.scrollLeft + walk;
-      startX = x;
-    }
+    handleDrag(e.clientX);
   });
 
-  // --- 4) TOUCH EVENTS (MOBILE) ---
-  scrollingElement.addEventListener("touchstart", (e) => {
+  window.addEventListener('mouseup', () => {
+    if (!isDragging) return;
+    isDragging = false;
+    scrollingElement.style.cursor = 'default';
+    startAutoScroll();
+  });
+
+  scrollingElement.addEventListener('mouseleave', () => {
+    if (!isDragging) return;
+    isDragging = false;
+    scrollingElement.style.cursor = 'default';
+    startAutoScroll();
+  });
+
+  // --- 5) TOUCH EVENTS ---
+  scrollingElement.addEventListener('touchstart', (e) => {
     isDragging = true;
     stopAutoScroll();
-    startX = e.touches[0].pageX - scrollingElement.offsetLeft;
+    startX = e.touches[0].clientX;
     scrollLeft = scrollingElement.scrollLeft;
   });
 
-  scrollingElement.addEventListener("touchend", () => {
+  scrollingElement.addEventListener('touchmove', (e) => {
+    if (!isDragging) return;
+    handleDrag(e.touches[0].clientX);
+  });
+
+  scrollingElement.addEventListener('touchend', () => {
     isDragging = false;
     startAutoScroll();
   });
 
-  scrollingElement.addEventListener("touchmove", (e) => {
-    if (!isDragging) return;
-    const x = e.touches[0].pageX - scrollingElement.offsetLeft;
-    const walk = (x - startX) * dragSpeed;
-    scrollingElement.scrollLeft = scrollLeft - walk;
-
-    // seamless loop for mobile
-    if (scrollingElement.scrollLeft >= half) {
-      scrollingElement.scrollLeft -= half;
-    } else if (scrollingElement.scrollLeft <= 0) {
-      scrollingElement.scrollLeft += half;
-    }
-  });
-
-  // Start autoplay
+  // --- 6) START AUTOSCROLL ---
   startAutoScroll();
 });
