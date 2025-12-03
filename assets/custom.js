@@ -4,12 +4,13 @@ document.querySelectorAll('.slider-scrollings').forEach((scrollingElement) => {
   let scrollLeft;
   let scrollInterval;
   let dragSpeed = 1.2;
-
   const autoScrollSpeed = Number(scrollingElement.dataset.speed) || 1;
 
   // --- 1) DUPLICATE CHILDREN FOR SEAMLESS LOOP ---
-  const content = scrollingElement.innerHTML;
-  scrollingElement.innerHTML = content + content; // clone once
+  const children = Array.from(scrollingElement.children);
+  children.forEach(child => scrollingElement.appendChild(child.cloneNode(true))); // safe clone
+
+  const half = scrollingElement.scrollWidth / 2; // cached half width
 
   // --- 2) AUTOPLAY ---
   const startAutoScroll = () => {
@@ -17,11 +18,9 @@ document.querySelectorAll('.slider-scrollings').forEach((scrollingElement) => {
     scrollInterval = setInterval(() => {
       scrollingElement.scrollLeft += autoScrollSpeed;
 
-      const half = scrollingElement.scrollWidth / 2;
-
-      // When reaching cloned half, jump back to original half
+      // seamless loop
       if (scrollingElement.scrollLeft >= half) {
-        scrollingElement.scrollLeft = scrollingElement.scrollLeft - half;
+        scrollingElement.scrollLeft -= half;
       }
     }, 16);
   };
@@ -50,29 +49,25 @@ document.querySelectorAll('.slider-scrollings').forEach((scrollingElement) => {
     startAutoScroll();
   });
 
-    scrollingElement.addEventListener('mousemove', (e) => {
+  scrollingElement.addEventListener('mousemove', (e) => {
     if (!isDragging) return;
     e.preventDefault();
 
     const x = e.pageX - scrollingElement.offsetLeft;
     const walk = (x - startX) * dragSpeed;
-
     scrollingElement.scrollLeft = scrollLeft - walk;
 
-    const maxScroll = scrollingElement.scrollWidth - scrollingElement.clientWidth;
-
-    // ---- CONTINUOUS LOOP FIX FOR DESKTOP DRAG ----
-    if (scrollingElement.scrollLeft <= 0) {
-        scrollingElement.scrollLeft = maxScroll - 1;
-        scrollLeft = scrollingElement.scrollLeft + walk;
-        startX = x;
-    } else if (scrollingElement.scrollLeft >= maxScroll - 1) {
-        scrollingElement.scrollLeft = 1;
-        scrollLeft = scrollingElement.scrollLeft + walk;
-        startX = x;
+    // --- CONTINUOUS LOOP FIX FOR DESKTOP DRAG ---
+    if (scrollingElement.scrollLeft >= half) {
+      scrollingElement.scrollLeft -= half;
+      scrollLeft = scrollingElement.scrollLeft + walk;
+      startX = x;
+    } else if (scrollingElement.scrollLeft <= 0) {
+      scrollingElement.scrollLeft += half;
+      scrollLeft = scrollingElement.scrollLeft + walk;
+      startX = x;
     }
-    });
-
+  });
 
   // --- 4) TOUCH EVENTS (MOBILE) ---
   scrollingElement.addEventListener("touchstart", (e) => {
@@ -93,13 +88,11 @@ document.querySelectorAll('.slider-scrollings').forEach((scrollingElement) => {
     const walk = (x - startX) * dragSpeed;
     scrollingElement.scrollLeft = scrollLeft - walk;
 
-    const half = scrollingElement.scrollWidth / 2;
-
-    // Loop while dragging on mobile
+    // seamless loop for mobile
     if (scrollingElement.scrollLeft >= half) {
-      scrollingElement.scrollLeft = scrollingElement.scrollLeft - half;
+      scrollingElement.scrollLeft -= half;
     } else if (scrollingElement.scrollLeft <= 0) {
-      scrollingElement.scrollLeft = scrollingElement.scrollLeft + half;
+      scrollingElement.scrollLeft += half;
     }
   });
 
