@@ -98,6 +98,15 @@ header-actions {
     gap: var(--gap-sm);
 }
 
+.product-badges__badge {
+    line-height: 1em;
+}
+
+.use-height-icon img, .use-height-icon svg {
+    width: auto !important;
+    height: var(--height) !important;
+}
+
 @media (min-width: 990px) {
     :root {
         --menu-font-2xl--size: 2.5rem !important;
@@ -222,5 +231,9 @@ header-actions {
 
     .resource-list--grid[style*="--resource-list-row-gap-mobile"]{
         row-gap: var(--resource-list-row-gap-mobile) !important; 
+    }
+
+    .use-height-icon[style*="--mobile-height"] img, .use-height-icon[style*="--mobile-height"] svg {
+        height: var(--mobile-height) !important;
     }
 }
