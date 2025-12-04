@@ -157,7 +157,7 @@
           "type": "text",
           "name": "t:names.text",
           "settings": {
-            "text": "<p>Hand-poured, dessert & drink-inspired candles made to smell<br/>just as good as they look.</p>",
+            "text": "<p>Hand-poured, dessert & drink-inspired candles made to smell just as good as they look.</p>",
             "width": "fit-content",
             "max_width": "normal",
             "alignment": "left",
