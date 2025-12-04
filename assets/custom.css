@@ -20,6 +20,10 @@ slideshow-controls.carousel-controls .icon-play {
 :root {
     --button-padding-block: 12px !important;
 }
+
+.text-block:not(.text-block--full-width).rte, .text-block:not(.text-block--full-width).paragraph {
+    text-wrap: unset !important;
+}
  
 .button {
     font-weight: var(--font-accent--weight);
