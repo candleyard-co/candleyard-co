@@ -13,6 +13,10 @@ slideshow-controls.carousel-controls .icon-play {
     display: none !important;
 }
 
+.text-block:not(.text-block--full-width):is(.h1,.h2,.h3,.h4,.h5,.h6) {
+    text-wrap: unset !important;
+}
+
 :root {
     --button-padding-block: 12px !important;
 }
@@ -111,6 +115,12 @@ header-actions {
     --size: .4rem;
 }
 
+
+.section--page-narrow {
+  --page-margin: 16px;
+  --page-width: calc(78rem + (var(--page-margin) * 2)) !important;
+}
+
 @media (min-width: 990px) {
     :root {
         --menu-font-2xl--size: 2.5rem !important;
@@ -119,6 +129,9 @@ header-actions {
 
 
 @media (min-width: 750px) {
+    .section--page-narrow {
+        --page-margin: 40px;
+    }
     .header-actions__action[data-testid="cart-drawer-trigger"] {
         align-items: center;
         gap: var(--gap-xs);

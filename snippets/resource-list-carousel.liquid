@@ -12,7 +12,7 @@
 
 {% liquid
   assign slideshow_ref = ref | default: 'resourceListCarousel'
-  if settings.section_width == 'page-width'
+  if settings.section_width == 'page-width' or settings.section_width == 'page-narrow'
     assign slideshow_gutters = 'start end'
   else
     assign slideshow_gutters = null
@@ -59,7 +59,7 @@
 <div
   class="resource-list__carousel"
   style="
-    {% if settings.section_width == 'page-width' %}
+    {% if settings.section_width == 'page-width' or settings.section_width == 'page-narrow' %}
       --gutter-slide-width: var(--util-page-margin-offset);
     {% elsif settings.section_width == 'full-width' %}
       --gutter-slide-width: 0px;

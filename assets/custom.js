@@ -2,48 +2,64 @@ document.querySelectorAll('.slider-scrollings').forEach((scrollingElement) => {
   let isDragging = false;
   let startX;
   let scrollLeft;
-  let dragSpeed = 1.2;
+  const dragSpeed = 1.2;
   const autoScrollSpeed = Number(scrollingElement.dataset.speed) || 1;
   let animationFrame;
+  let half = 0;
 
-  // --- 1) DUPLICATE CONTENT FOR SEAMLESS LOOP ---
+  // --- 1) DUPLICATE CONTENT ---
   const children = Array.from(scrollingElement.children);
   children.forEach(child => scrollingElement.appendChild(child.cloneNode(true)));
-  const half = scrollingElement.scrollWidth / 2;
 
-  // --- 2) AUTOPLAY USING requestAnimationFrame ---
+  // --- IMPORTANT: WAIT FOR FULL LAYOUT BEFORE GETTING half ---
+  const computeHalf = () => {
+    half = scrollingElement.scrollWidth / 2;
+  };
+
+  // Compute full width AFTER DOM + rendering
+  requestAnimationFrame(() => {
+    requestAnimationFrame(() => {
+      computeHalf();
+      startAutoScroll();   // Start autoplay ONLY NOW
+    });
+  });
+
+  // --- 2) AUTOPLAY WITH RAF ---
   const startAutoScroll = () => {
     stopAutoScroll();
-    let lastTimestamp = null;
 
-    const animate = (timestamp) => {
-      if (!lastTimestamp) lastTimestamp = timestamp;
-      const delta = timestamp - lastTimestamp;
-      lastTimestamp = timestamp;
-
-      if (!isDragging) {
-        scrollingElement.scrollLeft += autoScrollSpeed * (delta / 16);
-        if (scrollingElement.scrollLeft >= half) {
-          scrollingElement.scrollLeft -= half;
-        }
+    let last = null;
+    const step = (ts) => {
+      if (isDragging || !half) {
+        animationFrame = requestAnimationFrame(step);
+        return;
       }
 
-      animationFrame = requestAnimationFrame(animate);
+      if (!last) last = ts;
+      const delta = ts - last;
+      last = ts;
+
+      scrollingElement.scrollLeft += autoScrollSpeed * (delta / 16);
+
+      if (scrollingElement.scrollLeft >= half) {
+        scrollingElement.scrollLeft -= half;
+      }
+
+      animationFrame = requestAnimationFrame(step);
     };
 
-    animationFrame = requestAnimationFrame(animate);
+    animationFrame = requestAnimationFrame(step);
   };
 
   const stopAutoScroll = () => {
     cancelAnimationFrame(animationFrame);
   };
 
-  // --- 3) DRAG FUNCTION (SHARED) ---
+  // --- 3) DRAG FUNCTION ---
   const handleDrag = (clientX) => {
     const walk = (clientX - startX) * dragSpeed;
     let newScroll = scrollLeft - walk;
 
-    // --- WRAP LOOP ---
     if (newScroll >= half) newScroll -= half;
     else if (newScroll <= 0) newScroll += half;
 
@@ -97,6 +113,4 @@ document.querySelectorAll('.slider-scrollings').forEach((scrollingElement) => {
     startAutoScroll();
   });
 
-  // --- 6) START AUTOSCROLL ---
-  startAutoScroll();
 });
