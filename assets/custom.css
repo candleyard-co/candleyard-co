@@ -115,6 +115,9 @@ header-actions {
     --size: .4rem;
 }
 
+.email-signup__input, .email-signup__button--text {
+    padding: var(--padding-sm) var(--padding-3xl) !important;
+}
 
 .section--page-narrow {
   --page-margin: 16px;
