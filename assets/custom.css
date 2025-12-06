@@ -96,10 +96,6 @@ slideshow-arrows .slideshow-control {
     color: var(--button-background-color);
 }
 
-header-actions {
-    gap: var(--gap-sm);
-}
-
 .product-badges__badge {
     line-height: 1em;
 }
@@ -181,6 +177,9 @@ header-actions {
     .header-actions__action[data-testid="cart-drawer-trigger"] .svg-wrapper {
         height: auto;
         width: auto;
+    }
+    header-actions {
+        gap: var(--gap-sm);
     }
 }
 @media (max-width: 749px) {
