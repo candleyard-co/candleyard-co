@@ -63,12 +63,6 @@ header-actions .account-button.header-actions__action {
     font-weight: var(--font-accent--weight) !important;
 }
 
-.header-actions__cart-icon {
-    --cart-bubble-size: 16px !important;
-    --cart-bubble-top: -4.5px !important;
-    --cart-bubble-right: -5.5px !important;
-}
-
 .header-actions__cart-icon .cart-bubble {
     width: var(--cart-bubble-size) !important;
 }
@@ -126,6 +120,17 @@ header-actions {
 .section--page-narrow {
   --page-margin: 16px;
   --page-width: calc(78rem + (var(--page-margin) * 2)) !important;
+}
+
+    
+.header-actions__cart-icon {
+    --cart-bubble-size: 16px !important;
+    --cart-bubble-top: -4.5px !important;
+    --cart-bubble-right: -5.5px !important;
+}
+
+.header-actions__cart-icon.header-actions__cart-icon--has-cart svg {
+    mask: unset !important;
 }
 
 @media (min-width: 990px) {
@@ -259,5 +264,15 @@ header-actions {
 
     .use-height-icon[style*="--mobile-height"] img, .use-height-icon[style*="--mobile-height"] svg {
         height: var(--mobile-height) !important;
+    }
+
+    .header-actions__cart-icon {
+        --cart-bubble-top: 3.5px !important;
+        --cart-bubble-right: 4.5px !important;
+    }
+
+    .header-actions__cart-icon svg {
+        width: 1.3rem !important;
+        height: 1.3rem !important;
     }
 }
