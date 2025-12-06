@@ -123,6 +123,10 @@
     .collection-card[data-block-id="{{ parent_block_id }}"] {
       --ratio: {{ ratio }};
     }
+  {% elsif content_type == 'packs' %}
+    .pack-card[data-block-id="{{ parent_block_id }}"] {
+      --ratio: {{ ratio }};
+    }
   {% endif %}
 {% endstyle %}
 
@@ -135,6 +139,8 @@
         featured-blog-posts-card__image
       {% elsif content_type == 'collections' %}
         collection-card__image
+      {% elsif content_type == 'packs' %}
+        pack-card__image
       {% endif %}
       spacing-style border-style
       {% if block_settings.inherit_color_scheme == false %} color-{{ block_settings.color_scheme }}{% endif %}

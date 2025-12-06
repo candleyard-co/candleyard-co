@@ -1,0 +1,237 @@
+{%- doc -%}
+  This snippet is used to render a collection card.
+  To be used inside a block to inherit the block object settings.
+
+  @param {string} card_image - The image to display in the collection card
+  @param {string} children - The content to render inside the collection card
+  @param {object} item - The item to render the card for
+  @param {string} card_title - The card title
+  @param {string} card_price - The card price
+  @param {object} block - The block object
+  @param {object} section - The section object
+
+  @example
+  {% render 'pack-card',
+    card_image: card_image,
+    children: children,
+    block: block,
+    collection: collection,
+    section: section
+  %}
+{%- enddoc -%}
+
+{% liquid
+  assign onboarding = false
+  assign block_settings = block.settings
+
+  if item == blank
+    assign onboarding = true
+  endif
+%}
+
+<div
+  class="
+    pack-card
+    border-style
+    {% if block_settings.placement == 'on_image' %}pack-card--image-bg{% endif %}
+    {% if section.settings.layout_type == 'bento' %}pack-card--image-height-fixed{% endif %}
+    {% if section.settings.layout_type == 'editorial' %}pack-card--flexible-aspect-ratio{% endif %}
+    {% if block_settings.inherit_color_scheme == false %} color-{{ block_settings.color_scheme }}{% endif %}
+  "
+  data-block-id="{{ block.id }}"
+  {% if onboarding %}
+    data-placeholder="true"
+  {% endif %}
+  style="
+    {% render 'border-override', settings: block_settings %}
+    --horizontal-alignment: {{ block_settings.horizontal_alignment }};
+    --vertical-alignment: {{ block_settings.vertical_alignment }};
+    --background-overlay-color: {{ block_settings.overlay_color }};
+    --pack-card-gap: {{ block_settings.pack_card_gap }}px;
+  "
+  {{- block.shopify_attributes -}}
+>
+  <a
+    class="pack-card__link"
+    {% unless onboarding %}
+      href="{{ item.url }}"
+    {% endunless %}
+  >
+    <span class="visually-hidden">{{ item.title }}</span>
+  </a>
+  <div class="pack-card__inner">
+    {{ card_image }}
+    <div class="pack-card__content layout-panel-flex--column">
+        {% if item.compare_at_price > item.price %}
+            <div class="pack-content-title">
+                <div>
+                    {{ card_title }}
+                </div>
+                <div>
+                </div>
+            </div>
+        {% else %}
+            {{ card_title }}
+        {% endif %}
+        {{ card_price }}
+    </div>
+  </div>
+</div>
+
+{% stylesheet %}
+    .pack-card {
+        --fixed-card-height: var(--height-small);
+        flex: 1 1 var(--card-width-small);
+        width: 100%;
+        position: relative;
+
+        @media (max-width: 749px) {
+            padding-block: var(--padding-xs);
+        }
+    }
+
+    @media (max-width: 749px) {
+        .resource-list__item .pack-card {
+            border-bottom: 1px solid rgb(var(--color-border-rgb) / 0.05);
+        }
+    }
+
+  .pack-content-title {
+    display: flex;
+    gap: var(--gap-xs);
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .pack-card > svg {
+    height: 100%;
+    width: 100%;
+    aspect-ratio: var(--ratio);
+  }
+
+  .pack-card__inner {
+    width: 100%;
+    overflow: hidden;
+    position: relative;
+    gap: var(--pack-card-gap);
+    display: flex;
+    flex-direction: column;
+
+    @media (max-width: 749px) {
+        flex-direction: row;
+        gap: var(--gap-md);
+        align-items: center;
+
+        .resource-image {
+            width: 58%;
+            max-width: 58%;
+            aspect-ratio: var(--ratio);
+        }
+    }
+  }
+
+  .pack-card--image-bg .pack-card__inner {
+    height: 100%;
+  }
+
+  .pack-card__inner {
+    z-index: var(--layer-flat);
+    pointer-events: none;
+
+    a,
+    button {
+      /* only allow interactive elements to be clickable separate from .pack-card__link */
+      pointer-events: auto;
+    }
+  }
+
+  /* allow all blocks to be selectable in editor preview */
+  .shopify-design-mode .pack-card__content * {
+    pointer-events: auto;
+  }
+
+  .pack-card__content {
+    position: relative;
+    display: flex;
+    height: 100%;
+    width: 100%;
+    max-width: 100%;
+    gap: var(--pack-card-gap);
+    flex-direction: column;
+    align-items: var(--horizontal-alignment);
+    justify-content: var(--vertical-alignment);
+  }
+
+  .pack-card__link {
+    position: absolute;
+    inset: 0;
+
+    /* allows focus outline to have radius in supported browsers */
+    border-radius: var(--border-radius);
+  }
+
+  /* Nested image block rules */
+
+  .pack-card.pack-card--image-bg {
+    aspect-ratio: var(--ratio);
+  }
+
+  .pack-card.pack-card--image-bg .pack-card__content {
+    padding: var(--padding-lg);
+  }
+
+  /* Bento layout rules */
+  .pack-card--image-height-fixed .pack-card__image {
+    height: var(--fixed-card-height);
+    width: 100%;
+  }
+
+  .pack-card--image-height-fixed.pack-card--image-bg {
+    height: var(--fixed-card-height);
+    aspect-ratio: unset;
+  }
+
+  .pack-card__image .image-block__image {
+    object-fit: cover;
+    width: 100%;
+    height: 100%;
+    max-width: 100%;
+  }
+
+  .pack-card--image-bg .pack-card__image {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+  }
+
+  .pack-card__image svg {
+    height: 100%;
+    width: 100%;
+  }
+
+  .resource-list:not(.hidden--desktop) .pack-card--flexible-aspect-ratio {
+    &.pack-card.pack-card--image-bg,
+    &.pack-card .placeholder-svg {
+      aspect-ratio: 99;
+    }
+
+    .pack-card__image {
+      aspect-ratio: 99;
+      height: 100%;
+    }
+
+    .pack-card__inner {
+      display: flex;
+      flex-direction: column;
+      height: 100%;
+    }
+
+    .pack-card__content {
+      flex-shrink: 0;
+    }
+
+    &:not(.pack-card--image-bg) .pack-card__content {
+      height: auto;
+    }
+  }
+{% endstylesheet %}
