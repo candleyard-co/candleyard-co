@@ -129,6 +129,10 @@ slideshow-arrows .slideshow-control {
     mask: unset !important;
 }
 
+.avid-left-fab-button .avid-left-fab-button-icon {
+    width: auto;
+}
+
 @media (min-width: 990px) {
     :root {
         --menu-font-2xl--size: 2.5rem !important;

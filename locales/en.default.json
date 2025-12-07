@@ -325,5 +325,8 @@
       "quantity_maximum": "Maximum of {{ maximum }}",
       "in_cart": "in cart"
     }
+  },
+  "flip_panel": {
+    "footer_text_html": "Sweet Pick! You just won the {{ title }}."
   }
 }

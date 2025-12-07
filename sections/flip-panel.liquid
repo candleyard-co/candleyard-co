@@ -29,7 +29,13 @@
 
 %}
 
-<div class="flip-panel-wrapper">
+<script
+  src="{{ 'flip-panel.js' | asset_url }}"
+  defer
+  type="module"
+></script>
+
+<flip-panel class="flip-panel-wrapper">
   <div class="section-background color-{{ section.settings.color_scheme }}"></div>
   <div
     class="
@@ -98,13 +104,27 @@
       >
           {{ list_items }}
       </div>
+
+      {% content_for 'block', type: '_flip-panel-footer', id: 'flip-panel-footer' %}
     </div>
   </div>
-</div>
+</flip-panel>
 
 {% stylesheet %}
   .section-resource-list .section-resource-list__header {
     grid-column: 2;
+  }
+
+  .flip-panel-wrapper.active {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 99999;
+  }
+
+  body:has(.flip-panel-wrapper.active) {
+    overflow: hidden;
   }
 {% endstylesheet %}
 

@@ -1,20 +1,96 @@
-{% render 'button', block: block, link: block.settings.link %}
+{% assign block_settings = block.settings %}
+
+<button
+    {% comment %} role="link"
+    aria-disabled="true" {% endcomment %}
+  class="
+    size-style
+    flip-panel-button
+    {{ block_settings.style_class }}
+    {{ block_settings.style_class }}--{{ block.id }}
+  "
+  disabled
+  style="{% render 'size-style', settings: block_settings %}"
+  {{ block.shopify_attributes }}
+>
+  {% if block.settings.add_left_icon == true and block.settings.left_svg_icon != blank %}
+    <span class="button--icon svg-wrapper">
+      {{ block.settings.left_svg_icon }}
+    </span>
+  {% endif %}
+
+  {% if block_settings.progress_label != blank %}
+    <span class="progress-text">
+        {{ block_settings.progress_label }}
+    </span>
+  {% endif %}
+  {% if block_settings.success_label != blank %}
+    <span class="success-text" hidden>
+        {{ block_settings.success_label }}
+    </span>
+  {% endif %}
+
+  {% if block.settings.add_right_icon == true and block.settings.right_svg_icon != blank %}
+    <span class="button--icon svg-wrapper">
+      {{ block.settings.right_svg_icon }}
+    </span>
+  {% endif %}
+</button>
+
+{% stylesheet %}
+  .button:has(.button--icon) {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--gap-sm);
+  }
+
+  .flip-panel-button[disabled] .success-text {
+    display: none
+  }
+
+  .flip-panel-button:not([disabled]) .progress-text {
+    display: none
+  }
+
+  .button--icon, .button--icon svg {
+    width: auto;
+    height: var(--icon-size-sm);
+  }
+
+  .link {
+    text-decoration: none;
+    text-decoration-color: currentcolor;
+
+    &:has(.button--icon) {
+      display: flex;
+      align-items: center;
+      gap: var(--gap-xs);
+    }
+
+    &:hover {
+      color: var(--color-primary-hover);
+      text-decoration-color: transparent;
+    }
+  }
+{% endstylesheet %}
 
 {% schema %}
 {
-  "name": "t:names.button",
+  "name": "Flip panel button",
   "tag": null,
   "settings": [
     {
       "type": "text",
-      "id": "label",
-      "label": "t:settings.label",
+      "id": "progress_label",
+      "label": "Progress text",
       "default": "t:text_defaults.button_label"
     },
     {
-      "type": "url",
-      "id": "link",
-      "label": "t:settings.link"
+      "type": "text",
+      "id": "success_label",
+      "label": "Success text",
+      "default": "t:text_defaults.button_label"
     },
     {
       "type": "checkbox",
@@ -39,12 +115,6 @@
       "id": "right_svg_icon",
       "label": "Right SVG Icon",
       "visible_if": "{{ block.settings.add_right_icon != false }}"
-    },
-    {
-      "type": "checkbox",
-      "id": "open_in_new_tab",
-      "label": "t:settings.open_new_tab",
-      "default": false
     },
     {
       "type": "select",
@@ -123,15 +193,6 @@
       "unit": "%",
       "default": 100,
       "visible_if": "{{ block.settings.width_mobile == \"custom\" }}"
-    }
-  ],
-  "presets": [
-    {
-      "name": "t:names.button",
-      "category": "t:categories.basic",
-      "settings": {
-        "link": "shopify://collections/all"
-      }
     }
   ]
 }

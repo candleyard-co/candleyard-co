@@ -4,39 +4,74 @@
 
 <div class="flip-card group-block
     group-block--height-fit
-    color-{{ block_settings.outer_color_scheme }}
-    group-block--width-fill border-style spacing-style" style="
-    {% render 'border-override', settings: block_settings %}
-    {% render 'spacing-style', settings: block_settings %}
-  "
+    group-block--width-fill"
   {{ block.shopify_attributes }}>
 
-  <div class="flip-card--first {% if block_settings.inherit_color_scheme == false %} color-{{ block_settings.color_scheme }}{% endif %}"
-    style="--border-radius: {{ block_settings.border_radius | minus: 5 }}px;"
-  >
-    {% if block_settings.card_icon != blank %}
-        {% content_for 'block',
-        type: '_object-image',
-        id: 'flip-card-image',
-        image_source: block_settings.card_icon,
-        parent_block_id: block.id %}
-    {% endif %}
+  <div class="flip-card-inner">
+    <div class="flip-card-front spacing-style  border-style color-{{ block_settings.outer_color_scheme }}"
+      style="
+      {% render 'border-override', settings: block_settings %}
+       --border-radius: {{ block_settings.border_radius | minus: 5 }}px; 
+      {% render 'spacing-style', settings: block_settings %}"
+    >
+      <div class="flip-front-content {% if block_settings.inherit_color_scheme == false %} color-{{ block_settings.color_scheme }}{% endif %}">
+        {% if block_settings.card_icon != blank %}
+            {% content_for 'block',
+            type: '_object-image',
+            id: 'flip-card-image',
+            image_source: block_settings.card_icon,
+            parent_block_id: block.id %}
+        {% endif %}
+      </div>
+    </div>
+    <div class="flip-card-back spacing-style border-style"
+      style="
+      {% render 'border-override', settings: block_settings %}
+       --border-radius: {{ block_settings.border_radius | minus: 5 }}px; 
+      {% render 'spacing-style', settings: block_settings %}">
+        <h3>sdsd</h3>
+    </div>
   </div>
 </div>
 
 {% stylesheet %}
   .flip-card {
-    box-shadow: 4px 6px 5px -1px rgba(0,0,0,0.16);
-    -webkit-box-shadow: 4px 6px 5px -1px rgba(0,0,0,0.16);
-    -moz-box-shadow: 4px 6px 5px -1px rgba(0,0,0,0.16);
+    perspective: 1000px;
+    cursor: pointer;
+    aspect-ratio: 4 / 5;
+    -webkit-tap-highlight-color: transparent;
+  }
 
-    @media (min-width: 750px) {
-      aspect-ratio: 4 / 5;
-    }
+  .flip-card-inner {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    text-align: center;
+    transition: transform 0.8s;
+    transform-style: preserve-3d;
+  }
+
+  .flip-card-front, .flip-card-back {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    -webkit-backface-visibility: hidden; /* Safari */
+    backface-visibility: hidden;
+    box-shadow: 4px 6px 3px -1px rgba(0,0,0,0.16);
+    -webkit-box-shadow: 4px 6px 3px -1px rgba(0,0,0,0.16);
+    -moz-box-shadow: 4px 6px 3px -1px rgba(0,0,0,0.16);
+  }
+
+  .flip-card.active .flip-card-inner {
+    transform: rotateY(180deg);
+  }
+
+  .flip-card-back {
+    transform: rotateY(180deg);
   }
 
   .flip-card .resource-image {
-    width: 3rem;
+    width: 2.3rem;
     margin: auto;
     height: auto;
 
@@ -45,17 +80,13 @@
     }
   }
 
-  .flip-card--first {
+  .flip-front-content {
     border-radius: var(--border-radius);
     height: 100%;
     width: 100%;
     display: flex;
     align-items: center;
     justify-content: center;
-
-    @media (max-width: 749px) {
-      aspect-ratio: 1 / 1;
-    }
   }
 {% endstylesheet %}
 

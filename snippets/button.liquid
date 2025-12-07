@@ -29,13 +29,41 @@
   {%- endif -%}
   {{ block.shopify_attributes }}
 >
+  {% if block.settings.add_left_icon == true and block.settings.left_svg_icon != blank %}
+    <span class="button--icon svg-wrapper">
+      {{ block.settings.left_svg_icon }}
+    </span>
+  {% endif %}
   {{ block_settings.label }}
+  {% if block.settings.add_right_icon == true and block.settings.right_svg_icon != blank %}
+    <span class="button--icon svg-wrapper">
+      {{ block.settings.right_svg_icon }}
+    </span>
+  {% endif %}
 </a>
 
 {% stylesheet %}
+  .button:has(.button--icon) {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--gap-sm);
+  }
+
+  .button--icon, .button--icon svg {
+    width: auto;
+    height: var(--icon-size-xs);
+  }
+
   .link {
     text-decoration: none;
     text-decoration-color: currentcolor;
+
+    &:has(.button--icon) {
+      display: flex;
+      align-items: center;
+      gap: var(--gap-xs);
+    }
 
     &:hover {
       color: var(--color-primary-hover);
