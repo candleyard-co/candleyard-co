@@ -51,14 +51,17 @@
   "
   {{- block.shopify_attributes -}}
 >
-  {% comment %} <a
+  {% if item %}
+    
+  {% endif %}
+  <a
     class="pack-card__link"
     {% unless onboarding %}
       href="{{ item.url }}"
     {% endunless %}
   >
     <span class="visually-hidden">{{ item.title }}</span>
-  </a> {% endcomment %}
+  </a>
   <div class="pack-card__inner">
     {{ card_image }}
     <div class="pack-card__content layout-panel-flex--column">
