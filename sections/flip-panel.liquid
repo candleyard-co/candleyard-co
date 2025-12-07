@@ -29,13 +29,14 @@
 
 %}
 
+<script src="https://cdn.jsdelivr.net/npm/@tsparticles/confetti@3.0.3/tsparticles.confetti.bundle.min.js"></script>
 <script
   src="{{ 'flip-panel.js' | asset_url }}"
   defer
   type="module"
 ></script>
 
-<flip-panel class="flip-panel-wrapper">
+<flip-panel class="flip-panel-wrapper active" data-pick-limit="{{ section.settings.pick_limit }}">
   <div class="section-background color-{{ section.settings.color_scheme }}"></div>
   <div
     class="
@@ -120,7 +121,11 @@
     top: 0;
     width: 100%;
     height: 100%;
-    z-index: 99999;
+    z-index: 99;
+  }
+
+  .flip-panel-wrapper:not(.active) {
+    display: none !important;
   }
 
   body:has(.flip-panel-wrapper.active) {

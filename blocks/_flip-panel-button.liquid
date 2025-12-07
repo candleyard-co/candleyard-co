@@ -25,7 +25,7 @@
     </span>
   {% endif %}
   {% if block_settings.success_label != blank %}
-    <span class="success-text" hidden>
+    <span class="success-text">
         {{ block_settings.success_label }}
     </span>
   {% endif %}
@@ -46,11 +46,11 @@
   }
 
   .flip-panel-button[disabled] .success-text {
-    display: none
+    display: none;
   }
 
   .flip-panel-button:not([disabled]) .progress-text {
-    display: none
+    display: none;
   }
 
   .button--icon, .button--icon svg {
