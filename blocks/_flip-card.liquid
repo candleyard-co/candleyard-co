@@ -29,7 +29,14 @@
       {% render 'border-override', settings: block_settings %}
        --border-radius: {{ block_settings.border_radius | minus: 5 }}px; 
       {% render 'spacing-style', settings: block_settings %}">
-        <h3>sdsd</h3>
+        <div class="image-flip-card
+            image-block image-block--height-fit size-style
+          " style="
+            --ratio: 1;
+            --size-style-width: 100%;--size-style-height: fit;--size-style-width-mobile: 55%; --size-style-width-mobile-min: 5rem;
+          " hidden>
+          </div>
+        <h3 class="flip-card-title"></h3>
     </div>
   </div>
 </div>
@@ -40,6 +47,10 @@
     cursor: pointer;
     aspect-ratio: 4 / 5;
     -webkit-tap-highlight-color: transparent;
+  }
+
+  .image-flip-card {
+    margin: auto;
   }
 
   .flip-card-inner {
@@ -67,6 +78,9 @@
   }
 
   .flip-card-back {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
     transform: rotateY(180deg);
   }
 
@@ -96,6 +110,14 @@
     display: flex;
     align-items: center;
     justify-content: center;
+  }
+
+  .flip-card-title {
+    font-size: var(--font-size--lg);
+
+    @media (max-width: 749px) {
+      font-size: var(--font-size--xs);
+    }
   }
 {% endstylesheet %}
 

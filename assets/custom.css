@@ -132,6 +132,17 @@ slideshow-arrows .slideshow-control {
 .avid-left-fab-button .avid-left-fab-button-icon {
     width: auto;
 }
+.avid-right-slide-text {
+    display: flex;
+    flex-direction: row;
+    gap: var(--gap-xs);
+}
+
+product-price .price {
+    font-family: var(--font-accent-2--family);
+    font-style: var(--font-accent-2--style);
+    font-weight: var(--font-accent-2--weight);
+}
 
 @media (min-width: 990px) {
     :root {

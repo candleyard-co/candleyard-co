@@ -376,6 +376,12 @@
         "label": "t:options.accent"
       },
       {
+        "type": "font_picker",
+        "id": "type_accent_font_2",
+        "default": "anonymous_pro_n4",
+        "label": "Accent 2"
+      },
+      {
         "type": "header",
         "content": "t:content.text_presets"
       },

@@ -51,14 +51,14 @@
   "
   {{- block.shopify_attributes -}}
 >
-  <a
+  {% comment %} <a
     class="pack-card__link"
     {% unless onboarding %}
       href="{{ item.url }}"
     {% endunless %}
   >
     <span class="visually-hidden">{{ item.title }}</span>
-  </a>
+  </a> {% endcomment %}
   <div class="pack-card__inner">
     {{ card_image }}
     <div class="pack-card__content layout-panel-flex--column">
@@ -68,6 +68,15 @@
                     {{ card_title }}
                 </div>
                 <div>
+                  {% assign discount = item.compare_at_price | minus: item.price | times: 100.0 | divided_by: item.compare_at_price | round %}
+                  <div
+                    class="
+                      product-badges__badge product-badges__badge--rectangle
+                      color-{{ block.settings.badge_sale_color_scheme }}
+                    "
+                  >
+                    {{ 'products.product.save' | t: price: discount }}
+                  </div>
                 </div>
             </div>
         {% else %}
@@ -94,6 +103,10 @@
         .resource-list__item .pack-card {
             border-bottom: 1px solid rgb(var(--color-border-rgb) / 0.05);
         }
+
+        .pack-card .pack-card__image {
+            --border-radius: 14px !important;
+        }
     }
 
   .pack-content-title {
@@ -101,6 +114,14 @@
     gap: var(--gap-xs);
     justify-content: space-between;
     align-items: center;
+    width: 100%;
+
+    @media (max-width: 749px) {
+      gap: var(--gap-2xs);
+      justify-content: flex-start;
+      align-items: flex-start;
+      flex-direction: column-reverse;
+    }
   }
 
   .pack-card > svg {
@@ -150,6 +171,25 @@
     pointer-events: auto;
   }
 
+  .pack-card .product-badges__badge--rectangle {
+    position: relative;
+    --badge-rectangle-padding-block: 4px;
+    margin-right: 13px;
+  }
+
+  /* right rectangle extension with V-notch cut */
+  .pack-card .product-badges__badge--rectangle::after {
+      content: "";
+      position: absolute;
+      top: 0;
+      right: -13px;
+      width: 14px;
+      height: 100%;
+      background: inherit; /* inherits the badge background color */
+      clip-path: polygon(0 0, 100% 0, 50% 50%, 100% 100%, 0 100%);
+  }
+
+
   .pack-card__content {
     position: relative;
     display: flex;
@@ -157,6 +197,7 @@
     width: 100%;
     max-width: 100%;
     gap: var(--pack-card-gap);
+    padding-top: var(--padding-2xs);
     flex-direction: column;
     align-items: var(--horizontal-alignment);
     justify-content: var(--vertical-alignment);

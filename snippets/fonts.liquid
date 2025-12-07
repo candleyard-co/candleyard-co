@@ -39,4 +39,14 @@
     fetchpriority="low"
   >
 {%- endunless -%}
+{%- unless settings.type_accent_font_2.system? -%}
+  <link
+    rel="preload"
+    as="font"
+    href="{{ settings.type_accent_font_2 | font_url }}"
+    type="font/woff2"
+    crossorigin
+    fetchpriority="low"
+  >
+{%- endunless -%}
 {% # theme-check-enable %}

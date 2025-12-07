@@ -323,7 +323,8 @@
       "quantity_increments": "Increments of {{ increment }}",
       "quantity_minimum": "Minimum of {{ minimum }}",
       "quantity_maximum": "Maximum of {{ maximum }}",
-      "in_cart": "in cart"
+      "in_cart": "in cart",
+      "save": "Save {{ price }}%",
     }
   },
   "flip_panel": {

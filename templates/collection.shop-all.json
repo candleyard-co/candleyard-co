@@ -150,7 +150,7 @@
               "type": "image",
               "name": "t:names.image",
               "settings": {
-                "image": "shopify://shop_images/Group_84.jpg",
+                "image": "shopify://shop_images/Group_83.png",
                 "link": "",
                 "image_ratio": "adapt",
                 "width": "fill",
@@ -301,7 +301,7 @@
                 "padding-block-end": 16,
                 "padding-inline-start": 0,
                 "padding-inline-end": 0,
-                "custom_mobile_padding": false,
+                "custom_mobile_padding": true,
                 "mobile-padding-block-start": 0,
                 "mobile-padding-block-end": 0,
                 "mobile-padding-inline-start": 0,
@@ -325,6 +325,7 @@
             "pack_card_gap": 8,
             "inherit_color_scheme": true,
             "color_scheme": "",
+            "badge_sale_color_scheme": "scheme-1e7f4c49-7b8d-4440-9f86-4c8ded6ff4db",
             "border": "none",
             "border_width": 1,
             "border_opacity": 100,
@@ -368,11 +369,11 @@
                 "background": false,
                 "background_color": "#00000026",
                 "corner_radius": 0,
-                "padding-block-start": 4,
+                "padding-block-start": 0,
                 "padding-block-end": 0,
                 "padding-inline-start": 0,
                 "padding-inline-end": 0,
-                "custom_mobile_padding": true,
+                "custom_mobile_padding": false,
                 "mobile-padding-block-start": 0,
                 "mobile-padding-block-end": 0,
                 "mobile-padding-inline-start": 0,
@@ -412,7 +413,9 @@
         "gap": 12,
         "color_scheme": "",
         "padding-block-start": 72,
-        "padding-block-end": 72
+        "padding-block-end": 72,
+        "add_section_id": false,
+        "section_id": ""
       }
     },
     "flip_panel_NNaKLE": {
@@ -449,7 +452,12 @@
             "padding-block-start": 0,
             "padding-block-end": 24,
             "padding-inline-start": 0,
-            "padding-inline-end": 0
+            "padding-inline-end": 0,
+            "custom_mobile_padding": false,
+            "mobile-padding-block-start": 0,
+            "mobile-padding-block-end": 0,
+            "mobile-padding-inline-start": 0,
+            "mobile-padding-inline-end": 0
           },
           "blocks": {
             "image_gfQKw6": {
@@ -514,7 +522,7 @@
                 "type_preset": "rte",
                 "font": "var(--font-body--family)",
                 "font_size": "1rem",
-                "enable_mobile_size": false,
+                "enable_mobile_size": true,
                 "mobile_font_size": "1rem",
                 "line_height": "normal",
                 "letter_spacing": "normal",
@@ -686,7 +694,7 @@
                 "width": "custom",
                 "custom_width": 35,
                 "width_mobile": "fit-content",
-                "custom_width_mobile": 100
+                "custom_width_mobile": 65
               },
               "blocks": {}
             }

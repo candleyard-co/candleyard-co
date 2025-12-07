@@ -49,6 +49,19 @@
     {{ accent_font_bold_italic | font_face: font_display: 'swap' }}
   {% endif %}
 
+  {% if settings.type_accent_font_2 != settings.type_body_font and settings.type_accent_font_2 != settings.type_subheading_font and settings.type_accent_font_2 != settings.type_heading_font %}
+    {%- liquid
+      assign accent_font_2_bold = settings.type_accent_font_2 | font_modify: 'weight', 'bold'
+      assign accent_font_2_italic = settings.type_accent_font_2 | font_modify: 'style', 'italic'
+      assign accent_font_2_bold_italic = accent_font_2_bold | font_modify: 'style', 'italic'
+    %}
+
+    {{ settings.type_accent_font_2 | font_face: font_display: 'swap' }}
+    {{ accent_font_2_bold | font_face: font_display: 'swap' }}
+    {{ accent_font_2_italic | font_face: font_display: 'swap' }}
+    {{ accent_font_2_bold_italic | font_face: font_display: 'swap' }}
+  {% endif %}
+
   :root {
     /* Page Layout */
     --sidebar-width: 25rem;
@@ -93,6 +106,9 @@
     --font-accent--family: {{ settings.type_accent_font.family }}, {{ settings.type_accent_font.fallback_families }};
     --font-accent--style: {{ settings.type_accent_font.style }};
     --font-accent--weight: {{ settings.type_accent_font.weight }};
+    --font-accent-2--family: {{ settings.type_accent_font_2.family }}, {{ settings.type_accent_font.fallback_families }};
+    --font-accent-2--style: {{ settings.type_accent_font_2.style }};
+    --font-accent-2--weight: {{ settings.type_accent_font_2.weight }};
 
     /* Margin sizes */
     --font-h1--spacing: 0.25em;

@@ -36,7 +36,16 @@
   type="module"
 ></script>
 
-<flip-panel class="flip-panel-wrapper active" data-pick-limit="{{ section.settings.pick_limit }}">
+
+{% unless request.design_mode %}
+  {% style %}
+    .shopify-section:not(body.shop-show .shopify-section):not(.ui-flip-list) {
+      display: none;
+    }
+  {% endstyle %}
+{% endunless %}
+
+<flip-panel class="flip-panel-wrapper" data-pick-limit="{{ section.settings.pick_limit }}">
   <div class="section-background color-{{ section.settings.color_scheme }}"></div>
   <div
     class="
@@ -109,11 +118,19 @@
       {% content_for 'block', type: '_flip-panel-footer', id: 'flip-panel-footer' %}
     </div>
   </div>
+
+  <noscript class="product-list-data">
+    {{ section.settings.product_list | json }}
+  </noscript>
 </flip-panel>
 
 {% stylesheet %}
   .section-resource-list .section-resource-list__header {
     grid-column: 2;
+  }
+  .flip-panel-wrapper {
+    display: none;
+    visibility: hidden;
   }
 
   .flip-panel-wrapper.active {
@@ -122,10 +139,8 @@
     width: 100%;
     height: 100%;
     z-index: 99;
-  }
-
-  .flip-panel-wrapper:not(.active) {
-    display: none !important;
+    visibility: visible;
+    display: block;
   }
 
   body:has(.flip-panel-wrapper.active) {
