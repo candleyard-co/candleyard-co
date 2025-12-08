@@ -29,7 +29,12 @@
   endif
 %}
 
-<div
+<pack-card
+  data-product-id="{{ item.product.id }}"
+  data-variant-id="{{ item.id }}"
+  data-product-variants-size="{{ item.product.variants.size }}"
+  id="product-card-{{ block.id }}"
+
   class="
     pack-card
     border-style
@@ -51,14 +56,16 @@
   "
   {{- block.shopify_attributes -}}
 >
-  {% comment %} <a
+  <a
     class="pack-card__link"
     {% unless onboarding %}
-      href="{{ item.url }}"
+      href="{{ item.product.url }}?view=pack-builder"
     {% endunless %}
+    ref="productCardLink"
   >
     <span class="visually-hidden">{{ item.title }}</span>
-  </a> {% endcomment %}
+  </a>
+
   <div class="pack-card__inner">
     {{ card_image }}
     <div class="pack-card__content layout-panel-flex--column">
@@ -85,7 +92,7 @@
         {{ card_price }}
     </div>
   </div>
-</div>
+</pack-card>
 
 {% stylesheet %}
     .pack-card {
@@ -93,15 +100,17 @@
         flex: 1 1 var(--card-width-small);
         width: 100%;
         position: relative;
+        cursor: pointer;
+        display: block;
 
         @media (max-width: 749px) {
-            padding-block: var(--padding-xs);
+          padding-block: var(--padding-sm);
         }
     }
 
     @media (max-width: 749px) {
-        .resource-list__item .pack-card {
-            border-bottom: 1px solid rgb(var(--color-border-rgb) / 0.05);
+        .resource-list__item:not(:last-child) .pack-card {
+          border-bottom: 1px solid rgb(var(--color-border-rgb) / 0.05);
         }
 
         .pack-card .pack-card__image {
@@ -206,7 +215,7 @@
   .pack-card__link {
     position: absolute;
     inset: 0;
-
+    display: none;
     /* allows focus outline to have radius in supported browsers */
     border-radius: var(--border-radius);
   }

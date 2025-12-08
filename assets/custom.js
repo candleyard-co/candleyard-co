@@ -140,5 +140,56 @@ function scrollToHash() {
 // Run on page load
 scrollToHash();
 
+
 // Run on hash change
 window.addEventListener("hashchange", scrollToHash);
+
+
+function calculateHeaderGroupHeight(
+  header = document.querySelector('header-component'),
+  headerGroup = document.querySelector('#header-group')
+) {
+  if (!headerGroup) return 0;
+
+  let totalHeight = 0;
+  const children = headerGroup.children;
+
+  for (let i = 0; i < children.length; i++) {
+    const element = children[i];
+    if (element === header || !(element instanceof HTMLElement)) continue;
+    totalHeight += element.offsetHeight;
+  }
+
+  // If header is transparent, include the header height
+  if (
+    header instanceof HTMLElement &&
+    header.hasAttribute('transparent') &&
+    header.parentElement?.nextElementSibling
+  ) {
+    return totalHeight + header.offsetHeight;
+  }
+
+  return totalHeight;
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+  const headerGroup = document.querySelector('#header-group');
+  const header = document.querySelector('header-component');
+  if (!headerGroup) return;
+
+  // Initial calc
+  if (header instanceof HTMLElement) {
+    const height = calculateHeaderGroupHeight(header);
+    document.body.style.setProperty('--header-static-height', `${height - 1}px`);
+  }
+
+  // ResizeObserver to re-calc when layout changes
+  const observer = new ResizeObserver(() => {
+    if (!(header instanceof HTMLElement)) return;
+
+    const height = calculateHeaderGroupHeight(header);
+    document.body.style.setProperty('--header-static-height', `${height - 1}px`);
+  });
+
+  observer.observe(headerGroup);
+});

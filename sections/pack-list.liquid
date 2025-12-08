@@ -11,6 +11,13 @@
   endif
 %}
 
+{% if parent_product.variants.size > 0 %}
+  <script
+    src="{{ 'pack-card.js' | asset_url }}"
+    type="module"
+  ></script>
+{% endif %}
+
 <div class="section-background color-{{ section.settings.color_scheme }}"></div>
 
 <div
