@@ -310,7 +310,7 @@
 
   {% if block_settings.media_presentation == 'grid' %}
     <ul
-      class="media-gallery__grid list-unstyled"
+      class="media-gallery__grid list-unstyled color-{{ block_settings.color_scheme }}"
       data-testid="media-gallery-grid"
     >
       {% if selected_variant_media %}
@@ -482,6 +482,12 @@
   "name": "Pack media",
   "tag": null,
   "settings": [
+    {
+      "type": "color_scheme",
+      "id": "color_scheme",
+      "label": "t:settings.color_scheme",
+      "default": "scheme-1"
+    },
     {
       "type": "select",
       "id": "media_presentation",

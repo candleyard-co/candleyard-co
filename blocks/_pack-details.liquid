@@ -13,15 +13,22 @@
     data-view-transition-type="product-details"
   {% endif %}
 >
-  
+  {% assign selected_variant = product.selected_or_first_available_variant %}
+  {% assign pack_limit = selected_variant.metafields.custom.pack_limit | plus: 0 %}
+  {% if pack_limit == 1 and selected_variant.metafields.custom.singular_title != blank %}
+    {% assign title = selected_variant.metafields.custom.singular_title %}
+  {% else %}
+    {% assign title = closest.product.title %}
+  {% endif %}
+
   {% capture children %}
     <div class="view-product-title">
         <a
           href="{{ product.selected_or_first_available_variant.url }}"
           class="link"
         >
-          {{ 'products.product.pack_title' | t: limit: product.selected_or_first_available_variant.metafields.custom.pack_limit, title: product.title }}
-        </a>
+          {{ 'products.product.pack_title' | t: limit: pack_limit, title: title }}
+        </a> 
     </div>
     {% content_for 'blocks' %}
   {% endcapture %}

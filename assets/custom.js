@@ -177,19 +177,54 @@ document.addEventListener('DOMContentLoaded', () => {
   const header = document.querySelector('header-component');
   if (!headerGroup) return;
 
-  // Initial calc
-  if (header instanceof HTMLElement) {
-    const height = calculateHeaderGroupHeight(header);
-    document.body.style.setProperty('--header-static-height', `${height - 1}px`);
+  let resizeTimeout;
+  
+  function calculateAndSetHeight() {
+    if (!(header instanceof HTMLElement)) return;
+    
+    // Get the actual visible height
+    const rect = header.getBoundingClientRect();
+    const height = rect.height;
+    
+    // Set the CSS variable without subtracting 1px
+    document.body.style.setProperty('--header-static-height', `${height}px`);
+    
+    // Also set a fallback variable for different calculations
+    document.body.style.setProperty('--header-total-height', `${height}px`);
   }
 
-  // ResizeObserver to re-calc when layout changes
-  const observer = new ResizeObserver(() => {
-    if (!(header instanceof HTMLElement)) return;
+  // Initial calculation
+  calculateAndSetHeight();
 
-    const height = calculateHeaderGroupHeight(header);
-    document.body.style.setProperty('--header-static-height', `${height - 1}px`);
+  // Debounced resize handler
+  function handleResize() {
+    clearTimeout(resizeTimeout);
+    resizeTimeout = setTimeout(calculateAndSetHeight, 100);
+  }
+
+  // Use ResizeObserver for layout changes
+  const observer = new ResizeObserver((entries) => {
+    for (let entry of entries) {
+      handleResize();
+    }
   });
 
+  // Observe both the header group and the header itself
   observer.observe(headerGroup);
+  if (header instanceof HTMLElement) {
+    observer.observe(header);
+  }
+
+  // Also listen to window resize with debouncing
+  window.addEventListener('resize', handleResize);
+  
+  // Listen for any CSS transitions or animations on the header
+  headerGroup.addEventListener('transitionend', handleResize);
+  headerGroup.addEventListener('animationend', handleResize);
+  
+  // If header has a shadow DOM or slotted content, observe those too
+  if (header.shadowRoot) {
+    const shadowElements = header.shadowRoot.querySelectorAll('*');
+    shadowElements.forEach(el => observer.observe(el));
+  }
 });
