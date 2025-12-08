@@ -3,7 +3,7 @@
 <div
   id="ProductInformation-{{ section.id }}"
   class="
-    product-details
+    pack-details
     {% if block_settings.sticky_details_desktop %} sticky-content--desktop{% endif %}
     {% if block_settings.height == 'fill' -%} full-height--desktop{% endif -%}
   "
@@ -13,18 +13,15 @@
     data-view-transition-type="product-details"
   {% endif %}
 >
+  
   {% capture children %}
     <div class="view-product-title">
-      {% if pack_title %}
-        {{ pack_title }}
-      {% else %}
         <a
           href="{{ product.selected_or_first_available_variant.url }}"
           class="link"
         >
-          {{- product.title }}
+          {{ 'products.product.pack_title' | t: limit: product.selected_or_first_available_variant.metafields.custom.pack_limit, title: product.title }}
         </a>
-      {% endif %}
     </div>
     {% content_for 'blocks' %}
   {% endcapture %}
@@ -42,6 +39,10 @@
 
   .view-product-title {
     display: none;
+  }
+
+  .pack-details .view-product-title a {
+    pointer-events: none;
   }
 
   /* Container styles */

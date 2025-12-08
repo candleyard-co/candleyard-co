@@ -325,6 +325,7 @@
       "quantity_maximum": "Maximum of {{ maximum }}",
       "in_cart": "in cart",
       "save": "Save {{ price }}%",
+      "pack_title": "Select {{ limit }} {{ title }}"
     }
   },
   "flip_panel": {
