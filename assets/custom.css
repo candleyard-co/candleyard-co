@@ -148,6 +148,11 @@ product-price .price {
     font-weight: var(--font-accent-2--weight);
 }
 
+.justify-between {
+  justify-content: space-between;
+}
+
+
 @media (min-width: 990px) {
     :root {
         --menu-font-2xl--size: 2.5rem !important;

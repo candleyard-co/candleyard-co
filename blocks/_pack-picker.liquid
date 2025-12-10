@@ -11,18 +11,27 @@
   <div class="pack-picker--inner">
     <div class="pack-picker-items">
       {% for item in pack_items %}
-        {% assign item_product = item.product %}
+        {% assign item_product = all_products[item.product] %}
 
-        <div class="pack-item flex">
-          <div>
-            {% if item.vector_image != blank %}
-              {% render 'image', image: item.vector_image, class: 'pack-item-image', height: 50 %}
-            {% endif %}
+        <div class="pack-item title--aligned-center justify-between">
+          <div class="flex title--aligned-center">
+            <div>
+              {% if item.vector_image != blank %}
+                {% render 'image', image: item.vector_image, class: 'pack-item-image', height: 50 %}
+              {% endif %}
+            </div>
+            <div>
+              <span class="pack-item-title">
+                {{ item.title }}
+              </span>
+            </div>
           </div>
           <div>
-            <span class="pack-item-title">
-              {{ item.title }}
-            </span>
+            {% render 'quantity-selector', 
+              product: item_product,
+              class: 'pack-quantity-selector',
+              variant: item_product.selected_or_first_available_variant,
+            %}
           </div>
         </div>
       {% endfor %}
@@ -36,7 +45,7 @@
     position: relative;
 
     @media (min-width: 751px) {
-      height: calc(100% - 235px);
+      height: calc(100% - 215px);
     }
   }
 
@@ -63,9 +72,9 @@
     line-height: var(--font-h4--line-height);
     display: block;
   }
+
   .pack-item {
     padding-block: var(--padding-xs);
-    align-items: center;
 
     &:not(:last-child) {
       border-bottom: var(--style-border-width-inputs) solid var(--color-input-border);

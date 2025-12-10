@@ -39,6 +39,10 @@
 </div>
 
 {% stylesheet %}
+  .pack-details .quantity-selector {
+    --height-buy-buttons: calc(var(--padding-lg) * 2 + var(--icon-size-xs));
+  }
+
   /* Clear padding on mobile, if not full-width */
   @media screen and (max-width: 749px) {
     .product-information.section--page-width .product-details > .group-block {
