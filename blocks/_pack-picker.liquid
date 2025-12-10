@@ -10,6 +10,7 @@
 {% if pack_items.size == 0 %}
     {% break %}
 {% endif %}
+  {%- assign product_form_id = 'BuyButtons-ProductForm-' | append: section.id -%}
 
 <pack-picker
   class="pack-picker-block pack-picker-block --{{ block.id }}"
@@ -31,6 +32,7 @@
               <span class="pack-item-title">
                 {{ item.title }}
               </span>
+              <input type="hidden" name="pack_item" disabled value="{{ item_product.selected_or_first_available_variant.id }}" form="{{ product_form_id }}" class="pack-item-input">
             </div>
           </div>
           <div>
