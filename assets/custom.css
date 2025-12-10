@@ -152,6 +152,9 @@ product-price .price {
   justify-content: space-between;
 }
 
+.align-items-center {
+    align-items: center;
+}
 
 @media (min-width: 990px) {
     :root {

@@ -1208,10 +1208,7 @@
       "settings": {
         "cards_number": 3,
         "pick_limit": 1,
-        "product_list": [
-          "apple-pie-car-freshner",
-          "strawberry-cake-car-freshener"
-        ],
+        "product_list": "{{ collection.metafields.custom.free_gifts.value }}",
         "alignment": "left",
         "columns": 3,
         "mobile_columns": "3",

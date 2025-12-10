@@ -31,7 +31,7 @@
           {{ 'products.product.pack_title' | t: limit: pack_limit, title: title }}
         </a> 
     </div>
-    {% content_for 'block', type: '_pack-picker', id: 'pack-picker' %}
+    {% content_for 'block', type: '_pack-picker', id: 'pack-picker', current_product: closest.product %}
     {% content_for 'block', type: '_pack-buttons', id: 'pack-buttons' %}
   {% endcapture %}
 

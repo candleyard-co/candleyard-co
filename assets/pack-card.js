@@ -300,3 +300,72 @@ class PackCardDialog extends DialogComponent {
 if (!customElements.get('pack-card-dialog')) {
   customElements.define('pack-card-dialog', PackCardDialog);
 }
+
+export class PackPicker extends Component {
+
+}
+
+if (!customElements.get('pack-picker')) {
+  customElements.define('pack-picker', PackPicker);
+}
+
+export class FreeGift extends Component {
+  constructor() {
+    super();
+  }
+
+  connectedCallback() {
+    super.connectedCallback();
+    this.loadFreeGiftTitle();
+  }
+
+  async loadFreeGiftTitle() {
+    // The debugger should hit now after we fix the initialization
+    
+    const pickedID = sessionStorage.getItem('pickedProductId');
+    const handle = sessionStorage.getItem('pickedProductHandle');
+
+    if (!pickedID || !handle) return;
+
+    try {
+      const response = await fetch(
+        `${window.Shopify.routes.root}products/${handle}.js`
+      );
+
+      if (!response.ok) return;
+
+      const product = await response.json();
+
+      const cleanTitle = product.title
+        .replace(/free/gi, '')
+        .replace(/\s+/g, ' ')
+        .trim();
+
+      const titleEl = this.querySelector('.free-gift-title');
+      if (titleEl) titleEl.textContent = cleanTitle;
+
+      // Create and append hidden input with first variant ID
+      const formId = this.dataset.formId;
+      if (formId && product.variants && product.variants.length > 0) {
+        const input = document.createElement('input');
+        input.type = 'hidden';
+        input.name = 'gift_id';
+        input.classList.add('gift-id')
+        input.value = product.variants[0].id;
+        
+        // If form attribute exists, set it
+        if (formId) {
+          input.setAttribute('form', formId);
+        }
+
+        this.appendChild(input);
+      }
+    } catch (err) {
+      console.error('FreeGift failed to fetch product:', err);
+    }
+  }
+}
+
+if (!customElements.get('free-gift')) {
+  customElements.define('free-gift', FreeGift);
+}

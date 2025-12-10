@@ -33,7 +33,7 @@
             image-block image-block--height-fit size-style
           " style="
             --ratio: 1;
-            --size-style-width: 100%;--size-style-height: fit;--size-style-width-mobile: 55%; --size-style-width-mobile-min: 5rem;
+            --size-style-width: 100%;--size-style-height: fit;--size-style-width-mobile: 100%; --size-style-width-mobile-min: 5rem;
           " hidden>
           </div>
         <h3 class="flip-card-title"></h3>
@@ -50,7 +50,14 @@
   }
 
   .image-flip-card {
-    margin: auto;
+
+    img {
+      object-fit: contain;
+    }
+
+    @media (max-width: 749px) {
+      height: 3.5rem;
+    }
   }
 
   .flip-card-inner {

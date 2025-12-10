@@ -47,7 +47,10 @@ export default class FlipPanel extends Component {
         if (!sessionStorage.getItem('pickedProductId') && this.productList.length > 0) {
             const randomIndex = Math.floor(Math.random() * this.productList.length);
             const randomProductId = this.productList[randomIndex].id;
+            const randomProductHandle = this.productList[randomIndex].handle;
+
             sessionStorage.setItem('pickedProductId', randomProductId);
+            sessionStorage.setItem('pickedProductHandle', randomProductHandle);
 
             console.log('Random product ID stored in session:', randomProductId);
         }
@@ -81,12 +84,14 @@ export default class FlipPanel extends Component {
     // If pickedProductId doesn't exist, pick a random product now
     let pickedId = sessionStorage.getItem('pickedProductId');
     if (!pickedId && this.productList.length > 0) {
-        const randomIndex = Math.floor(Math.random() * this.productList.length);
-        const randomProductId = this.productList[randomIndex].id;
-        sessionStorage.setItem('pickedProductId', randomProductId);
-        pickedId = randomProductId;
+      const randomIndex = Math.floor(Math.random() * this.productList.length);
+      const randomProductId = this.productList[randomIndex].id;
+      const randomProductHandle = this.productList[randomIndex].handle;
 
-        console.log('Random product ID stored in session:', randomProductId);
+      sessionStorage.setItem('pickedProductId', randomProductId);
+      sessionStorage.setItem('pickedProductHandle', randomProductHandle);
+
+      pickedId = randomProductId;
     }
 
     
@@ -96,7 +101,10 @@ export default class FlipPanel extends Component {
         if (product) {
             const cardTitle = card.querySelector('.flip-card-title');
             if (cardTitle) {
-                cardTitle.textContent = product.title;
+              cardTitle.textContent = product.title
+                .replace(/free/gi, '')
+                .replace(/\s+/g, ' ')
+                .trim();
             }
  
             if (product.featured_image) {

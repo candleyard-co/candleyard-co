@@ -1,9 +1,16 @@
+{%- doc -%}
+  This snippet is used to render the quantity selector for a product.
+  It is used in the product page and the cart page.
+  @param {object} current_product - the main product
+{%- enddoc -%}
+
 {% assign block_settings = block.settings %}
 {% assign pack_items = block_settings.pack_items %}
 
 {% if pack_items.size == 0 %}
     {% break %}
 {% endif %}
+
 <pack-picker
   class="pack-picker-block pack-picker-block --{{ block.id }}"
   {{ block.shopify_attributes }}
@@ -27,9 +34,10 @@
             </div>
           </div>
           <div>
-            {% render 'quantity-selector', 
+            {% render 'pack-quantity-selector', 
               product: item_product,
               class: 'pack-quantity-selector',
+              current_product: current_product,
               variant: item_product.selected_or_first_available_variant,
             %}
           </div>

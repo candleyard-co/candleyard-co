@@ -39,119 +39,131 @@
   endif
 %}
 
-<span
-  class="pack-buttons-block pack-buttons-block --{{ block.id }}"
-  {{ block.shopify_attributes }}
->
-  {%- if product != blank -%}
-    {%- assign product_form_id = 'BuyButtons-ProductForm-' | append: section.id -%}
-    <product-form-component
-      data-section-id="{{ section.id }}"
-      data-product-id="{{ product.id }}"
-      data-product-url="{{ product.url }}"
-      on:submit="/handleSubmit"
-      data-quantity-default="{% if product.selected_or_first_available_variant.quantity_rule.min %}{{ product.selected_or_first_available_variant.quantity_rule.min }}{% else %}1{% endif %}"
-      data-quantity-error-max="{{ 'products.product.quantity_error_max' | t }}"
-    >
-      <div
-        class="visually-hidden"
-        aria-live="assertive"
-        role="status"
-        aria-atomic="true"
-        ref="liveRegion"
-      ></div>
-      {%- form 'product', product, id: product_form_id, data-type: 'add-to-cart-form' -%}
-        <input
-          type="hidden"
-          name="id"
-          ref="variantId"
-          value="{{ product.selected_or_first_available_variant.id }}"
-        >
-        {%- if block_settings.gift_card_form and product.gift_card? -%}
-          {%- render 'gift-card-recipient-form', product: product, form: form, section: section, block: block -%}
-        {%- endif -%}
-        <div
-          class="product-form-buttons spacing-style{% if block_settings.stacking %} product-form-buttons--stacked{% endif %}"
-          style="{% render 'spacing-style', settings: block_settings %}"
-          ref="productFormButtons"
-        >
-          {%- liquid
-            assign has_quantity_rules = false
-            if variant.quantity_rule.min > 1 or variant.quantity_rule.increment > 1 or variant.quantity_rule.max != null
-              assign has_quantity_rules = true
-            endif
-          -%}
+<div class="pack-buttons-block pack-buttons-block --{{ block.id }}"
+{{ block.shopify_attributes }}>
 
-          {%- if has_quantity_rules -%}
-            {%- assign cart_quantity = cart | item_count_for_variant: variant.id -%}
-            <div class="quantity-label">
-              {{ 'products.product.quantity' | t }}
-              <span
-                class="quantity-label__cart-count{% if cart_quantity == 0 %} hidden{% endif %}"
-                ref="quantityLabelCartCount"
-                >({{ cart_quantity }}
-                {{ 'products.product.in_cart' | t }})</span
-              >
+        {%- if product != blank -%}
+          {%- assign product_form_id = 'BuyButtons-ProductForm-' | append: section.id -%}
+
+          <div class="pack-row flex align-items-center justify-between">
+            <div>
+              <free-gift data-form-id="{{ product_form_id }}">
+                <span class="title-awaits">{{ 'products.product.gift_unlock' | t }}</span>
+                <span class="free-gift-title"></span>
+              </free-gift>
             </div>
-          {%- endif -%}
+            <div>
+              <span>
+                <product-form-component
+                  data-section-id="{{ section.id }}"
+                  data-product-id="{{ product.id }}"
+                  data-product-url="{{ product.url }}"
+                  on:submit="/handleSubmit"
+                  data-quantity-default="{% if product.selected_or_first_available_variant.quantity_rule.min %}{{ product.selected_or_first_available_variant.quantity_rule.min }}{% else %}1{% endif %}"
+                  data-quantity-error-max="{{ 'products.product.quantity_error_max' | t }}"
+                >
+                  <div
+                    class="visually-hidden"
+                    aria-live="assertive"
+                    role="status"
+                    aria-atomic="true"
+                    ref="liveRegion"
+                  ></div>
+                  {%- form 'product', product, id: product_form_id, data-type: 'add-to-cart-form' -%}
+                    <input
+                      type="hidden"
+                      name="id"
+                      ref="variantId"
+                      value="{{ product.selected_or_first_available_variant.id }}"
+                    >
+                    {%- if block_settings.gift_card_form and product.gift_card? -%}
+                      {%- render 'gift-card-recipient-form', product: product, form: form, section: section, block: block -%}
+                    {%- endif -%}
+                    <div
+                      class="product-form-buttons spacing-style{% if block_settings.stacking %} product-form-buttons--stacked{% endif %}"
+                      style="{% render 'spacing-style', settings: block_settings %}"
+                      ref="productFormButtons"
+                    >
+                      {%- liquid
+                        assign has_quantity_rules = false
+                        if variant.quantity_rule.min > 1 or variant.quantity_rule.increment > 1 or variant.quantity_rule.max != null
+                          assign has_quantity_rules = true
+                        endif
+                      -%}
 
-          {%- if has_quantity_rules -%}
-            <div
-              class="quantity-rules"
-              ref="quantityRules"
-            >
-              {%- if variant.quantity_rule.increment > 1 -%}
-                <span class="quantity-rules__item">
-                  {{ 'products.product.quantity_increments' | t: increment: variant.quantity_rule.increment }}
-                </span>
-              {%- endif -%}
-              {%- if variant.quantity_rule.min > 1 -%}
-                <span class="quantity-rules__item">
-                  {{ 'products.product.quantity_minimum' | t: minimum: variant.quantity_rule.min }}
-                </span>
-              {%- endif -%}
-              {%- if variant.quantity_rule.max != null -%}
-                <span class="quantity-rules__item">
-                  {{ 'products.product.quantity_maximum' | t: maximum: variant.quantity_rule.max }}
-                </span>
-              {%- endif -%}
-            </div>
-          {%- endif -%}
+                      {%- if has_quantity_rules -%}
+                        {%- assign cart_quantity = cart | item_count_for_variant: variant.id -%}
+                        <div class="quantity-label">
+                          {{ 'products.product.quantity' | t }}
+                          <span
+                            class="quantity-label__cart-count{% if cart_quantity == 0 %} hidden{% endif %}"
+                            ref="quantityLabelCartCount"
+                            >({{ cart_quantity }}
+                            {{ 'products.product.in_cart' | t }})</span
+                          >
+                        </div>
+                      {%- endif -%}
 
-          {%- unless block_settings.gift_card_form and product.gift_card? -%}
-            <span
-              class="product-form-text__error hidden"
-              ref="addToCartTextError"
-            >
-              <span class="svg-wrapper product-form-icon--error">
-                {{- 'icon-error.svg' | inline_asset_content -}}
+                      {%- if has_quantity_rules -%}
+                        <div
+                          class="quantity-rules"
+                          ref="quantityRules"
+                        >
+                          {%- if variant.quantity_rule.increment > 1 -%}
+                            <span class="quantity-rules__item">
+                              {{ 'products.product.quantity_increments' | t: increment: variant.quantity_rule.increment }}
+                            </span>
+                          {%- endif -%}
+                          {%- if variant.quantity_rule.min > 1 -%}
+                            <span class="quantity-rules__item">
+                              {{ 'products.product.quantity_minimum' | t: minimum: variant.quantity_rule.min }}
+                            </span>
+                          {%- endif -%}
+                          {%- if variant.quantity_rule.max != null -%}
+                            <span class="quantity-rules__item">
+                              {{ 'products.product.quantity_maximum' | t: maximum: variant.quantity_rule.max }}
+                            </span>
+                          {%- endif -%}
+                        </div>
+                      {%- endif -%}
+
+                      {%- unless block_settings.gift_card_form and product.gift_card? -%}
+                        <span
+                          class="product-form-text__error hidden"
+                          ref="addToCartTextError"
+                        >
+                          <span class="svg-wrapper product-form-icon--error">
+                            {{- 'icon-error.svg' | inline_asset_content -}}
+                          </span>
+                        </span>
+                      {%- endunless -%}
+
+                      {% content_for 'block',
+                        type: 'add-to-pack',
+                        id: 'add-to-pack',
+                        can_add_to_cart: can_add_to_cart,
+                        pack_limit: pack_limit,
+                        add_to_cart_text: add_to_cart_text
+                      %}
+                    </div>
+                  {%- endform -%}
+                </product-form-component>
               </span>
-            </span>
-          {%- endunless -%}
-
-          {% content_for 'block',
-            type: 'add-to-pack',
-            id: 'add-to-pack',
-            can_add_to_cart: can_add_to_cart,
-            pack_limit: pack_limit,
-            add_to_cart_text: add_to_cart_text
-          %}
-        </div>
-      {%- endform -%}
-    </product-form-component>
-  {%- else -%}
-    <div class="product-form-buttons">
-      <button
-        type="submit"
-        name="add"
-        class="button"
-        disabled
-      >
-        {{ 'blocks.sold_out' | t }}
-      </button>
-    </div>
-  {%- endif -%}
-</span>
+            </div>
+          </div>
+        {%- else -%}
+          <div class="product-form-buttons">
+            <button
+              type="submit"
+              name="add"
+              class="button"
+              disabled
+            >
+              {{ 'blocks.sold_out' | t }}
+            </button>
+          </div>
+        {%- endif -%}
+</div>
 
 {% if block_settings.show_pickup_availability %}
   <script
@@ -267,13 +279,41 @@
 {% stylesheet %}
   .pack-buttons-block {
     width: 100%;
-    
+  }
+
+  .pack-row {
+    width: 100%;
+
     @media (min-width: 990px) {
-      max-width: 20rem;
-      margin-left: auto;
+        > div:first-child {
+          flex: 1 auto;
+        }
+
+        > div:last-child {
+          max-width: 20rem;
+        }
     }
   }
 
+  .free-gift-title {
+    font-family: var(--font-h4--family);
+    font-style: var(--font-h4--style);
+    font-weight: var(--font-h4--weight);
+    font-size: var(--font-h4--size);
+    line-height: var(--font-h4--line-height);
+    display: block;
+  }
+
+  .title-awaits {
+    font-family: var(--font-h4--family);
+    font-style: var(--font-h4--style);
+    font-weight: var(--font-h4--weight);
+    font-size: var(--font-size--xs);
+    line-height: var(--font-h4--line-height);
+    display: block;
+    margin-bottom: var(--margin-2xs);
+    text-transform: uppercase;
+  }
 
   .product-form-buttons {
     display: flex;

@@ -327,7 +327,8 @@
       "in_cart": "in cart",
       "save": "Save {{ price }}%",
       "pack_title": "Select {{ limit }} {{ title }}",
-      "back_button": "Back"
+      "back_button": "Back",
+      "gift_unlock": "🎁 Your free car freshener awaits!"
     }
   },
   "flip_panel": {
