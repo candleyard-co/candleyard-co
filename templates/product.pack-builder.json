@@ -68,17 +68,17 @@
             "padding-inline-end": 0
           },
           "blocks": {
-            "pack_picker_m6NLwh": {
-              "type": "pack-picker",
-              "name": "Pack Picker",
+            "pack-picker": {
+              "type": "_pack-picker",
+              "static": true,
               "settings": {
                 "pack_items": "{{ closest.product.metafields.custom.pack_items.value }}"
               },
               "blocks": {}
             },
-            "buy_buttons_ryL78b": {
-              "type": "buy-buttons",
-              "name": "t:names.product_buy_buttons",
+            "pack-buttons": {
+              "type": "_pack-buttons",
+              "static": true,
               "settings": {
                 "stacking": false,
                 "show_pickup_availability": false,
@@ -89,43 +89,26 @@
                 "padding-inline-end": 0
               },
               "blocks": {
-                "quantity": {
-                  "type": "quantity",
-                  "disabled": true,
-                  "static": true,
-                  "settings": {},
-                  "blocks": {}
-                },
-                "add-to-cart": {
-                  "type": "add-to-cart",
+                "add-to-pack": {
+                  "type": "add-to-pack",
                   "static": true,
                   "settings": {
                     "style_class": "button"
                   },
-                  "blocks": {}
-                },
-                "accelerated-checkout": {
-                  "type": "accelerated-checkout",
-                  "disabled": true,
-                  "static": true,
-                  "settings": {},
                   "blocks": {}
                 }
               },
               "block_order": []
             }
           },
-          "block_order": [
-            "pack_picker_m6NLwh",
-            "buy_buttons_ryL78b"
-          ]
+          "block_order": []
         }
       },
       "settings": {
         "content_width": "content-center-aligned",
         "desktop_media_position": "left",
         "equal_columns": true,
-        "limit_details_width": false,
+        "limit_details_width": true,
         "gap": 48,
         "color_scheme": "",
         "padding-block-start": 48,

@@ -52,12 +52,12 @@
     }
   }
   
-    .close-button svg {
-        @media screen and (min-width: 750px) {
-            width: var(--icon-size-lg);
-            height: var(--icon-size-lg);
-        }
-    }
+  .close-button svg {
+      @media screen and (min-width: 750px) {
+          width: var(--icon-size-lg);
+          height: var(--icon-size-lg);
+      }
+  }
 
   .pack-add-modal[open] {
     visibility: visible;
@@ -118,7 +118,6 @@
     grid-template-rows: 100% 1fr;
     /* overflow-y: auto; */
     position: relative;
-    /* max-height: 100vh; */
     width: 100%;
 
     @media screen and (max-width: 750px) {
@@ -134,6 +133,10 @@
       overflow-y: auto;
       height: auto; /* Prevent a bug in Safari where height:fit-content is not respected */
       max-height: 100vh;
+    }
+
+    @media (min-width: 751px) {
+      max-height: calc(100svh - var(--header-static-height));
     }
   }
 
@@ -196,7 +199,7 @@
     cursor: default;
   }
 
-  .pack-add-modal__content .pack-details {
+  .pack-add-modal__content .product-details {
     grid-column: 4 / -1;
     grid-row: 1 / span 2;
     display: flex;
@@ -227,11 +230,11 @@
     min-height: 0;
   }
 
-  .pack-add-modal__content .pack-details :is(.view-product-title, .buy-buttons-block) {
+  .pack-add-modal__content .product-details :is(.view-product-title, .pack-buttons-block) {
     flex: 0 0 auto;
   }
 
-  .pack-add-modal__content .pack-details .variant-picker {
+  .pack-add-modal__content .product-details .variant-picker {
     --product-swatches-padding-block-end: 0px;
 
     flex: 1 1 auto;
@@ -250,7 +253,7 @@
     margin-inline-start: calc(-1 * var(--padding-2xs));
   }
 
-  .pack-add-modal__content:not(:has(.pack-information__media)) .pack-details {
+  .pack-add-modal__content:not(:has(.pack-information__media)) .product-details {
     grid-column: 1 / -1;
   }
 
@@ -284,16 +287,18 @@
   }
 
   .pack-add-modal__content
-    .pack-details
+    .product-details
     *:not(
       .group-block,
       .group-block-content,
-      .buy-buttons-block,
-      .buy-buttons-block *,
+      .pack-buttons-block,
+      .pack-buttons-block *,
       .view-product-title,
       .view-product-title *,
       variant-picker,
       variant-picker *,
+      pack-picker,
+      pack-picker *,
       product-price,
       product-price *,
       product-inventory,
@@ -310,12 +315,14 @@
   .pack-add-modal__content
     .group-block:not(
       :has(
-          .buy-buttons-block,
-          .buy-buttons-block *,
+          .pack-buttons-block,
+          .pack-buttons-block *,
           .view-product-title,
           .view-product-title *,
           variant-picker,
           variant-picker *,
+          pack-picker,
+          pack-picker *,
           product-price,
           product-price *,
           product-inventory,
@@ -323,7 +330,7 @@
           .view-more-details__wrapper,
           .view-more-details__wrapper *
         ),
-      .buy-buttons-block
+      .pack-buttons-block
     ) {
     display: none;
   }
@@ -347,7 +354,7 @@
     }
   }
 
-  .pack-add-modal__content .pack-details > .group-block {
+  .pack-add-modal__content .product-details > .group-block {
     /* padding: var(--padding-2xl); */
     padding: 0;
     max-height: 100%;

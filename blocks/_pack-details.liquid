@@ -4,6 +4,7 @@
   id="ProductInformation-{{ section.id }}"
   class="
     pack-details
+    product-details
     {% if block_settings.sticky_details_desktop %} sticky-content--desktop{% endif %}
     {% if block_settings.height == 'fill' -%} full-height--desktop{% endif -%}
   "
@@ -30,7 +31,8 @@
           {{ 'products.product.pack_title' | t: limit: pack_limit, title: title }}
         </a> 
     </div>
-    {% content_for 'blocks' %}
+    {% content_for 'block', type: '_pack-picker', id: 'pack-picker' %}
+    {% content_for 'block', type: '_pack-buttons', id: 'pack-buttons' %}
   {% endcapture %}
 
   {% render 'group', children: children, settings: block_settings, shopify_attributes: block.shopify_attributes %}
@@ -48,7 +50,7 @@
     display: none;
   }
 
-  .pack-details .view-product-title a {
+  .product-details .view-product-title a {
     pointer-events: none;
   }
 
@@ -57,6 +59,10 @@
     display: flex;
     align-self: start;
     justify-content: center;
+  }
+
+  .pack-details {
+    justify-content: flex-start !important;
   }
 
   @media screen and (min-width: 750px) {
@@ -118,9 +124,6 @@
     },
     {
       "type": "variant-picker"
-    },
-    {
-      "type": "buy-buttons"
     },
     {
       "type": "product-description"

@@ -1,0 +1,148 @@
+{%- doc -%}
+  This block is used to display the add to cart button.
+  Intended for product-form.liquid block.
+  @param {boolean} pack_limit - Pack limit
+  @param {string} can_add_to_cart - Whether the product can be added to the cart
+  @param {string} add_to_cart_text - The text of the add to cart button
+{%- enddoc -%}
+
+{% liquid
+  assign class = 'add-to-pack-button ' | append: block.settings.style_class
+  assign id = 'BuyButtons-ProductSubmitButton-' | append: block.id
+%}
+
+<span
+  {{ block.shopify_attributes }}
+  style="--add-to-pack-font-case: {{ settings.button_text_case }};"
+>
+    {%- liquid
+        assign default_add_to_cart_text = 'actions.add_to_cart' | t
+        assign product_variant_media = product.selected_or_first_available_variant.featured_media.preview_image | image_url: width: 100
+        if product.selected_or_first_available_variant.featured_media.preview_image == blank
+            assign product_variant_media = product.featured_media.preview_image | image_url: width: 100
+        endif
+    -%}
+
+    <add-to-cart-component
+        ref="addToCartButtonContainer"
+        data-product-variant-media="{{ product_variant_media }}"
+        data-add-to-cart-animation="{{ settings.add_to_cart_animation }}"
+        data-pack-limit="{{ pack_limit }}"
+    >
+        <button
+            id="{{ id }}"
+            type="submit"
+            name="add"
+            ref="addToCartButton"
+            on:click="/handleClick"
+            class="button {{ class }}"
+            disabled
+        >
+            <span
+                class="add-to-pack-text"
+            >
+                <span class="add-to-pack-text__content">
+                    {{- add_to_cart_text | default: default_add_to_cart_text -}}
+                </span>
+                <span class="add-to-pack-price">
+                    {{ product.selected_or_first_available_variant.price | money_without_trailing_zeros }}
+                </span>
+            </span>
+            <span
+            aria-hidden="true"
+            class="add-to-pack-text--added"
+            >
+            <span class="svg-wrapper add-to-pack-icon--added">
+                {{- 'icon-checkmark.svg' | inline_asset_content -}}
+            </span>
+            <span class="{% if icon_only_on_mobile %}is-visually-hidden-mobile{% endif %}">
+                {{- 'actions.added' | t -}}
+            </span>
+            </span>
+        </button>
+    </add-to-cart-component>
+</span>
+
+{% stylesheet %}
+  .add-to-pack-text {
+    display: flex;
+    gap: var(--gap-2xs);
+    align-items: center;
+    justify-content: space-between;
+    animation-duration: var(--animation-speed);
+    animation-timing-function: var(--animation-easing);
+    animation-fill-mode: forwards;
+    transition: opacity var(--animation-speed) var(--animation-easing);
+  }
+
+  .atc-added .add-to-pack-text {
+    animation-name: atc-slide-out;
+  }
+
+  .add-to-pack-text--added {
+    position: absolute;
+    inset: 0;
+    animation-duration: var(--animation-speed);
+    animation-timing-function: var(--animation-easing);
+    animation-fill-mode: forwards;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    transition: width var(--animation-speed) var(--animation-easing),
+      opacity var(--animation-speed) var(--animation-easing);
+  }
+
+  .atc-added .add-to-pack-text--added {
+    animation-name: atc-slide-in;
+  }
+
+  @keyframes atc-slide-in {
+    from {
+      opacity: 0;
+      transform: translateY(0.5em);
+    }
+
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  @keyframes atc-slide-out {
+    from {
+      transform: translateY(0);
+      opacity: 1;
+    }
+
+    to {
+      transform: translateY(-1em);
+      opacity: 0;
+    }
+  }
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "Add to pack",
+  "tag": null,
+  "settings": [
+    {
+      "type": "select",
+      "id": "style_class",
+      "label": "t:settings.style",
+      "options": [
+        {
+          "value": "button",
+          "label": "t:options.primary"
+        },
+        {
+          "value": "button-secondary",
+          "label": "t:options.secondary"
+        }
+      ],
+      "default": "button-secondary"
+    }
+  ]
+}
+{% endschema %}

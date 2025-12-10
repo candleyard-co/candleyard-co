@@ -1,0 +1,80 @@
+{% assign block_settings = block.settings %}
+{% assign pack_items = block_settings.pack_items %}
+
+{% if pack_items.size == 0 %}
+    {% break %}
+{% endif %}
+<pack-picker
+  class="pack-picker-block pack-picker-block --{{ block.id }}"
+  {{ block.shopify_attributes }}
+>
+  <div class="pack-picker--inner">
+    <div class="pack-picker-items">
+      {% for item in pack_items %}
+        {% assign item_product = item.product %}
+
+        <div class="pack-item flex">
+          <div>
+            {% if item.vector_image != blank %}
+              {% render 'image', image: item.vector_image, class: 'pack-item-image', height: 50 %}
+            {% endif %}
+          </div>
+          <div>
+            <span class="pack-item-title">
+              {{ item.title }}
+            </span>
+          </div>
+        </div>
+      {% endfor %}
+    </div>
+  </div>
+
+</pack-picker>
+
+{% stylesheet %}
+  pack-picker {
+    overflow-y: scroll;
+
+    @media (min-width: 751px) {
+      height: calc(100% - 235px);
+    }
+  }
+
+  .pack-item-title {
+    font-family: var(--font-h4--family);
+    font-style: var(--font-h4--style);
+    font-weight: var(--font-h4--weight);
+    font-size: var(--font-h4--size);
+    line-height: var(--font-h4--line-height);
+    display: block;
+  }
+  .pack-item {
+    padding-block: var(--padding-xs);
+    align-items: center;
+
+    &:not(:last-child) {
+      border-bottom: var(--style-border-width-inputs) solid var(--color-input-border);
+    }
+  }
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "Pack Picker",
+  "tag": null,
+  "settings": [
+    {
+        "type": "metaobject_list",
+        "id": "pack_items",
+        "label": "Pack items",
+        "metaobject_type": "pack_item"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Pack Picker",
+      "category": "t:categories.product"
+    }
+  ]
+}
+{% endschema %}

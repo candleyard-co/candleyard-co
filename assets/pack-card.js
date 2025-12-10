@@ -170,6 +170,7 @@ export class PackCard extends Component {
 
     if (isMobileBreakpoint()) {
       const productDetails = productGrid.querySelector('.product-details');
+      const packPicker = productGrid.querySelector('pack-picker');
       const productFormComponent = productGrid.querySelector('product-form-component');
       const variantPicker = productGrid.querySelector('variant-picker');
       const productPrice = productGrid.querySelector('product-price');
@@ -191,6 +192,11 @@ export class PackCard extends Component {
       if (variantPicker) {
         productGrid.appendChild(variantPicker);
       }
+
+      if (packPicker) {
+        productGrid.appendChild(packPicker);
+      }
+
       if (productFormComponent) {
         productGrid.appendChild(productFormComponent);
       }
