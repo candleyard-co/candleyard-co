@@ -55,14 +55,23 @@ export class PackCard extends Component {
     super.connectedCallback();
     this.addEventListener('click', this.handleClick);
     mediaQueryLarge.addEventListener('change', this.#closeQuickAddModal);
+    
+    // Clear cache when dialog closes
+    document.addEventListener(DialogCloseEvent.eventName, this.#clearCache);
   }
 
   disconnectedCallback() {
     super.disconnectedCallback();
 
     mediaQueryLarge.removeEventListener('change', this.#closeQuickAddModal);
+    document.removeEventListener(DialogCloseEvent.eventName, this.#clearCache);
     this.#abortController?.abort();
   }
+
+  #clearCache = () => {
+    // Clear the cache when dialog closes
+    this.#cachedContent.clear();
+  };
 
   /**
    * Handles quick add button click
@@ -206,6 +215,9 @@ export class PackCard extends Component {
 
     morph(modalContent, productGrid);
 
+    // Manually trigger FreeGift initialization after morphing
+    this.#initializeFreeGiftElements(modalContent);
+
     this.#syncVariantSelection(modalContent);
   }
 
@@ -226,6 +238,22 @@ export class PackCard extends Component {
         break;
       }
     }
+  }
+
+  /**
+   * Manually initialize FreeGift elements after morphing
+   * @param {Element} container
+   */
+  #initializeFreeGiftElements(container) {
+    // Wait a bit for the DOM to settle after morphing
+    setTimeout(() => {
+      const freeGiftElements = container.querySelectorAll('free-gift');
+      
+      freeGiftElements.forEach(freeGift => {
+        // Dispatch reinitialize event to trigger loadFreeGiftTitle
+        freeGift.dispatchEvent(new CustomEvent('reinitialize'));
+      });
+    }, 0);
   }
 }
 
@@ -301,38 +329,39 @@ if (!customElements.get('pack-card-dialog')) {
   customElements.define('pack-card-dialog', PackCardDialog);
 }
 
-export class PackPicker extends Component {
-
-}
-
-if (!customElements.get('pack-picker')) {
-  customElements.define('pack-picker', PackPicker);
-}
-
 export class FreeGift extends Component {
   constructor() {
     super();
+    // Listen for reinitialize event
+    this.addEventListener('reinitialize', () => {
+      this.loadFreeGiftTitle();
+    });
   }
 
   connectedCallback() {
     super.connectedCallback();
+    // Initialize immediately
     this.loadFreeGiftTitle();
   }
 
   async loadFreeGiftTitle() {
-    // The debugger should hit now after we fix the initialization
+    const handle = this.dataset.productHandle || sessionStorage.getItem('pickedProductHandle');
     
-    const pickedID = sessionStorage.getItem('pickedProductId');
-    const handle = sessionStorage.getItem('pickedProductHandle');
-
-    if (!pickedID || !handle) return;
+    if (!handle) {
+      console.warn('FreeGift: No product handle found');
+      // If no handle, keep it hidden
+      return;
+    }
 
     try {
       const response = await fetch(
         `${window.Shopify.routes.root}products/${handle}.js`
       );
 
-      if (!response.ok) return;
+      if (!response.ok) {
+        // If fetch fails, keep it hidden
+        return;
+      }
 
       const product = await response.json();
 
@@ -344,24 +373,31 @@ export class FreeGift extends Component {
       const titleEl = this.querySelector('.free-gift-title');
       if (titleEl) titleEl.textContent = cleanTitle;
 
-      // Create and append hidden input with first variant ID
+      // Create hidden input
       const formId = this.dataset.formId;
       if (formId && product.variants && product.variants.length > 0) {
+        // Remove any existing inputs first
+        const existingInputs = this.querySelectorAll('input[name="gift_id"]');
+        existingInputs.forEach(input => input.remove());
+        
         const input = document.createElement('input');
         input.type = 'hidden';
         input.name = 'gift_id';
-        input.classList.add('gift-id')
         input.value = product.variants[0].id;
         
-        // If form attribute exists, set it
         if (formId) {
           input.setAttribute('form', formId);
         }
 
         this.appendChild(input);
       }
+
+      // Success! Remove the hidden attribute to show the component
+      this.removeAttribute('hidden');
+      
     } catch (err) {
       console.error('FreeGift failed to fetch product:', err);
+      // On error, keep it hidden
     }
   }
 }

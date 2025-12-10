@@ -15,6 +15,8 @@
 <pack-picker
   class="pack-picker-block pack-picker-block --{{ block.id }}"
   {{ block.shopify_attributes }}
+  data-form-id="{{ product_form_id }}"
+  data-limit="{{ current_product.selected_or_first_available_variant.metafields.custom.pack_limit | plus: 0 }}"
 >
   <div class="pack-picker--inner">
     <div class="pack-picker-items">

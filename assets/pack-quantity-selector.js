@@ -2,7 +2,7 @@ import { Component } from '@theme/component';
 import { QuantitySelectorUpdateEvent } from '@theme/events';
 
 /**
- * A custom element that allows the user to select a quantity.
+ * A custom element that allows the user to select a quantity within a pack picker.
  *
  * @typedef {Object} Refs
  * @property {HTMLInputElement} quantityInput
@@ -39,29 +39,43 @@ export class PackSelectorComponent extends Component {
   }
 
   /**
-   * Updates cart quantity and refreshes component state
-   * @param {number} cartQty - The quantity currently in cart for this variant
+   * Gets the parent pack picker element
+   * @returns {HTMLElement | null} The parent pack-picker or null
    */
-  setCartQuantity(cartQty) {
-    this.refs.quantityInput.setAttribute('data-cart-quantity', cartQty.toString());
-    this.updateCartQuantity();
+  getPackPicker() {
+    return this.closest('pack-picker');
   }
 
   /**
-   * Checks if the current quantity can be added to cart without exceeding max
-   * @returns {{canAdd: boolean, maxQuantity: number|null, cartQuantity: number, quantityToAdd: number}} Validation result
+   * Gets the pack limit from the parent pack-picker
+   * @returns {number | null} The pack limit or null if no limit
    */
-  canAddToCart() {
-    const { max, cartQuantity, value } = this.getCurrentValues();
-    const quantityToAdd = value;
-    const wouldExceedMax = max !== null && cartQuantity + quantityToAdd > max;
+  getPackLimit() {
+    const packPicker = this.getPackPicker();
+    if (!packPicker) return null;
+    
+    const limit = packPicker.dataset.limit;
+    return limit ? parseInt(limit) : null;
+  }
 
-    return {
-      canAdd: !wouldExceedMax,
-      maxQuantity: max,
-      cartQuantity,
-      quantityToAdd,
-    };
+  /**
+   * Gets the current total quantity across all selectors in the pack
+   * @returns {number} The total quantity
+   */
+  getTotalPackQuantity() {
+    const packPicker = this.getPackPicker();
+    if (!packPicker) return 0;
+
+    let total = 0;
+    const selectors = packPicker.querySelectorAll('pack-selector-component');
+    
+    selectors.forEach(selector => {
+      if (selector instanceof PackSelectorComponent) {
+        total += selector.getCurrentValues().value;
+      }
+    });
+
+    return total;
   }
 
   /**
@@ -78,6 +92,7 @@ export class PackSelectorComponent extends Component {
    */
   setValue(value) {
     this.refs.quantityInput.value = value;
+    this.updateButtonStates();
   }
 
   /**
@@ -121,7 +136,7 @@ export class PackSelectorComponent extends Component {
 
   /**
    * Gets current values from DOM (fresh read every time)
-   * @returns {{min: number, max: number|null, step: number, value: number, cartQuantity: number}}
+   * @returns {{min: number, max: number|null, step: number, value: number}}
    */
   getCurrentValues() {
     const { quantityInput } = this.refs;
@@ -130,30 +145,44 @@ export class PackSelectorComponent extends Component {
       max: quantityInput.max ? parseInt(quantityInput.max) : null,
       step: parseInt(quantityInput.step) || 1,
       value: parseInt(quantityInput.value) || 0,
-      cartQuantity: parseInt(quantityInput.getAttribute('data-cart-quantity') || '0'),
     };
   }
 
   /**
    * Gets the effective maximum value for this quantity selector
-   * Product page: max - cartQuantity (how many can be added)
-   * Override in subclass for different behavior
+   * Considers both the individual max and the pack limit
    * @returns {number | null} The effective max, or null if no max
    */
   getEffectiveMax() {
-    const { max, cartQuantity, min } = this.getCurrentValues();
-    if (max === null) return null;
-    // Product page: can only add what's left
-    return Math.max(max - cartQuantity, min);
+    const { max, value } = this.getCurrentValues();
+    const packLimit = this.getPackLimit();
+    const totalPackQuantity = this.getTotalPackQuantity();
+
+    if (max === null && packLimit === null) return null;
+
+    let effectiveMax = max;
+    
+    if (packLimit !== null) {
+      // Calculate how many more items can be added to this selector
+      // based on the pack limit and current total
+      const remainingInPack = packLimit - (totalPackQuantity - value);
+      effectiveMax = effectiveMax !== null ? 
+        Math.min(effectiveMax, remainingInPack) : 
+        remainingInPack;
+    }
+
+    return effectiveMax;
   }
 
   /**
-   * Updates button states based on current value and limits
+   * Updates button states based on current value, limits, and pack constraints
    */
   updateButtonStates() {
     const { minusButton, plusButton } = this.refs;
     const { min, value } = this.getCurrentValues();
     const effectiveMax = this.getEffectiveMax();
+    const packLimit = this.getPackLimit();
+    const totalPackQuantity = this.getTotalPackQuantity();
 
     // Only manage buttons that weren't server-disabled
     if (!this.serverDisabledMinus) {
@@ -161,7 +190,13 @@ export class PackSelectorComponent extends Component {
     }
 
     if (!this.serverDisabledPlus) {
-      plusButton.disabled = effectiveMax !== null && value >= effectiveMax;
+      // Disable plus button if:
+      // 1. We have an effective max and we're at or above it
+      // 2. OR pack is full (total quantity >= pack limit)
+      const atIndividualMax = effectiveMax !== null && value >= effectiveMax;
+      const packFull = packLimit !== null && totalPackQuantity >= packLimit;
+      
+      plusButton.disabled = atIndividualMax || packFull;
     }
   }
 
@@ -254,29 +289,26 @@ export class PackSelectorComponent extends Component {
     const { quantityInput } = this.refs;
     const newValue = parseInt(quantityInput.value);
 
-    quantityInput.dispatchEvent(new QuantitySelectorUpdateEvent(newValue, Number(quantityInput.dataset.cartLine)));
+    quantityInput.dispatchEvent(new QuantitySelectorUpdateEvent(newValue, Number(quantityInput.dataset.line)));
+
+    // Update all other selectors in the same pack to reflect new totals
+    this.updateAllPackSelectors();
   }
 
   /**
-   * Updates the cart quantity from data attribute and refreshes button states
-   * Called when cart is updated from external sources
+   * Updates all selectors in the same pack to reflect new button states
    */
-  updateCartQuantity() {
-    const { quantityInput } = this.refs;
-    const { min, value } = this.getCurrentValues();
-    const effectiveMax = this.getEffectiveMax();
+  updateAllPackSelectors() {
+    const packPicker = this.getPackPicker();
+    if (!packPicker) return;
 
-    // Clamp value to new effective max if necessary
-    const clampedValue = Math.min(
-      effectiveMax ?? Infinity,
-      Math.max(min, value)
-    );
-
-    if (clampedValue !== value) {
-      quantityInput.value = clampedValue.toString();
-    }
-
-    this.updateButtonStates();
+    const selectors = packPicker.querySelectorAll('pack-selector-component');
+    
+    selectors.forEach(selector => {
+      if (selector instanceof PackSelectorComponent && selector !== this) {
+        selector.updateButtonStates();
+      }
+    });
   }
 
   /**
