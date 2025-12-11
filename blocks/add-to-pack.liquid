@@ -78,6 +78,13 @@
     transition: opacity var(--animation-speed) var(--animation-easing);
   }
 
+  .add-to-pack-button {
+
+    @media (max-width: 749px) {
+      opacity: 1 !important;
+    }
+  }
+
   .add-to-pack-button:not([disabled]) .add-to-pack-pending__content {
     display: none;
   }

@@ -43,7 +43,7 @@
     }
 
     @media screen and (max-width: 750px) {
-      position: fixed;
+      /* position: fixed; */
       display: block;
       margin: auto 0 0 0;
       min-height: unset;
@@ -132,8 +132,7 @@
       flex: 1;
       min-height: 0;
       overflow-y: auto;
-      height: auto; /* Prevent a bug in Safari where height:fit-content is not respected */
-      max-height: 100vh;
+      height: 100%; /* Prevent a bug in Safari where height:fit-content is not respected */
     }
 
     @media (min-width: 751px) {
@@ -183,6 +182,10 @@
   .pack-add-modal__content variant-picker,
   .pack-add-modal__content product-form-component {
     @media screen and (max-width: 750px) {
+      position: fixed;
+      bottom: 1rem;
+      width: 100%;
+      left: 0;
       grid-column: 1 / -1;
       padding-inline: var(--padding-lg);
     }
@@ -221,9 +224,9 @@
       grid-column: 1 / -1;
       grid-row: span 1;
       overflow-y: auto;
-      max-height: 100%;
-      height: 100%;
+      height: auto;
       padding-inline: var(--padding-lg);
+      padding-bottom: 8svh;
     }
   }
 
@@ -384,6 +387,7 @@
 
   .pack-add-modal__content .pack-information__media media-gallery {
     pointer-events: none;
+    position: relative !important;
 
     @media screen and (min-width: 750px) {
       position: absolute;
