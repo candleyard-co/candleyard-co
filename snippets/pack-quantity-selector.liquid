@@ -53,6 +53,7 @@
     ref="quantityInput"
     aria-label="{{ 'accessibility.quantity' | t }}"
     readonly
+    onkeydown="return false;"
     {% if pack_limit %}
       max="{{ pack_limit }}"
     {% endif %}
