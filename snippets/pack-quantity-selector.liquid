@@ -52,6 +52,7 @@
     on:focus="/selectInputValue"
     ref="quantityInput"
     aria-label="{{ 'accessibility.quantity' | t }}"
+    readonly
     {% if pack_limit %}
       max="{{ pack_limit }}"
     {% endif %}
