@@ -32,8 +32,8 @@ export default class FlipPanel extends Component {
       }
     }
 
-    // Show flip panel only if no product picked yet
-    if (!sessionStorage.getItem('pickedProductId') && !Shopify.designMode) {
+    // Show flip panel only if no free gift selected yet
+    if (!this.hasFreeGiftSelection() && !Shopify.designMode) {
       this.classList.add('active');
     }
 
@@ -43,16 +43,15 @@ export default class FlipPanel extends Component {
       this.submitButton.addEventListener('click', () => {
         this.classList.remove('active');
 
-        // Only assign random product ID if session is empty
-        if (!sessionStorage.getItem('pickedProductId') && this.productList.length > 0) {
-            const randomIndex = Math.floor(Math.random() * this.productList.length);
-            const randomProductId = this.productList[randomIndex].id;
-            const randomProductHandle = this.productList[randomIndex].handle;
+        // Only assign random product if no free gift selected
+        if (!this.hasFreeGiftSelection() && this.productList.length > 0) {
+          const randomIndex = Math.floor(Math.random() * this.productList.length);
+          const randomProductId = this.productList[randomIndex].id;
+          const randomVariantId = this.productList[randomIndex].variants[0].id;
+          const randomProductHandle = this.productList[randomIndex].handle;
 
-            sessionStorage.setItem('pickedProductId', randomProductId);
-            sessionStorage.setItem('pickedProductHandle', randomProductHandle);
-
-            console.log('Random product ID stored in session:', randomProductId);
+          // Store using the new structure
+          this.setFreeGiftSelection(randomProductId, randomVariantId, randomProductHandle);
         }
       });
     }
@@ -63,6 +62,69 @@ export default class FlipPanel extends Component {
     });
 
     document.body.classList.add('shop-show')
+  }
+
+  /**
+   * Check if free gift has been selected
+   * @returns {boolean}
+   */
+  hasFreeGiftSelection() {
+    const selection = this.getFreeGiftSelection();
+    return !!selection?.freeGift?.id;
+  }
+
+  /**
+   * Get free gift selection from sessionStorage
+   * @returns {Object|null}
+   */
+  getFreeGiftSelection() {
+    try {
+      const storedData = sessionStorage.getItem('free-gift-selection');
+      if (!storedData) return null;
+      
+      return JSON.parse(storedData);
+    } catch (error) {
+      console.error('Error parsing free gift selection:', error);
+      return null;
+    }
+  }
+
+  /**
+   * Store free gift selection
+   * @param {string} productId
+   * @param {string} variantId
+   * @param {string} handle
+   */
+  setFreeGiftSelection(productId, variantId, handle) {
+    sessionStorage.setItem(
+      'free-gift-selection',
+      JSON.stringify({
+        freeGift: {
+          timestamp: Date.now(),
+          id: productId,
+          variantId: variantId,
+          handle: handle
+        }
+      })
+    );
+  }
+
+  /**
+   * Get currently selected free gift product ID
+   * @returns {string|null}
+   */
+  getSelectedProductId() {
+    const selection = this.getFreeGiftSelection();
+    return selection?.freeGift?.id || null;
+  }
+
+  /**
+   * Get currently selected free gift product handle
+   * @returns {string|null}
+   */
+  getSelectedProductHandle() {
+    const selection = this.getFreeGiftSelection();
+    return selection?.freeGift?.handle || null;
   }
 
   /**
@@ -81,45 +143,48 @@ export default class FlipPanel extends Component {
     card.classList.add('active');
     this.selectedCards.add(card);
 
-    // If pickedProductId doesn't exist, pick a random product now
-    let pickedId = sessionStorage.getItem('pickedProductId');
-    if (!pickedId && this.productList.length > 0) {
+    // If no free gift selected yet, pick a random product now
+    const selectedProductId = this.getSelectedProductId();
+    if (!selectedProductId && this.productList.length > 0) {
       const randomIndex = Math.floor(Math.random() * this.productList.length);
       const randomProductId = this.productList[randomIndex].id;
       const randomProductHandle = this.productList[randomIndex].handle;
 
-      sessionStorage.setItem('pickedProductId', randomProductId);
-      sessionStorage.setItem('pickedProductHandle', randomProductHandle);
-
-      pickedId = randomProductId;
+      // Store the selection temporarily (will be finalized on submit)
+      this.setFreeGiftSelection(
+        randomProductId, 
+        this.productList[randomIndex].variants[0].id, 
+        randomProductHandle
+      );
     }
 
-    
-    if (pickedId) {
-        const product = this.productList.find(p => Number(p.id) === Number(pickedId));
+    // Update card content with selected product
+    const currentProductId = this.getSelectedProductId();
+    if (currentProductId) {
+      const product = this.productList.find(p => Number(p.id) === Number(currentProductId));
 
-        if (product) {
-            const cardTitle = card.querySelector('.flip-card-title');
-            if (cardTitle) {
-              cardTitle.textContent = product.title
-                .replace(/free/gi, '')
-                .replace(/\s+/g, ' ')
-                .trim();
-            }
- 
-            if (product.featured_image) {
-                const imageBlock = card.querySelector('.image-flip-card');
-                
-                if (imageBlock) {
-                    const img = document.createElement('img');   // create img element
-                    img.src = product.featured_image;           // set source
-                    img.alt = product.title || 'Product image'; // optional alt text
-                    img.loading = 'lazy';                        // optional lazy loading
-                    img.classList.add('image-block__image');
-                    imageBlock.appendChild(img);                 // insert into imageBlock
-                }
-            }
+      if (product) {
+        const cardTitle = card.querySelector('.flip-card-title');
+        if (cardTitle) {
+          cardTitle.textContent = product.title
+            .replace(/free/gi, '')
+            .replace(/\s+/g, ' ')
+            .trim();
         }
+
+        if (product.featured_image) {
+          const imageBlock = card.querySelector('.image-flip-card');
+          
+          if (imageBlock) {
+            const img = document.createElement('img');
+            img.src = product.featured_image;
+            img.alt = product.title || 'Product image';
+            img.loading = 'lazy';
+            img.classList.add('image-block__image');
+            imageBlock.appendChild(img);
+          }
+        }
+      }
     }
 
     // After flip animation

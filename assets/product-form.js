@@ -289,7 +289,7 @@ class ProductFormComponent extends Component {
     const addon_items = [];
     const formId = form.getAttribute('id');
     const mainVariantId = form.querySelector('input[name="id"]')?.value;
-
+console.log(formId)
     // 1. Find pack-item-input elements associated with this form
     const packItemInputs = document.querySelectorAll(`.pack-item-input[form="${formId}"]`);
     
@@ -304,7 +304,7 @@ class ProductFormComponent extends Component {
           const quantity = parseInt(quantityInput.value);
           if (quantity > 0) {
             addon_items.push({
-              id: input.value,
+              id: Number(input.value),
               quantity: quantity,
               parent_id: Number(mainVariantId),
               properties: {
@@ -316,17 +316,31 @@ class ProductFormComponent extends Component {
       }
     });
 
-    // 2. Find .input-gift-id elements associated with this form
-    const giftIdInput = document.querySelector(`.input-gift-id[form="${formId}"]`);
-    if (giftIdInput && giftIdInput.value) {
-      addon_items.push({
-        id: giftIdInput.value,
-        quantity: 1,
-        properties: {
-          '_parentProduct': Number(mainVariantId),
-          '_type': "Free Gift"
+    // 2. Check session storage for free gift selection
+    try {
+      const storedDataStr = sessionStorage.getItem('free-gift-selection');
+      if (storedDataStr) {
+        const storedData = JSON.parse(storedDataStr);
+        
+        // Check if the data is still valid (optional: you could add timestamp validation)
+        if (storedData?.freeGift?.variantId) {
+          addon_items.push({
+            id: Number(storedData.freeGift.variantId), // Convert to number for consistency with other IDs
+            quantity: 1,
+            properties: {
+              '_parentProduct': Number(mainVariantId),
+              '_type': "Free Gift",
+              '_giftProductId': storedData.freeGift.id, // Original product ID
+              '_giftHandle': storedData.freeGift.handle // Product handle for reference
+            }
+          });
+
+          // Optional: Clear the session storage after using the gift selection
+          // sessionStorage.removeItem('free-gift-selection');
         }
-      });
+      }
+    } catch (error) {
+      console.error('Error parsing free-gift-selection from sessionStorage:', error);
     }
 
     // If we have addon items, we need to use Shopify's items[] format
@@ -343,9 +357,9 @@ class ProductFormComponent extends Component {
         }
       }
       
-      // Add a random number to main properties if addons exist
-      const randomNum = Math.floor(Math.random() * 1000000); // Generate random number between 0-999999
-      mainProperties['_random_num'] = randomNum.toString();
+      // // Add a random number to main properties if addons exist
+      // const randomNum = Math.floor(Math.random() * 1000000); // Generate random number between 0-999999
+      // mainProperties['_random_num'] = randomNum.toString();
 
       // Add main product as items[0] WITH its properties
       const mainQuantity = formData.get('quantity') || '1';
@@ -376,8 +390,6 @@ class ProductFormComponent extends Component {
           });
         }
         
-        // Add the same random number to all addon items for grouping
-        itemsFormData.append(`items[${index + 1}][properties][_random_num]`, randomNum.toString());
       });
 
       // Copy all OTHER form data (NOT properties, id, or quantity) to the new FormData

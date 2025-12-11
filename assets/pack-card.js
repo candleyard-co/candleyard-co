@@ -346,91 +346,60 @@ export class FreeGift extends Component {
   }
 
   async loadFreeGiftTitle() {
-      const handle = this.dataset.productHandle || sessionStorage.getItem('pickedProductHandle');
-      
+    try {
+      // Handle null case explicitly
+      const storedData = sessionStorage.getItem('free-gift-selection');
+      const sessionData = storedData ? JSON.parse(storedData) : null;
+      const handle = this.dataset.productHandle || sessionData?.freeGift?.handle;
+
       if (!handle) {
         console.warn('FreeGift: No product handle found');
         return;
       }
 
-      try {
-        // Fetch product data
-        const response = await fetch(
-          `${window.Shopify.routes.root}products/${handle}.js`
-        );
+      // Fetch product data
+      const response = await fetch(
+        `${window.Shopify.routes.root}products/${handle}.js`
+      );
 
-        if (!response.ok) {
-          return;
-        }
-
-        const product = await response.json();
-
-        // Fetch current cart data
-        const cartResponse = await fetch(`${window.Shopify.routes.root}cart.js`);
-        const cart = await cartResponse.json();
-        
-        // Check if the first variant is already in the cart
-        const variantId = product.variants?.[0]?.id;
-        const isVariantInCart = variantId ? 
-          cart.items.some(item => item.variant_id === variantId) : 
-          false;
-
-        // Update title
-        const cleanTitle = product.title
-          .replace(/free/gi, '')
-          .replace(/\s+/g, ' ')
-          .trim();
-
-        const titleEl = this.querySelector('.free-gift-title');
-        if (titleEl) titleEl.textContent = cleanTitle;
-        
-        // Update image
-        const image = this.querySelector('.gift-image-preview');
-        if (image && !image.querySelector('.img-gift') && product.featured_image) {
-            const img = document.createElement('img');
-            img.classList.add('img-gift');
-            
-            const originalSrc = product.featured_image.src || product.featured_image;
-            img.src = originalSrc.replace(/\/([^/]+)\.(png|jpg|jpeg|webp|gif)/i, '/$1_60x.png');
-            
-            if (product.featured_image.alt) {
-                img.alt = product.featured_image.alt;
-            }
-            
-            image.appendChild(img);
-        }
-
-        // Create hidden input ONLY if variant is NOT in cart
-        const formId = this.dataset.formId;
-        if (formId && product.variants && product.variants.length > 0 && !isVariantInCart) {
-          // Remove any existing inputs first
-          const existingInputs = this.querySelectorAll('input[name="gift_id"]');
-          existingInputs.forEach(input => input.remove());
-          
-          const input = document.createElement('input');
-          input.type = 'hidden';
-          input.name = 'gift_id';
-          input.classList.add('input-gift-id');
-          input.value = variantId;
-          
-          if (formId) {
-            input.setAttribute('form', formId);
-          }
-
-          this.appendChild(input);
-        } else if (isVariantInCart) {
-          // Variant is already in cart, remove any existing gift inputs
-          const existingInputs = this.querySelectorAll('input[name="gift_id"]');
-          existingInputs.forEach(input => input.remove());
-          console.log(`FreeGift: Variant ${variantId} is already in cart, not adding gift input`);
-        }
-
-        // Success! Remove the hidden attribute to show the component
-        this.removeAttribute('hidden');
-        
-      } catch (err) {
-        console.error('FreeGift failed to load:', err);
+      if (!response.ok) {
+        console.warn('FreeGift: Product fetch failed');
+        return;
       }
+
+      const product = await response.json();
+
+      // Update title
+      const cleanTitle = product.title
+        .replace(/free/gi, '')
+        .replace(/\s+/g, ' ')
+        .trim();
+
+      const titleEl = this.querySelector('.free-gift-title');
+      if (titleEl) titleEl.textContent = cleanTitle;
+      
+      // Update image
+      const image = this.querySelector('.gift-image-preview');
+      if (image && !image.querySelector('.img-gift') && product.featured_image) {
+        const img = document.createElement('img');
+        img.classList.add('img-gift');
+        
+        const originalSrc = product.featured_image.src || product.featured_image;
+        img.src = originalSrc.replace(/\/([^/]+)\.(png|jpg|jpeg|webp|gif)/i, '/$1_60x.png');
+        
+        if (product.featured_image.alt) {
+          img.alt = product.featured_image.alt;
+        }
+        
+        image.appendChild(img);
+      }
+
+      // Success! Remove the hidden attribute to show the component
+      this.removeAttribute('hidden');
+      
+    } catch (err) {
+      console.error('FreeGift failed to load:', err);
+    }
   }
 }
 
