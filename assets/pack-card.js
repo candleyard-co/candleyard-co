@@ -383,6 +383,7 @@ export class FreeGift extends Component {
         const input = document.createElement('input');
         input.type = 'hidden';
         input.name = 'gift_id';
+        input.classList.add('input-gift-id')
         input.value = product.variants[0].id;
         
         if (formId) {

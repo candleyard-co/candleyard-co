@@ -282,7 +282,80 @@ class ProductFormComponent extends Component {
       }
     }
 
-    const formData = new FormData(form);
+    // CHANGE: const to let
+    let formData = new FormData(form);
+
+    // --- NEW CODE: Handle pack items and gift items ---
+    const addon_items = [];
+    const formId = form.getAttribute('id');
+    const mainVariantId = form.querySelector('input[name="id"]')?.value;
+
+    // 1. Find pack-item-input elements associated with this form
+    const packItemInputs = document.querySelectorAll(`.pack-item-input[form="${formId}"]`);
+    
+    packItemInputs.forEach(input => {
+      // Find the pack-item parent
+      const packItem = input.closest('.pack-item');
+      if (packItem) {
+        // Find the quantity input for this pack item
+        const quantityInput = packItem.querySelector('input[name="pack_item_quantity"]');
+        
+        if (quantityInput) {
+          const quantity = parseInt(quantityInput.value);
+          if (quantity > 0) {
+            addon_items.push({
+              id: input.value,
+              quantity: quantity,
+              parent_id: Number(mainVariantId)
+            });
+          }
+        }
+      }
+    });
+
+    // 2. Find .input-gift-id elements associated with this form
+    const giftIdInput = document.querySelector(`.input-gift-id[form="${formId}"]`);
+    if (giftIdInput && giftIdInput.value) {
+      addon_items.push({
+        id: giftIdInput.value,
+        quantity: 1,
+        properties: {
+          'parentProduct': Number(mainVariantId)
+        }
+      });
+    }
+
+    // If we have addon items, we need to use Shopify's items[] format
+    if (addon_items.length > 0) {
+      // Create a new FormData for the items array format
+      const itemsFormData = new FormData();
+      
+      // Add main product as items[0]
+      const mainQuantity = formData.get('quantity') || '1';
+      itemsFormData.append('items[0][id]', mainVariantId);
+      itemsFormData.append('items[0][quantity]', mainQuantity);
+      
+      // Add addon items starting from items[1]
+      addon_items.forEach((addon, index) => {
+        itemsFormData.append(`items[${index + 1}][id]`, addon.id);
+        itemsFormData.append(`items[${index + 1}][quantity]`, addon.quantity.toString());
+        // Only add parent_id if it exists (for pack items, not gift)
+        if (addon.parent_id) {
+          itemsFormData.append(`items[${index + 1}][parent_id]`, addon.parent_id);
+        }
+      });
+
+      // Copy all other form data (properties, etc.) to the new FormData
+      for (const [key, value] of formData.entries()) {
+        if (key !== 'id' && key !== 'quantity') {
+          itemsFormData.append(key, value);
+        }
+      }
+
+      // Replace formData with itemsFormData
+      formData = itemsFormData;
+    }
+    // --- END NEW CODE ---
 
     const cartItemsComponents = document.querySelectorAll('cart-items-component');
     let cartItemComponentsSectionIds = [];
@@ -345,7 +418,7 @@ class ProductFormComponent extends Component {
 
           return;
         } else {
-          const id = formData.get('id');
+          const id = mainVariantId || formData.get('id');
 
           if (addToCartTextError) {
             addToCartTextError.classList.add('hidden');
