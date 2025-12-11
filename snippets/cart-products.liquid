@@ -112,16 +112,18 @@
                   data-hide-qty
                 {% endif %}
                 {% liquid
-                  assign parent_cart_item = blank
+                  assign parent_cart_item = false
 
                   for cart_item in cart.items
-                    if item.parent_relationship.parent != null and item.parent_relationship.parent.id == item.variant.id
-                      assign parent_cart_item = item.parent_relationship.parent.id
+                    if cart_item.parent_relationship.parent != null 
+                      if cart_item.parent_relationship.parent.id == item.variant.id
+                        assign parent_cart_item = true
+                      endif
                     endif
                   endfor
                 %}
 
-                {% if parent_cart_item != blank %}
+                {% if parent_cart_item == true %}
                   data-cart-parent
                 {% endif %}
 
