@@ -113,15 +113,26 @@
                 {% endif %}
                 {% liquid
                   assign parent_cart_item = false
+                  assign connected_gift = blank
 
                   for cart_item in cart.items
+
+                    if cart_item.properties['_type'] == 'Free Gift' and cart_item.properties['_parentProduct'] == item.variant.id
+                      assign connected_gift = cart_item
+                    endif
+
                     if cart_item.parent_relationship.parent != null 
                       if cart_item.parent_relationship.parent.id == item.variant.id
                         assign parent_cart_item = true
+                        break
                       endif
                     endif
                   endfor
                 %}
+
+                {% if connected_gift != blank %}
+                  data-connected-gift="{{ connected_gift.key }}"
+                {% endif %}
 
                 {% if parent_cart_item == true %}
                   data-cart-parent
