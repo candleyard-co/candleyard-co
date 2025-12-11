@@ -177,41 +177,42 @@ export class PackCard extends Component {
 
     if (!productGrid || !modalContent) return;
 
-    if (isMobileBreakpoint()) {
-      const productDetails = productGrid.querySelector('.product-details');
-      const packPicker = productGrid.querySelector('pack-picker');
-      const productFormComponent = productGrid.querySelector('product-form-component');
-      const variantPicker = productGrid.querySelector('variant-picker');
-      const productPrice = productGrid.querySelector('product-price');
-      const productTitle = document.createElement('a');
-      productTitle.textContent = this.dataset.productTitle || '';
+    // if (isMobileBreakpoint()) {
+    //   const productDetails = productGrid.querySelector('.product-details');
+    //   const packPicker = productGrid.querySelector('pack-picker');
+    //   debugger
+    //   const productFormComponent = productGrid.querySelector('pack-buttons-block');
+    //   const variantPicker = productGrid.querySelector('variant-picker'); 
+    //   const productPrice = productGrid.querySelector('product-price');
+    //   const productTitle = document.createElement('a');
+    //   productTitle.textContent = this.dataset.productTitle || '';
 
-      // Make product title as a link to the product page
-      productTitle.href = this.productPageUrl;
+    //   // Make product title as a link to the product page
+    //   productTitle.href = this.productPageUrl;
 
-      const productHeader = document.createElement('div');
-      productHeader.classList.add('product-header');
+    //   const productHeader = document.createElement('div');
+    //   productHeader.classList.add('product-header');
 
-      productHeader.appendChild(productTitle);
-      if (productPrice) {
-        productHeader.appendChild(productPrice);
-      }
-      productGrid.appendChild(productHeader);
+    //   productHeader.appendChild(productTitle);
+    //   if (productPrice) {
+    //     productHeader.appendChild(productPrice);
+    //   }
+    //   productGrid.appendChild(productHeader);
 
-      if (variantPicker) {
-        productGrid.appendChild(variantPicker);
-      }
+    //   if (variantPicker) {
+    //     productGrid.appendChild(variantPicker);
+    //   }
 
-      if (packPicker) {
-        productGrid.appendChild(packPicker);
-      }
+    //   if (packPicker) {
+    //     productGrid.appendChild(packPicker);
+    //   }
 
-      if (productFormComponent) {
-        productGrid.appendChild(productFormComponent);
-      }
+    //   if (productFormComponent) {
+    //     productGrid.appendChild(productFormComponent);
+    //   }
 
-      productDetails?.remove();
-    }
+    //   productDetails?.remove();
+    // }
 
     morph(modalContent, productGrid);
 
