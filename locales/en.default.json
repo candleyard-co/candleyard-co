@@ -312,11 +312,11 @@
   },
   "products": {
     "product": {
-      "add_to_cart": "Add to cart",
+      "add_to_cart": "Add to Cart",
       "adding_to_cart": "Adding...",
-      "added_to_cart": "Added to cart",
+      "added_to_cart": "Added to Cart",
       "add_to_cart_error": "Error adding to cart",
-      "pack_add_more": "Add {{ limit }} more",
+      "pack_add_more_html": "Add <span class=\"limit-pack-text\">{{ limit }}</span> More",
       "quantity_error_max": "This item has a maximum of {{ maximum }}",
       "sold_out": "Sold out",
       "unavailable": "Unavailable",

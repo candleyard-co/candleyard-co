@@ -26,12 +26,12 @@
       assign add_to_cart_text = 'products.product.sold_out' | t
     else
       assign can_add_to_cart = true
-      assign add_to_cart_text = 'products.product.pack_add_more' | t: limit: pack_limit
+      assign add_to_cart_text = 'products.product.pack_add_more_html' | t: limit: pack_limit
     endif
   else
     if closest.product.selected_or_first_available_variant != null
       assign can_add_to_cart = true
-      assign add_to_cart_text = 'products.product.pack_add_more' | t: limit: pack_limit
+      assign add_to_cart_text = 'products.product.pack_add_more_html' | t: limit: pack_limit
     else
       assign can_add_to_cart = false
       assign add_to_cart_text = 'products.product.unavailable' | t
@@ -279,6 +279,9 @@
 {% stylesheet %}
   .pack-buttons-block {
     width: 100%;
+  }
+  .add-to-pack-price {
+    font-weight: normal;
   }
 
   .pack-row {

@@ -32,6 +32,13 @@ export class PackSelectorComponent extends Component {
 
     this.initialized = true;
     this.updateButtonStates();
+    
+    // Update hidden input state on initial load
+    this.updateHiddenInputState();
+    
+    // Update add-to-pack button state on initial load
+    this.updateAddToPackButtonState();
+    this.updateLimitPackText(); // <--
   }
 
   disconnectedCallback() {
@@ -44,6 +51,95 @@ export class PackSelectorComponent extends Component {
    */
   getPackPicker() {
     return this.closest('pack-picker');
+  }
+
+  /**
+   * Gets the hidden input element associated with this selector
+   * @returns {HTMLInputElement | null} The hidden pack-item-input
+   */
+  getHiddenInput() {
+    const packItem = this.closest('.pack-item');
+    if (!packItem) return null;
+    
+    return packItem.querySelector('input[name="pack_item"]');
+  }
+
+  /**
+   * Gets the add-to-pack button element
+   * @returns {HTMLButtonElement | null} The add-to-pack button
+   */
+  getAddToPackButton() {
+    const formId = this.getPackPicker()?.dataset.formId;
+    if (!formId) return null;
+
+    // Find the button by its ID pattern or by selector
+    const button = document.querySelector(formId);
+    if (button) return button;
+    
+    // Fallback: find by form and button type
+    const form = document.getElementById(formId);
+    if (!form) return null;
+    
+    return form.querySelector('button[name="add"]');
+  }
+
+  /**
+   * NEW — updates the limit count inside the button
+   */
+  updateLimitPackText() {
+    const button = this.getAddToPackButton();
+    if (!button) return;
+
+    const packLimit = this.getPackLimit();
+    if (packLimit === null) return;
+
+    const total = this.getTotalPackQuantity();
+    const remaining = Math.max(packLimit - total, 0);
+
+    const limitText = button.querySelector('.limit-pack-text');
+    if (limitText) {
+      limitText.textContent = remaining.toString();
+    }
+  }
+
+  /**
+   * Updates the disabled state of the hidden input
+   * based on whether quantity > 0
+   */
+  updateHiddenInputState() {
+    const hiddenInput = this.getHiddenInput();
+    if (!hiddenInput) return;
+    
+    const { value } = this.getCurrentValues();
+    
+    if (value > 0) {
+      // Remove disabled attribute when quantity > 0
+      hiddenInput.removeAttribute('disabled');
+    } else {
+      // Add disabled attribute when quantity is 0
+      hiddenInput.setAttribute('disabled', 'disabled');
+    }
+  }
+
+  /**
+   * Updates the add-to-pack button state based on pack limit
+   */
+  updateAddToPackButtonState() {
+    const button = this.getAddToPackButton();
+    if (!button) return;
+    
+    const packLimit = this.getPackLimit();
+    const totalPackQuantity = this.getTotalPackQuantity();
+    
+    if (packLimit === null) {
+      // If no pack limit, keep button enabled
+      button.disabled = false;
+      return;
+    }
+    
+    // Enable button when total quantity equals pack limit
+    // Disable button when total quantity is less than pack limit
+    button.disabled = totalPackQuantity !== packLimit;
   }
 
   /**
@@ -93,6 +189,9 @@ export class PackSelectorComponent extends Component {
   setValue(value) {
     this.refs.quantityInput.value = value;
     this.updateButtonStates();
+    this.updateHiddenInputState();
+    this.updateAddToPackButtonState();
+    this.updateLimitPackText(); // <--
   }
 
   /**
@@ -132,6 +231,9 @@ export class PackSelectorComponent extends Component {
     }
 
     this.updateButtonStates();
+    this.updateHiddenInputState();
+    this.updateAddToPackButtonState();
+    this.updateLimitPackText(); // <--
   }
 
   /**
@@ -217,6 +319,9 @@ export class PackSelectorComponent extends Component {
     quantityInput.value = newValue.toString();
     this.onQuantityChange();
     this.updateButtonStates();
+    this.updateHiddenInputState();
+    this.updateAddToPackButtonState();
+    this.updateLimitPackText(); // <--
   }
 
   /**
@@ -280,6 +385,9 @@ export class PackSelectorComponent extends Component {
     quantityInput.value = quantity.toString();
     this.onQuantityChange();
     this.updateButtonStates();
+    this.updateHiddenInputState();
+    this.updateAddToPackButtonState();
+    this.updateLimitPackText(); // <--
   }
 
   /**
@@ -297,6 +405,7 @@ export class PackSelectorComponent extends Component {
 
   /**
    * Updates all selectors in the same pack to reflect new button states
+   * and the add-to-pack button state
    */
   updateAllPackSelectors() {
     const packPicker = this.getPackPicker();
@@ -305,8 +414,12 @@ export class PackSelectorComponent extends Component {
     const selectors = packPicker.querySelectorAll('pack-selector-component');
     
     selectors.forEach(selector => {
-      if (selector instanceof PackSelectorComponent && selector !== this) {
-        selector.updateButtonStates();
+      if (selector instanceof PackSelectorComponent) {
+        if (selector !== this) {
+          selector.updateButtonStates();
+        }
+        selector.updateAddToPackButtonState();
+        selector.updateLimitPackText(); // <--
       }
     });
   }

@@ -41,8 +41,11 @@
             <span
                 class="add-to-pack-text"
             >
-                <span class="add-to-pack-text__content">
+                <span class="add-to-pack-text__content add-to-pack-pending__content">
                     {{- add_to_cart_text | default: default_add_to_cart_text -}}
+                </span>
+                <span class="add-to-pack-text__content add-to-pack-success__content">
+                    {{- 'products.product.add_to_cart' | t -}}
                 </span>
                 <span class="add-to-pack-price">
                     {{ product.selected_or_first_available_variant.price | money_without_trailing_zeros }}
@@ -66,13 +69,21 @@
 {% stylesheet %}
   .add-to-pack-text {
     display: flex;
-    gap: var(--gap-2xs);
+    gap: var(--gap-sm);
     align-items: center;
     justify-content: space-between;
     animation-duration: var(--animation-speed);
     animation-timing-function: var(--animation-easing);
     animation-fill-mode: forwards;
     transition: opacity var(--animation-speed) var(--animation-easing);
+  }
+
+  .add-to-pack-button:not([disabled]) .add-to-pack-pending__content {
+    display: none;
+  }
+
+  .add-to-pack-button[disabled] .add-to-pack-success__content {
+    display: none;
   }
 
   .atc-added .add-to-pack-text {

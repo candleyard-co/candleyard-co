@@ -23,29 +23,31 @@
       {% for item in pack_items %}
         {% assign item_product = all_products[item.product] %}
 
-        <div class="pack-item title--aligned-center justify-between">
-          <div class="flex title--aligned-center">
-            <div>
-              {% if item.vector_image != blank %}
-                {% render 'image', image: item.vector_image, class: 'pack-item-image', height: 50 %}
-              {% endif %}
+        {% if item_product %}
+          <div class="pack-item title--aligned-center justify-between {% if item_product.available == false %}oos-pack-item{% endif %}">
+            <div class="flex title--aligned-center">
+              <div>
+                {% if item.vector_image != blank %}
+                  {% render 'image', image: item.vector_image, class: 'pack-item-image', height: 50 %}
+                {% endif %}
+              </div>
+              <div>
+                <span class="pack-item-title">
+                  {{ item.title }}{% if item_product.available == false %} - {{'products.product.sold_out' | t }}{% endif %}
+                </span>
+                <input type="hidden" name="pack_item" disabled value="{{ item_product.selected_or_first_available_variant.id }}" form="{{ product_form_id }}" class="pack-item-input">
+              </div>
             </div>
             <div>
-              <span class="pack-item-title">
-                {{ item.title }}
-              </span>
-              <input type="hidden" name="pack_item" disabled value="{{ item_product.selected_or_first_available_variant.id }}" form="{{ product_form_id }}" class="pack-item-input">
+              {% render 'pack-quantity-selector', 
+                product: item_product,
+                class: 'pack-quantity-selector',
+                current_product: current_product,
+                variant: item_product.selected_or_first_available_variant,
+              %}
             </div>
           </div>
-          <div>
-            {% render 'pack-quantity-selector', 
-              product: item_product,
-              class: 'pack-quantity-selector',
-              current_product: current_product,
-              variant: item_product.selected_or_first_available_variant,
-            %}
-          </div>
-        </div>
+        {% endif %}
       {% endfor %}
     </div>
   </div>
@@ -59,6 +61,11 @@
     @media (min-width: 751px) {
       height: calc(100% - 215px);
     }
+  }
+
+  .oos-pack-item {
+    opacity: .5;
+    cursor: not-allowed;
   }
 
   .pack-picker--inner {
