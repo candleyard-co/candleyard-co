@@ -71,52 +71,15 @@ class CartItemsComponent extends Component {
    * @param {number} line - The line item index.
    */
   onLineItemRemove(line) {
-    const cartItemRowToRemove = this.refs.cartItemRows[line - 1];
-
-    if (!cartItemRowToRemove) return;
-
-    // Check if this is a parent item with connected gifts
-    const hasConnectedGifts = cartItemRowToRemove.hasAttribute('data-connected-gift');
-
-    if (hasConnectedGifts) {
-      // Get parent variant ID and connected gift IDs
-      const parentVariantId = cartItemRowToRemove.dataset.variantId;
-      const giftVariantId = cartItemRowToRemove.dataset.connectedGift;
-      
-      if (parentVariantId && giftVariantId) {
-        // Find ALL gift items with this variant ID
-        const allGiftVariantIds = new Set([giftVariantId]);
-        
-        // Add any other gifts with the same variant ID
-        this.refs.cartItemRows.forEach(row => {
-          if (row.dataset.variantId === giftVariantId && row !== cartItemRowToRemove) {
-            allGiftVariantIds.add(row.dataset.variantId);
-          }
-        });
-
-        // Create updates object for batch removal
-        const updates = {};
-        updates[parentVariantId] = 0; // Remove parent
-        
-        // Remove all gift variants
-        allGiftVariantIds.forEach(variantId => {
-          updates[variantId] = 0;
-        });
-
-        // Use batch update API
-        return this.#updateBatchQuantity({
-          updates: updates,
-          action: 'clear'
-        }, cartItemRowToRemove);
-      }
-    }
-
-    // Original code for non-gift items
     this.updateQuantity({
       line,
       quantity: 0,
       action: 'clear',
     });
+
+    const cartItemRowToRemove = this.refs.cartItemRows[line - 1];
+
+    if (!cartItemRowToRemove) return;
 
     const rowsToRemove = [
       cartItemRowToRemove,
@@ -216,148 +179,6 @@ class CartItemsComponent extends Component {
         cartPerformance.measureFromMarker(cartPerformaceUpdateMarker);
       });
   }
-
-// ============= ADD BATCH UPDATE METHOD =============
-/**
- * Updates multiple quantities at once using Shopify's batch API
- * @param {Object} config - The config with updates object
- * @param {HTMLTableRowElement} parentRow - The parent row being removed
- */
-#updateBatchQuantity(config, parentRow) {
-  const cartPerformanceUpdateMarker = cartPerformance.createStartingMarker(`${config.action}:user-action`);
-
-  this.#disableCartItems();
-
-  const { updates } = config;
-  const { cartTotal } = this.refs;
-
-  const cartItemsComponents = document.querySelectorAll('cart-items-component');
-  const sectionsToUpdate = new Set([this.sectionId]);
-  cartItemsComponents.forEach((item) => {
-    if (item instanceof HTMLElement && item.dataset.sectionId) {
-      sectionsToUpdate.add(item.dataset.sectionId);
-    }
-  });
-
-  // Shopify's batch update format
-  const body = JSON.stringify({
-    updates: updates,
-    sections: Array.from(sectionsToUpdate).join(','),
-    sections_url: window.location.pathname,
-  });
-
-  cartTotal?.shimmer();
-
-  // Use cart/update.js for batch operations
-  fetch(`${Theme.routes.cart_update_url}`, fetchConfig('json', { body }))
-    .then((response) => {
-      if (!response.ok) {
-        throw new Error(`HTTP ${response.status}: ${response.statusText}`);
-      }
-      return response.json();
-    })
-    .then((parsedResponseText) => {
-      resetShimmer(this);
-
-      if (parsedResponseText.errors) {
-        console.error('Batch removal error:', parsedResponseText.errors);
-        // Fallback to individual removal
-        this.#fallbackIndividualRemoval(updates, parentRow);
-        return;
-      }
-
-      // Update data-cart-quantity for all matching variants
-      this.#updateQuantitySelectors(parsedResponseText);
-
-      this.dispatchEvent(
-        new CartUpdateEvent({}, this.sectionId, {
-          itemCount: parsedResponseText.item_count || 0,
-          source: 'cart-items-component',
-          sections: parsedResponseText.sections,
-        })
-      );
-
-      morphSection(this.sectionId, parsedResponseText.sections[this.sectionId]);
-
-      this.#updateCartQuantitySelectorButtonStates();
-      
-      // Handle UI removal after successful batch removal
-      this.#removeUIRows(parentRow);
-    })
-    .catch((error) => {
-      console.error('Batch removal failed:', error);
-      // Fallback to individual removal
-      this.#fallbackIndividualRemoval(updates, parentRow);
-    })
-    .finally(() => {
-      this.#enableCartItems();
-      cartPerformance.measureFromMarker(cartPerformanceUpdateMarker);
-    });
-}
-
-// ============= ADD HELPER METHODS =============
-/**
- * Fallback to individual removal if batch fails
- * @param {Object} updates - Updates object with variantId: 0
- * @param {HTMLTableRowElement} parentRow - Parent row
- */
-#fallbackIndividualRemoval(updates, parentRow) {
-  console.warn('Falling back to individual removal');
-  
-  const variantIds = Object.keys(updates);
-  const parentVariantId = parentRow.dataset.variantId;
-  
-  // Remove parent first
-  const parentLine = Array.from(this.refs.cartItemRows).indexOf(parentRow) + 1;
-  this.updateQuantity({
-    line: parentLine,
-    quantity: 0,
-    action: 'clear',
-  });
-
-  // Remove gifts with delays
-  variantIds.forEach((variantId, index) => {
-    if (variantId !== parentVariantId) {
-      setTimeout(() => {
-        // Find and remove all rows with this gift variant ID
-        this.refs.cartItemRows.forEach((row, rowIndex) => {
-          if (row.dataset.variantId === variantId) {
-            this.updateQuantity({
-              line: rowIndex + 1,
-              quantity: 0,
-              action: 'clear',
-            });
-          }
-        });
-      }, (index + 1) * 300);
-    }
-  });
-
-  // Still remove UI
-  this.#removeUIRows(parentRow);
-}
-
-/**
- * Remove UI rows (common logic)
- * @param {HTMLTableRowElement} parentRow - Parent row
- */
-#removeUIRows(parentRow) {
-  const rowsToRemove = [
-    parentRow,
-    ...this.refs.cartItemRows.filter((row) => row.dataset.parentKey === parentRow.dataset.key),
-  ];
-
-  rowsToRemove.forEach((row) => {
-    const remove = () => row.remove();
-
-    if (prefersReducedMotion()) return remove();
-
-    row.style.setProperty('--row-height', `${row.clientHeight}px`);
-    row.classList.add('removing');
-
-    onAnimationEnd(row, remove);
-  });
-}
 
   /**
    * Handles the discount update.
