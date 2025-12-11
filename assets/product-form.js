@@ -306,7 +306,10 @@ class ProductFormComponent extends Component {
             addon_items.push({
               id: input.value,
               quantity: quantity,
-              parent_id: Number(mainVariantId)
+              parent_id: Number(mainVariantId),
+              properties: {
+                '_parentProduct': Number(mainVariantId)
+              }
             });
           }
         }
@@ -320,7 +323,8 @@ class ProductFormComponent extends Component {
         id: giftIdInput.value,
         quantity: 1,
         properties: {
-          'parentProduct': Number(mainVariantId)
+          '_parentProduct': Number(mainVariantId),
+          '_type': "Free Gift"
         }
       });
     }
@@ -330,24 +334,52 @@ class ProductFormComponent extends Component {
       // Create a new FormData for the items array format
       const itemsFormData = new FormData();
       
-      // Add main product as items[0]
+      // Extract properties from the original form for the main product
+      const mainProperties = {};
+      for (const [key, value] of formData.entries()) {
+        const propMatch = key.match(/^properties\[(.+)]$/);
+        if (propMatch && propMatch[1]) {
+          mainProperties[propMatch[1]] = value;
+        }
+      }
+      
+      // Add main product as items[0] WITH its properties
       const mainQuantity = formData.get('quantity') || '1';
       itemsFormData.append('items[0][id]', mainVariantId);
       itemsFormData.append('items[0][quantity]', mainQuantity);
+      
+      // Add main product properties if any exist
+      if (Object.keys(mainProperties).length > 0) {
+        Object.entries(mainProperties).forEach(([key, value]) => {
+          itemsFormData.append(`items[0][properties][${key}]`, value.toString());
+        });
+      }
       
       // Add addon items starting from items[1]
       addon_items.forEach((addon, index) => {
         itemsFormData.append(`items[${index + 1}][id]`, addon.id);
         itemsFormData.append(`items[${index + 1}][quantity]`, addon.quantity.toString());
-        // Only add parent_id if it exists (for pack items, not gift)
+        
+        // Add parent_id if it exists (for pack items)
         if (addon.parent_id) {
           itemsFormData.append(`items[${index + 1}][parent_id]`, addon.parent_id);
         }
+
+        // Add properties if they exist (for gift items with parentProduct)
+        if (addon.properties) {
+          Object.entries(addon.properties).forEach(([key, value]) => {
+            itemsFormData.append(`items[${index + 1}][properties][${key}]`, value.toString());
+          });
+        }
       });
 
-      // Copy all other form data (properties, etc.) to the new FormData
+      // Copy all OTHER form data (NOT properties, id, or quantity) to the new FormData
+      // This handles any other form fields like gift notes, special instructions, etc.
       for (const [key, value] of formData.entries()) {
-        if (key !== 'id' && key !== 'quantity') {
+        // Skip id, quantity, and properties (we've already handled these)
+        if (key !== 'id' && 
+            key !== 'quantity' && 
+            !key.startsWith('properties[')) {
           itemsFormData.append(key, value);
         }
       }

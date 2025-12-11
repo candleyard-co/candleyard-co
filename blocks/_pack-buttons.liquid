@@ -50,6 +50,7 @@
               <free-gift data-form-id="{{ product_form_id }}" hidden>
                 <span class="title-awaits">{{ 'products.product.gift_unlock' | t }}</span>
                 <span class="free-gift-title"></span>
+                <input type="hidden" name="properties[_status]" value="{{ 'products.product.free_gift_status' | t }}" form="{{ product_form_id }}" class="pack-picker-prop">
               </free-gift>
             </div>
             <div>

@@ -37,6 +37,7 @@
     "loading_product_recommendations": "Loading product recommendations",
     "rating": "Rating of this product is {{ rating }} out of 5",
     "remove_item": "Remove {{ title}}",
+    "remove": "Remove",
     "reset_search": "Reset search",
     "scroll_to": "Scroll to {{ title }}",
     "search_results_count": "{{ count }} search results found for \"{{ query }}\"",
@@ -318,7 +319,7 @@
       "add_to_cart_error": "Error adding to cart",
       "pack_add_more_html": "Add <span class=\"limit-pack-text\">{{ limit }}</span> More",
       "quantity_error_max": "This item has a maximum of {{ maximum }}",
-      "sold_out": "Sold out",
+      "sold_out": "Sold Out",
       "unavailable": "Unavailable",
       "quantity": "Quantity",
       "quantity_increments": "Increments of {{ increment }}",
@@ -328,7 +329,8 @@
       "save": "Save {{ price }}%",
       "pack_title": "Select {{ limit }} {{ title }}",
       "back_button": "Back",
-      "gift_unlock": "🎁 Your free car freshener awaits!"
+      "gift_unlock": "🎁 Your free car freshener awaits!",
+      "free_gift_status": "Has free gift"
     }
   },
   "flip_panel": {

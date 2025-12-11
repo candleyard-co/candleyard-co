@@ -108,6 +108,26 @@
                 ref="cartItemRows[]"
                 data-parent-key="{{ item.parent_relationship.parent.key }}"
                 data-key="{{ item.key }}"
+                {% if item.properties['_parentProduct'] %}
+                  data-hide-qty
+                {% endif %}
+                {% liquid
+                  assign parent_cart_item = blank
+
+                  for cart_item in cart.items
+                    if item.parent_relationship.parent != null and item.parent_relationship.parent.id == item.variant.id
+                      assign parent_cart_item = item.parent_relationship.parent.id
+                    endif
+                  endfor
+                %}
+
+                {% if parent_cart_item != blank %}
+                  data-cart-parent
+                {% endif %}
+
+                {% if item.properties['_type'] and item.properties['_type'] == 'Free Gift' %}
+                  data-free-gift
+                {% endif %}
               >
                 <td
                   class="cart-items__media"
@@ -214,16 +234,25 @@
                     {% endif %}
                   {%- endif -%}
 
-                  {% if item.line_level_discount_allocations.size > 0 %}
+                  {% if item.parent_relationship.parent != null %}
                     <ul
                       class="list-unstyled"
                       role="list"
                     >
-                      {%- for discount in item.line_level_discount_allocations -%}
-                        <li>{{ discount.discount_application.title | escape }}</li>
-                      {%- endfor -%}
+                        <li>{{ item.quantity }}x</li>
                     </ul>
                   {% endif %}
+
+                    {% if item.line_level_discount_allocations.size > 0 %}
+                      <ul
+                        class="list-unstyled discounts-allocated"
+                        role="list"
+                      >
+                        {%- for discount in item.line_level_discount_allocations -%}
+                          <li>{{ discount.discount_application.title | escape }}</li>
+                        {%- endfor -%}
+                      </ul>
+                    {% endif %}
 
                   <div>
                     {% if item.original_price != item.final_price %}
@@ -272,7 +301,7 @@
                   %}
 
                   <button
-                    class="button button--tertiary cart-items__remove"
+                    class="cart-items__remove"
                     type="button"
                     aria-label="{{ 'accessibility.remove_item' | t: title: item.title | escape }}"
                     on:click="/onLineItemRemove/{{ item.index | plus: 1 }}"
@@ -281,7 +310,7 @@
                       hidden
                     {% endif %}
                   >
-                    {{- 'icon-delete.svg' | inline_asset_content -}}
+                    {{ 'accessibility.remove' | t | escape }}
                     <span class="visually-hidden">Remove</span>
                   </button>
                 </td>

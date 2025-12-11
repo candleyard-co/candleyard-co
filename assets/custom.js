@@ -1,3 +1,23 @@
+import {
+  ThemeEvents,
+} from '@theme/events';
+
+// Add the event listener with a function reference
+document.addEventListener(ThemeEvents.cartUpdate, cartListener);
+
+/**
+ * Handles the submit event for the product form.
+ *
+ * @param {Event} event - The submit event.
+ */
+// Define the event handler function
+function cartListener(event) {
+  // Access the event details from the event parameter
+  const eventData = event.detail;
+  
+  console.log('Variant update event received:', event);
+
+}
 document.querySelectorAll('.slider-scrollings').forEach((scrollingElement) => {
   let isDragging = false;
   let startX;
