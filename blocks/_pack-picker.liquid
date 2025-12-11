@@ -23,7 +23,7 @@
       {% for item in pack_items %}
         {% assign item_product = all_products[item.product] %}
 
-        {% if item_product %}
+        {% if item_product != blank %}
           <div class="pack-item title--aligned-center justify-between {% if item_product.available == false %}oos-pack-item{% endif %}">
             <div class="flex pack-item-flex title--aligned-center">
               <div>
