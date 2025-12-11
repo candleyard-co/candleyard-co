@@ -172,11 +172,46 @@ function addFreeGiftToCart(freeGiftData) {
 }
 
 function removeItemFromCart(itemKey) {
-    const payload = {
-        id: itemKey,
-        quantity: 0
-    };
+    // First fetch the cart to get current line numbers
+    return fetch('/cart.js')
+        .then(response => response.json())
+        .then(cart => {
+            // Find the item by its key to get its line position
+            const itemIndex = cart.items.findIndex(item => item.key === itemKey);
+            
+            if (itemIndex === -1) {
+                console.log('Item not found in cart by key:', itemKey);
+                // Try finding by properties if key doesn't match
+                const giftItem = cart.items.find(item => 
+                    item.properties && 
+                    item.properties._type === 'Free Gift'
+                );
+                
+                if (!giftItem) {
+                    throw new Error('Free gift not found in cart');
+                }
+                
+                // Use the found gift item
+                return removeItemByLine(cart.items.indexOf(giftItem) + 1);
+            }
+            
+            // Use the line number (1-indexed)
+            return removeItemByLine(itemIndex + 1);
+        })
+        .catch(error => {
+            console.error('Error fetching cart for removal:', error);
+            throw error;
+        });
+}
 
+function removeItemByLine(lineNumber) {
+    const formData = new FormData();
+    
+    // For /cart/update.js, use line numbers and updates[]
+    formData.append('updates[]', 0); // Quantity 0 removes the item
+    formData.append('line', lineNumber.toString()); // Line number (1-indexed)
+    
+    // Get sections to update
     const cartItemsComponents = document.querySelectorAll('cart-items-component');
     let sectionIds = [];
     cartItemsComponents.forEach((item) => {
@@ -184,22 +219,25 @@ function removeItemFromCart(itemKey) {
             sectionIds.push(item.dataset.sectionId);
         }
     });
-
+    
     if (sectionIds.length > 0) {
-        payload.sections = sectionIds.join(',');
+        formData.append('sections', sectionIds.join(','));
     }
-
-    return fetch('/cart/change.js', {
-        method: 'POST',
+    
+    const fetchCfg = fetchConfig('javascript', { body: formData });
+    
+    console.log('Removing item at line:', lineNumber);
+    
+    return fetch('/cart/update.js', {
+        ...fetchCfg,
         headers: {
-            'Content-Type': 'application/json',
-            'Accept': 'application/json',
+            ...fetchCfg.headers,
+            Accept: 'text/html',
         },
-        body: JSON.stringify(payload)
     })
     .then(response => response.json())
     .then(updatedCart => {
-        console.log('Item removed successfully.');
+        console.log('Item removed successfully via update.js');
         document.dispatchEvent(
             new CustomEvent(ThemeEvents.cartUpdate, {
                 detail: {
@@ -212,7 +250,7 @@ function removeItemFromCart(itemKey) {
         return updatedCart;
     })
     .catch(error => {
-        console.error('Cart removal error:', error);
+        console.error('Cart removal error via update.js:', error);
         throw error;
     });
 }
