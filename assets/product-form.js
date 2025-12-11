@@ -316,32 +316,31 @@ console.log(formId)
       }
     });
 
-    // 2. Check session storage for free gift selection
-    try {
-      const storedDataStr = sessionStorage.getItem('free-gift-selection');
-      if (storedDataStr) {
-        const storedData = JSON.parse(storedDataStr);
-        
-        // Check if the data is still valid (optional: you could add timestamp validation)
-        if (storedData?.freeGift?.variantId) {
-          addon_items.push({
-            id: Number(storedData.freeGift.variantId), // Convert to number for consistency with other IDs
-            quantity: 1,
-            properties: {
-              '_parentProduct': Number(mainVariantId),
-              '_type': "Free Gift",
-              '_giftProductId': storedData.freeGift.id, // Original product ID
-              '_giftHandle': storedData.freeGift.handle // Product handle for reference
-            }
-          });
+  // 2. Check localStorage for free gift selection
+  try {
+    const storedDataStr = localStorage.getItem('free-gift-selection');
+    if (storedDataStr) {
+      const storedData = JSON.parse(storedDataStr);
 
-          // Optional: Clear the session storage after using the gift selection
-          // sessionStorage.removeItem('free-gift-selection');
-        }
+      if (storedData?.freeGift?.variantId) {
+        addon_items.push({
+          id: Number(storedData.freeGift.variantId),
+          quantity: 1,
+          properties: {
+            '_parentProduct': Number(mainVariantId),
+            '_type': "Free Gift",
+            '_giftProductId': storedData.freeGift.id,
+            '_giftHandle': storedData.freeGift.handle
+          }
+        });
+        
+        // Optional: Remove after use if you only want one free gift per session
+        // localStorage.removeItem('free-gift-selection');
       }
-    } catch (error) {
-      console.error('Error parsing free-gift-selection from sessionStorage:', error);
     }
+  } catch (error) {
+    console.error('Error parsing free-gift-selection from localStorage:', error);
+  }
 
     // If we have addon items, we need to use Shopify's items[] format
     if (addon_items.length > 0) {

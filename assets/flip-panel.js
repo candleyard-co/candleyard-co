@@ -61,7 +61,7 @@ export default class FlipPanel extends Component {
       card.addEventListener('click', () => this.handleFlip(card));
     });
 
-    document.body.classList.add('shop-show')
+    document.body.classList.add('shop-show');
   }
 
   /**
@@ -74,12 +74,12 @@ export default class FlipPanel extends Component {
   }
 
   /**
-   * Get free gift selection from sessionStorage
+   * Get free gift selection from localStorage
    * @returns {Object|null}
    */
   getFreeGiftSelection() {
     try {
-      const storedData = sessionStorage.getItem('free-gift-selection');
+      const storedData = localStorage.getItem('free-gift-selection');
       if (!storedData) return null;
       
       return JSON.parse(storedData);
@@ -90,13 +90,13 @@ export default class FlipPanel extends Component {
   }
 
   /**
-   * Store free gift selection
+   * Store free gift selection in localStorage
    * @param {string} productId
    * @param {string} variantId
    * @param {string} handle
    */
   setFreeGiftSelection(productId, variantId, handle) {
-    sessionStorage.setItem(
+    localStorage.setItem(
       'free-gift-selection',
       JSON.stringify({
         freeGift: {
@@ -107,6 +107,13 @@ export default class FlipPanel extends Component {
         }
       })
     );
+  }
+
+  /**
+   * Clear free gift selection from localStorage
+   */
+  clearFreeGiftSelection() {
+    localStorage.removeItem('free-gift-selection');
   }
 
   /**
@@ -150,7 +157,7 @@ export default class FlipPanel extends Component {
       const randomProductId = this.productList[randomIndex].id;
       const randomProductHandle = this.productList[randomIndex].handle;
 
-      // Store the selection temporarily (will be finalized on submit)
+      // Store the selection (will persist across pages)
       this.setFreeGiftSelection(
         randomProductId, 
         this.productList[randomIndex].variants[0].id, 

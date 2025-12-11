@@ -1,23 +1,84 @@
-import {
-  ThemeEvents,
-} from '@theme/events';
+import { fetchConfig } from '@theme/utilities';
+import { ThemeEvents } from '@theme/events';
 
-// // Add the event listener with a function reference
-// document.addEventListener(ThemeEvents.cartUpdate, cartListener);
+function cartListener(event) {
+    const eventData = event.detail.data;
+    
+    if (eventData.sections && typeof eventData.sections === 'object') {
+        const sectionId = Object.keys(eventData.sections)[0];
+        const sectionHtml = eventData.sections[sectionId];
+        const tempDiv = document.createElement('div');
+        tempDiv.innerHTML = sectionHtml;
+        const cartDataElement = tempDiv.querySelector('noscript.cart-data');
+        
+        if (cartDataElement?.textContent) {
+            try {
+                const cartData = JSON.parse(cartDataElement.textContent);
+                const storedDataStr = localStorage.getItem('free-gift-selection');
+                
+                if (storedDataStr) {
+                    const storedData = JSON.parse(storedDataStr);
+                    if (storedData?.freeGift?.variantId) {
+                        const freeGiftVariantId = Number(storedData.freeGift.variantId);
+                        const filteredItems = cartData.items.filter(item => 
+                            Number(item.variant_id) === freeGiftVariantId
+                        );
+                        
+                        if (filteredItems.length > 0 && cartData.total_price === 0) {
+                            removeItemFromCart(filteredItems[0].key);
+                        }
+                    }
+                }
+            } catch (error) {
+                console.error('Cart data parsing error:', error);
+            }
+        }
+    }
+}
 
-// /**
-//  * Handles the submit event for the product form.
-//  *
-//  * @param {Event} event - The submit event.
-//  */
-// // Define the event handler function
-// function cartListener(event) {
-//   // Access the event details from the event parameter
-//   const eventData = event.detail;
-  
-//   console.log('Variant update event received:', event);
+function removeItemFromCart(itemKey) {
+    const formData = new FormData();
+    formData.append('updates[]', 0);
+    formData.append('id[]', itemKey);
+    
+    const cartItemsComponents = document.querySelectorAll('cart-items-component');
+    let sectionIds = [];
+    cartItemsComponents.forEach((item) => {
+        if (item instanceof HTMLElement && item.dataset.sectionId) {
+            sectionIds.push(item.dataset.sectionId);
+        }
+    });
+    
+    if (sectionIds.length > 0) {
+        formData.append('sections', sectionIds.join(','));
+    }
+    
+    const fetchCfg = fetchConfig('javascript', { body: formData });
+    
+    fetch('/cart/update.js', {
+        ...fetchCfg,
+        headers: {
+            ...fetchCfg.headers,
+            Accept: 'text/html',
+        },
+    })
+        .then(response => response.json())
+        .then(updatedCart => {
+            document.dispatchEvent(
+                new CustomEvent(ThemeEvents.cartUpdate, {
+                    detail: {
+                        sourceId: 'cart-listener',
+                        data: updatedCart,
+                        sections: updatedCart.sections || {}
+                    }
+                })
+            );
+        })
+        .catch(error => console.error('Cart removal error:', error));
+}
 
-// }
+document.addEventListener(ThemeEvents.cartUpdate, cartListener);
+
 document.querySelectorAll('.slider-scrollings').forEach((scrollingElement) => {
   let isDragging = false;
   let startX;

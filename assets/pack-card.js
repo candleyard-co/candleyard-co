@@ -348,9 +348,9 @@ export class FreeGift extends Component {
   async loadFreeGiftTitle() {
     try {
       // Handle null case explicitly
-      const storedData = sessionStorage.getItem('free-gift-selection');
-      const sessionData = storedData ? JSON.parse(storedData) : null;
-      const handle = this.dataset.productHandle || sessionData?.freeGift?.handle;
+      const storedData = localStorage.getItem('free-gift-selection');
+      const localData = storedData ? JSON.parse(storedData) : null;
+      const handle = this.dataset.productHandle || localData?.freeGift?.handle;
 
       if (!handle) {
         console.warn('FreeGift: No product handle found');
