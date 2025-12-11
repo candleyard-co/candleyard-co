@@ -117,8 +117,11 @@
 
                   for cart_item in cart.items
 
-                    if cart_item.properties['_type'] == 'Free Gift' and cart_item.properties['_parentProduct'] == item.variant.id
-                      assign connected_gift = cart_item
+                    if cart_item.properties['_type'] == 'Free Gift'
+                      assign gift_parent_id = cart_item.properties['_parentProduct'] | plus: 0
+                      if gift_parent_id == item.variant.id
+                        assign connected_gift = cart_item
+                      endif
                     endif
 
                     if cart_item.parent_relationship.parent != null 
@@ -131,7 +134,8 @@
                 %}
 
                 {% if connected_gift != blank %}
-                  data-connected-gift="{{ connected_gift.key }}"
+                  data-variant-id="{{ item.variant.id }}"
+                  data-connected-gift="{{ connected_gift.variant.id }}"
                 {% endif %}
 
                 {% if parent_cart_item == true %}
