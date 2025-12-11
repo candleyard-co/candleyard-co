@@ -164,7 +164,7 @@ product-price .price {
     font-size: var(--cart-font-size--xs) !important;
 }
 
-[data-hide-qty] .cart-items__quantity,[data-hide-qty] [headers="productTotal"] {
+[data-hide-qty] .cart-items__quantity,[data-hide-qty] [headers="productTotal"], [data-hide-qty] .cart-title-price {
     display: none;
 }
 
