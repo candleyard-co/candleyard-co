@@ -3,7 +3,12 @@ import { ThemeEvents } from '@theme/events';
 
 function cartListener(event) {
     const eventData = event.detail.data;
-    
+
+    // Skip events triggered by this listener to prevent loops
+    if (event.detail.sourceId === 'free-gift-adder') {
+        return;
+    }
+
     if (eventData.sections && typeof eventData.sections === 'object') {
         const sectionId = Object.keys(eventData.sections)[0];
         const sectionHtml = eventData.sections[sectionId];
@@ -18,14 +23,28 @@ function cartListener(event) {
                 
                 if (storedDataStr) {
                     const storedData = JSON.parse(storedDataStr);
+                    
                     if (storedData?.freeGift?.variantId) {
                         const freeGiftVariantId = Number(storedData.freeGift.variantId);
                         const filteredItems = cartData.items.filter(item => 
                             Number(item.variant_id) === freeGiftVariantId
                         );
                         
+                        console.log('Free gift check:', {
+                            cartTotal: cartData.total_price,
+                            hasFreeGift: filteredItems.length > 0,
+                            cartTotalGreaterThanZero: cartData.total_price > 0
+                        });
+
+                        // Remove free gift if cart total is $0
                         if (filteredItems.length > 0 && cartData.total_price === 0) {
+                            console.log('Cart total is $0. Removing free gift...');
                             removeItemFromCart(filteredItems[0].key);
+                        }
+                        // Add free gift if cart has paid items (> $0) and gift not present
+                        else if (filteredItems.length === 0 && cartData.total_price > 0) {
+                            console.log('Cart has paid items but no free gift. Adding free gift...');
+                            addFreeGiftToCart(storedData.freeGift);
                         }
                     }
                 }
@@ -36,11 +55,128 @@ function cartListener(event) {
     }
 }
 
-function removeItemFromCart(itemKey) {
+function addFreeGiftToCart(freeGiftData) {
     const formData = new FormData();
-    formData.append('updates[]', 0);
-    formData.append('id[]', itemKey);
     
+    // Add the free gift variant
+    formData.append('id', freeGiftData.variantId);
+    formData.append('quantity', 1);
+    
+    // Find the main product variant ID from the cart to use as parent
+    const cartItemsComponents = document.querySelectorAll('cart-items-component');
+    let sectionIds = [];
+    let mainVariantId = null;
+    
+    // First get the cart sections and try to find a main product
+    cartItemsComponents.forEach((item) => {
+        if (item instanceof HTMLElement && item.dataset.sectionId) {
+            sectionIds.push(item.dataset.sectionId);
+        }
+    });
+    
+    // Try to find a non-gift item in the cart to use as parent
+    // You might want to adjust this logic based on how you identify the main product
+    if (sectionIds.length > 0) {
+        formData.append('sections', sectionIds.join(','));
+        
+        // Fetch current cart to find the main product
+        return fetch('/cart.js')
+            .then(response => response.json())
+            .then(cart => {
+                // Find the first item that's not a free gift (you might need to adjust this logic)
+                const mainCartItem = cart.items.find(item => 
+                    !item.properties || 
+                    (item.properties._type !== 'Free Gift' && !item.properties._type)
+                );
+                
+                // Use the main product's variant ID if found, otherwise use the first item
+                mainVariantId = mainCartItem ? mainCartItem.variant_id : cart.items[0]?.variant_id;
+                
+                // Add properties to identify it as a free gift
+                if (mainVariantId) {
+                    formData.append('properties[_parentProduct]', mainVariantId.toString());
+                }
+                formData.append('properties[_type]', 'Free Gift');
+                formData.append('properties[_giftProductId]', freeGiftData.id.toString());
+                formData.append('properties[_giftHandle]', freeGiftData.handle);
+                
+                console.log('Adding free gift to cart with properties:', {
+                    variantId: freeGiftData.variantId,
+                    parentProduct: mainVariantId,
+                    type: 'Free Gift',
+                    giftProductId: freeGiftData.id,
+                    handle: freeGiftData.handle
+                });
+                
+                // Now make the add request
+                const fetchCfg = fetchConfig('javascript', { body: formData });
+                
+                return fetch('/cart/add.js', {
+                    ...fetchCfg,
+                    headers: {
+                        ...fetchCfg.headers,
+                        Accept: 'text/html',
+                    },
+                });
+            })
+            .then(response => response.json())
+            .then(updatedCart => {
+                console.log('Free gift added successfully.');
+                
+                document.dispatchEvent(
+                    new CustomEvent(ThemeEvents.cartUpdate, {
+                        detail: {
+                            sourceId: 'free-gift-adder',
+                            data: updatedCart,
+                            sections: updatedCart.sections || {}
+                        }
+                    })
+                );
+                
+                return updatedCart;
+            });
+    } else {
+        // Fallback if we can't find sections (shouldn't happen normally)
+        formData.append('properties[_type]', 'Free Gift');
+        formData.append('properties[_giftProductId]', freeGiftData.id.toString());
+        formData.append('properties[_giftHandle]', freeGiftData.handle);
+        
+        const fetchCfg = fetchConfig('javascript', { body: formData });
+        
+        console.log('Adding free gift without parent product reference');
+        
+        return fetch('/cart/add.js', {
+            ...fetchCfg,
+            headers: {
+                ...fetchCfg.headers,
+                Accept: 'text/html',
+            },
+        })
+        .then(response => response.json())
+        .then(updatedCart => {
+            console.log('Free gift added successfully (no parent reference).');
+            
+            document.dispatchEvent(
+                new CustomEvent(ThemeEvents.cartUpdate, {
+                    detail: {
+                        sourceId: 'free-gift-adder',
+                        data: updatedCart,
+                        sections: updatedCart.sections || {}
+                    }
+                })
+            );
+            
+            return updatedCart;
+        });
+    }
+}
+
+function removeItemFromCart(itemKey) {
+    const payload = {
+        id: itemKey,
+        quantity: 0
+    };
+
     const cartItemsComponents = document.querySelectorAll('cart-items-component');
     let sectionIds = [];
     cartItemsComponents.forEach((item) => {
@@ -48,33 +184,37 @@ function removeItemFromCart(itemKey) {
             sectionIds.push(item.dataset.sectionId);
         }
     });
-    
+
     if (sectionIds.length > 0) {
-        formData.append('sections', sectionIds.join(','));
+        payload.sections = sectionIds.join(',');
     }
-    
-    const fetchCfg = fetchConfig('javascript', { body: formData });
-    
-    fetch('/cart/update.js', {
-        ...fetchCfg,
+
+    return fetch('/cart/change.js', {
+        method: 'POST',
         headers: {
-            ...fetchCfg.headers,
-            Accept: 'text/html',
+            'Content-Type': 'application/json',
+            'Accept': 'application/json',
         },
+        body: JSON.stringify(payload)
     })
-        .then(response => response.json())
-        .then(updatedCart => {
-            document.dispatchEvent(
-                new CustomEvent(ThemeEvents.cartUpdate, {
-                    detail: {
-                        sourceId: 'cart-listener',
-                        data: updatedCart,
-                        sections: updatedCart.sections || {}
-                    }
-                })
-            );
-        })
-        .catch(error => console.error('Cart removal error:', error));
+    .then(response => response.json())
+    .then(updatedCart => {
+        console.log('Item removed successfully.');
+        document.dispatchEvent(
+            new CustomEvent(ThemeEvents.cartUpdate, {
+                detail: {
+                    sourceId: 'free-gift-adder',
+                    data: updatedCart,
+                    sections: updatedCart.sections || {}
+                }
+            })
+        );
+        return updatedCart;
+    })
+    .catch(error => {
+        console.error('Cart removal error:', error);
+        throw error;
+    });
 }
 
 document.addEventListener(ThemeEvents.cartUpdate, cartListener);

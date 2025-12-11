@@ -230,285 +230,240 @@ class ProductFormComponent extends Component {
    * @param {Event} event - The submit event.
    */
   handleSubmit(event) {
-    const { addToCartTextError, addToCartButtonContainer } = this.refs;
-    // Stop default behaviour from the browser
-    event.preventDefault();
+      const { addToCartTextError, addToCartButtonContainer } = this.refs;
+      // Stop default behaviour from the browser
+      event.preventDefault();
 
-    if (this.#timeout) clearTimeout(this.#timeout);
+      if (this.#timeout) clearTimeout(this.#timeout);
 
-    // Check if the add to cart button is disabled and do an early return if it is
-    if (addToCartButtonContainer?.refs.addToCartButton?.disabled) return;
+      // Check if the add to cart button is disabled and do an early return if it is
+      if (addToCartButtonContainer?.refs.addToCartButton?.disabled) return;
 
-    // Send the add to cart information to the cart
-    const form = this.querySelector('form');
+      // Send the add to cart information to the cart
+      const form = this.querySelector('form');
 
-    if (!form) throw new Error('Product form element missing');
+      if (!form) throw new Error('Product form element missing');
 
-    const quantitySelector = /** @type {any} */ (this.querySelector('quantity-selector-component'));
-    if (quantitySelector?.canAddToCart) {
-      const validation = quantitySelector.canAddToCart();
+      const quantitySelector = /** @type {any} */ (this.querySelector('quantity-selector-component'));
+      if (quantitySelector?.canAddToCart) {
+          const validation = quantitySelector.canAddToCart();
 
-      if (!validation.canAdd) {
-        addToCartButtonContainer?.disable();
+          if (!validation.canAdd) {
+              addToCartButtonContainer?.disable();
 
-        const errorTemplate = this.dataset.quantityErrorMax || '';
-        const errorMessage = errorTemplate.replace('{{ maximum }}', validation.maxQuantity.toString());
-        if (addToCartTextError) {
-          addToCartTextError.classList.remove('hidden');
+              const errorTemplate = this.dataset.quantityErrorMax || '';
+              const errorMessage = errorTemplate.replace('{{ maximum }}', validation.maxQuantity.toString());
+              if (addToCartTextError) {
+                  addToCartTextError.classList.remove('hidden');
 
-          const textNode = addToCartTextError.childNodes[2];
-          if (textNode) {
-            textNode.textContent = errorMessage;
-          } else {
-            const newTextNode = document.createTextNode(errorMessage);
-            addToCartTextError.appendChild(newTextNode);
-          }
+                  const textNode = addToCartTextError.childNodes[2];
+                  if (textNode) {
+                      textNode.textContent = errorMessage;
+                  } else {
+                      const newTextNode = document.createTextNode(errorMessage);
+                      addToCartTextError.appendChild(newTextNode);
+                  }
 
-          this.#setLiveRegionText(errorMessage);
+                  this.#setLiveRegionText(errorMessage);
 
-          if (this.#timeout) clearTimeout(this.#timeout);
-          this.#timeout = setTimeout(() => {
-            if (!addToCartTextError) return;
-            addToCartTextError.classList.add('hidden');
-            this.#clearLiveRegionText();
-          }, ERROR_MESSAGE_DISPLAY_DURATION);
-        }
-
-        setTimeout(() => {
-          addToCartButtonContainer?.enable();
-        }, ERROR_BUTTON_REENABLE_DELAY);
-
-        return;
-      }
-    }
-
-    // CHANGE: const to let
-    let formData = new FormData(form);
-
-    // --- NEW CODE: Handle pack items and gift items ---
-    const addon_items = [];
-    const formId = form.getAttribute('id');
-    const mainVariantId = form.querySelector('input[name="id"]')?.value;
-console.log(formId)
-    // 1. Find pack-item-input elements associated with this form
-    const packItemInputs = document.querySelectorAll(`.pack-item-input[form="${formId}"]`);
-    
-    packItemInputs.forEach(input => {
-      // Find the pack-item parent
-      const packItem = input.closest('.pack-item');
-      if (packItem) {
-        // Find the quantity input for this pack item
-        const quantityInput = packItem.querySelector('input[name="pack_item_quantity"]');
-        
-        if (quantityInput) {
-          const quantity = parseInt(quantityInput.value);
-          if (quantity > 0) {
-            addon_items.push({
-              id: Number(input.value),
-              quantity: quantity,
-              parent_id: Number(mainVariantId),
-              properties: {
-                '_parentProduct': Number(mainVariantId)
+                  if (this.#timeout) clearTimeout(this.#timeout);
+                  this.#timeout = setTimeout(() => {
+                      if (!addToCartTextError) return;
+                      addToCartTextError.classList.add('hidden');
+                      this.#clearLiveRegionText();
+                  }, ERROR_MESSAGE_DISPLAY_DURATION);
               }
-            });
+
+              setTimeout(() => {
+                  addToCartButtonContainer?.enable();
+              }, ERROR_BUTTON_REENABLE_DELAY);
+
+              return;
           }
-        }
       }
-    });
 
-  // 2. Check localStorage for free gift selection
-  try {
-    const storedDataStr = localStorage.getItem('free-gift-selection');
-    if (storedDataStr) {
-      const storedData = JSON.parse(storedDataStr);
+      // CHANGE: const to let
+      let formData = new FormData(form);
 
-      if (storedData?.freeGift?.variantId) {
-        addon_items.push({
-          id: Number(storedData.freeGift.variantId),
-          quantity: 1,
-          properties: {
-            '_parentProduct': Number(mainVariantId),
-            '_type': "Free Gift",
-            '_giftProductId': storedData.freeGift.id,
-            '_giftHandle': storedData.freeGift.handle
+      // --- Handle pack items ---
+      const addon_items = [];
+      const formId = form.getAttribute('id');
+      const mainVariantId = form.querySelector('input[name="id"]')?.value;
+
+      // Find pack-item-input elements associated with this form
+      const packItemInputs = document.querySelectorAll(`.pack-item-input[form="${formId}"]`);
+
+      packItemInputs.forEach(input => {
+          const packItem = input.closest('.pack-item');
+          if (packItem) {
+              const quantityInput = packItem.querySelector('input[name="pack_item_quantity"]');
+
+              if (quantityInput) {
+                  const quantity = parseInt(quantityInput.value);
+                  if (quantity > 0) {
+                      addon_items.push({
+                          id: Number(input.value),
+                          quantity: quantity,
+                          parent_id: Number(mainVariantId),
+                          properties: {
+                              '_parentProduct': Number(mainVariantId)
+                          }
+                      });
+                  }
+              }
           }
-        });
-        
-        // Optional: Remove after use if you only want one free gift per session
-        // localStorage.removeItem('free-gift-selection');
-      }
-    }
-  } catch (error) {
-    console.error('Error parsing free-gift-selection from localStorage:', error);
-  }
+      });
 
-    // If we have addon items, we need to use Shopify's items[] format
-    if (addon_items.length > 0) {
-      // Create a new FormData for the items array format
-      const itemsFormData = new FormData();
-      
-      // Extract properties from the original form for the main product
-      const mainProperties = {};
-      for (const [key, value] of formData.entries()) {
-        const propMatch = key.match(/^properties\[(.+)]$/);
-        if (propMatch && propMatch[1]) {
-          mainProperties[propMatch[1]] = value;
-        }
-      }
-      
-      // // Add a random number to main properties if addons exist
-      // const randomNum = Math.floor(Math.random() * 1000000); // Generate random number between 0-999999
-      // mainProperties['_random_num'] = randomNum.toString();
+      // If we have addon items, we need to use Shopify's items[] format
+      if (addon_items.length > 0) {
+          const itemsFormData = new FormData();
 
-      // Add main product as items[0] WITH its properties
-      const mainQuantity = formData.get('quantity') || '1';
-      itemsFormData.append('items[0][id]', mainVariantId);
-      itemsFormData.append('items[0][quantity]', mainQuantity);
-      
-      // Add main product properties if any exist
-      if (Object.keys(mainProperties).length > 0) {
-        Object.entries(mainProperties).forEach(([key, value]) => {
-          itemsFormData.append(`items[0][properties][${key}]`, value.toString());
-        });
-      }
-      
-      // Add addon items starting from items[1]
-      addon_items.forEach((addon, index) => {
-        itemsFormData.append(`items[${index + 1}][id]`, addon.id);
-        itemsFormData.append(`items[${index + 1}][quantity]`, addon.quantity.toString());
-        
-        // Add parent_id if it exists (for pack items)
-        if (addon.parent_id) {
-          itemsFormData.append(`items[${index + 1}][parent_id]`, addon.parent_id);
-        }
+          // Extract properties from the original form for the main product
+          const mainProperties = {};
+          for (const [key, value] of formData.entries()) {
+              const propMatch = key.match(/^properties\[(.+)]$/);
+              if (propMatch && propMatch[1]) {
+                  mainProperties[propMatch[1]] = value;
+              }
+          }
 
-        // Add properties if they exist (for gift items with parentProduct)
-        if (addon.properties) {
-          Object.entries(addon.properties).forEach(([key, value]) => {
-            itemsFormData.append(`items[${index + 1}][properties][${key}]`, value.toString());
+          // Add main product as items[0] with its properties
+          const mainQuantity = formData.get('quantity') || '1';
+          itemsFormData.append('items[0][id]', mainVariantId);
+          itemsFormData.append('items[0][quantity]', mainQuantity);
+
+          // Add main product properties if any exist
+          if (Object.keys(mainProperties).length > 0) {
+              Object.entries(mainProperties).forEach(([key, value]) => {
+                  itemsFormData.append(`items[0][properties][${key}]`, value.toString());
+              });
+          }
+
+          // Add addon items starting from items[1]
+          addon_items.forEach((addon, index) => {
+              itemsFormData.append(`items[${index + 1}][id]`, addon.id);
+              itemsFormData.append(`items[${index + 1}][quantity]`, addon.quantity.toString());
+
+              // Add parent_id for pack items
+              if (addon.parent_id) {
+                  itemsFormData.append(`items[${index + 1}][parent_id]`, addon.parent_id);
+              }
+
+              // Add properties for pack items
+              if (addon.properties) {
+                  Object.entries(addon.properties).forEach(([key, value]) => {
+                      itemsFormData.append(`items[${index + 1}][properties][${key}]`, value.toString());
+                  });
+              }
           });
-        }
-        
-      });
 
-      // Copy all OTHER form data (NOT properties, id, or quantity) to the new FormData
-      // This handles any other form fields like gift notes, special instructions, etc.
-      for (const [key, value] of formData.entries()) {
-        // Skip id, quantity, and properties (we've already handled these)
-        if (key !== 'id' && 
-            key !== 'quantity' && 
-            !key.startsWith('properties[')) {
-          itemsFormData.append(key, value);
-        }
+          // Copy all other form data (excluding properties, id, and quantity)
+          for (const [key, value] of formData.entries()) {
+              if (key !== 'id' && 
+                  key !== 'quantity' && 
+                  !key.startsWith('properties[')) {
+                  itemsFormData.append(key, value);
+              }
+          }
+
+          // Replace formData with itemsFormData
+          formData = itemsFormData;
       }
 
-      // Replace formData with itemsFormData
-      formData = itemsFormData;
-    }
-    // --- END NEW CODE ---
-
-    const cartItemsComponents = document.querySelectorAll('cart-items-component');
-    let cartItemComponentsSectionIds = [];
-    cartItemsComponents.forEach((item) => {
-      if (item instanceof HTMLElement && item.dataset.sectionId) {
-        cartItemComponentsSectionIds.push(item.dataset.sectionId);
-      }
-      formData.append('sections', cartItemComponentsSectionIds.join(','));
-    });
-
-    const fetchCfg = fetchConfig('javascript', { body: formData });
-
-    fetch(Theme.routes.cart_add_url, {
-      ...fetchCfg,
-      headers: {
-        ...fetchCfg.headers,
-        Accept: 'text/html',
-      },
-    })
-      .then((response) => response.json())
-      .then((response) => {
-        if (response.status) {
-          this.dispatchEvent(
-            new CartErrorEvent(form.getAttribute('id') || '', response.message, response.description, response.errors)
-          );
-
-          if (!addToCartTextError) return;
-          addToCartTextError.classList.remove('hidden');
-
-          // Reuse the text node if the user is spam-clicking
-          const textNode = addToCartTextError.childNodes[2];
-          if (textNode) {
-            textNode.textContent = response.message;
-          } else {
-            const newTextNode = document.createTextNode(response.message);
-            addToCartTextError.appendChild(newTextNode);
+      const cartItemsComponents = document.querySelectorAll('cart-items-component');
+      let cartItemComponentsSectionIds = [];
+      cartItemsComponents.forEach((item) => {
+          if (item instanceof HTMLElement && item.dataset.sectionId) {
+              cartItemComponentsSectionIds.push(item.dataset.sectionId);
           }
-
-          // Create or get existing error live region for screen readers
-          this.#setLiveRegionText(response.message);
-
-          this.#timeout = setTimeout(() => {
-            if (!addToCartTextError) return;
-            addToCartTextError.classList.add('hidden');
-
-            // Clear the announcement
-            this.#clearLiveRegionText();
-          }, ERROR_MESSAGE_DISPLAY_DURATION);
-
-          // When we add more than the maximum amount of items to the cart, we need to dispatch a cart update event
-          // because our back-end still adds the max allowed amount to the cart.
-          this.dispatchEvent(
-            new CartAddEvent({}, this.id, {
-              didError: true,
-              source: 'product-form-component',
-              itemCount: Number(formData.get('quantity')) || Number(this.dataset.quantityDefault),
-              productId: this.dataset.productId,
-            })
-          );
-
-          return;
-        } else {
-          const id = mainVariantId || formData.get('id');
-
-          if (addToCartTextError) {
-            addToCartTextError.classList.add('hidden');
-            addToCartTextError.removeAttribute('aria-live');
-          }
-
-          if (!id) throw new Error('Form ID is required');
-
-          // Add aria-live region to inform screen readers that the item was added
-          if (this.refs.addToCartButtonContainer?.refs.addToCartButton) {
-            const addToCartButton = this.refs.addToCartButtonContainer.refs.addToCartButton;
-            const addedTextElement = addToCartButton.querySelector('.add-to-cart-text--added');
-            const addedText = addedTextElement?.textContent?.trim() || Theme.translations.added;
-
-            this.#setLiveRegionText(addedText);
-
-            setTimeout(() => {
-              this.#clearLiveRegionText();
-            }, SUCCESS_MESSAGE_DISPLAY_DURATION);
-          }
-
-          // Fetch the updated cart to get the actual total quantity for this variant
-          this.#fetchAndUpdateCartQuantity();
-
-          this.dispatchEvent(
-            new CartAddEvent({}, id.toString(), {
-              source: 'product-form-component',
-              itemCount: Number(formData.get('quantity')) || Number(this.dataset.quantityDefault),
-              productId: this.dataset.productId,
-              sections: response.sections,
-            })
-          );
-        }
-      })
-      .catch((error) => {
-        console.error(error);
-      })
-      .finally(() => {
-        cartPerformance.measureFromEvent('add:user-action', event);
+          formData.append('sections', cartItemComponentsSectionIds.join(','));
       });
+
+      const fetchCfg = fetchConfig('javascript', { body: formData });
+
+      fetch(Theme.routes.cart_add_url, {
+          ...fetchCfg,
+          headers: {
+              ...fetchCfg.headers,
+              Accept: 'text/html',
+          },
+      })
+          .then((response) => response.json())
+          .then((response) => {
+              if (response.status) {
+                  this.dispatchEvent(
+                      new CartErrorEvent(form.getAttribute('id') || '', response.message, response.description, response.errors)
+                  );
+
+                  if (!addToCartTextError) return;
+                  addToCartTextError.classList.remove('hidden');
+
+                  const textNode = addToCartTextError.childNodes[2];
+                  if (textNode) {
+                      textNode.textContent = response.message;
+                  } else {
+                      const newTextNode = document.createTextNode(response.message);
+                      addToCartTextError.appendChild(newTextNode);
+                  }
+
+                  this.#setLiveRegionText(response.message);
+
+                  this.#timeout = setTimeout(() => {
+                      if (!addToCartTextError) return;
+                      addToCartTextError.classList.add('hidden');
+                      this.#clearLiveRegionText();
+                  }, ERROR_MESSAGE_DISPLAY_DURATION);
+
+                  this.dispatchEvent(
+                      new CartAddEvent({}, this.id, {
+                          didError: true,
+                          source: 'product-form-component',
+                          itemCount: Number(formData.get('quantity')) || Number(this.dataset.quantityDefault),
+                          productId: this.dataset.productId,
+                      })
+                  );
+
+                  return;
+              } else {
+                  const id = mainVariantId || formData.get('id');
+
+                  if (addToCartTextError) {
+                      addToCartTextError.classList.add('hidden');
+                      addToCartTextError.removeAttribute('aria-live');
+                  }
+
+                  if (!id) throw new Error('Form ID is required');
+
+                  if (this.refs.addToCartButtonContainer?.refs.addToCartButton) {
+                      const addToCartButton = this.refs.addToCartButtonContainer.refs.addToCartButton;
+                      const addedTextElement = addToCartButton.querySelector('.add-to-cart-text--added');
+                      const addedText = addedTextElement?.textContent?.trim() || Theme.translations.added;
+
+                      this.#setLiveRegionText(addedText);
+
+                      setTimeout(() => {
+                          this.#clearLiveRegionText();
+                      }, SUCCESS_MESSAGE_DISPLAY_DURATION);
+                  }
+
+                  this.#fetchAndUpdateCartQuantity();
+
+                  this.dispatchEvent(
+                      new CartAddEvent({}, id.toString(), {
+                          source: 'product-form-component',
+                          itemCount: Number(formData.get('quantity')) || Number(this.dataset.quantityDefault),
+                          productId: this.dataset.productId,
+                          sections: response.sections,
+                      })
+                  );
+              }
+          })
+          .catch((error) => {
+              console.error(error);
+          })
+          .finally(() => {
+              cartPerformance.measureFromEvent('add:user-action', event);
+          });
   }
 
   /**
