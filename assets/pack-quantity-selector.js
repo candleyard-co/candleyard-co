@@ -50,7 +50,9 @@ export class PackSelectorComponent extends Component {
    * @returns {HTMLElement | null} The parent pack-picker or null
    */
   getPackPicker() {
-    return this.closest('pack-picker');
+    const packPicker = /** @type {import('./pack-picker').PackPicker | null} */ (this.closest('pack-picker'));
+
+    return packPicker;
   }
 
   /**

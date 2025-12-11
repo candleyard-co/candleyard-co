@@ -345,82 +345,91 @@ export class FreeGift extends Component {
   }
 
   async loadFreeGiftTitle() {
-    const handle = this.dataset.productHandle || sessionStorage.getItem('pickedProductHandle');
-    
-    if (!handle) {
-      console.warn('FreeGift: No product handle found');
-      // If no handle, keep it hidden
-      return;
-    }
-
-    try {
-      const response = await fetch(
-        `${window.Shopify.routes.root}products/${handle}.js`
-      );
-
-      if (!response.ok) {
-        // If fetch fails, keep it hidden
+      const handle = this.dataset.productHandle || sessionStorage.getItem('pickedProductHandle');
+      
+      if (!handle) {
+        console.warn('FreeGift: No product handle found');
         return;
       }
 
-      const product = await response.json();
+      try {
+        // Fetch product data
+        const response = await fetch(
+          `${window.Shopify.routes.root}products/${handle}.js`
+        );
 
-      const cleanTitle = product.title
-        .replace(/free/gi, '')
-        .replace(/\s+/g, ' ')
-        .trim();
-
-      const titleEl = this.querySelector('.free-gift-title');
-      if (titleEl) titleEl.textContent = cleanTitle;
-      
-      const image = this.querySelector('.gift-image-preview')
-
-      if (image && !image.querySelector('.img-gift') && product.featured_image) {
-          const img = document.createElement('img');
-          img.classList.add('img-gift')
-          
-          // Get the original image URL
-          const originalSrc = product.featured_image.src || product.featured_image;
-          
-          // Replace the entire file name with _60x.png
-          // This removes any existing size parameters and changes extension
-          img.src = originalSrc.replace(/\/([^/]+)\.(png|jpg|jpeg|webp|gif)/i, '/$1_60x.png');
-          
-          // Add alt text if available
-          if (product.featured_image.alt) {
-              img.alt = product.featured_image.alt;
-          }
-          
-          image.appendChild(img);
-      }
-
-      // Create hidden input
-      const formId = this.dataset.formId;
-      if (formId && product.variants && product.variants.length > 0) {
-        // Remove any existing inputs first
-        const existingInputs = this.querySelectorAll('input[name="gift_id"]');
-        existingInputs.forEach(input => input.remove());
-        
-        const input = document.createElement('input');
-        input.type = 'hidden';
-        input.name = 'gift_id';
-        input.classList.add('input-gift-id')
-        input.value = product.variants[0].id;
-        
-        if (formId) {
-          input.setAttribute('form', formId);
+        if (!response.ok) {
+          return;
         }
 
-        this.appendChild(input);
-      }
+        const product = await response.json();
 
-      // Success! Remove the hidden attribute to show the component
-      this.removeAttribute('hidden');
-      
-    } catch (err) {
-      console.error('FreeGift failed to fetch product:', err);
-      // On error, keep it hidden
-    }
+        // Fetch current cart data
+        const cartResponse = await fetch(`${window.Shopify.routes.root}cart.js`);
+        const cart = await cartResponse.json();
+        
+        // Check if the first variant is already in the cart
+        const variantId = product.variants?.[0]?.id;
+        const isVariantInCart = variantId ? 
+          cart.items.some(item => item.variant_id === variantId) : 
+          false;
+
+        // Update title
+        const cleanTitle = product.title
+          .replace(/free/gi, '')
+          .replace(/\s+/g, ' ')
+          .trim();
+
+        const titleEl = this.querySelector('.free-gift-title');
+        if (titleEl) titleEl.textContent = cleanTitle;
+        
+        // Update image
+        const image = this.querySelector('.gift-image-preview');
+        if (image && !image.querySelector('.img-gift') && product.featured_image) {
+            const img = document.createElement('img');
+            img.classList.add('img-gift');
+            
+            const originalSrc = product.featured_image.src || product.featured_image;
+            img.src = originalSrc.replace(/\/([^/]+)\.(png|jpg|jpeg|webp|gif)/i, '/$1_60x.png');
+            
+            if (product.featured_image.alt) {
+                img.alt = product.featured_image.alt;
+            }
+            
+            image.appendChild(img);
+        }
+
+        // Create hidden input ONLY if variant is NOT in cart
+        const formId = this.dataset.formId;
+        if (formId && product.variants && product.variants.length > 0 && !isVariantInCart) {
+          // Remove any existing inputs first
+          const existingInputs = this.querySelectorAll('input[name="gift_id"]');
+          existingInputs.forEach(input => input.remove());
+          
+          const input = document.createElement('input');
+          input.type = 'hidden';
+          input.name = 'gift_id';
+          input.classList.add('input-gift-id');
+          input.value = variantId;
+          
+          if (formId) {
+            input.setAttribute('form', formId);
+          }
+
+          this.appendChild(input);
+        } else if (isVariantInCart) {
+          // Variant is already in cart, remove any existing gift inputs
+          const existingInputs = this.querySelectorAll('input[name="gift_id"]');
+          existingInputs.forEach(input => input.remove());
+          console.log(`FreeGift: Variant ${variantId} is already in cart, not adding gift input`);
+        }
+
+        // Success! Remove the hidden attribute to show the component
+        this.removeAttribute('hidden');
+        
+      } catch (err) {
+        console.error('FreeGift failed to load:', err);
+      }
   }
 }
 

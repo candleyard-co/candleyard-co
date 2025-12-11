@@ -77,7 +77,7 @@ class CartItemsComponent extends Component {
 
     // Check if this is a parent item with connected gifts
     const hasConnectedGifts = cartItemRowToRemove.hasAttribute('data-connected-gift');
-    
+
     if (hasConnectedGifts) {
       // Get parent variant ID and connected gift IDs
       const parentVariantId = cartItemRowToRemove.dataset.variantId;
@@ -103,8 +103,6 @@ class CartItemsComponent extends Component {
           updates[variantId] = 0;
         });
 
-        console.log('Batch removing:', updates);
-        
         // Use batch update API
         return this.#updateBatchQuantity({
           updates: updates,
@@ -248,8 +246,6 @@ class CartItemsComponent extends Component {
     sections_url: window.location.pathname,
   });
 
-  console.log('Batch request body:', body); // Debug
-
   cartTotal?.shimmer();
 
   // Use cart/update.js for batch operations
@@ -269,8 +265,6 @@ class CartItemsComponent extends Component {
         this.#fallbackIndividualRemoval(updates, parentRow);
         return;
       }
-
-      console.log('Batch removal successful:', parsedResponseText);
 
       // Update data-cart-quantity for all matching variants
       this.#updateQuantitySelectors(parsedResponseText);

@@ -72,8 +72,7 @@
               "type": "_pack-picker",
               "static": true,
               "settings": {
-                "pack_items": "{{ closest.product.metafields.custom.pack_items.value }}",
-                "property_text": "has gift"
+                "pack_items": "{{ closest.product.metafields.custom.pack_items.value }}"
               },
               "blocks": {}
             },

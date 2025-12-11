@@ -343,6 +343,10 @@ class ProductFormComponent extends Component {
         }
       }
       
+      // Add a random number to main properties if addons exist
+      const randomNum = Math.floor(Math.random() * 1000000); // Generate random number between 0-999999
+      mainProperties['_random_num'] = randomNum.toString();
+
       // Add main product as items[0] WITH its properties
       const mainQuantity = formData.get('quantity') || '1';
       itemsFormData.append('items[0][id]', mainVariantId);
@@ -371,6 +375,9 @@ class ProductFormComponent extends Component {
             itemsFormData.append(`items[${index + 1}][properties][${key}]`, value.toString());
           });
         }
+        
+        // Add the same random number to all addon items for grouping
+        itemsFormData.append(`items[${index + 1}][properties][_random_num]`, randomNum.toString());
       });
 
       // Copy all OTHER form data (NOT properties, id, or quantity) to the new FormData

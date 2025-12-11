@@ -47,6 +47,8 @@
 
           <div class="pack-row flex align-items-center justify-between">
             <div>
+              {%- assign items_in_cart = cart | line_items_for: product | sum: 'quantity' -%}
+
               <free-gift data-form-id="{{ product_form_id }}" hidden>
                 <div class="flex preview-gift-flex align-items-center">
                   <div>
