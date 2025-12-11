@@ -372,6 +372,27 @@ export class FreeGift extends Component {
 
       const titleEl = this.querySelector('.free-gift-title');
       if (titleEl) titleEl.textContent = cleanTitle;
+      
+      const image = this.querySelector('.gift-image-preview')
+
+      if (image && !image.querySelector('.img-gift') && product.featured_image) {
+          const img = document.createElement('img');
+          img.classList.add('img-gift')
+          
+          // Get the original image URL
+          const originalSrc = product.featured_image.src || product.featured_image;
+          
+          // Replace the entire file name with _60x.png
+          // This removes any existing size parameters and changes extension
+          img.src = originalSrc.replace(/\/([^/]+)\.(png|jpg|jpeg|webp|gif)/i, '/$1_60x.png');
+          
+          // Add alt text if available
+          if (product.featured_image.alt) {
+              img.alt = product.featured_image.alt;
+          }
+          
+          image.appendChild(img);
+      }
 
       // Create hidden input
       const formId = this.dataset.formId;
