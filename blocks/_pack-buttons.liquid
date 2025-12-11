@@ -295,9 +295,10 @@
     gap: var(--gap-2xs);
   }
   img.img-gift {
-    width: 2rem;
-    height: auto;
+    width: auto;
+    height: 2.8rem;
     max-width: 100%;
+    display: block;
   }
 
   .add-to-pack-price {
@@ -307,7 +308,7 @@
   .pack-row {
     width: 100%;
 
-    @media (min-width: 990px) {
+    @media (min-width: 751px) {
         > div:first-child {
           flex: 1 auto;
         }
@@ -317,8 +318,11 @@
         }
     }
 
-    @media (max-width: 989px) {
+    @media (max-width: 750px) {
       flex-direction: column;
+      gap: 0;
+      padding-top: var(--padding-sm);
+      border-top: 1.5px dashed var(--color-foreground);
     }
   }
 

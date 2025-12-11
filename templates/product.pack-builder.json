@@ -52,6 +52,8 @@
             "height": "fit",
             "details_position": "flex-start",
             "gap": 20,
+            "enable_mobile_gap": true,
+            "mobile_gap": 0,
             "sticky_details_desktop": false,
             "inherit_color_scheme": true,
             "color_scheme": "",

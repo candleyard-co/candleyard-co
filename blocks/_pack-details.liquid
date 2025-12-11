@@ -41,6 +41,12 @@
 {% stylesheet %}
   .pack-details .quantity-selector {
     --height-buy-buttons: calc(var(--padding-lg) * 2 + var(--icon-size-xs));
+
+    @media (max-width: 750px) {
+      --minimum-touch-target: 30px;
+      --quantity-selector-width: 103px;
+      --height-buy-buttons: calc(var(--padding-lg) * 2 + var(--icon-size-2xs));
+    }
   }
 
   /* Clear padding on mobile, if not full-width */
@@ -266,6 +272,23 @@
       "step": 1,
       "unit": "px",
       "default": 12
+    },
+    {
+      "type": "checkbox",
+      "id": "enable_mobile_gap",
+      "label": "Custom mobile gap",
+      "default": false
+    },
+    {
+      "type": "range",
+      "id": "mobile_gap",
+      "label": "Mobile gap",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "default": 12,
+      "visible_if": "{{ block.settings.enable_mobile_gap == true }}"
     },
     {
       "type": "checkbox",
