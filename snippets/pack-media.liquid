@@ -2,6 +2,7 @@
   Renders a product media component.
 
   @param {object} media - The product media object.
+  @param {object} mobile_media - The product mobile media object.
   @param {boolean} [preview_image_only] - Renders only the preview image without controls.
   @param {string} [widths] - Image widths for responsive images.
   @param {string} [sizes] - Image sizes for responsive images.
@@ -22,8 +23,9 @@
 
 <div
   class="pack-media"
-  style="--ratio: {{ media.aspect_ratio }}"
+  style="--ratio: {{ media.aspect_ratio }};{% if mobile_media %}--mobile-ratio: {{ mobile_media.aspect_ratio }}{% endif %}"
   data-media-id="{{ media.id }}"
+  data-pack-limit="{{ product.selected_or_first_available_variant.metafields.custom.pack_limit | plus: 0 }}"
 >
   {% liquid
     assign high_res_url = media | image_url: width: 3840
@@ -33,6 +35,10 @@
     endif
     assign focal_point_style = '--focal-point: ' | append: media.presentation.focal_point | append: ';'
   %}
+  {% assign media_classes = 'product-media__image product-media__desktop' %}
+  {% if mobile_media %}
+    {% assign media_classes = media_classes | append: ' mobile:hidden' %}
+  {% endif %}
   {{
     media
     | image_url: width: 3840
@@ -41,12 +47,32 @@
       alt: media.alt,
       sizes: sizes,
       loading: loading,
-      class: 'product-media__image',
+      class: media_classes,
       transitionToProduct: settings.transition_to_main_product,
       data_max_resolution: high_res_url,
       fetchpriority: fetch_priority,
       style: focal_point_style
   }}
+  {% if mobile_media != blank %}
+    {% assign mobile_media_classes = 'product-media__image product-media__mobile' %}
+    {% if mobile_media %}
+      {% assign mobile_media_classes = mobile_media_classes | append: ' desktop:hidden' %}
+    {% endif %}
+    {{
+      mobile_media
+      | image_url: width: 3840
+      | image_tag:
+        widths: widths,
+        alt: media.alt,
+        sizes: sizes,
+        loading: loading,
+        class: mobile_media_classes,
+        transitionToProduct: settings.transition_to_main_product,
+        data_max_resolution: high_res_url,
+        fetchpriority: fetch_priority,
+        style: focal_point_style
+    }} 
+  {% endif %}
 </div>
 
 {% stylesheet %}
@@ -54,6 +80,12 @@
     aspect-ratio: var(--gallery-aspect-ratio, var(--ratio));
     min-height: 0;
     min-width: 0;
+
+      &[style*="--mobile-ratio"] {
+        @media (max-width: 749px) {
+          aspect-ratio: var(--gallery-aspect-ratio, var(--mobile-ratio));
+        }
+      }
   }
 
   .product-media__image {

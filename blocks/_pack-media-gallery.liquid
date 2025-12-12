@@ -10,6 +10,8 @@
 {%- liquid
   assign selected_product = closest.product
   assign selected_variant_media = selected_product.selected_or_first_available_variant.metafields.custom.pack_background_image.value
+  assign selected_mobile_variant_media = selected_product.selected_or_first_available_variant.metafields.custom.pack_mobile_background_image.value
+
   assign first_3d_model = selected_product.media | where: 'media_type', 'model' | first
 
   if block_settings.hide_variants
@@ -255,7 +257,7 @@
     {% capture children %}
       {% if selected_variant_media %}
         {%- liquid
-            if needs_both_sizes and forloop.first
+            if needs_both_sizes
               assign media_sizes = sizes_single
             else
               assign media_sizes = sizes
@@ -263,10 +265,10 @@
         -%}
         {% if block_settings.aspect_ratio != 'adapt' and block_settings.constrain_to_viewport %}
           <div class="product-media-constraint-wrapper">
-            {%- render 'pack-media', media: selected_variant_media, sizes: media_sizes, is_main_product_media: forloop.first -%}
+            {%- render 'pack-media', media: selected_variant_media, mobile_media: selected_mobile_variant_media, sizes: media_sizes, is_main_product_media: true -%}
           </div>
         {% else %}
-          {%- render 'pack-media', media: selected_variant_media, sizes: media_sizes, is_main_product_media: forloop.first -%}
+          {%- render 'pack-media', media: selected_variant_media, mobile_media: selected_mobile_variant_media, sizes: media_sizes, is_main_product_media: true -%}
         {% endif %}
       {% endif %}
       {% capture class %}
@@ -337,10 +339,10 @@
           -%}
           {% if block_settings.aspect_ratio != 'adapt' and block_settings.constrain_to_viewport %}
             <div class="product-media-constraint-wrapper">
-              {%- render 'pack-media', media: selected_variant_media, sizes: media_sizes, is_main_product_media: true -%}
+              {%- render 'pack-media', media: selected_variant_media, mobile_media: selected_mobile_variant_media, sizes: media_sizes, is_main_product_media: true -%}
             </div>
           {% else %}
-            {%- render 'pack-media', media: selected_variant_media, sizes: media_sizes, is_main_product_media: true -%}
+            {%- render 'pack-media', media: selected_variant_media, mobile_media: selected_mobile_variant_media, sizes: media_sizes, is_main_product_media: true -%}
           {% endif %}
         </li>
       {% endif %}
