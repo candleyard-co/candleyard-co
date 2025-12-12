@@ -80,14 +80,16 @@
 
   .add-to-pack-button {
 
-    &[disabled] {
-      background: var(--color-background);
-      border: 1px solid var(--color-border);
-      color: rgb(0 0 0 / 0.4);
-    }
+
 
     @media (max-width: 749px) {
       opacity: 1 !important;
+
+      &[disabled] {
+        background: var(--color-background);
+        border: 1px solid var(--color-border);
+        color: rgb(0 0 0 / 0.4);
+      }
     }
   }
 
