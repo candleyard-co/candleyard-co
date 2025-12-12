@@ -38,7 +38,7 @@ export class PackSelectorComponent extends Component {
     
     // Update add-to-pack button state on initial load
     this.updateAddToPackButtonState();
-    this.updateLimitPackText(); // <--
+    this.updateLimitPackText();
   }
 
   disconnectedCallback() {
@@ -102,6 +102,18 @@ export class PackSelectorComponent extends Component {
     if (limitText) {
       limitText.textContent = remaining.toString();
     }
+  }
+
+  /**
+   * Gets the variant inventory quantity from data attribute
+   * @returns {number | null} The inventory quantity or null if not available
+   */
+  getVariantQuantity() {
+    const variantQty = this.refs.quantityInput.dataset.variantQty;
+    if (variantQty) {
+      return parseInt(variantQty, 10);
+    }
+    return null;
   }
 
   /**
@@ -193,7 +205,7 @@ export class PackSelectorComponent extends Component {
     this.updateButtonStates();
     this.updateHiddenInputState();
     this.updateAddToPackButtonState();
-    this.updateLimitPackText(); // <--
+    this.updateLimitPackText();
   }
 
   /**
@@ -235,7 +247,7 @@ export class PackSelectorComponent extends Component {
     this.updateButtonStates();
     this.updateHiddenInputState();
     this.updateAddToPackButtonState();
-    this.updateLimitPackText(); // <--
+    this.updateLimitPackText();
   }
 
   /**
@@ -254,18 +266,26 @@ export class PackSelectorComponent extends Component {
 
   /**
    * Gets the effective maximum value for this quantity selector
-   * Considers both the individual max and the pack limit
+   * Considers individual max, pack limit, and variant inventory quantity
    * @returns {number | null} The effective max, or null if no max
    */
   getEffectiveMax() {
     const { max, value } = this.getCurrentValues();
     const packLimit = this.getPackLimit();
+    const variantQty = this.getVariantQuantity();
     const totalPackQuantity = this.getTotalPackQuantity();
 
-    if (max === null && packLimit === null) return null;
-
+    // Start with the max from the input attribute
     let effectiveMax = max;
     
+    // Consider variant inventory quantity if available
+    if (variantQty !== null) {
+      effectiveMax = effectiveMax !== null ? 
+        Math.min(effectiveMax, variantQty) : 
+        variantQty;
+    }
+    
+    // Consider pack limit
     if (packLimit !== null) {
       // Calculate how many more items can be added to this selector
       // based on the pack limit and current total
@@ -287,6 +307,7 @@ export class PackSelectorComponent extends Component {
     const effectiveMax = this.getEffectiveMax();
     const packLimit = this.getPackLimit();
     const totalPackQuantity = this.getTotalPackQuantity();
+    const variantQty = this.getVariantQuantity();
 
     // Only manage buttons that weren't server-disabled
     if (!this.serverDisabledMinus) {
@@ -297,10 +318,12 @@ export class PackSelectorComponent extends Component {
       // Disable plus button if:
       // 1. We have an effective max and we're at or above it
       // 2. OR pack is full (total quantity >= pack limit)
+      // 3. OR variant has inventory management and we're at the available quantity
       const atIndividualMax = effectiveMax !== null && value >= effectiveMax;
       const packFull = packLimit !== null && totalPackQuantity >= packLimit;
+      const outOfStock = variantQty !== null && value >= variantQty;
       
-      plusButton.disabled = atIndividualMax || packFull;
+      plusButton.disabled = atIndividualMax || packFull || outOfStock;
     }
   }
 
@@ -323,7 +346,7 @@ export class PackSelectorComponent extends Component {
     this.updateButtonStates();
     this.updateHiddenInputState();
     this.updateAddToPackButtonState();
-    this.updateLimitPackText(); // <--
+    this.updateLimitPackText();
   }
 
   /**
@@ -389,7 +412,7 @@ export class PackSelectorComponent extends Component {
     this.updateButtonStates();
     this.updateHiddenInputState();
     this.updateAddToPackButtonState();
-    this.updateLimitPackText(); // <--
+    this.updateLimitPackText();
   }
 
   /**
@@ -421,7 +444,7 @@ export class PackSelectorComponent extends Component {
           selector.updateButtonStates();
         }
         selector.updateAddToPackButtonState();
-        selector.updateLimitPackText(); // <--
+        selector.updateLimitPackText();
       }
     });
   }

@@ -22,7 +22,7 @@
     <div class="pack-picker-items">
       {% for item in pack_items %}
         {% assign item_product = all_products[item.product] %}
-
+        {% assign selected_variant = item_product.selected_or_first_available_variant %}
         {% if item_product != blank %}
           <div class="pack-item title--aligned-center justify-between {% if item_product.available == false %}oos-pack-item{% endif %}">
             <div class="flex pack-item-flex title--aligned-center">
@@ -33,9 +33,22 @@
               </div>
               <div>
                 <span class="pack-item-title">
-                  {{ item.title }}{% if item_product.available == false %} - {{'products.product.sold_out' | t }}{% endif %}
+                  {{ item.title }}
                 </span>
-                <input type="hidden" name="pack_item" disabled value="{{ item_product.selected_or_first_available_variant.id }}" form="{{ product_form_id }}" class="pack-item-input">
+                {% if selected_variant.inventory_management == 'shopify' and selected_variant.inventory_quantity %}
+                  {% if selected_variant.available and selected_variant.inventory_quantity <= 10 %}
+                    <span class="stock-label">
+                      {{ 'products.product.stock_message' | t: stock: selected_variant.inventory_quantity }}
+                    </span>
+                  {% endif %}
+                {% endif %}
+                {% if item_product.available == false %}
+                  <span class="stock-label {% comment %}color-{{ block_settings.badge_sold_out_color_scheme }}{% endcomment %}">
+                    {{ 'products.product.sold_out' | t }}
+                  </span>
+                {% endif %}
+
+                <input type="hidden" name="pack_item" disabled value="{{ selected_variant.id }}" form="{{ product_form_id }}" class="pack-item-input">
               </div>
             </div>
             <div>
@@ -43,7 +56,7 @@
                 product: item_product,
                 class: 'pack-quantity-selector',
                 current_product: current_product,
-                variant: item_product.selected_or_first_available_variant,
+                variant: selected_variant,
               %}
             </div>
           </div>
@@ -63,6 +76,43 @@
       height: calc(100% - 215px);
     }
   }
+
+  .stock-label {
+    display: block;
+    /* max-width: fit-content;
+    margin-top: var(--margin-2xs);
+    position: relative;
+    --badge-rectangle-padding-block: 0px;
+    margin-right: 13px;
+    font-weight: 600;
+    font-style: italic;
+    padding-block: var(--badge-rectangle-padding-block);
+    padding-inline: var(--badge-rectangle-padding-inline);
+    --badge-font-size: var(--font-size--xs);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    color: var(--color-foreground);
+    background: var(--color-background);
+
+    text-transform: var(--badge-text-transform);
+    border-radius: var(--badge-border-radius); */
+    font-size: var(--font-size--xs);
+    font-family: var(--badge-font-family);
+    font-weight: var(--badge-font-weight);
+  }
+  .stock-label:after {
+      content: "";
+      position: absolute;
+      top: 0;
+      right: -13px;
+      width: 14px;
+      height: 100%;
+      background: inherit;
+      clip-path: polygon(0 0, 100% 0, 50% 50%, 100% 100%, 0 100%);
+  }
+
   .pack-item-image {
     width: 50px;
     min-width: 50px;
@@ -146,6 +196,18 @@
         "id": "pack_items",
         "label": "Pack items",
         "metaobject_type": "pack_item"
+    },
+    {
+      "type": "color_scheme",
+      "id": "badge_sale_color_scheme",
+      "label": "t:settings.badge_sale_color_scheme",
+      "default": "scheme-4"
+    },
+    {
+      "type": "color_scheme",
+      "id": "badge_sold_out_color_scheme",
+      "label": "t:settings.badge_sold_out_color_scheme",
+      "default": "scheme-5"
     }
   ],
   "presets": [

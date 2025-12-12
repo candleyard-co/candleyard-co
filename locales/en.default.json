@@ -320,6 +320,7 @@
       "pack_add_more_html": "Add <span class=\"limit-pack-text\">{{ limit }}</span> More",
       "quantity_error_max": "This item has a maximum of {{ maximum }}",
       "sold_out": "Sold Out",
+      "stock_message": "Only {{ stock }} left!",
       "unavailable": "Unavailable",
       "quantity": "Quantity",
       "quantity_increments": "Increments of {{ increment }}",
