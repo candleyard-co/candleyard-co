@@ -82,9 +82,10 @@
     flex: 1 auto;
   }
 
-  .oos-pack-item .pack-quantity-selector {
-    visibility: hidden;
-    opacity: 0;
+  .oos-pack-item > div:has(.pack-quantity-selector) {
+    /* visibility: hidden;
+    opacity: 0; */
+    display: none;
   }
 
   .pack-picker--inner {

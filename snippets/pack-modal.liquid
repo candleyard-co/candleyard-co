@@ -36,7 +36,10 @@
     max-height: unset;
     /* overflow: hidden; */
     width: 100%;
-    max-width: 100% !important;
+    max-width: 100%;
+    display: none;
+    visibility: hidden;
+    opacity: 0;
 
     &[open]::backdrop {
         display: none !important;
@@ -59,15 +62,6 @@
       }
   }
 
-  .pack-add-modal[open] {
-    visibility: visible;
-
-    @media screen and (min-width: 750px) {
-        display: flex;
-        justify-content: center;
-    }
-  }
-
   .pack-add-modal .view-more-details__wrapper {
     @media screen and (max-width: 750px) {
       display: none;
@@ -76,7 +70,15 @@
 
   .pack-add-modal[open] {
     /* animation: modalSlideInTop var(--animation-speed) var(--animation-easing) forwards; */
-    animation: unset !important;
+    animation: unset ;
+    visibility: visible;
+    opacity: 1;
+    visibility: visible;
+
+    @media screen and (min-width: 750px) {
+        display: flex;
+        justify-content: center;
+    }
   }
 
   .pack-add-modal.dialog-closing {
@@ -101,7 +103,7 @@
     }
 
     .pack-add-modal__close svg {
-        transform: scale(-1);
+      transform: scale(-1);
     }
 
     .pack-add-modal--inner {
