@@ -25,7 +25,6 @@
   class="pack-media"
   style="--ratio: {{ media.aspect_ratio }};{% if mobile_media %}--mobile-ratio: {{ mobile_media.aspect_ratio }}{% endif %}"
   data-media-id="{{ media.id }}"
-  data-pack-limit="{{ product.selected_or_first_available_variant.metafields.custom.pack_limit | plus: 0 }}"
 >
   {% liquid
     assign high_res_url = media | image_url: width: 3840
@@ -53,6 +52,7 @@
       fetchpriority: fetch_priority,
       style: focal_point_style
   }}
+
   {% if mobile_media != blank %}
     {% assign mobile_media_classes = 'product-media__image product-media__mobile' %}
     {% if mobile_media %}
@@ -91,7 +91,6 @@
   .product-media__image {
     object-position: var(--focal-point, center center);
   }
-
 
   ::view-transition-old(gallery-item),
   ::view-transition-new(gallery-item) {

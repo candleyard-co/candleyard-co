@@ -39,6 +39,10 @@ export class PackSelectorComponent extends Component {
     // Update add-to-pack button state on initial load
     this.updateAddToPackButtonState();
     this.updateLimitPackText();
+    
+    // NEW: Initialize grid preview
+    this.updateGridPreviewPack();
+    this.updateGridPreviewPackLayout();
   }
 
   disconnectedCallback() {
@@ -86,6 +90,21 @@ export class PackSelectorComponent extends Component {
   }
 
   /**
+   * Gets the grid preview pack element
+   * @returns {HTMLElement | null} The .grid-preview-pack element
+   */
+  getGridPreviewPack() {
+    // Find the media gallery first (it's in the same parent modal/content)
+    const packAddModal = this.closest('#pack-add-modal-content');
+    if (!packAddModal) return null;
+    
+    const mediaGallery = packAddModal.querySelector('media-gallery');
+    if (!mediaGallery) return null;
+    
+    return mediaGallery.querySelector('.grid-preview-pack');
+  }
+
+  /**
    * NEW — updates the limit count inside the button
    */
   updateLimitPackText() {
@@ -102,18 +121,6 @@ export class PackSelectorComponent extends Component {
     if (limitText) {
       limitText.textContent = remaining.toString();
     }
-  }
-
-  /**
-   * Gets the variant inventory quantity from data attribute
-   * @returns {number | null} The inventory quantity or null if not available
-   */
-  getVariantQuantity() {
-    const variantQty = this.refs.quantityInput.dataset.variantQty;
-    if (variantQty) {
-      return parseInt(variantQty, 10);
-    }
-    return null;
   }
 
   /**
@@ -180,9 +187,11 @@ export class PackSelectorComponent extends Component {
     const selectors = packPicker.querySelectorAll('pack-selector-component');
     
     selectors.forEach(selector => {
-      if (selector instanceof PackSelectorComponent) {
-        total += selector.getCurrentValues().value;
-      }
+      // FIX: Get value directly from the input element
+      const quantityInput = selector.querySelector('input[name="pack_item_quantity"]');
+      if (!quantityInput) return;
+      
+      total += parseInt(quantityInput.value) || 0;
     });
 
     return total;
@@ -206,6 +215,9 @@ export class PackSelectorComponent extends Component {
     this.updateHiddenInputState();
     this.updateAddToPackButtonState();
     this.updateLimitPackText();
+    // NEW: Update grid preview
+    this.updateGridPreviewPack();
+    this.updateGridPreviewPackLayout();
   }
 
   /**
@@ -248,6 +260,9 @@ export class PackSelectorComponent extends Component {
     this.updateHiddenInputState();
     this.updateAddToPackButtonState();
     this.updateLimitPackText();
+    // NEW: Update grid preview
+    this.updateGridPreviewPack();
+    this.updateGridPreviewPackLayout();
   }
 
   /**
@@ -266,26 +281,18 @@ export class PackSelectorComponent extends Component {
 
   /**
    * Gets the effective maximum value for this quantity selector
-   * Considers individual max, pack limit, and variant inventory quantity
+   * Considers both the individual max and the pack limit
    * @returns {number | null} The effective max, or null if no max
    */
   getEffectiveMax() {
     const { max, value } = this.getCurrentValues();
     const packLimit = this.getPackLimit();
-    const variantQty = this.getVariantQuantity();
     const totalPackQuantity = this.getTotalPackQuantity();
 
-    // Start with the max from the input attribute
+    if (max === null && packLimit === null) return null;
+
     let effectiveMax = max;
     
-    // Consider variant inventory quantity if available
-    if (variantQty !== null) {
-      effectiveMax = effectiveMax !== null ? 
-        Math.min(effectiveMax, variantQty) : 
-        variantQty;
-    }
-    
-    // Consider pack limit
     if (packLimit !== null) {
       // Calculate how many more items can be added to this selector
       // based on the pack limit and current total
@@ -307,7 +314,6 @@ export class PackSelectorComponent extends Component {
     const effectiveMax = this.getEffectiveMax();
     const packLimit = this.getPackLimit();
     const totalPackQuantity = this.getTotalPackQuantity();
-    const variantQty = this.getVariantQuantity();
 
     // Only manage buttons that weren't server-disabled
     if (!this.serverDisabledMinus) {
@@ -318,14 +324,91 @@ export class PackSelectorComponent extends Component {
       // Disable plus button if:
       // 1. We have an effective max and we're at or above it
       // 2. OR pack is full (total quantity >= pack limit)
-      // 3. OR variant has inventory management and we're at the available quantity
       const atIndividualMax = effectiveMax !== null && value >= effectiveMax;
       const packFull = packLimit !== null && totalPackQuantity >= packLimit;
-      const outOfStock = variantQty !== null && value >= variantQty;
       
-      plusButton.disabled = atIndividualMax || packFull || outOfStock;
+      plusButton.disabled = atIndividualMax || packFull;
     }
   }
+
+/**
+ * Updates the grid preview pack with selected item images
+ */
+updateGridPreviewPack() {
+  const gridPreviewPack = this.getGridPreviewPack();
+  if (!gridPreviewPack) return;
+  
+  const packPicker = this.getPackPicker();
+  if (!packPicker) return;
+  
+  // Get all pack items that have quantity > 0
+  const allPackItems = packPicker.querySelectorAll('.pack-item');
+  
+  // Clear existing images from the preview
+  const previewItems = gridPreviewPack.querySelectorAll('.preview-pack-item');
+  previewItems.forEach(item => {
+    item.innerHTML = '';
+  });
+  
+  // Get the first preview item (since it's a single column preview)
+  const firstPreviewItem = previewItems[0];
+  if (!firstPreviewItem) return;
+  
+  // Add images for all items with quantity > 0
+  allPackItems.forEach(packItem => {
+    const selector = packItem.querySelector('pack-selector-component');
+    if (!selector) return;
+    
+    // FIX: Get value directly from the input element
+    const quantityInput = selector.querySelector('input[name="pack_item_quantity"]');
+    if (!quantityInput) return;
+    
+    const value = parseInt(quantityInput.value) || 0;
+    
+    if (value > 0) {
+      // Get the image URL from the hidden input
+      const imageInput = packItem.querySelector('input[name="pack_item_image"]');
+      if (!imageInput || !imageInput.value) return;
+      
+      // Create and append image
+      const img = document.createElement('img');
+      img.src = imageInput.value;
+      img.alt = '';
+      img.className = 'preview-pack-item-image';
+      
+      firstPreviewItem.appendChild(img);
+    }
+  });
+}
+
+/**
+ * Updates the grid preview pack layout based on selected items
+ */
+updateGridPreviewPackLayout() {
+  const gridPreviewPack = this.getGridPreviewPack();
+  if (!gridPreviewPack) return;
+  
+  const packPicker = this.getPackPicker();
+  if (!packPicker) return;
+  
+  // Count how many items have quantity > 0
+  let selectedCount = 0;
+  const allSelectors = packPicker.querySelectorAll('pack-selector-component');
+  
+  allSelectors.forEach(selector => {
+    // FIX: Get value directly from the input element
+    const quantityInput = selector.querySelector('input[name="pack_item_quantity"]');
+    if (!quantityInput) return;
+    
+    const value = parseInt(quantityInput.value) || 0;
+    if (value > 0) {
+      selectedCount++;
+    }
+  });
+  
+  // Update grid layout class based on count
+  gridPreviewPack.className = `grid-preview-pack grid-preview-pack-${Math.min(selectedCount, 1)}`;
+}
 
   /**
    * Updates quantity by a given step
@@ -347,6 +430,9 @@ export class PackSelectorComponent extends Component {
     this.updateHiddenInputState();
     this.updateAddToPackButtonState();
     this.updateLimitPackText();
+    // NEW: Update grid preview
+    this.updateGridPreviewPack();
+    this.updateGridPreviewPackLayout();
   }
 
   /**
@@ -413,6 +499,9 @@ export class PackSelectorComponent extends Component {
     this.updateHiddenInputState();
     this.updateAddToPackButtonState();
     this.updateLimitPackText();
+    // NEW: Update grid preview
+    this.updateGridPreviewPack();
+    this.updateGridPreviewPackLayout();
   }
 
   /**
@@ -428,26 +517,26 @@ export class PackSelectorComponent extends Component {
     this.updateAllPackSelectors();
   }
 
-  /**
-   * Updates all selectors in the same pack to reflect new button states
-   * and the add-to-pack button state
-   */
-  updateAllPackSelectors() {
-    const packPicker = this.getPackPicker();
-    if (!packPicker) return;
+/**
+ * Updates all selectors in the same pack to reflect new button states
+ * and the add-to-pack button state
+ */
+updateAllPackSelectors() {
+  const packPicker = this.getPackPicker();
+  if (!packPicker) return;
 
-    const selectors = packPicker.querySelectorAll('pack-selector-component');
-    
-    selectors.forEach(selector => {
-      if (selector instanceof PackSelectorComponent) {
-        if (selector !== this) {
-          selector.updateButtonStates();
-        }
-        selector.updateAddToPackButtonState();
-        selector.updateLimitPackText();
-      }
-    });
-  }
+  const selectors = packPicker.querySelectorAll('pack-selector-component');
+  
+  selectors.forEach(selector => {
+    // Instead of trying to call methods on other instances,
+    // just update the preview globally
+    // Each selector will update its own state through event handling
+  });
+  
+  // NEW: Update grid preview for all selectors
+  this.updateGridPreviewPack();
+  this.updateGridPreviewPackLayout();
+}
 
   /**
    * Gets the quantity input.

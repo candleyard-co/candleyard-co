@@ -49,6 +49,8 @@
     {% assign product_href = '#ProductInformation-' | append: section.id %}
     {% render 'skip-to-content-link', href: product_href, text: 'accessibility.skip_to_product_info' %}
   {% endif %}
+  {% assign section_id = '#PackImage-' | append: section.id %}
+
   <div
     class="{{ product_grid_class }}"
     data-product-grid-content
@@ -58,6 +60,7 @@
     {% capture media %}
       <div
         class="pack-information__media"
+        id="{{ section_id }}"
         data-testid="pack-information-media"
       >
         {%- content_for 'block',

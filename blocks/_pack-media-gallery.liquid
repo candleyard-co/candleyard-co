@@ -253,89 +253,16 @@
   data-presentation="{{ block_settings.media_presentation }}"
   {{ block.shopify_attributes }}
 >
-  {% capture slides %}
-    {% capture children %}
-      {% if selected_variant_media %}
-        {%- liquid
-            if needs_both_sizes
-              assign media_sizes = sizes_single
-            else
-              assign media_sizes = sizes
-            endif
-        -%}
-        {% if block_settings.aspect_ratio != 'adapt' and block_settings.constrain_to_viewport %}
-          <div class="product-media-constraint-wrapper">
-            {%- render 'pack-media', media: selected_variant_media, mobile_media: selected_mobile_variant_media, sizes: media_sizes, is_main_product_media: true -%}
-          </div>
-        {% else %}
-          {%- render 'pack-media', media: selected_variant_media, mobile_media: selected_mobile_variant_media, sizes: media_sizes, is_main_product_media: true -%}
-        {% endif %}
-      {% endif %}
-      {% capture class %}
-        {{ product_media_container_class }} product-media-container--{{ media.media_type }}{% if block.settings.zoom %} product-media-container--zoomable{% endif %}{% if block.settings.aspect_ratio == 'adapt' %} product-media-container--tallest{% endif %}
-      {% endcapture %}
-      {% if block_settings.aspect_ratio == 'adapt' %}
-        {% capture style %}
-          --media-preview-ratio: {{ media.aspect_ratio | default: 1.0 }};
-        {% endcapture %}
-      {% endif %}
-
-      {% if block_settings.zoom %}
-        {%- capture attributes -%}on:click="#zoom-dialog-{{ block.id }}/open/0"{% if settings.transition_to_main_product %} data-view-transition-type="product-image-transition"{% endif %}{% endcapture -%}
-      {% endif %}
-    {% endcapture %}
-
-    {% render 'slideshow-slide',
-      index: 0,
-      children: children,
-      class: class,
-      style: style,
-      attributes: attributes,
-      media_fit: block_settings.media_fit,
-    %}
-  {% endcapture %}
-
-  {% if render_slideshow_arrows %}
-    {% capture slideshow_arrows %}
-      {% render 'slideshow-arrows', class: 'mobile:hidden', icon_style: block_settings.icons_style %}
-    {% endcapture %}
-  {% endif %}
-
-  {% render 'slideshow',
-    ref: 'slideshow',
-    class: slideshow_class,
-    slides: slides,
-    slide_count: 1,
-    slideshow_arrows: slideshow_arrows,
-    arrows_position: icons_position
-  %}
-
-  {% if block_settings.media_presentation == 'grid' %}
-    <ul
-      class="media-gallery__grid list-unstyled color-{{ block_settings.color_scheme }}"
-      data-testid="media-gallery-grid"
-    >
-      {% if selected_variant_media %}
-        <li
-          ref="media[]"
-          class="{{ product_media_container_class }} product-media-container--{{ selected_variant_media.media_type }}"
-          style="{% if block_settings.aspect_ratio == 'adapt' %} --media-preview-ratio: {{ selected_variant_media.preview_image.aspect_ratio | default: 1.0 }};{% endif %}"
-          {% if settings.transition_to_main_product %}
-            data-view-transition-type="product-image-transition"
-          {% endif %}
-        >
-          {%- if block_settings.zoom and selected_variant_media.media_type == 'image' -%}
-            <button
-              type="button"
-              class="button button-unstyled product-media-container__zoom-button"
-              aria-label="{{ 'actions.zoom' | t }}"
-              on:click="/zoom/0"
-            >
-              <span class="visually-hidden">{{ 'actions.open_image_in_full_screen' | t }}</span>
-            </button>
-          {%- endif -%}
+  <div class="media-pack-gallery">
+    {% capture slides %}
+      {% capture children %}
+        {% if selected_variant_media %}
           {%- liquid
-              assign media_sizes = sizes_single
+              if needs_both_sizes
+                assign media_sizes = sizes_single
+              else
+                assign media_sizes = sizes
+              endif
           -%}
           {% if block_settings.aspect_ratio != 'adapt' and block_settings.constrain_to_viewport %}
             <div class="product-media-constraint-wrapper">
@@ -344,9 +271,98 @@
           {% else %}
             {%- render 'pack-media', media: selected_variant_media, mobile_media: selected_mobile_variant_media, sizes: media_sizes, is_main_product_media: true -%}
           {% endif %}
-        </li>
-      {% endif %}
-    </ul>
+        {% endif %}
+        {% capture class %}
+          {{ product_media_container_class }} product-media-container--{{ media.media_type }}{% if block.settings.zoom %} product-media-container--zoomable{% endif %}{% if block.settings.aspect_ratio == 'adapt' %} product-media-container--tallest{% endif %}
+        {% endcapture %}
+        {% if block_settings.aspect_ratio == 'adapt' %}
+          {% capture style %}
+            --media-preview-ratio: {{ media.aspect_ratio | default: 1.0 }};
+          {% endcapture %}
+        {% endif %}
+
+        {% if block_settings.zoom %}
+          {%- capture attributes -%}on:click="#zoom-dialog-{{ block.id }}/open/0"{% if settings.transition_to_main_product %} data-view-transition-type="product-image-transition"{% endif %}{% endcapture -%}
+        {% endif %}
+      {% endcapture %}
+
+      {% render 'slideshow-slide',
+        index: 0,
+        children: children,
+        class: class,
+        style: style,
+        attributes: attributes,
+        media_fit: block_settings.media_fit,
+      %}
+    {% endcapture %}
+
+    {% if render_slideshow_arrows %}
+      {% capture slideshow_arrows %}
+        {% render 'slideshow-arrows', class: 'mobile:hidden', icon_style: block_settings.icons_style %}
+      {% endcapture %}
+    {% endif %}
+
+    {% render 'slideshow',
+      ref: 'slideshow',
+      class: slideshow_class,
+      slides: slides,
+      slide_count: 1,
+      slideshow_arrows: slideshow_arrows,
+      arrows_position: icons_position
+    %}
+
+    {% if block_settings.media_presentation == 'grid' %}
+      <ul
+        class="media-gallery__grid list-unstyled color-{{ block_settings.color_scheme }}"
+        data-testid="media-gallery-grid"
+      >
+        {% if selected_variant_media %}
+          <li
+            ref="media[]"
+            class="{{ product_media_container_class }} product-media-container--{{ selected_variant_media.media_type }}"
+            style="{% if block_settings.aspect_ratio == 'adapt' %} --media-preview-ratio: {{ selected_variant_media.preview_image.aspect_ratio | default: 1.0 }};{% endif %}"
+            {% if settings.transition_to_main_product %}
+              data-view-transition-type="product-image-transition"
+            {% endif %}
+          >
+            {%- if block_settings.zoom and selected_variant_media.media_type == 'image' -%}
+              <button
+                type="button"
+                class="button button-unstyled product-media-container__zoom-button"
+                aria-label="{{ 'actions.zoom' | t }}"
+                on:click="/zoom/0"
+              >
+                <span class="visually-hidden">{{ 'actions.open_image_in_full_screen' | t }}</span>
+              </button>
+            {%- endif -%}
+            {%- liquid
+                assign media_sizes = sizes_single
+            -%}
+            {% if block_settings.aspect_ratio != 'adapt' and block_settings.constrain_to_viewport %}
+              <div class="product-media-constraint-wrapper">
+                {%- render 'pack-media', media: selected_variant_media, mobile_media: selected_mobile_variant_media, sizes: media_sizes, is_main_product_media: true -%}
+              </div>
+            {% else %}
+              {%- render 'pack-media', media: selected_variant_media, mobile_media: selected_mobile_variant_media, sizes: media_sizes, is_main_product_media: true -%}
+            {% endif %}
+          </li>
+        {% endif %}
+      </ul>
+    {% endif %}
+  </div>
+    
+  {% assign pack_limit = closest.product.selected_or_first_available_variant.metafields.custom.pack_limit | plus: 0 %}
+
+  {% if pack_limit > 0 %}
+    <div class="grid-preview-wrapper">
+      <div class="grid-preview-pack grid-preview-pack-{{ pack_limit }}">
+        {% for i in (1..pack_limit) %}
+            <div class="preview-pack-item preview-pack-{{ i }}">
+
+            </div>
+        {% endfor %}
+      </div>
+    </div>
   {% endif %}
 </media-gallery>
 
@@ -357,6 +373,36 @@
 
   .dialog--preloading {
     opacity: 0;
+  }
+
+  .grid-preview-wrapper {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 2;
+  }
+
+  .grid-preview-pack.grid-preview-pack-1 {
+    display: grid;
+    grid-template-columns: repeat(10,1fr);
+    grid-template-rows: repeat(auto-fill,92px);
+    height: 100%;
+  }
+
+  .preview-pack-1 {
+    grid-column: 3 / span 6;
+    grid-row: 2 / span 5;
+  }
+
+  .preview-pack-item img {
+    display: block;
+    max-width: 100%;
+    height: 100%;
+    width: 100%;
+    object-fit: contain;
+    object-position: bottom center;
   }
 
   .product-media__drag-zoom-wrapper {

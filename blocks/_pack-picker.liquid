@@ -13,9 +13,10 @@
   {%- assign product_form_id = 'BuyButtons-ProductForm-' | append: section.id -%}
 
 <pack-picker
-  class="pack-picker-block pack-picker-block --{{ block.id }}"
+  class="pack-picker-block pack-picker-block--{{ block.id }}"
   {{ block.shopify_attributes }}
   data-form-id="{{ product_form_id }}"
+  data-section-id="{{ section.id }}"
   data-limit="{{ current_product.selected_or_first_available_variant.metafields.custom.pack_limit | plus: 0 }}"
 >
   <div class="pack-picker--inner">
@@ -40,14 +41,14 @@
                     <span class="stock-label">
                       {{ 'products.product.stock_message' | t: stock: selected_variant.inventory_quantity }}
                     </span>
-                  {% endif %}
+                  {% endif %} 
                 {% endif %}
                 {% if item_product.available == false %}
                   <span class="stock-label {% comment %}color-{{ block_settings.badge_sold_out_color_scheme }}{% endcomment %}">
                     {{ 'products.product.sold_out' | t }}
                   </span>
                 {% endif %}
-
+                <input type="hidden" name="pack_item_image" value="{{ item.vector_image.value | image_url: width: '500' }}" form="{{ product_form_id }}" class="pack-item-image">
                 <input type="hidden" name="pack_item" disabled value="{{ selected_variant.id }}" form="{{ product_form_id }}" class="pack-item-input">
               </div>
             </div>
