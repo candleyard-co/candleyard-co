@@ -244,7 +244,11 @@
               "name": "t:names.button",
               "settings": {
                 "label": "Shop Best Sellers",
-                "link": "shopify://collections/all",
+                "link": "shopify://collections/shop",
+                "add_left_icon": false,
+                "left_svg_icon": "",
+                "add_right_icon": false,
+                "right_svg_icon": "",
                 "open_in_new_tab": false,
                 "style_class": "button",
                 "width": "custom",
@@ -444,7 +448,12 @@
             "padding-block-start": 0,
             "padding-block-end": 0,
             "padding-inline-start": 0,
-            "padding-inline-end": 0
+            "padding-inline-end": 0,
+            "custom_mobile_padding": false,
+            "mobile-padding-block-start": 0,
+            "mobile-padding-block-end": 0,
+            "mobile-padding-inline-start": 0,
+            "mobile-padding-inline-end": 0
           },
           "blocks": {
             "text_Vzmk6K": {
@@ -628,7 +637,12 @@
                     "padding-block-start": 4,
                     "padding-block-end": 0,
                     "padding-inline-start": 0,
-                    "padding-inline-end": 0
+                    "padding-inline-end": 0,
+                    "custom_mobile_padding": false,
+                    "mobile-padding-block-start": 0,
+                    "mobile-padding-block-end": 0,
+                    "mobile-padding-inline-start": 0,
+                    "mobile-padding-inline-end": 0
                   },
                   "blocks": {}
                 },
@@ -2955,7 +2969,12 @@
             "padding-block-start": 0,
             "padding-block-end": 12,
             "padding-inline-start": 0,
-            "padding-inline-end": 0
+            "padding-inline-end": 0,
+            "custom_mobile_padding": false,
+            "mobile-padding-block-start": 0,
+            "mobile-padding-block-end": 0,
+            "mobile-padding-inline-start": 0,
+            "mobile-padding-inline-end": 0
           },
           "blocks": {
             "product_list_text_dNi7j9": {
@@ -2992,6 +3011,10 @@
               "settings": {
                 "label": "View all",
                 "link": "",
+                "add_left_icon": false,
+                "left_svg_icon": "",
+                "add_right_icon": false,
+                "right_svg_icon": "",
                 "open_in_new_tab": false,
                 "style_class": "link",
                 "width": "fit-content",
@@ -3227,7 +3250,11 @@
           "name": "t:names.button",
           "settings": {
             "label": "Browse Deals",
-            "link": "shopify://collections/all",
+            "link": "shopify://collections/shop",
+            "add_left_icon": false,
+            "left_svg_icon": "",
+            "add_right_icon": false,
+            "right_svg_icon": "",
             "open_in_new_tab": false,
             "style_class": "button",
             "width": "custom",
@@ -3312,7 +3339,12 @@
             "padding-block-start": 0,
             "padding-block-end": 0,
             "padding-inline-start": 0,
-            "padding-inline-end": 0
+            "padding-inline-end": 0,
+            "custom_mobile_padding": false,
+            "mobile-padding-block-start": 0,
+            "mobile-padding-block-end": 0,
+            "mobile-padding-inline-start": 0,
+            "mobile-padding-inline-end": 0
           },
           "blocks": {
             "text_8MXgdw": {
@@ -3496,7 +3528,12 @@
                     "padding-block-start": 4,
                     "padding-block-end": 0,
                     "padding-inline-start": 0,
-                    "padding-inline-end": 0
+                    "padding-inline-end": 0,
+                    "custom_mobile_padding": false,
+                    "mobile-padding-block-start": 0,
+                    "mobile-padding-block-end": 0,
+                    "mobile-padding-inline-start": 0,
+                    "mobile-padding-inline-end": 0
                   },
                   "blocks": {}
                 },
@@ -3602,7 +3639,12 @@
             "padding-block-start": 0,
             "padding-block-end": 0,
             "padding-inline-start": 0,
-            "padding-inline-end": 0
+            "padding-inline-end": 0,
+            "custom_mobile_padding": false,
+            "mobile-padding-block-start": 0,
+            "mobile-padding-block-end": 0,
+            "mobile-padding-inline-start": 0,
+            "mobile-padding-inline-end": 0
           },
           "blocks": {
             "text_KcJaRf": {
@@ -3786,7 +3828,12 @@
                     "padding-block-start": 4,
                     "padding-block-end": 0,
                     "padding-inline-start": 0,
-                    "padding-inline-end": 0
+                    "padding-inline-end": 0,
+                    "custom_mobile_padding": false,
+                    "mobile-padding-block-start": 0,
+                    "mobile-padding-block-end": 0,
+                    "mobile-padding-inline-start": 0,
+                    "mobile-padding-inline-end": 0
                   },
                   "blocks": {}
                 },
@@ -4241,7 +4288,12 @@
             "padding-block-start": 0,
             "padding-block-end": 24,
             "padding-inline-start": 0,
-            "padding-inline-end": 0
+            "padding-inline-end": 0,
+            "custom_mobile_padding": false,
+            "mobile-padding-block-start": 0,
+            "mobile-padding-block-end": 0,
+            "mobile-padding-inline-start": 0,
+            "mobile-padding-inline-end": 0
           },
           "blocks": {
             "text_Q6RBE8": {
@@ -4469,6 +4521,10 @@
               "settings": {
                 "label": "Learn About Our Story",
                 "link": "shopify://pages/learn",
+                "add_left_icon": false,
+                "left_svg_icon": "",
+                "add_right_icon": false,
+                "right_svg_icon": "",
                 "open_in_new_tab": false,
                 "style_class": "button",
                 "width": "fit-content",
@@ -4659,6 +4715,10 @@
               "settings": {
                 "label": "Shop Dessert Candles",
                 "link": "shopify://collections/dessert-candle",
+                "add_left_icon": false,
+                "left_svg_icon": "",
+                "add_right_icon": false,
+                "right_svg_icon": "",
                 "open_in_new_tab": false,
                 "style_class": "button",
                 "width": "fit-content",
@@ -7004,7 +7064,12 @@
             "padding-block-start": 0,
             "padding-block-end": 12,
             "padding-inline-start": 0,
-            "padding-inline-end": 0
+            "padding-inline-end": 0,
+            "custom_mobile_padding": false,
+            "mobile-padding-block-start": 0,
+            "mobile-padding-block-end": 0,
+            "mobile-padding-inline-start": 0,
+            "mobile-padding-inline-end": 0
           },
           "blocks": {
             "product_list_text_4XQXVU": {
@@ -7041,6 +7106,10 @@
               "settings": {
                 "label": "View all",
                 "link": "",
+                "add_left_icon": false,
+                "left_svg_icon": "",
+                "add_right_icon": false,
+                "right_svg_icon": "",
                 "open_in_new_tab": false,
                 "style_class": "link",
                 "width": "fit-content",

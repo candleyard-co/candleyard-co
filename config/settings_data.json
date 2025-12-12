@@ -65,7 +65,7 @@
     "type_font_button_secondary": "accent",
     "cart_type": "drawer",
     "cart_price_font": "subheading",
-    "auto_open_cart_drawer": true,
+    "auto_open_cart_drawer": false,
     "show_cart_note": false,
     "show_add_discount_code": true,
     "show_installments": true,

@@ -74,7 +74,9 @@
               "type": "_pack-picker",
               "static": true,
               "settings": {
-                "pack_items": "{{ closest.product.metafields.custom.pack_items.value }}"
+                "pack_items": "{{ closest.product.metafields.custom.pack_items.value }}",
+                "badge_sale_color_scheme": "scheme-3",
+                "badge_sold_out_color_scheme": "scheme-1e7f4c49-7b8d-4440-9f86-4c8ded6ff4db"
               },
               "blocks": {}
             },
