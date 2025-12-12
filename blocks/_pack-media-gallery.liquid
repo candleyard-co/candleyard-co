@@ -389,11 +389,20 @@
     grid-template-columns: repeat(10,1fr);
     grid-template-rows: repeat(auto-fill,92px);
     height: 100%;
+
+    @media (max-width: 750px) {
+      grid-template-rows: repeat(auto-fill, 20px);
+    }
   }
 
   .preview-pack-1 {
     grid-column: 3 / span 6;
     grid-row: 2 / span 5;
+
+    @media (max-width: 750px) {
+      grid-column: 1 / -1;
+      grid-row: 2 / span 5;
+    }
   }
 
   .preview-pack-item img {
