@@ -42,6 +42,16 @@
     assign accent_font_italic_face_id = '[accent_font_italic_family]-[accent_font_italic_weight]-[accent_font_italic_style]|' | replace: '[accent_font_italic_family]', accent_font_italic.family | replace: '[accent_font_italic_weight]', accent_font_italic.weight | replace: '[accent_font_italic_style]', accent_font_italic.style
     assign accent_font_bold_italic_face_id = '[accent_font_bold_italic_family]-[accent_font_bold_italic_weight]-[accent_font_bold_italic_style]|' | replace: '[accent_font_bold_italic_family]', accent_font_bold_italic.family | replace: '[accent_font_bold_italic_weight]', accent_font_bold_italic.weight | replace: '[accent_font_bold_italic_style]', accent_font_bold_italic.style
 
+    assign accent_font_2 = settings.type_accent_font_2
+    assign accent_font_2_bold = accent_font_2 | font_modify: 'weight', 'bold'
+    assign accent_font_2_italic = accent_font_2 | font_modify: 'style', 'italic'
+    assign accent_font_2_bold_italic = accent_font_2_bold | font_modify: 'style', 'italic'
+
+    assign accent_font_2_face_id = '[accent_font_2_family]-[accent_font_2_weight]-[accent_font_2_style]|' | replace: '[accent_font_2_family]', accent_font_2.family | replace: '[accent_font_2_weight]', accent_font_2.weight | replace: '[accent_font_2_style]', accent_font_2.style
+    assign accent_font_2_bold_face_id = '[accent_font_2_bold_family]-[accent_font_2_bold_weight]-[accent_font_2_bold_style]|' | replace: '[accent_font_2_bold_family]', accent_font_2_bold.family | replace: '[accent_font_2_bold_weight]', accent_font_2_bold.weight | replace: '[accent_font_2_bold_style]', accent_font_2_bold.style
+    assign accent_font_2_italic_face_id = '[accent_font_2_italic_family]-[accent_font_2_italic_weight]-[accent_font_2_italic_style]|' | replace: '[accent_font_2_italic_family]', accent_font_2_italic.family | replace: '[accent_font_2_italic_weight]', accent_font_2_italic.weight | replace: '[accent_font_2_italic_style]', accent_font_2_italic.style
+    assign accent_font_2_bold_italic_face_id = '[accent_font_2_bold_italic_family]-[accent_font_2_bold_italic_weight]-[accent_font_2_bold_italic_style]|' | replace: '[accent_font_2_bold_italic_family]', accent_font_2_bold_italic.family | replace: '[accent_font_2_bold_italic_weight]', accent_font_2_bold_italic.weight | replace: '[accent_font_2_bold_italic_style]', accent_font_2_bold_italic.style
+
     unless rendered_fonts contains primary_font_face_id
       echo primary_font | font_face: font_display: 'swap'
       assign rendered_fonts = rendered_fonts | append: primary_font_face_id
@@ -120,6 +130,26 @@
     unless rendered_fonts contains accent_font_bold_italic_face_id
       echo accent_font_bold_italic | font_face: font_display: 'swap'
       assign rendered_fonts = rendered_fonts | append: accent_font_bold_italic_face_id
+    endunless
+
+    unless rendered_fonts contains accent_font_2_face_id
+      echo accent_font_2 | font_face: font_display: 'swap'
+      assign rendered_fonts = rendered_fonts | append: accent_font_2_face_id
+    endunless
+
+    unless rendered_fonts contains accent_font_2_bold_face_id
+      echo accent_font_2_bold | font_face: font_display: 'swap'
+      assign rendered_fonts = rendered_fonts | append: accent_font_2_bold_face_id
+    endunless
+
+    unless rendered_fonts contains accent_font_2_italic_face_id
+      echo accent_font_2_italic | font_face: font_display: 'swap'
+      assign rendered_fonts = rendered_fonts | append: accent_font_2_italic_face_id
+    endunless
+
+    unless rendered_fonts contains accent_font_2_bold_italic_face_id
+      echo accent_font_2_bold_italic | font_face: font_display: 'swap'
+      assign rendered_fonts = rendered_fonts | append: accent_font_2_bold_italic_face_id
     endunless
   %}
 
