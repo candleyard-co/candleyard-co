@@ -187,7 +187,7 @@ export class PackSelectorComponent extends Component {
     const selectors = packPicker.querySelectorAll('pack-selector-component');
     
     selectors.forEach(selector => {
-      // FIX: Get value directly from the input element
+      // Get the input element
       const quantityInput = selector.querySelector('input[name="pack_item_quantity"]');
       if (!quantityInput) return;
       
@@ -218,6 +218,9 @@ export class PackSelectorComponent extends Component {
     // NEW: Update grid preview
     this.updateGridPreviewPack();
     this.updateGridPreviewPackLayout();
+    
+    // Update all other selectors
+    this.updateAllPackSelectors();
   }
 
   /**
@@ -426,13 +429,6 @@ updateGridPreviewPackLayout() {
 
     quantityInput.value = newValue.toString();
     this.onQuantityChange();
-    this.updateButtonStates();
-    this.updateHiddenInputState();
-    this.updateAddToPackButtonState();
-    this.updateLimitPackText();
-    // NEW: Update grid preview
-    this.updateGridPreviewPack();
-    this.updateGridPreviewPackLayout();
   }
 
   /**
@@ -495,13 +491,6 @@ updateGridPreviewPackLayout() {
 
     quantityInput.value = quantity.toString();
     this.onQuantityChange();
-    this.updateButtonStates();
-    this.updateHiddenInputState();
-    this.updateAddToPackButtonState();
-    this.updateLimitPackText();
-    // NEW: Update grid preview
-    this.updateGridPreviewPack();
-    this.updateGridPreviewPackLayout();
   }
 
   /**
@@ -513,6 +502,16 @@ updateGridPreviewPackLayout() {
 
     quantityInput.dispatchEvent(new QuantitySelectorUpdateEvent(newValue, Number(quantityInput.dataset.line)));
 
+    // Update current selector state
+    this.updateButtonStates();
+    this.updateHiddenInputState();
+    this.updateAddToPackButtonState();
+    this.updateLimitPackText();
+    
+    // NEW: Update grid preview
+    this.updateGridPreviewPack();
+    this.updateGridPreviewPackLayout();
+    
     // Update all other selectors in the same pack to reflect new totals
     this.updateAllPackSelectors();
   }
@@ -528,14 +527,28 @@ updateAllPackSelectors() {
   const selectors = packPicker.querySelectorAll('pack-selector-component');
   
   selectors.forEach(selector => {
-    // Instead of trying to call methods on other instances,
-    // just update the preview globally
-    // Each selector will update its own state through event handling
+    // Get the component instance
+    const component = customElements.get('pack-selector-component');
+    if (!component) return;
+    
+    // Skip if it's the same instance
+    if (selector === this) return;
+    
+    // Cast to PackSelectorComponent to access methods
+    const packSelector = /** @type {PackSelectorComponent} */ (selector);
+    
+    // Update button states on other selectors
+    packSelector.updateButtonStates();
+    packSelector.updateHiddenInputState();
+    packSelector.updateLimitPackText();
+    
+    // Update grid preview
+    packSelector.updateGridPreviewPack();
+    packSelector.updateGridPreviewPackLayout();
   });
   
-  // NEW: Update grid preview for all selectors
-  this.updateGridPreviewPack();
-  this.updateGridPreviewPackLayout();
+  // Also update the add-to-pack button
+  this.updateAddToPackButtonState();
 }
 
   /**
