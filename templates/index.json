@@ -711,8 +711,8 @@
         "mobile-padding-inline-end": 0
       }
     },
-    "carousel_DmUwUr": {
-      "type": "carousel",
+    "grid_section_DmUwUr": {
+      "type": "grid-section",
       "blocks": {
         "carousel_card_cQAGKL": {
           "type": "_carousel-card",
@@ -4806,8 +4806,8 @@
         "section_id": ""
       }
     },
-    "carousel_4YFewk": {
-      "type": "carousel",
+    "grid_section_4YFewk": {
+      "type": "grid-section",
       "blocks": {
         "carousel_card_g3MNEU": {
           "type": "_carousel-card",
@@ -7185,13 +7185,13 @@
   "order": [
     "hero_jVaWmY",
     "product_list_fa6P9H",
-    "carousel_DmUwUr",
+    "grid_section_DmUwUr",
     "hero_AngCmL",
     "product_list_qLdpYV",
     "product_list_epdK3P",
     "scrolling_carousel_LbK8gz",
     "section_k4dxbM",
     "section_6ftTic",
-    "carousel_4YFewk"
+    "grid_section_4YFewk"
   ]
 }
