@@ -45,8 +45,11 @@ class CartItemsComponent extends Component {
    * @param {QuantitySelectorUpdateEvent} event - The event.
    */
   #onQuantityChange(event) {
+    if (!(event.target instanceof Node) || !this.contains(event.target)) return;
+
     const { quantity, cartLine: line } = event.detail;
 
+    // Cart items require a line number
     if (!line) return;
 
     if (quantity === 0) {
@@ -160,7 +163,7 @@ class CartItemsComponent extends Component {
         this.#updateQuantitySelectors(parsedResponseText);
 
         this.dispatchEvent(
-          new CartUpdateEvent({}, this.sectionId, {
+          new CartUpdateEvent(parsedResponseText, this.sectionId, {
             itemCount: newCartItemCount,
             source: 'cart-items-component',
             sections: parsedResponseText.sections,
@@ -259,9 +262,7 @@ class CartItemsComponent extends Component {
 
     for (const item of updatedCart.items) {
       const variantId = item.variant_id.toString();
-      const selectors = document.querySelectorAll(
-        `quantity-selector-component[data-variant-id="${variantId}"], cart-quantity-selector-component[data-variant-id="${variantId}"]`
-      );
+      const selectors = document.querySelectorAll(`quantity-selector-component[data-variant-id="${variantId}"]`);
 
       for (const selector of selectors) {
         const input = selector.querySelector('input[data-cart-quantity]');
@@ -281,11 +282,8 @@ class CartItemsComponent extends Component {
    * Updates button states for all cart quantity selector components.
    */
   #updateCartQuantitySelectorButtonStates() {
-    const cartQuantitySelectors = document.querySelectorAll('cart-quantity-selector-component');
-    for (const selector of cartQuantitySelectors) {
-      if ('updateButtonStates' in selector && typeof selector.updateButtonStates === 'function') {
-        selector.updateButtonStates();
-      }
+    for (const selector of document.querySelectorAll('cart-quantity-selector-component')) {
+      /** @type {any} */ (selector).updateButtonStates?.();
     }
   }
 

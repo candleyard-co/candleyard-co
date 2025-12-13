@@ -597,6 +597,22 @@ export function getViewParameterValue() {
   return new URLSearchParams(window.location.search).get('view');
 }
 
+/**
+ * Helper to parse integer with a default fallback
+ * Handles the case where 0 is a valid value (not falsy)
+ * @template {number|null} T
+ * @param {string|number|null|undefined} value - The value to parse
+ * @param {T} defaultValue - The default value (number or null)
+ * @returns {number|T} The parsed integer or default value
+ */
+export function parseIntOrDefault(value, defaultValue) {
+  if (value === null || value === undefined || value === '') {
+    return defaultValue;
+  }
+  const parsed = parseInt(value.toString());
+  return isNaN(parsed) ? defaultValue : parsed;
+}
+
 class Scheduler {
   /** @type {Set<() => void>} */
   #queue = new Set();
@@ -619,7 +635,7 @@ class Scheduler {
 
   flush = () => {
     for (const task of this.#queue) {
-      task();
+      setTimeout(task, 0);
     }
 
     this.#queue.clear();
@@ -628,6 +644,116 @@ class Scheduler {
 }
 
 export const scheduler = new Scheduler();
+
+/**
+ * Executes a callback once per session when in the Shopify theme editor
+ * @param {HTMLElement} element - The element to check for the shopify editor block id
+ * @param {string} sessionKeyName - Unique key for the session storage
+ * @param {() => void} callback - Function to execute
+ * @returns {void} - Void if the callback was executed, undefined if it wasn't
+ */
+export function oncePerEditorSession(element, sessionKeyName, callback) {
+  const isInThemeEditor = window.Shopify?.designMode;
+  const shopifyEditorSectionId = JSON.parse(element.dataset.shopifyEditorSection || '{}').id;
+  const shopifyEditorBlockId = JSON.parse(element.dataset.shopifyEditorBlock || '{}').id;
+  const editorId = shopifyEditorSectionId || shopifyEditorBlockId;
+  const uniqueSessionKey = `${sessionKeyName}-${editorId}`;
+
+  if (isInThemeEditor && sessionStorage.getItem(uniqueSessionKey)) return;
+
+  callback();
+
+  if (isInThemeEditor) sessionStorage.setItem(uniqueSessionKey, 'true');
+
+  return;
+}
+
+/**
+ * A custom ResizeObserver that only calls the callback when the element is resized.
+ * By default the ResizeObserver callback is called when the element is first observed.
+ */
+export class ResizeNotifier extends ResizeObserver {
+  #initialized = false;
+
+  /**
+   * @param {ResizeObserverCallback} callback
+   */
+  constructor(callback) {
+    super((entries) => {
+      if (this.#initialized) return callback(entries, this);
+      this.#initialized = true;
+    });
+  }
+
+  disconnect() {
+    this.#initialized = false;
+    super.disconnect();
+  }
+}
+
+// Header calculation functions for maintaining CSS variables
+export function calculateHeaderGroupHeight(
+  header = document.querySelector('#header-component'),
+  headerGroup = document.querySelector('#header-group')
+) {
+  if (!headerGroup) return 0;
+
+  let totalHeight = 0;
+  const children = headerGroup.children;
+  for (let i = 0; i < children.length; i++) {
+    const element = children[i];
+    if (element === header || !(element instanceof HTMLElement)) continue;
+    totalHeight += element.offsetHeight;
+  }
+
+  // If the header is transparent and has a sibling section, add the height of the header to the total height
+  if (header instanceof HTMLElement && header.hasAttribute('transparent') && header.parentElement?.nextElementSibling) {
+    return totalHeight + header.offsetHeight;
+  }
+
+  return totalHeight;
+}
+
+/**
+ * Updates CSS custom properties for transparent header offset calculation
+ * Avoids expensive :has() selectors
+ */
+function updateTransparentHeaderOffset() {
+  const header = document.querySelector('#header-component');
+  const headerGroup = document.querySelector('#header-group');
+  const hasHeaderSection = headerGroup?.querySelector('.header-section');
+  if (!hasHeaderSection || !header?.hasAttribute('transparent')) {
+    document.body.style.setProperty('--transparent-header-offset-boolean', '0');
+    return;
+  }
+
+  const hasImmediateSection = hasHeaderSection.nextElementSibling?.classList.contains('shopify-section');
+
+  const shouldApplyOffset = !hasImmediateSection ? '1' : '0';
+  document.body.style.setProperty('--transparent-header-offset-boolean', shouldApplyOffset);
+}
+
+/**
+ * Initialize and maintain header height CSS variables.
+ */
+function updateHeaderHeights() {
+  const header = document.querySelector('header-component');
+
+  // Early exit if no header - nothing to do
+  if (!(header instanceof HTMLElement)) return;
+
+  // Calculate initial heights
+  const headerHeight = header.offsetHeight;
+  const headerGroupHeight = calculateHeaderGroupHeight(header);
+
+  document.body.style.setProperty('--header-height', `${headerHeight}px`);
+  document.body.style.setProperty('--header-group-height', `${headerGroupHeight}px`);
+}
+
+export function updateAllHeaderCustomProperties() {
+  updateHeaderHeights();
+  updateTransparentHeaderOffset();
+}
 
 Theme.utilities = {
   ...Theme.utilities,

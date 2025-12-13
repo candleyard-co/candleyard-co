@@ -25,7 +25,8 @@
       "comment": "Комментарий",
       "post_success": "Спасибо за обращение. Мы свяжемся с вами как можно скорее.",
       "error_heading": "Измените следующие элементы:"
-    }
+    },
+    "slider_label": "Ползунок"
   },
   "accessibility": {
     "play_model": "Открыть объемную модель",
@@ -71,7 +72,11 @@
     "quantity": "Количество",
     "rating": "Рейтинг этого продукта {{ rating }} из 5",
     "nested_product": "{{ product_title }} для товара \"{{ parent_title }}\"",
-    "discount_menu": "Коды скидок"
+    "discount_menu": "Коды скидок",
+    "remove": "Удалить",
+    "view_pricing_info": "Посмотреть информацию о ценах",
+    "open_hotspot": "Открыть хотспот",
+    "slideshow": "Слайд-шоу"
   },
   "actions": {
     "add_to_cart": "Добавить в корзину",
@@ -252,7 +257,32 @@
       "previous": "Назад",
       "next": "Далее",
       "page": "Страница {{ page }}"
-    }
+    },
+    "volume_pricing_available": "Доступны установление цены в зависимости от объема операций",
+    "volume_pricing": "Установление цены в зависимости от объема операций",
+    "at_price_each": "по цене {{ price }} за шт.",
+    "each": "{{ price }} за шт.",
+    "each_abbreviation": "за шт.",
+    "price_at": "по цене",
+    "cancel": "Отмена",
+    "product_subtotal": "Итого за товары",
+    "quantity_per_item": "/шт.",
+    "remove_all": "Удалить все",
+    "remove_all_items_confirmation": "Удалить все товары ({{ count }}) из корзины?",
+    "remove_one_item_confirmation": "Удалить 1 предмет из корзины?",
+    "total_items": "Всего предметов",
+    "variant": "Вариант",
+    "variant_total": "Всего вариантов",
+    "view_cart": "Просмотреть корзину",
+    "your_cart": "Корзина",
+    "items_added_to_cart": {
+      "one": "1 предмет добавлен в корзину",
+      "other": "{{ count }} предмета(-ов) добавлено в корзину",
+      "few": "{{ count }} предмета(-ов) добавлено в корзину",
+      "many": "{{ count }} предмета(-ов) добавлено в корзину"
+    },
+    "item_count_cutoff": "Более {{ count }} товаров",
+    "price_range": "Ценовой диапазон"
   },
   "gift_cards": {
     "issued": {
@@ -267,36 +297,6 @@
       "copy_code_success": "Код скопирован",
       "expired": "Срок действия истек"
     }
-  },
-  "placeholders": {
-    "password": "Пароль",
-    "search": "Поиск",
-    "product_title": "Название продукта",
-    "collection_title": "Название коллекции",
-    "blog_posts": "Записи в блоге",
-    "blog_post_title": "Название",
-    "blog_post_author": "Автор",
-    "blog_post_date": "Дата",
-    "blog_post_description": "Фрагмент текста вашей записи в блоге"
-  },
-  "products": {
-    "product": {
-      "add_to_cart": "Добавить в корзину",
-      "added_to_cart": "Товар добавлен в корзину",
-      "adding_to_cart": "Добавление...",
-      "add_to_cart_error": "Возникла ошибка при добавлении в корзину",
-      "sold_out": "Продано",
-      "unavailable": "Недоступно",
-      "quantity_error_max": "Максимальное количество этого товара — {{ maximum }}",
-      "quantity": "Количество",
-      "quantity_increments": "Прирост: {{ increment }}",
-      "quantity_minimum": "Минимум: {{ minimum }}",
-      "quantity_maximum": "Максимум: {{ maximum }}",
-      "in_cart": "в корзине"
-    }
-  },
-  "fields": {
-    "separator": "–"
   },
   "blogs": {
     "article": {
@@ -318,6 +318,36 @@
       "post": "Добавить комментарий",
       "success_moderated": "Комментарий отправлен на модерацию",
       "success": "Комментарий опубликован"
+    }
+  },
+  "fields": {
+    "separator": "–"
+  },
+  "placeholders": {
+    "password": "Пароль",
+    "search": "Поиск",
+    "product_title": "Название продукта",
+    "collection_title": "Название коллекции",
+    "blog_posts": "Записи в блоге",
+    "blog_post_title": "Название",
+    "blog_post_author": "Автор",
+    "blog_post_date": "Дата",
+    "blog_post_description": "Фрагмент текста вашей записи в блоге"
+  },
+  "products": {
+    "product": {
+      "add_to_cart": "Добавить в корзину",
+      "adding_to_cart": "Добавление...",
+      "added_to_cart": "Товар добавлен в корзину",
+      "add_to_cart_error": "Возникла ошибка при добавлении в корзину",
+      "quantity_error_max": "Максимальное количество этого товара — {{ maximum }}",
+      "sold_out": "Продано",
+      "unavailable": "Недоступно",
+      "quantity": "Количество",
+      "quantity_increments": "Прирост: {{ increment }}",
+      "quantity_minimum": "Минимум: {{ minimum }}",
+      "quantity_maximum": "Максимум: {{ maximum }}",
+      "in_cart": "в корзине"
     }
   }
 }

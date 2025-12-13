@@ -28,6 +28,7 @@ class CartIcon extends Component {
     super.connectedCallback();
 
     document.addEventListener(ThemeEvents.cartUpdate, this.onCartUpdate);
+    window.addEventListener('pageshow', this.onPageShow);
     this.ensureCartBubbleIsCorrect();
   }
 
@@ -35,7 +36,18 @@ class CartIcon extends Component {
     super.disconnectedCallback();
 
     document.removeEventListener(ThemeEvents.cartUpdate, this.onCartUpdate);
+    window.removeEventListener('pageshow', this.onPageShow);
   }
+
+  /**
+   * Handles the page show event when the page is restored from cache.
+   * @param {PageTransitionEvent} event - The page show event.
+   */
+  onPageShow = (event) => {
+    if (event.persisted) {
+      this.ensureCartBubbleIsCorrect();
+    }
+  };
 
   /**
    * Handles the cart update event.
@@ -82,14 +94,23 @@ class CartIcon extends Component {
    * Checks if the cart count is correct.
    */
   ensureCartBubbleIsCorrect = () => {
-    const sessionStorageCount = sessionStorage.getItem('cart-count');
-    const visibleCount = this.refs.cartBubbleCount.textContent;
+    // Ensure refs are available
+    if (!this.refs.cartBubbleCount) return;
 
-    if (sessionStorageCount === visibleCount || sessionStorageCount === null) return;
+    const sessionStorageCount = sessionStorage.getItem('cart-count');
+
+    // If no session storage data, nothing to check
+    if (sessionStorageCount === null) return;
+
+    const visibleCount = this.refs.cartBubbleCount.textContent;
 
     try {
       const { value, timestamp } = JSON.parse(sessionStorageCount);
 
+      // Check if the stored count matches what's visible
+      if (value === visibleCount) return;
+
+      // Only update if timestamp is recent (within 10 seconds)
       if (Date.now() - timestamp < 10000) {
         const count = parseInt(value, 10);
 

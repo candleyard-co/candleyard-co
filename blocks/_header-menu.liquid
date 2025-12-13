@@ -266,7 +266,6 @@
     --submenu-content-opacity: 0;
     --submenu-content-animation: opacity calc(var(--submenu-animation-speed) * 0.75) var(--animation-easing);
 
-    box-shadow: var(--shadow-drawer);
     visibility: hidden;
     background-color: var(--color-background);
     position: absolute;
@@ -333,7 +332,6 @@
     max-height: calc(80vh - var(--header-height));
     overflow-y: auto;
     overflow-x: hidden;
-
     scrollbar-width: thin;
     scrollbar-color: rgb(var(--color-foreground-rgb) / var(--opacity-40)) transparent;
   }
@@ -649,7 +647,7 @@
     {
       "type": "select",
       "id": "menu_font_style",
-      "label": "t:settings.submenu_text_style",
+      "label": "t:settings.submenu_size",
       "options": [
         {
           "value": "regular",

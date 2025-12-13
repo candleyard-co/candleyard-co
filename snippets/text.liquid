@@ -70,6 +70,7 @@
 
   {{ block.shopify_attributes }}
 {% endcapture %}
+
 {% liquid
   # {{ attributes }} must be on the immediate HTML parent of the text to preserve
   # the click-to-edit connection in the theme editor. Any break between the text,
@@ -82,11 +83,11 @@
 %}
 
 {% if fallback_text != blank and plain_text == blank %}
-  <div {{ attributes }}>
+  <div {{ attributes | strip_newlines | strip }}>
     {{ fallback_text }}
   </div>
 {% elsif plain_text != blank %}
-  <{{ element }} {{ attributes }}>
+  <{{ element }} {{ attributes | strip_newlines | strip }}>
     {{ block.settings.text }}
   </{{ element }}>
 {% endif %}
@@ -126,7 +127,7 @@
 
   .text-block > * {
     width: var(--width);
-    max-width: var(--max-width, 100%);
+    max-inline-size: min(100%, var(--max-width, 100%));
     text-align: var(--text-align, var(--text-align-default));
     text-wrap: var(--text-wrap);
   }

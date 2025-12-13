@@ -68,6 +68,7 @@
 {% stylesheet %}
   .collection-card {
     --fixed-card-height: var(--height-small);
+
     flex: 1 1 var(--card-width-small);
     width: 100%;
     position: relative;
@@ -136,6 +137,10 @@
 
   .collection-card.collection-card--image-bg .collection-card__content {
     padding: var(--padding-lg);
+  }
+
+  .collection-card--image-height-fixed {
+    height: 100%;
   }
 
   /* Bento layout rules */

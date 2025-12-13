@@ -1743,6 +1743,100 @@
       }
     },
     {
+      "name": "t:names.image_compare",
+      "category": "t:categories.storytelling",
+      "blocks": {
+        "group_EhJ6aA": {
+          "type": "group",
+          "name": "t:names.content",
+          "settings": {
+            "horizontal_alignment_flex_direction_column": "center",
+            "gap": 30,
+            "width": "fit-content"
+          },
+          "blocks": {
+            "group_3xi9Yi": {
+              "type": "group",
+              "name": "t:names.text",
+              "settings": {
+                "horizontal_alignment_flex_direction_column": "center"
+              },
+              "blocks": {
+                "text_NpcR4X": {
+                  "type": "text",
+                  "name": "t:names.heading",
+                  "settings": {
+                    "text": "<h2>Find your perfect fit</h2>"
+                  }
+                },
+                "text_jbqPwX": {
+                  "type": "text",
+                  "name": "t:names.subheading",
+                  "settings": {
+                    "text": "<p>Discover the best of both worlds</p>"
+                  }
+                }
+              },
+              "block_order": ["text_NpcR4X", "text_jbqPwX"]
+            },
+            "group_PpcWat": {
+              "type": "group",
+              "name": "t:names.buttons",
+              "settings": {
+                "content_direction": "row",
+                "vertical_on_mobile": false,
+                "horizontal_alignment": "center"
+              },
+              "blocks": {
+                "button_bbnFQ3": {
+                  "type": "button",
+                  "name": "t:names.button",
+                  "settings": {
+                    "label": "t:text_defaults.view_all_button_label",
+                    "link": "shopify://collections/all",
+                    "style_class": "button-secondary",
+                    "custom_width": 34,
+                    "custom_width_mobile": 34
+                  }
+                },
+                "button_cKPkCT": {
+                  "type": "button",
+                  "name": "t:names.button",
+                  "settings": {
+                    "label": "t:text_defaults.shop_now_button_label",
+                    "link": "shopify://collections/all",
+                    "style_class": "button-secondary",
+                    "custom_width": 34,
+                    "custom_width_mobile": 34
+                  }
+                }
+              },
+              "block_order": ["button_bbnFQ3", "button_cKPkCT"]
+            }
+          },
+          "block_order": ["group_3xi9Yi", "group_PpcWat"]
+        },
+        "comparison_slider_RjcBej": {
+          "type": "comparison-slider",
+          "name": "t:names.comparison_slider",
+          "settings": {
+            "image_ratio": "landscape",
+            "width": "custom",
+            "custom_width": 65
+          }
+        }
+      },
+      "block_order": ["group_EhJ6aA", "comparison_slider_RjcBej"],
+      "settings": {
+        "content_direction": "row",
+        "horizontal_alignment": "space-between",
+        "gap": 46,
+        "section_height": "small",
+        "padding-block-start": 40,
+        "padding-block-end": 40
+      }
+    },
+    {
       "name": "t:names.large_logo",
       "category": "t:categories.banners",
       "blocks": {

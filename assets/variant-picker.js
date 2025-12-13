@@ -69,8 +69,15 @@ export default class VariantPicker extends Component {
     const currentUrl = this.dataset.productUrl?.split('?')[0];
     const newUrl = selectedOption.dataset.connectedProductUrl;
     const loadsNewProduct = isOnProductPage && !!newUrl && newUrl !== currentUrl;
+    const isOnFeaturedProductSection = Boolean(this.closest('featured-product-information'));
 
-    this.fetchUpdatedSection(this.buildRequestUrl(selectedOption), loadsNewProduct);
+    const morphElementSelector = loadsNewProduct
+      ? 'main'
+      : isOnFeaturedProductSection
+      ? 'featured-product-information'
+      : undefined;
+
+    this.fetchUpdatedSection(this.buildRequestUrl(selectedOption), morphElementSelector);
 
     const url = new URL(window.location.href);
 
@@ -202,22 +209,33 @@ export default class VariantPicker extends Component {
       }
     }
 
-    // If variant-picker is a child of quick-add-component or swatches-variant-picker-component, we need to append section_id=section-rendering-product-card to the URL
-    if (this.closest('quick-add-component') || this.closest('swatches-variant-picker-component')) {
+    // If variant-picker is a child of some specific sections, we need to append section_id=xxxx to the URL
+    const SECTION_ID_MAP = {
+      'quick-add-component': 'section-rendering-product-card',
+      'swatches-variant-picker-component': 'section-rendering-product-card',
+      'featured-product-information': this.closest('featured-product-information')?.id,
+    };
+
+    const closestSectionId = /** @type {keyof typeof SECTION_ID_MAP} | undefined */ (
+      Object.keys(SECTION_ID_MAP).find((sectionId) => this.closest(sectionId))
+    );
+
+    if (closestSectionId) {
       if (productUrl?.includes('?')) {
         productUrl = productUrl.split('?')[0];
       }
-      return `${productUrl}?section_id=section-rendering-product-card&${params.join('&')}`;
+      return `${productUrl}?section_id=${SECTION_ID_MAP[closestSectionId]}&${params.join('&')}`;
     }
+
     return `${productUrl}?${params.join('&')}`;
   }
 
   /**
    * Fetches the updated section.
    * @param {string} requestUrl - The request URL.
-   * @param {boolean} shouldMorphMain - If the entire main content should be morphed. By default, only the variant picker is morphed.
+   * @param {string} [morphElementSelector] - The selector of the element to be morphed. By default, only the variant picker is morphed.
    */
-  fetchUpdatedSection(requestUrl, shouldMorphMain = false) {
+  fetchUpdatedSection(requestUrl, morphElementSelector) {
     // We use this to abort the previous fetch request if it's still pending.
     this.#abortController?.abort();
     this.#abortController = new AbortController();
@@ -233,8 +251,10 @@ export default class VariantPicker extends Component {
         const textContent = html.querySelector(`variant-picker script[type="application/json"]`)?.textContent;
         if (!textContent) return;
 
-        if (shouldMorphMain) {
+        if (morphElementSelector === 'main') {
           this.updateMain(html);
+        } else if (morphElementSelector) {
+          this.updateElement(html, morphElementSelector);
         } else {
           const newProduct = this.updateVariantPicker(html);
 
@@ -296,6 +316,22 @@ export default class VariantPicker extends Component {
     morph(this, newVariantPickerSource);
 
     return newProduct;
+  }
+
+  /**
+   * Re-renders the desired element.
+   * @param {Document} newHtml - The new HTML.
+   * @param {string} elementSelector - The selector of the element to re-render.
+   */
+  updateElement(newHtml, elementSelector) {
+    const element = this.closest(elementSelector);
+    const newElement = newHtml.querySelector(elementSelector);
+
+    if (!element || !newElement) {
+      throw new Error(`No new element source found for ${elementSelector}`);
+    }
+
+    morph(element, newElement);
   }
 
   /**

@@ -1,15 +1,3 @@
-{% liquid
-  assign has_applied_colour_filter = false
-  assign filters_to_check = collection.filters | default: search.filters
-
-  for filter in filters_to_check
-    if filter.type == 'list' and filter.param_name contains 'color' and filter.active_values.size > 0
-      assign has_applied_colour_filter = true
-      break
-    endif
-  endfor
-%}
-
 {% capture children %}
   {% unless closest.product == blank %}
     {% render 'product-card-badges', product: closest.product, settings: settings %}
@@ -19,7 +7,7 @@
   {% endunless %}
 {% endcapture %}
 
-{% render 'card-gallery', children: children, has_applied_colour_filter: has_applied_colour_filter %}
+{% render 'card-gallery', children: children %}
 
 {% # Title and price for the zoomed out grid view %}
 <div class="product-grid-view-zoom-out--details">

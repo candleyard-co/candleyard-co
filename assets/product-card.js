@@ -1,4 +1,4 @@
-import { OverflowList } from '@theme/critical';
+import { OverflowList } from '@theme/overflow-list';
 import VariantPicker from '@theme/variant-picker';
 import { Component } from '@theme/component';
 import { debounce, isDesktopBreakpoint, mediaQueryLarge, requestYieldCallback } from '@theme/utilities';
@@ -408,14 +408,15 @@ export class ProductCard extends Component {
     const productCardAnchor = link.getAttribute('id');
     if (!productCardAnchor) return;
 
-    const url = new URL(window.location.href);
-    const parent = this.closest('li');
-    url.hash = productCardAnchor;
-    if (parent && parent.dataset.page) {
-      url.searchParams.set('page', parent.dataset.page);
-    }
+    const infiniteResultsList = this.closest('results-list[infinite-scroll="true"]');
+    if (!window.Shopify.designMode && infiniteResultsList) {
+      const url = new URL(window.location.href);
+      const parent = this.closest('li');
+      url.hash = productCardAnchor;
+      if (parent && parent.dataset.page) {
+        url.searchParams.set('page', parent.dataset.page);
+      }
 
-    if (!window.Shopify.designMode) {
       requestYieldCallback(() => {
         history.replaceState({}, '', url.toString());
       });

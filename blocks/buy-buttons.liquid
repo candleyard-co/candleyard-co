@@ -13,22 +13,20 @@
     assign inventory_managed = true
   endif
 
-  if variant.quantity_rule.min > variant.inventory_quantity and inventory_managed and inventory_policy == 'deny'
-    assign quantity_rule_soldout = true
-  endif
+  assign can_add_to_cart = false
+  assign add_to_cart_text = 'products.product.unavailable' | t
 
-  if inventory_managed
-    if inventory_quantity <= 0 and inventory_policy == 'deny' or quantity_rule_soldout
+  if variant
+    if variant.quantity_rule.min > variant.inventory_quantity and inventory_managed and inventory_policy == 'deny'
+      assign quantity_rule_soldout = true
+    endif
+
+    if variant.available
+      assign can_add_to_cart = true
+      assign add_to_cart_text = 'products.product.add_to_cart' | t
+    elsif inventory_managed and inventory_quantity <= 0 and inventory_policy == 'deny' or quantity_rule_soldout
       assign can_add_to_cart = false
       assign add_to_cart_text = 'products.product.sold_out' | t
-    else
-      assign can_add_to_cart = true
-      assign add_to_cart_text = 'products.product.add_to_cart' | t
-    endif
-  else
-    if closest.product.selected_or_first_available_variant != null
-      assign can_add_to_cart = true
-      assign add_to_cart_text = 'products.product.add_to_cart' | t
     else
       assign can_add_to_cart = false
       assign add_to_cart_text = 'products.product.unavailable' | t
@@ -81,7 +79,10 @@
 
           {%- if has_quantity_rules -%}
             {%- assign cart_quantity = cart | item_count_for_variant: variant.id -%}
-            <div class="quantity-label">
+            <div
+              class="quantity-label"
+              ref="quantityLabel"
+            >
               {{ 'products.product.quantity' | t }}
               <span
                 class="quantity-label__cart-count{% if cart_quantity == 0 %} hidden{% endif %}"
@@ -117,6 +118,92 @@
             </div>
           {%- endif -%}
 
+          {%- if product.quantity_price_breaks_configured? and variant.quantity_price_breaks.size > 0 -%}
+            {%- liquid
+              assign use_currency = settings.currency_code_enabled_product_pages
+            -%}
+            <volume-pricing
+              class="volume-pricing"
+              data-section-id="{{ section.id }}"
+              ref="volumePricing"
+            >
+              <span class="volume-pricing__title caption-large">{{ 'content.volume_pricing' | t }}</span>
+              <div class="volume-pricing__table">
+                <div class="volume-pricing__row volume-pricing__row--even">
+                  <span>{{ variant.quantity_rule.min }}+</span>
+                  <span>
+                    {%- if use_currency -%}
+                      {{- variant.price | money_with_currency | strip -}}
+                    {%- else -%}
+                      {{- variant.price | money | strip -}}
+                    {%- endif -%}
+                    /{{ 'content.each_abbreviation' | t -}}
+                  </span>
+                </div>
+                {%- for price_break in variant.quantity_price_breaks limit: 2 -%}
+                  {%- liquid
+                    assign row_index = forloop.index
+                    if row_index == 1
+                      assign row_class = 'volume-pricing__row volume-pricing__row--odd'
+                    else
+                      assign row_class = 'volume-pricing__row volume-pricing__row--even'
+                    endif
+                  -%}
+                  <div class="{{ row_class }}">
+                    <span>{{ price_break.minimum_quantity }}+</span>
+                    <span>
+                      {%- if use_currency -%}
+                        {{- price_break.price | money_with_currency | strip -}}
+                      {%- else -%}
+                        {{- price_break.price | money | strip -}}
+                      {%- endif -%}
+                      /{{ 'content.each_abbreviation' | t -}}
+                    </span>
+                  </div>
+                {%- endfor -%}
+
+                {%- if variant.quantity_price_breaks.size > 2 -%}
+                  <div class="volume-pricing__collapsible-wrapper">
+                    {%- for price_break in variant.quantity_price_breaks offset: 2 -%}
+                      {%- liquid
+                        assign collapsed_index = forloop.index
+                        assign total_index = collapsed_index | plus: 2
+                        assign modulo_result = total_index | modulo: 2
+                        if modulo_result == 1
+                          assign row_class = 'volume-pricing__row volume-pricing__collapsible-row volume-pricing__row--odd'
+                        else
+                          assign row_class = 'volume-pricing__row volume-pricing__collapsible-row volume-pricing__row--even'
+                        endif
+                      -%}
+                      <div class="{{ row_class }}">
+                        <span>{{ price_break.minimum_quantity }}+</span>
+                        <span>
+                          {%- if use_currency -%}
+                            {{- price_break.price | money_with_currency | strip -}}
+                          {%- else -%}
+                            {{- price_break.price | money | strip -}}
+                          {%- endif -%}
+                          /{{ 'content.each_abbreviation' | t -}}
+                        </span>
+                      </div>
+                    {%- endfor -%}
+                  </div>
+
+                  <button
+                    type="button"
+                    class="volume-pricing__toggle button-unstyled"
+                    ref="volumePricingToggle"
+                    on:click="/toggleExpanded"
+                  >
+                    <span class="volume-pricing__toggle-text">
+                      <span class="volume-pricing__show-more">+ {{ 'actions.show_more' | t }}</span>
+                      <span class="volume-pricing__show-less">- {{ 'actions.show_less' | t }}</span>
+                    </span>
+                  </button>
+                {%- endif -%}
+              </div>
+            </volume-pricing>
+          {%- endif -%}
           {%- unless block_settings.gift_card_form and product.gift_card? -%}
             <span
               class="product-form-text__error hidden"
@@ -271,6 +358,8 @@
 
 {% stylesheet %}
   .buy-buttons-block {
+    --buy-button-preferred-width: 185px;
+
     width: 100%;
   }
 
@@ -287,18 +376,18 @@
     }
   }
 
-  .product-form-buttons > *:not(.quantity-selector, .quantity-rules, .quantity-label) {
-    flex: 1 1 185px;
+  .product-form-buttons > *:not(.quantity-selector-wrapper, .quantity-rules, .quantity-label, .volume-pricing) {
+    flex: 1 1 var(--buy-button-preferred-width, 0);
     min-width: fit-content;
   }
 
-  .product-form-buttons--stacked > *:not(.quantity-selector, .quantity-rules, .quantity-label) {
-    flex-basis: 51%; /* Force the buttons to be on separate rows */
+  .product-form-buttons--stacked
+    > *:not(.quantity-selector-wrapper, .quantity-rules, .quantity-label, .volume-pricing) {
+    flex-basis: 51%;
   }
 
   .product-form-buttons button {
     width: 100%;
-    padding-inline: var(--padding-4xl);
     padding-block: var(--padding-lg);
   }
 
@@ -306,36 +395,6 @@
     flex-grow: 0;
     flex-shrink: 0;
     height: var(--height-buy-buttons);
-  }
-
-  .product-form-buttons:has(.quantity-rules) .quantity-selector {
-    margin-inline-end: var(--gap-sm);
-    margin-block-end: var(--gap-sm);
-  }
-
-  .quantity-selector:has(+ .quantity-rules) {
-    margin-block-end: 0;
-  }
-
-  .add-to-cart-button {
-    height: var(--height-buy-buttons);
-    text-transform: var(--button-text-case-primary);
-  }
-
-  .add-to-cart-button.button-secondary {
-    text-transform: var(--button-text-case-secondary);
-  }
-
-  .product-form-buttons .shopify-payment-button__button {
-    width: 100%;
-    min-height: var(--minimum-touch-target);
-  }
-
-  .product-form-text__error {
-    display: flex;
-    align-items: flex-start;
-    gap: var(--gap-xs);
-    margin-block-end: var(--gap-xs);
   }
 
   .quantity-label {
@@ -359,12 +418,17 @@
     font-size: var(--font-size--xs);
     color: var(--color-foreground-secondary);
     margin-block-start: var(--gap-xs);
-    margin-block-end: var(--gap-2xl);
+    margin-block-end: var(--gap);
+  }
+
+  .product-form-buttons:has(~ .volume-pricing .volume-pricing__title) .quantity-rules {
+    margin-block-end: var(--gap-md);
   }
 
   .quantity-rules__item {
     position: relative;
     display: inline-block;
+    color: rgb(var(--color-foreground-rgb) / var(--opacity-subdued-text));
   }
 
   .quantity-rules__item:not(:last-child) {
@@ -380,6 +444,22 @@
     transform: translateY(-50%);
     font-size: 0.5em;
     line-height: 0;
+  }
+
+  .add-to-cart-button {
+    height: var(--height-buy-buttons);
+    text-transform: var(--button-text-case-primary);
+  }
+
+  .add-to-cart-button.button-secondary {
+    text-transform: var(--button-text-case-secondary);
+  }
+
+  .product-form-text__error {
+    display: flex;
+    align-items: flex-start;
+    gap: var(--gap-xs);
+    margin-block-end: var(--gap-xs);
   }
 
   .product__pickup-availabilities {
@@ -486,6 +566,108 @@
   .pickup-location__close-button {
     top: calc(var(--padding-2xl) - (var(--icon-size-xs) / 2));
     right: calc(var(--padding-2xl) - var(--icon-size-xs));
+  }
+
+  .volume-pricing {
+    display: block;
+    width: 100%;
+    margin-bottom: var(--gap);
+  }
+
+  .volume-pricing:not(:has(.volume-pricing__title)) {
+    margin-top: 0;
+    margin-bottom: 0;
+  }
+
+  .volume-pricing__title {
+    display: block;
+    margin-block-end: var(--gap-sm);
+    font-size: var(--font-size--sm);
+    font-weight: var(--font-body--weight);
+    color: var(--color-foreground);
+  }
+
+  .volume-pricing__table {
+    width: 100%;
+  }
+
+  .volume-pricing__row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-block: var(--padding-sm);
+    padding-inline: var(--padding-md);
+    font-size: var(--font-size--sm);
+  }
+
+  .volume-pricing__row--even {
+    background: rgb(var(--color-foreground-rgb) / var(--opacity-5));
+  }
+
+  .volume-pricing__row--odd {
+    background: var(--color-background);
+  }
+
+  .volume-pricing__collapsible-wrapper {
+    block-size: 0;
+    overflow-y: clip;
+    opacity: 0;
+    interpolate-size: allow-keywords;
+    transition: opacity var(--animation-speed-slow) var(--animation-easing),
+      block-size var(--animation-speed-slow) var(--animation-easing);
+  }
+
+  .volume-pricing__toggle {
+    width: 100%;
+    padding-bottom: 0;
+    padding-inline: 0;
+    text-align: left;
+    color: var(--color-foreground-secondary);
+    font-size: var(--font-size--xs);
+    cursor: default;
+    margin-block-start: 0;
+    pointer-events: none;
+  }
+
+  button.volume-pricing__toggle {
+    /* Need the extra specificity to override .product-form-buttons button */
+    padding-block: var(--padding-sm);
+  }
+
+  .volume-pricing__toggle-text {
+    cursor: pointer;
+    display: inline-block;
+    pointer-events: auto;
+  }
+
+  .volume-pricing__show-less {
+    display: none;
+  }
+
+  .volume-pricing--expanded .volume-pricing__collapsible-wrapper {
+    opacity: 1;
+    block-size: auto;
+
+    @starting-style {
+      block-size: 0;
+      opacity: 0;
+      overflow-y: clip;
+    }
+  }
+
+  .volume-pricing--expanded .volume-pricing__show-more {
+    display: none;
+  }
+
+  .volume-pricing--expanded .volume-pricing__show-less {
+    display: inline;
+  }
+
+  .price-per-item {
+    display: block;
+    color: var(--color-foreground);
+    font-size: var(--font-size--sm);
+    font-weight: normal;
   }
 {% endstylesheet %}
 

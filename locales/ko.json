@@ -25,7 +25,8 @@
       "comment": "댓글",
       "post_success": "문의해 주셔서 감사합니다. 최대한 빨리 답변드리겠습니다.",
       "error_heading": "다음을 조정하세요."
-    }
+    },
+    "slider_label": "슬라이더"
   },
   "accessibility": {
     "play_model": "3D 모델 재생",
@@ -69,7 +70,11 @@
     "increase_quantity": "수량 증가",
     "quantity": "수량",
     "rating": "이 제품의 평점은 5점 만점에 {{ rating }}점입니다",
-    "nested_product": "{{ parent_title }}용 {{ product_title }}"
+    "nested_product": "{{ parent_title }}용 {{ product_title }}",
+    "remove": "제거",
+    "view_pricing_info": "가격 정보 보기",
+    "open_hotspot": "핫스팟 열기",
+    "slideshow": "슬라이드쇼"
   },
   "actions": {
     "add_to_cart": "카트에 추가",
@@ -242,7 +247,30 @@
       "previous": "이전",
       "next": "다음",
       "page": "{{ page }}페이지"
-    }
+    },
+    "volume_pricing_available": "수량별 가격 책정 사용 가능",
+    "volume_pricing": "수량별 가격 책정",
+    "at_price_each": "개당 {{ price }}",
+    "each": "개당 {{ price }}",
+    "each_abbreviation": "각",
+    "price_at": "가격",
+    "price_range": "가격 범위",
+    "cancel": "취소",
+    "product_subtotal": "제품 소계",
+    "quantity_per_item": "/개",
+    "remove_all": "모두 제거",
+    "remove_all_items_confirmation": "카트에서 {{ count }}개 품목을 모두 제거하시겠습니까?",
+    "remove_one_item_confirmation": "카트에서 1개 품목을 제거하시겠습니까?",
+    "total_items": "총 품목 수",
+    "variant": "이형 상품",
+    "variant_total": "이형 상품 합계",
+    "view_cart": "카트 보기",
+    "your_cart": "카트",
+    "items_added_to_cart": {
+      "one": "카트에 1개 품목이 추가됨",
+      "other": "카트에 {{ count }}개 품목이 추가됨"
+    },
+    "item_count_cutoff": "{{ count }}개 이상의 품목"
   },
   "gift_cards": {
     "issued": {
@@ -277,12 +305,12 @@
       "add_to_cart_error": "카트에 추가하는 중 오류 발생",
       "sold_out": "품절",
       "unavailable": "사용할 수 없음",
-      "quantity_error_max": "이 상품의 최대 수량은 {{ maximum }}개입니다",
+      "quantity_error_max": "이 품목의 최대 개수는 {{ maximum }}개입니다.",
       "quantity": "수량",
-      "quantity_increments": "{{ increment }}씩 증가",
+      "quantity_increments": "{{ increment }}개씩 증가",
       "quantity_minimum": "최소 {{ minimum }}개",
       "quantity_maximum": "최대 {{ maximum }}개",
-      "in_cart": "장바구니에"
+      "in_cart": "카트에 있음"
     }
   },
   "fields": {

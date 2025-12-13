@@ -30,6 +30,7 @@
     "menu": "Menu",
     "nested_product": "{{ product_title }} for {{ parent_title }}",
     "new_window": "Opens in a new window.",
+    "open_hotspot": "Open hotspot",
     "quantity": "Quantity",
     "pause_video": "Pause video",
     "play_model": "Play 3D model",
@@ -46,12 +47,14 @@
     "skip_to_results_list": "Skip to results list",
     "skip_to_text": "Skip to content",
     "slide_status": "Slide {{ index }} of {{ length }}",
+    "slideshow": "Slideshow",
     "slideshow_next": "Next slide",
     "slideshow_pause": "Pause slideshow",
     "slideshow_play": "Play slideshow",
     "slideshow_previous": "Previous slide",
     "unit_price": "Unit price",
-    "find_country": "Find country"
+    "find_country": "Find country",
+    "view_pricing_info": "View pricing information"
   },
   "actions": {
     // Quick add button on product cards, shortened version of add to cart
@@ -122,7 +125,8 @@
     "filter": "Filter",
     "load_video": "Load video: {{ description }}",
     "sold_out": "Sold out",
-    "payment_methods": "Payment methods"
+    "payment_methods": "Payment methods",
+    "slider_label": "Slider"
   },
   "blogs": {
     "article": {
@@ -145,6 +149,7 @@
     }
   },
   "content": {
+    "cancel": "Cancel",
     "discount": "Discount",
     "account_title": "Account",
     "terms_and_policies": "Terms and Policies",
@@ -191,6 +196,7 @@
       "one": "{{ count }} item",
       "other": "{{ count }} items"
     },
+    "item_count_cutoff": "More than {{ count }} items",
     "language": "Language",
     "localization_region_and_language": "Region and language",
     "no_products_found": "No products found.",
@@ -216,13 +222,18 @@
     "price_filter_html": "The highest price is {{ price }}",
     "product_image": "Product image",
     "product_information": "Product information",
+    "product_subtotal": "Product subtotal",
     "product_total": "Product total",
     "product_badge_sold_out": "Sold out",
     "product_badge_sale": "Sale",
     "product_card_placeholder": "Product title",
     "placeholder_image": "Placeholder image",
     "quantity": "Quantity",
+    "quantity_per_item": "/ea",
     "recently_viewed_products": "Recently viewed",
+    "remove_all": "Remove all",
+    "remove_all_items_confirmation": "Remove all {{ count }} items from your cart?",
+    "remove_one_item_confirmation": "Remove 1 item from your cart?",
     "reviews": "reviews",
     "read_more": "Read more...",
     "search_input_label": "Search",
@@ -242,6 +253,15 @@
       "other": "{{ count }} products"
     },
     "search_results_resource_queries": "Search suggestions",
+    "total_items": "Total items",
+    "variant": "Variant",
+    "variant_total": "Variant total",
+    "view_cart": "View cart",
+    "your_cart": "Your cart",
+    "items_added_to_cart": {
+      "one": "1 item added to cart",
+      "other": "{{ count }} items added to cart"
+    },
     // Button to go from search preview to full search results page
     "search_results_view_all": "View all",
     "search_results_view_all_button": "View all",
@@ -263,6 +283,13 @@
     "use_fewer_filters_html": "Try using fewer filters, or <a class=\"{{ class }}\" href=\"{{ link }}\">clear all filters</a>.",
     // Link or button to expand additional information
     "view_more_details": "View more details",
+    "volume_pricing_available": "Volume pricing available",
+    "volume_pricing": "Volume pricing",
+    "at_price_each": "at {{ price }}/ea",
+    "each": "{{ price }}/ea",
+    "each_abbreviation": "ea",
+    "price_at": "at",
+    "price_range": "Price range",
     "your_cart_is_empty": "Your cart is empty",
     "product_count": "Product count",
     "errors": "Errors",
@@ -327,6 +354,8 @@
       "quantity_minimum": "Minimum of {{ minimum }}",
       "quantity_maximum": "Maximum of {{ maximum }}",
       "in_cart": "in cart",
+      "default_title": "Default Title",
+      "sticky_add_to_cart": "Quick add to cart bar",
       "save": "Save {{ price }}%",
       "pack_title": "Select {{ limit }} {{ title }}",
       "back_button": "Back",

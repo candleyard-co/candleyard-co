@@ -9,6 +9,9 @@
   <details
     class="details"
     data-testid="accordion-details"
+    {% if block_settings.open_by_default %}
+      open
+    {% endif %}
     {{ block.shopify_attributes }}
   >
     <summary class="details__header">

@@ -25,7 +25,8 @@
       "comment": "Komentar",
       "post_success": "Hvala za vaše sporočilo. Z vami bomo v stiku takoj, ko bo mogoče.",
       "error_heading": "Prilagodite naslednje:"
-    }
+    },
+    "slider_label": "Drsnik"
   },
   "accessibility": {
     "play_model": "Predvajaj 3D-model",
@@ -71,7 +72,11 @@
     "quantity": "Količina",
     "rating": "Ocena tega izdelka je {{ rating }} od 5",
     "nested_product": "{{ product_title }} za {{ parent_title }}",
-    "discount_menu": "Kode za popust"
+    "discount_menu": "Kode za popust",
+    "remove": "Odstrani",
+    "view_pricing_info": "Prikaži podatke o cenah",
+    "open_hotspot": "Odpri hotspot",
+    "slideshow": "Diaprojekcija"
   },
   "actions": {
     "add_to_cart": "Dodaj v košarico",
@@ -252,6 +257,31 @@
       "previous": "Nazaj",
       "next": "Naprej",
       "page": "Stran {{ page }}"
+    },
+    "volume_pricing_available": "Na voljo je količinski popust",
+    "volume_pricing": "Količinski popust",
+    "at_price_each": "po ceni {{ price }}/kos",
+    "each": "{{ price }}/kos",
+    "each_abbreviation": "kos",
+    "price_at": "po",
+    "price_range": "Cenovni razpon",
+    "item_count_cutoff": "več kot {{ count }} artiklov",
+    "cancel": "Prekliči",
+    "product_subtotal": "Vmesna vsota",
+    "quantity_per_item": "/kos",
+    "remove_all": "Odstrani vse",
+    "remove_all_items_confirmation": "Ali želite iz košarice odstraniti vse izdelke ({{ count }})?",
+    "remove_one_item_confirmation": "Ali želite iz košarice odstraniti 1 izdelek?",
+    "total_items": "Skupno število izdelkov",
+    "variant": "Različica",
+    "variant_total": "Skupna cena različice",
+    "view_cart": "Prikaži košarico",
+    "your_cart": "Vaša košarica",
+    "items_added_to_cart": {
+      "one": "1 izdelek je dodan v košarico",
+      "other": "Toliko izdelkov je dodanih v košarico: {{ count }}",
+      "few": "Toliko izdelkov je dodanih v košarico: {{ count }}",
+      "two": "Toliko izdelkov je dodanih v košarico: {{ count }}"
     }
   },
   "gift_cards": {

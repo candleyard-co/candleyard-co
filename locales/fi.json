@@ -25,7 +25,8 @@
       "comment": "Kommentti",
       "post_success": "Kiitos yhteydenotostasi. Vastaamme sinulle mahdollisimman pian.",
       "error_heading": "Muokkaa seuraavia:"
-    }
+    },
+    "slider_label": "Liukusäädin"
   },
   "accessibility": {
     "play_model": "Toista 3D-malli",
@@ -69,7 +70,11 @@
     "increase_quantity": "Suurenna määrää",
     "quantity": "Määrä",
     "rating": "Tämän tuoteen tuotearvio on {{ rating }}/5",
-    "nested_product": "{{ product_title }} – {{ parent_title }}"
+    "nested_product": "{{ product_title }} – {{ parent_title }}",
+    "remove": "Poista",
+    "view_pricing_info": "Näytä hinnoittelutiedot",
+    "open_hotspot": "Avoin yhteyspiste",
+    "slideshow": "Diaesitys"
   },
   "actions": {
     "add_to_cart": "Lisää ostoskoriin",
@@ -237,11 +242,34 @@
     "recipient_form_error": "Lomakkeen lähettämisessä tapahtui virhe",
     "product_custom_property_character_count": "{{ used_chars }}/{{ max_chars }} merkkiä käytetty",
     "terms_and_policies": "Ehdot ja käytännöt",
+    "item_count_cutoff": "Yli {{ count }} tuotetta",
     "pagination": {
       "nav_label": "Sivunumerointinavigointi",
       "previous": "Edellinen",
       "next": "Seuraava",
       "page": "Sivu {{ page }}"
+    },
+    "volume_pricing_available": "Volyymihinnoittelu saatavilla",
+    "volume_pricing": "Volyymihinnoittelu",
+    "at_price_each": "{{ price }}/kpl",
+    "each": "{{ price }}/kpl",
+    "each_abbreviation": "kpl",
+    "price_at": "hintaan",
+    "price_range": "Hintahaarukka",
+    "cancel": "Peruuta",
+    "product_subtotal": "Tuotteen välisumma",
+    "quantity_per_item": "/kpl",
+    "remove_all": "Poista kaikki",
+    "remove_all_items_confirmation": "Poistetaanko kaikki {{ count }} tuotetta ostoskorista?",
+    "remove_one_item_confirmation": "Poistetaanko 1 tuote ostoskorista?",
+    "total_items": "Tuotteita yhteensä",
+    "variant": "Versio",
+    "variant_total": "Versioiden summa",
+    "view_cart": "Näytä ostoskori",
+    "your_cart": "Ostoskorisi",
+    "items_added_to_cart": {
+      "one": "Yksi tuote lisätty ostoskoriin",
+      "other": "{{ count }} tuotetta lisätty ostoskoriin"
     }
   },
   "gift_cards": {

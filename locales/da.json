@@ -25,7 +25,8 @@
       "comment": "Kommentar",
       "post_success": "Tak for din henvendelse. Vi kontakter dig hurtigst muligt.",
       "error_heading": "Juster følgende:"
-    }
+    },
+    "slider_label": "Billedkarrusel"
   },
   "accessibility": {
     "play_model": "Afspil 3D-model",
@@ -69,7 +70,11 @@
     "increase_quantity": "Øg antal",
     "quantity": "Antal",
     "rating": "Bedømmelsen af dette produkt er {{ rating }} ud af 5",
-    "nested_product": "{{ product_title }} for {{ parent_title }}"
+    "nested_product": "{{ product_title }} for {{ parent_title }}",
+    "remove": "Fjern",
+    "view_pricing_info": "Vis prisoplysninger",
+    "open_hotspot": "Åbn hotspot",
+    "slideshow": "Slideshow"
   },
   "actions": {
     "add_to_cart": "Læg i indkøbskurven",
@@ -242,7 +247,30 @@
       "previous": "Forrige",
       "next": "Næste",
       "page": "Side {{ page }}"
-    }
+    },
+    "volume_pricing_available": "Mængdebaseret pris er tilgængelig",
+    "volume_pricing": "Mængdebaseret pris",
+    "at_price_each": "til {{ price }} pr. stk.",
+    "each": "{{ price }}/stk.",
+    "each_abbreviation": "stk.",
+    "price_at": "til",
+    "price_range": "Prisinterval",
+    "cancel": "Annuller",
+    "product_subtotal": "Subtotal for produkt",
+    "quantity_per_item": " pr. stk.",
+    "remove_all": "Fjern alle",
+    "remove_all_items_confirmation": "Vil du fjerne alle {{ count }} varer fra din indkøbskurv?",
+    "remove_one_item_confirmation": "Vil du fjerne 1 vare fra din indkøbskurv?",
+    "total_items": "Varer i alt",
+    "variant": "Variant",
+    "variant_total": "Variant i alt",
+    "view_cart": "Se indkøbskurv",
+    "your_cart": "Din indkøbskurv",
+    "items_added_to_cart": {
+      "one": "1 vare er lagt i indkøbskurven",
+      "other": "{{ count }} varer lagt i indkøbskurven"
+    },
+    "item_count_cutoff": "Mere end {{ count }} varer"
   },
   "gift_cards": {
     "issued": {

@@ -32,7 +32,8 @@
   %}
 
   <div
-    class="rating-wrapper justify-{{ block_settings.alignment }} rating-color--{{ block_settings.rating_color }}"
+    class="rating-wrapper rating-color--{{ block_settings.rating_color }} justify-{{ block_settings.alignment }} size-style"
+    style="{% render 'size-style', settings: block_settings %}"
     {{ block.shopify_attributes }}
   >
     <svg
@@ -62,7 +63,7 @@
         <svg
           class="stars {% if svg_filled_stars > 0 %}filled-star{% endif %}"
           viewBox="0 0 32 32"
-          style="--empty-star-fill-color: rgb(var(--star-fill-color-rgb) / var(--opacity-20)"
+          style="--empty-star-fill-color: rgb(var(--star-fill-color-rgb) / var(--opacity-20))"
           role="presentation"
         >
           <use xlink:href="#star"></use>
@@ -72,7 +73,7 @@
           <svg
             class="stars {% if star <= svg_filled_stars %}filled-star{% endif %}"
             viewBox="0 0 32 32"
-            style="--empty-star-fill-color:{% if block_settings.stars_style == 'outline' %}transparent{% else %}rgb(var(--star-fill-color-rgb) / var(--opacity-20){% endif %}"
+            style="--empty-star-fill-color:{% if block_settings.stars_style == 'outline' %}transparent{% else %}rgb(var(--star-fill-color-rgb) / var(--opacity-20)){% endif %}"
             role="presentation"
           >
             <use xlink:href="#star"{% if decimal_rating == 0.5 and star == svg_filled_stars %} fill="url(#half)"{% endif %}></use>
@@ -103,19 +104,20 @@
 
 {% stylesheet %}
   .rating-wrapper {
-    width: 100%;
     gap: var(--gap-xs);
-    flex-wrap: wrap;
+    min-width: fit-content;
   }
 
   .rating-color--primary {
     --star-fill-color: var(--color-primary);
     --star-fill-color-rgb: var(--color-primary-rgb);
+    --color: var(--color-primary);
   }
 
   .rating-color--foreground {
     --star-fill-color: var(--color-foreground);
     --star-fill-color-rgb: var(--color-foreground-rgb);
+    --color: var(--color-foreground);
   }
 
   .rating-wrapper,
@@ -132,7 +134,6 @@
     gap: var(--gap-3xs);
   }
 
-  .rating-wrapper .rating-text,
   .rating-wrapper .rating-count,
   .rating-wrapper .rating-count-separator {
     color: var(--star-fill-color);
@@ -206,7 +207,7 @@
         },
         {
           "value": "primary",
-          "label": "t:options.body"
+          "label": "t:options.link"
         }
       ],
       "default": "primary"
@@ -252,10 +253,27 @@
       "default": "paragraph"
     },
     {
+      "type": "select",
+      "id": "width",
+      "label": "t:settings.width",
+      "options": [
+        {
+          "value": "fit-content",
+          "label": "t:options.fit"
+        },
+        {
+          "value": "100%",
+          "label": "t:options.fill"
+        }
+      ],
+      "default": "100%"
+    },
+    {
       "type": "text_alignment",
       "id": "alignment",
       "label": "t:settings.alignment",
-      "default": "left"
+      "default": "left",
+      "visible_if": "{{ block.settings.width != 'fit-content' }}"
     }
   ],
   "presets": [

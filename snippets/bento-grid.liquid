@@ -67,6 +67,12 @@
       grid-template-columns: repeat(2, 1fr);
     }
 
+    .bento-box__item {
+      /* Prevent grid items from overflowing their cells when children have aspect-ratio */
+      min-width: 0;
+      overflow: hidden;
+    }
+
     .bento-box__item:nth-child(3n + 1) {
       grid-column: span 1;
     }

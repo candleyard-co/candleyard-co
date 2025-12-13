@@ -25,7 +25,8 @@
       "comment": "Commento",
       "post_success": "Grazie per averci contattato. Risponderemo il prima possibile.",
       "error_heading": "Correggi gli errori seguenti:"
-    }
+    },
+    "slider_label": "Cursore"
   },
   "accessibility": {
     "play_model": "Riproduci modello 3D",
@@ -70,7 +71,11 @@
     "increase_quantity": "Aumenta quantità",
     "quantity": "Quantità",
     "rating": "Il voto per questo prodotto è {{ rating }} su 5",
-    "nested_product": "{{ product_title }} per {{ parent_title }}"
+    "nested_product": "{{ product_title }} per {{ parent_title }}",
+    "remove": "Rimuovi",
+    "view_pricing_info": "Visualizza informazioni sui prezzi",
+    "open_hotspot": "Apri hotspot",
+    "slideshow": "Slideshow"
   },
   "actions": {
     "add_to_cart": "Aggiungi al carrello",
@@ -247,7 +252,31 @@
       "previous": "Indietro",
       "next": "Avanti",
       "page": "Pagina {{ page }}"
-    }
+    },
+    "volume_pricing_available": "Sono disponibili prezzi basati sui volumi",
+    "volume_pricing": "Prezzi basati sui volumi",
+    "at_price_each": "a {{ price }}/cad.",
+    "each": "{{ price }}/cad.",
+    "each_abbreviation": "cad.",
+    "price_at": "a",
+    "price_range": "Intervallo di prezzo",
+    "cancel": "Annulla",
+    "product_subtotal": "Subtotale prodotto",
+    "quantity_per_item": "cad.",
+    "remove_all": "Rimuovi tutto",
+    "remove_all_items_confirmation": "Rimuovere tutti i {{ count }} articoli dal carrello?",
+    "remove_one_item_confirmation": "Rimuovere un articolo dal carrello?",
+    "total_items": "Articoli totali",
+    "variant": "Variante",
+    "variant_total": "Totale variante",
+    "view_cart": "Visualizza carrello",
+    "your_cart": "Il tuo carrello",
+    "items_added_to_cart": {
+      "one": "1 articolo aggiunto al carrello",
+      "other": "{{ count }} articoli aggiunti al carrello",
+      "many": "{{ count }} articoli aggiunti al carrello"
+    },
+    "item_count_cutoff": "Più di {{ count }} articoli"
   },
   "gift_cards": {
     "issued": {
@@ -262,36 +291,6 @@
       "copy_code_success": "Codice copiato correttamente",
       "expired": "Scaduto"
     }
-  },
-  "placeholders": {
-    "password": "Password",
-    "search": "Ricerca",
-    "product_title": "Titolo del prodotto",
-    "collection_title": "Titolo della collezione",
-    "blog_posts": "Articoli del blog",
-    "blog_post_title": "Titolo",
-    "blog_post_author": "Autore",
-    "blog_post_date": "Data",
-    "blog_post_description": "Un estratto dal contenuto del tuo articolo del blog"
-  },
-  "products": {
-    "product": {
-      "add_to_cart": "Aggiungi al carrello",
-      "added_to_cart": "Aggiunto al carrello",
-      "adding_to_cart": "Aggiunta in corso...",
-      "add_to_cart_error": "Errore durante l'aggiunta al carrello",
-      "sold_out": "Esaurito",
-      "unavailable": "Non disponibile",
-      "quantity_error_max": "Questo articolo ha un massimo di {{ maximum }}",
-      "quantity": "Quantità",
-      "quantity_increments": "Incrementi di {{ increment }}",
-      "quantity_minimum": "Minimo di {{ minimum }}",
-      "quantity_maximum": "Massimo di {{ maximum }}",
-      "in_cart": "nel carrello"
-    }
-  },
-  "fields": {
-    "separator": "a"
   },
   "blogs": {
     "article": {
@@ -312,6 +311,36 @@
       "post": "Pubblica commento",
       "success_moderated": "Commento pubblicato, in attesa di moderazione",
       "success": "Commento pubblicato"
+    }
+  },
+  "fields": {
+    "separator": "a"
+  },
+  "placeholders": {
+    "password": "Password",
+    "search": "Ricerca",
+    "product_title": "Titolo del prodotto",
+    "collection_title": "Titolo della collezione",
+    "blog_posts": "Articoli del blog",
+    "blog_post_title": "Titolo",
+    "blog_post_author": "Autore",
+    "blog_post_date": "Data",
+    "blog_post_description": "Un estratto dal contenuto del tuo articolo del blog"
+  },
+  "products": {
+    "product": {
+      "add_to_cart": "Aggiungi al carrello",
+      "adding_to_cart": "Aggiunta in corso...",
+      "added_to_cart": "Aggiunto al carrello",
+      "add_to_cart_error": "Errore durante l'aggiunta al carrello",
+      "quantity_error_max": "Questo articolo ha un massimo di {{ maximum }}",
+      "sold_out": "Esaurito",
+      "unavailable": "Non disponibile",
+      "quantity": "Quantità",
+      "quantity_increments": "Incrementi di {{ increment }}",
+      "quantity_minimum": "Minimo di {{ minimum }}",
+      "quantity_maximum": "Massimo di {{ maximum }}",
+      "in_cart": "nel carrello"
     }
   }
 }

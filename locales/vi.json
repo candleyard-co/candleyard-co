@@ -25,7 +25,8 @@
       "comment": "Nhận xét",
       "post_success": "Cảm ơn bạn đã liên hệ với chúng tôi. Chúng tôi sẽ liên hệ lại với bạn trong thời gian sớm nhất.",
       "error_heading": "Vui lòng điều chỉnh các mục sau:"
-    }
+    },
+    "slider_label": "Thanh trượt"
   },
   "accessibility": {
     "play_model": "Phát mô hình 3D",
@@ -69,7 +70,11 @@
     "rating": "Sản phẩm này được đánh giá {{ rating }}/5",
     "quantity": "Số lượng",
     "nested_product": "{{ product_title }} cho {{ parent_title }}",
-    "discount_menu": "Mã giảm giá"
+    "discount_menu": "Mã giảm giá",
+    "remove": "Xóa",
+    "view_pricing_info": "Xem thông tin về giá",
+    "open_hotspot": "Mở điểm nóng",
+    "slideshow": "Trình chiếu"
   },
   "actions": {
     "add_to_cart": "Thêm vào giỏ hàng",
@@ -242,7 +247,30 @@
       "previous": "Trước",
       "next": "Tiếp",
       "page": "Trang {{ page }}"
-    }
+    },
+    "volume_pricing_available": "Có thể áp dụng giảm giá theo số lượng",
+    "volume_pricing": "Giảm giá theo số lượng",
+    "at_price_each": "với giá {{ price }}/sản phẩm",
+    "each": "{{ price }}/sản phẩm",
+    "each_abbreviation": "sản phẩm",
+    "price_at": "với giá",
+    "price_range": "Khoảng giá",
+    "cancel": "Hủy",
+    "product_subtotal": "Tổng phụ sản phẩm",
+    "quantity_per_item": "/sản phẩm",
+    "remove_all": "Xóa tất cả",
+    "remove_all_items_confirmation": "Xóa tất cả {{ count }} mặt hàng khỏi giỏ hàng của bạn?",
+    "remove_one_item_confirmation": "Xóa 1 mặt hàng khỏi giỏ hàng?",
+    "total_items": "Tổng số mặt hàng",
+    "variant": "Mẫu mã",
+    "variant_total": "Tổng số mẫu mã",
+    "view_cart": "Xem giỏ hàng",
+    "your_cart": "Giỏ hàng của bạn",
+    "items_added_to_cart": {
+      "one": "Đã thêm 1 mặt hàng vào giỏ hàng",
+      "other": "Đã thêm {{ count }} mặt hàng vào giỏ hàng"
+    },
+    "item_count_cutoff": "Hơn {{ count }} mặt hàng"
   },
   "gift_cards": {
     "issued": {
@@ -257,36 +285,6 @@
       "copy_code_success": "Đã sao chép mã thành công",
       "expired": "Đã hết hạn"
     }
-  },
-  "placeholders": {
-    "password": "Mật khẩu",
-    "search": "Tìm kiếm",
-    "product_title": "Tiêu đề sản phẩm",
-    "collection_title": "Tiêu đề bộ sưu tập",
-    "blog_posts": "Bài viết blog",
-    "blog_post_title": "Tiêu đề",
-    "blog_post_author": "Tác giả",
-    "blog_post_date": "Ngày",
-    "blog_post_description": "Một đoạn trích nội dung bài viết blog của bạn"
-  },
-  "products": {
-    "product": {
-      "add_to_cart": "Thêm vào giỏ hàng",
-      "added_to_cart": "Đã thêm vào giỏ hàng",
-      "adding_to_cart": "Đang thêm...",
-      "add_to_cart_error": "Lỗi khi thêm vào giỏ hàng",
-      "sold_out": "Hết hàng",
-      "unavailable": "Không khả dụng",
-      "quantity_error_max": "Mặt hàng này có tối đa {{ maximum }}",
-      "quantity": "Số lượng",
-      "quantity_increments": "Mức gia tăng {{ increment }}",
-      "quantity_minimum": "Tối thiểu {{ minimum }}",
-      "quantity_maximum": "Tối đa {{ maximum }}",
-      "in_cart": "trong giỏ hàng"
-    }
-  },
-  "fields": {
-    "separator": "đến"
   },
   "blogs": {
     "article": {
@@ -306,6 +304,36 @@
       "post": "Gửi nhận xét",
       "success_moderated": "Nhận xét đã được đăng, đang chờ kiểm duyệt",
       "success": "Nhận xét đã được đăng"
+    }
+  },
+  "fields": {
+    "separator": "đến"
+  },
+  "placeholders": {
+    "password": "Mật khẩu",
+    "search": "Tìm kiếm",
+    "product_title": "Tiêu đề sản phẩm",
+    "collection_title": "Tiêu đề bộ sưu tập",
+    "blog_posts": "Bài viết blog",
+    "blog_post_title": "Tiêu đề",
+    "blog_post_author": "Tác giả",
+    "blog_post_date": "Ngày",
+    "blog_post_description": "Một đoạn trích nội dung bài viết blog của bạn"
+  },
+  "products": {
+    "product": {
+      "add_to_cart": "Thêm vào giỏ hàng",
+      "adding_to_cart": "Đang thêm...",
+      "added_to_cart": "Đã thêm vào giỏ hàng",
+      "add_to_cart_error": "Lỗi khi thêm vào giỏ hàng",
+      "quantity_error_max": "Mặt hàng này có tối đa {{ maximum }}",
+      "sold_out": "Hết hàng",
+      "unavailable": "Không khả dụng",
+      "quantity": "Số lượng",
+      "quantity_increments": "Mức gia tăng {{ increment }}",
+      "quantity_minimum": "Tối thiểu {{ minimum }}",
+      "quantity_maximum": "Tối đa {{ maximum }}",
+      "in_cart": "trong giỏ hàng"
     }
   }
 }

@@ -111,13 +111,12 @@ class HeaderMenu extends Component {
     item.ariaExpanded = 'true';
 
     let submenu = findSubmenu(item);
-    let overflowMenuHeight = this.overflowMenu?.offsetHeight ?? 0;
 
     if (!submenu && !isDefaultSlot) {
       submenu = this.overflowMenu;
     }
 
-    const submenuHeight = submenu ? Math.max(submenu.offsetHeight, overflowMenuHeight) : 0;
+    const submenuHeight = submenu ? submenu.offsetHeight : 0;
 
     this.style.setProperty('--submenu-height', `${submenuHeight}px`);
     this.style.setProperty('--submenu-opacity', '1');

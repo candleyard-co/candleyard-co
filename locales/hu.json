@@ -25,7 +25,8 @@
       "comment": "Hozzászólás",
       "post_success": "Köszönjük, hogy írtál nekünk. A lehető legrövidebb időn belül válaszolni fogunk.",
       "error_heading": "Kérjük, helyesbítsd a következőket:"
-    }
+    },
+    "slider_label": "Csúszka"
   },
   "accessibility": {
     "play_model": "3D-modell lejátszása",
@@ -69,7 +70,11 @@
     "quantity": "Mennyiség",
     "rating": "A termék értékelése: {{ rating }} / 5",
     "nested_product": "{{ product_title }} – {{ parent_title }}",
-    "discount_menu": "Kedvezménykódok"
+    "discount_menu": "Kedvezménykódok",
+    "remove": "Eltávolítás",
+    "view_pricing_info": "Árképzési adatok megtekintése",
+    "open_hotspot": "Hotspot megnyitása",
+    "slideshow": "Diavetítés"
   },
   "actions": {
     "add_to_cart": "Hozzáadás a kosárhoz",
@@ -242,7 +247,30 @@
       "previous": "Előző",
       "next": "Következő",
       "page": "{{ page }}. oldal"
-    }
+    },
+    "volume_pricing_available": "Mennyiségi árképzés rendelkezésre áll",
+    "volume_pricing": "Mennyiség árképzés",
+    "at_price_each": "{{ price }}/db",
+    "each": "{{ price }}/db",
+    "each_abbreviation": "db",
+    "price_at": "–",
+    "price_range": "Árkategória",
+    "cancel": "Mégse",
+    "product_subtotal": "Termékek részösszege",
+    "quantity_per_item": "/db",
+    "remove_all": "Összes eltávolítása",
+    "remove_all_items_confirmation": "Eltávolítod mind a(z) {{ count }} tételt a kosárból?",
+    "remove_one_item_confirmation": "Eltávolítod ezt az 1 tételt a kosárból?",
+    "total_items": "Tétel összesen",
+    "variant": "Változat",
+    "variant_total": "Változat összesen",
+    "view_cart": "Kosár megtekintése",
+    "your_cart": "Kosár",
+    "items_added_to_cart": {
+      "one": "1 tétel hozzáadva a kosárhoz",
+      "other": "{{ count }} tétel hozzáadva a kosárhoz"
+    },
+    "item_count_cutoff": "Több mint {{ count }} tétel"
   },
   "gift_cards": {
     "issued": {
@@ -257,36 +285,6 @@
       "copy_code_success": "Sikeres volt a kód másolása",
       "expired": "Lejárt"
     }
-  },
-  "placeholders": {
-    "password": "Jelszó",
-    "search": "Keresés",
-    "product_title": "Termék megnevezése",
-    "collection_title": "Kollekció megnevezése",
-    "blog_posts": "Blogbejegyzések",
-    "blog_post_title": "Cím",
-    "blog_post_author": "Szerző",
-    "blog_post_date": "Dátum",
-    "blog_post_description": "Összefoglaló a blogbejegyzésed tartalmáról"
-  },
-  "products": {
-    "product": {
-      "add_to_cart": "Hozzáadás a kosárhoz",
-      "added_to_cart": "Hozzáadva a kosárhoz",
-      "adding_to_cart": "Hozzáadás…",
-      "add_to_cart_error": "Nem tudtuk hozzáadni a terméket a kosárhoz",
-      "sold_out": "Elfogyott",
-      "unavailable": "Nincs készleten",
-      "quantity_error_max": "Ennek a terméknek maximum {{ maximum }} darab",
-      "quantity": "Mennyiség",
-      "quantity_increments": "{{ increment }} egységenként",
-      "quantity_minimum": "Minimum {{ minimum }}",
-      "quantity_maximum": "Maximum {{ maximum }}",
-      "in_cart": "a kosárban"
-    }
-  },
-  "fields": {
-    "separator": "–"
   },
   "blogs": {
     "article": {
@@ -306,6 +304,36 @@
       "post": "Hozzászólás elküldése",
       "success_moderated": "Hozzászólás közzétéve, moderálásra vár",
       "success": "Hozzászólás közzétéve"
+    }
+  },
+  "fields": {
+    "separator": "–"
+  },
+  "placeholders": {
+    "password": "Jelszó",
+    "search": "Keresés",
+    "product_title": "Termék megnevezése",
+    "collection_title": "Kollekció megnevezése",
+    "blog_posts": "Blogbejegyzések",
+    "blog_post_title": "Cím",
+    "blog_post_author": "Szerző",
+    "blog_post_date": "Dátum",
+    "blog_post_description": "Összefoglaló a blogbejegyzésed tartalmáról"
+  },
+  "products": {
+    "product": {
+      "add_to_cart": "Hozzáadás a kosárhoz",
+      "adding_to_cart": "Hozzáadás…",
+      "added_to_cart": "Hozzáadva a kosárhoz",
+      "add_to_cart_error": "Nem tudtuk hozzáadni a terméket a kosárhoz",
+      "quantity_error_max": "A tétel maximális mennyisége {{ maximum }}",
+      "sold_out": "Elfogyott",
+      "unavailable": "Nincs készleten",
+      "quantity": "Mennyiség",
+      "quantity_increments": "Növekmény: {{ increment }}",
+      "quantity_minimum": "Minimum: {{ minimum }}",
+      "quantity_maximum": "Maximum: {{ maximum }}",
+      "in_cart": "a kosárban"
     }
   }
 }

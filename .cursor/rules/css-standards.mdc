@@ -764,7 +764,7 @@ Try to keep the same specificity for all selectors within a single `:is()` to av
 
 ```css
 .product-grid {
-  contain: layout style paint;
+  contain: content;
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
 }

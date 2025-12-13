@@ -25,7 +25,8 @@
       "comment": "Komentar",
       "post_success": "Hvala vam na javljanju. Odgovorit ćemo vam u najkraćem mogućem roku.",
       "error_heading": "Prilagodite sljedeće:"
-    }
+    },
+    "slider_label": "Kliznik"
   },
   "accessibility": {
     "play_model": "Reproduciraj 3D model",
@@ -70,7 +71,11 @@
     "quantity": "Količina",
     "rating": "Ocjena ovog proizvoda je {{ rating }} od 5",
     "nested_product": "{{ product_title }} za {{ parent_title }}",
-    "discount_menu": "Kodovi za popust"
+    "discount_menu": "Kodovi za popust",
+    "remove": "Ukloni",
+    "view_pricing_info": "Prikaži informacije o cijeni",
+    "open_hotspot": "Otvori hotspot",
+    "slideshow": "Prezentacija"
   },
   "actions": {
     "add_to_cart": "Dodaj u košaricu",
@@ -247,6 +252,30 @@
       "previous": "Prethodna",
       "next": "Sljedeća",
       "page": "Stranica {{ page }}"
+    },
+    "volume_pricing_available": "Dostupan je popust na količinu",
+    "volume_pricing": "Popust na količinu",
+    "at_price_each": "po cijeni od {{ price }}/kom.",
+    "each": "{{ price }}/kom.",
+    "each_abbreviation": "kom.",
+    "price_at": "po cijeni od",
+    "price_range": "Raspon cijena",
+    "item_count_cutoff": "Više od sljedećeg broja artikala: {{ count }}",
+    "cancel": "Odustani",
+    "product_subtotal": "Podzbroj proizvoda",
+    "quantity_per_item": "/kom.",
+    "remove_all": "Ukloni sve",
+    "remove_all_items_confirmation": "Želite li ukloniti sve artikle ({{ count }}) iz košarice?",
+    "remove_one_item_confirmation": "Želite li ukloniti 1 artikl iz košarice?",
+    "total_items": "Ukupno artikala",
+    "variant": "Varijanta",
+    "variant_total": "Ukupno za varijantu",
+    "view_cart": "Prikaži košaricu",
+    "your_cart": "Vaša košarica",
+    "items_added_to_cart": {
+      "one": "1 artikl dodan u košaricu",
+      "other": "Artikala dodano u košaricu: {{ count }}",
+      "few": "Artikala dodano u košaricu: {{ count }}"
     }
   },
   "gift_cards": {

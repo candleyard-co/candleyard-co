@@ -1,5 +1,4 @@
 {%- assign block_settings = block.settings -%}
-
 <div
   id="ProductInformation-{{ section.id }}"
   class="
@@ -15,16 +14,12 @@
 >
   {% capture children %}
     <div class="view-product-title">
-      {% if pack_title %}
-        {{ pack_title }}
-      {% else %}
-        <a
-          href="{{ product.selected_or_first_available_variant.url }}"
-          class="link"
-        >
-          {{- product.title }}
-        </a>
-      {% endif %}
+      <a
+        href="{{ closest.product.selected_or_first_available_variant.url }}"
+        class="link"
+      >
+        {{- closest.product.title }}
+      </a>
     </div>
     {% content_for 'blocks' %}
   {% endcapture %}

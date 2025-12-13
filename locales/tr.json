@@ -25,7 +25,8 @@
       "comment": "Yorum",
       "post_success": "Bizimle iletişime geçtiğiniz için teşekkür ederiz. Mümkün olan en kısa sürede size dönüş yapacağız.",
       "error_heading": "Lütfen aşağıdakileri düzenleyin:"
-    }
+    },
+    "slider_label": "Kaydırıcı"
   },
   "accessibility": {
     "play_model": "3B modeli oynat",
@@ -69,7 +70,11 @@
     "increase_quantity": "Adedi artır",
     "quantity": "Adet",
     "rating": "Bu ürünün puanı 5 üzerinden {{ rating }}",
-    "nested_product": "{{ parent_title }} için {{ product_title }}"
+    "nested_product": "{{ parent_title }} için {{ product_title }}",
+    "remove": "Kaldır",
+    "view_pricing_info": "Fiyatlandırma bilgilerini görüntüle",
+    "open_hotspot": "Hotspot'u aç",
+    "slideshow": "Slayt gösterisi"
   },
   "actions": {
     "add_to_cart": "Sepete ekle",
@@ -242,7 +247,30 @@
       "previous": "Önceki",
       "next": "Sonraki",
       "page": "Sayfa {{ page }}"
-    }
+    },
+    "volume_pricing_available": "Hacim bazlı fiyatlandırma kullanılabilir",
+    "volume_pricing": "Hacim bazlı fiyatlandırma",
+    "at_price_each": "{{ price }}/adet üzerinden",
+    "each": "{{ price }}/adet",
+    "each_abbreviation": "adet",
+    "price_at": "üzerinden",
+    "price_range": "Fiyat aralığı",
+    "cancel": "İptal",
+    "product_subtotal": "Ürün alt toplamı",
+    "quantity_per_item": "ürün başına",
+    "remove_all": "Tümünü kaldır",
+    "remove_all_items_confirmation": "{{ count }} ürünün tamamı sepetten kaldırılsın mı?",
+    "remove_one_item_confirmation": "1 ürün sepetten kaldırılsın mı?",
+    "total_items": "Toplam ürün sayısı",
+    "variant": "Varyasyon",
+    "variant_total": "Varyasyon toplamı",
+    "view_cart": "Sepeti görüntüle",
+    "your_cart": "Sepetiniz",
+    "items_added_to_cart": {
+      "one": "1 ürün sepete eklendi",
+      "other": "{{ count }} ürün sepete eklendi"
+    },
+    "item_count_cutoff": "{{ count }} adetten fazla ürün"
   },
   "gift_cards": {
     "issued": {
@@ -257,36 +285,6 @@
       "copy_code_success": "Kod başarıyla kopyalandı",
       "expired": "Son kullanma tarihi dolmuş"
     }
-  },
-  "placeholders": {
-    "password": "Parola",
-    "search": "Ara",
-    "product_title": "Ürün başlığı",
-    "collection_title": "Koleksiyon başlığı",
-    "blog_posts": "Blog Gönderileri",
-    "blog_post_title": "Başlık",
-    "blog_post_author": "Yazar",
-    "blog_post_date": "Tarih",
-    "blog_post_description": "Blog gönderinizin içeriğinden bir alıntı"
-  },
-  "products": {
-    "product": {
-      "add_to_cart": "Sepete ekle",
-      "added_to_cart": "Sepete eklendi",
-      "adding_to_cart": "Ekleniyor...",
-      "add_to_cart_error": "Sepete eklenirken hata oluştu",
-      "sold_out": "Tükendi",
-      "unavailable": "Kullanılamıyor",
-      "quantity_error_max": "Bu ürün için maksimum değer: {{ maximum }}",
-      "quantity": "Adet",
-      "quantity_increments": "Artış değeri: {{ increment }}",
-      "quantity_minimum": "Minimum: {{ minimum }}",
-      "quantity_maximum": "Maksimum: {{ maximum }}",
-      "in_cart": "sepette"
-    }
-  },
-  "fields": {
-    "separator": "-"
   },
   "blogs": {
     "article": {
@@ -306,6 +304,36 @@
       "post": "Yorumu gönder",
       "success_moderated": "Yorum gönderildi, onay bekliyor",
       "success": "Yorum gönderildi"
+    }
+  },
+  "fields": {
+    "separator": "-"
+  },
+  "placeholders": {
+    "password": "Parola",
+    "search": "Ara",
+    "product_title": "Ürün başlığı",
+    "collection_title": "Koleksiyon başlığı",
+    "blog_posts": "Blog Gönderileri",
+    "blog_post_title": "Başlık",
+    "blog_post_author": "Yazar",
+    "blog_post_date": "Tarih",
+    "blog_post_description": "Blog gönderinizin içeriğinden bir alıntı"
+  },
+  "products": {
+    "product": {
+      "add_to_cart": "Sepete ekle",
+      "adding_to_cart": "Ekleniyor...",
+      "added_to_cart": "Sepete eklendi",
+      "add_to_cart_error": "Sepete eklenirken hata oluştu",
+      "quantity_error_max": "Bu ürün için maksimum değer: {{ maximum }}",
+      "sold_out": "Tükendi",
+      "unavailable": "Kullanılamıyor",
+      "quantity": "Adet",
+      "quantity_increments": "Artış değeri: {{ increment }}",
+      "quantity_minimum": "Minimum: {{ minimum }}",
+      "quantity_maximum": "Maksimum: {{ maximum }}",
+      "in_cart": "sepette"
     }
   }
 }

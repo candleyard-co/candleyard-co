@@ -58,7 +58,7 @@
     endif
   -%}
 
-  <div class="cart__total-container">
+  <div class="cart__total-container{% if settings.show_installments %} cart__total-container--has-installments{% endif %}">
     <span
       class="cart__summary-item cart__total"
       role="status"

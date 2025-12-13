@@ -25,7 +25,8 @@
       "comment": "Commentaire",
       "post_success": "Merci de nous avoir contactés. Nous vous répondrons dès que possible.",
       "error_heading": "Veuillez ajuster les éléments suivants :"
-    }
+    },
+    "slider_label": "Carrousel"
   },
   "accessibility": {
     "play_model": "Jouer le modèle 3D",
@@ -70,7 +71,11 @@
     "increase_quantity": "Augmenter la quantité",
     "quantity": "Quantité",
     "rating": "La note de ce produit est {{ rating }} sur 5",
-    "nested_product": "{{ product_title }} pour {{ parent_title }}"
+    "nested_product": "{{ product_title }} pour {{ parent_title }}",
+    "remove": "Retirer",
+    "view_pricing_info": "Afficher les informations de tarification",
+    "open_hotspot": "Ouvrir le point d'accès",
+    "slideshow": "Diaporama"
   },
   "actions": {
     "add_to_cart": "Ajouter au panier",
@@ -171,7 +176,7 @@
       "other": "{{ count }} produits",
       "many": "{{ count }} produits"
     },
-    "recently_viewed_products": "Récemment consulté(s)",
+    "recently_viewed_products": "Récemment consultés",
     "unavailable": "Indisponible",
     "collection_placeholder": "Titre de la collection",
     "product_card_placeholder": "Titre du produit",
@@ -247,6 +252,30 @@
       "previous": "Précédent",
       "next": "Suivant",
       "page": "Page {{ page }}"
+    },
+    "volume_pricing_available": "La tarification basée sur la quantité est disponible",
+    "volume_pricing": "Tarification basée sur la quantité",
+    "at_price_each": "à {{ price }}/pièce",
+    "each": "{{ price }}/pièce",
+    "each_abbreviation": "pièce",
+    "price_at": "à",
+    "price_range": "Fourchette de prix",
+    "item_count_cutoff": "Plus de {{ count }} articles",
+    "cancel": "Annuler",
+    "product_subtotal": "Sous-total des produits",
+    "quantity_per_item": "/pièce",
+    "remove_all": "Tout retirer",
+    "remove_all_items_confirmation": "Retirer les {{ count }} articles de votre panier ?",
+    "remove_one_item_confirmation": "Retirer 1 article de votre panier ?",
+    "total_items": "Total des articles",
+    "variant": "Variante",
+    "variant_total": "Total des variantes",
+    "view_cart": "Voir le panier",
+    "your_cart": "Votre panier",
+    "items_added_to_cart": {
+      "one": "1 article ajouté au panier",
+      "other": "{{ count }} articles ajoutés au panier",
+      "many": "{{ count }} articles ajoutés au panier"
     }
   },
   "gift_cards": {

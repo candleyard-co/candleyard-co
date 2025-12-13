@@ -25,7 +25,8 @@
       "comment": "ความคิดเห็น",
       "post_success": "ขอบคุณที่ติดต่อเรา เราจะติดต่อกลับหาคุณโดยเร็วที่สุด",
       "error_heading": "โปรดแก้ไขข้อมูลดังต่อไปนี้"
-    }
+    },
+    "slider_label": "แถบเลื่อน"
   },
   "accessibility": {
     "play_model": "เล่นโมเดล 3 มิติ",
@@ -69,7 +70,11 @@
     "increase_quantity": "เพิ่มจำนวน",
     "quantity": "จำนวน",
     "rating": "คะแนนสำหรับสินค้านี้คือ {{ rating }} จาก 5",
-    "nested_product": "{{ product_title }} สำหรับ {{ parent_title }}"
+    "nested_product": "{{ product_title }} สำหรับ {{ parent_title }}",
+    "remove": "ลบ",
+    "view_pricing_info": "ดูข้อมูลการกำหนดราคา",
+    "open_hotspot": "เปิดฮอตสปอต",
+    "slideshow": "สไลด์โชว์"
   },
   "actions": {
     "add_to_cart": "เพิ่มลงในตะกร้าสินค้า",
@@ -242,6 +247,29 @@
       "previous": "ก่อนหน้า",
       "next": "ถัดไป",
       "page": "หน้า {{ page }}"
+    },
+    "volume_pricing_available": "การกำหนดราคาตามปริมาณพร้อมใช้งาน",
+    "volume_pricing": "การกำหนดราคาตามปริมาณ",
+    "at_price_each": "ในราคา {{ price }}/หน่วย",
+    "each": "{{ price }}/หน่วย",
+    "each_abbreviation": "หน่วย",
+    "price_at": "ในราคา",
+    "price_range": "ช่วงราคา",
+    "item_count_cutoff": "มากกว่า {{ count }} รายการ",
+    "cancel": "ยกเลิก",
+    "product_subtotal": "ยอดรวมย่อยสินค้า",
+    "quantity_per_item": "/หน่วย",
+    "remove_all": "ลบทั้งหมด",
+    "remove_all_items_confirmation": "ลบสินค้าทั้งหมด {{ count }} รายการออกจากตะกร้าหรือไม่",
+    "remove_one_item_confirmation": "ลบ 1 รายการออกจากตะกร้าสินค้าหรือไม่",
+    "total_items": "รายการสินค้าทั้งหมด",
+    "variant": "ตัวเลือกสินค้า",
+    "variant_total": "ยอดรวมของตัวเลือกสินค้า",
+    "view_cart": "ดูตะกร้าสินค้า",
+    "your_cart": "ตะกร้าสินค้าของคุณ",
+    "items_added_to_cart": {
+      "one": "เพิ่มสินค้า 1 รายการลงในตะกร้าแล้ว",
+      "other": "เพิ่มสินค้า {{ count }} รายการลงในตะกร้า"
     }
   },
   "gift_cards": {

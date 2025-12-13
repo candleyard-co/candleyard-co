@@ -25,7 +25,8 @@
       "comment": "Σχόλιο",
       "post_success": "Ευχαριστούμε που επικοινωνήσατε μαζί μας. Θα σας απαντήσουμε το συντομότερο δυνατόν.",
       "error_heading": "Προσαρμόστε τα παρακάτω:"
-    }
+    },
+    "slider_label": "Ρυθμιστικό"
   },
   "accessibility": {
     "play_model": "Αναπαραγωγή μοντέλου 3D",
@@ -69,7 +70,11 @@
     "quantity": "Ποσότητα",
     "rating": "Η βαθμολογία αυτού του προϊόντος είναι {{ rating }} στα 5",
     "nested_product": "{{ product_title }} για {{ parent_title }}",
-    "discount_menu": "Κωδικοί έκπτωσης"
+    "discount_menu": "Κωδικοί έκπτωσης",
+    "remove": "Κατάργηση",
+    "view_pricing_info": "Προβολή πληροφοριών τιμολόγησης",
+    "open_hotspot": "Άνοιγμα hotspot",
+    "slideshow": "Παρουσίαση διαφανειών"
   },
   "actions": {
     "add_to_cart": "Προσθήκη στο καλάθι",
@@ -242,6 +247,29 @@
       "previous": "Προηγούμενη",
       "next": "Επόμενη",
       "page": "Σελίδα {{ page }}"
+    },
+    "volume_pricing_available": "Διατίθεται τιμολόγηση βάσει ποσότητας",
+    "volume_pricing": "Τιμολόγηση βάσει ποσότητας",
+    "at_price_each": "στα {{ price }}/τμχ",
+    "each": "{{ price }}/έκαστο",
+    "each_abbreviation": "τμχ",
+    "price_at": "σε",
+    "price_range": "Εύρος τιμών",
+    "item_count_cutoff": "Περισσότερα από {{ count }} προϊόντα",
+    "cancel": "Ακύρωση",
+    "product_subtotal": "Μερικό σύνολο προϊόντων",
+    "quantity_per_item": "/τμχ",
+    "remove_all": "Κατάργηση όλων",
+    "remove_all_items_confirmation": "Να καταργηθούν και τα {{ count }} προϊόντα από το καλάθι σας;",
+    "remove_one_item_confirmation": "Να καταργηθεί 1 προϊόν από το καλάθι σας;",
+    "total_items": "Σύνολο προϊόντων",
+    "variant": "Παραλλαγή",
+    "variant_total": "Σύνολο παραλλαγών",
+    "view_cart": "Προβολή καλαθιού",
+    "your_cart": "Το καλάθι σας",
+    "items_added_to_cart": {
+      "one": "1 προϊόν προστέθηκε στο καλάθι σας",
+      "other": "{{ count }} προϊόντα προστέθηκαν στο καλάθι"
     }
   },
   "gift_cards": {

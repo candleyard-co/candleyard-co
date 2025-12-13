@@ -25,7 +25,8 @@
       "comment": "Comentário",
       "post_success": "Agradecemos o seu contacto. Responder-lhe-emos logo que possível.",
       "error_heading": "Ajuste o seguinte:"
-    }
+    },
+    "slider_label": "Slider"
   },
   "accessibility": {
     "play_model": "Reproduzir modelo 3D",
@@ -70,7 +71,11 @@
     "increase_quantity": "Aumentar quantidade",
     "rating": "A classificação deste produto é de {{ rating }}/5",
     "quantity": "Quantidade",
-    "nested_product": "{{ product_title }} para {{ parent_title }}"
+    "nested_product": "{{ product_title }} para {{ parent_title }}",
+    "remove": "Remover",
+    "view_pricing_info": "Ver informações sobre preços",
+    "open_hotspot": "Abrir ponto de acesso",
+    "slideshow": "Apresentação de diapositivos"
   },
   "actions": {
     "add_to_cart": "Adicionar ao carrinho",
@@ -247,6 +252,30 @@
       "previous": "Anterior",
       "next": "Seguinte",
       "page": "Página {{ page }}"
+    },
+    "volume_pricing_available": "Preços baseados em volume disponíveis",
+    "volume_pricing": "Preços baseados em volume",
+    "at_price_each": "a {{ price }}/cada",
+    "each": "{{ price }}/cada",
+    "each_abbreviation": "cada",
+    "price_at": "a",
+    "price_range": "Intervalo de preços",
+    "item_count_cutoff": "Mais de {{ count }} itens",
+    "cancel": "Cancelar",
+    "product_subtotal": "Subtotal dos produtos",
+    "quantity_per_item": "/cada",
+    "remove_all": "Remover tudo",
+    "remove_all_items_confirmation": "Remover todos os {{ count }} itens do seu carrinho?",
+    "remove_one_item_confirmation": "Remover 1 item do seu carrinho?",
+    "total_items": "Total de itens",
+    "variant": "Variante",
+    "variant_total": "Variante total",
+    "view_cart": "Ver carrinho",
+    "your_cart": "O seu carrinho",
+    "items_added_to_cart": {
+      "one": "1 item adicionado ao carrinho",
+      "other": "{{ count }} itens adicionados ao carrinho",
+      "many": "{{ count }} itens adicionados ao carrinho"
     }
   },
   "gift_cards": {

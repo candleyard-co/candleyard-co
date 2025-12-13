@@ -25,7 +25,8 @@
       "comment": "Comentário",
       "post_success": "Agradecemos seu contato. Retornaremos o mais rápido possível.",
       "error_heading": "Ajuste o seguinte:"
-    }
+    },
+    "slider_label": "Controle deslizante"
   },
   "accessibility": {
     "play_model": "Reproduzir modelo 3D",
@@ -70,7 +71,11 @@
     "increase_quantity": "Aumentar a quantidade",
     "rating": "A classificação deste produto é {{ rating }} de 5",
     "quantity": "Quantidade",
-    "nested_product": "{{ product_title }} para {{ parent_title }}"
+    "nested_product": "{{ product_title }} para {{ parent_title }}",
+    "remove": "Remover",
+    "view_pricing_info": "Ver informações sobre preços",
+    "open_hotspot": "Abrir hotspot",
+    "slideshow": "Apresentação de slides"
   },
   "actions": {
     "add_to_cart": "Adicionar ao carrinho",
@@ -247,6 +252,30 @@
       "previous": "Anterior",
       "next": "Próxima",
       "page": "Página {{ page }}"
+    },
+    "volume_pricing_available": "Os preços por volume estão disponíveis",
+    "volume_pricing": "Preços por volume",
+    "at_price_each": "{{ price }}/cada",
+    "each": "{{ price }}/cada",
+    "each_abbreviation": "cada",
+    "price_at": "em",
+    "price_range": "Faixa de preço",
+    "item_count_cutoff": "Mais de {{ count }} itens",
+    "cancel": "Cancelar",
+    "product_subtotal": "Subtotal do produto",
+    "quantity_per_item": "/cada",
+    "remove_all": "Remover tudo",
+    "remove_all_items_confirmation": "Remover todos os {{ count }} itens do carrinho?",
+    "remove_one_item_confirmation": "Remover 1 item do carrinho?",
+    "total_items": "Total de itens",
+    "variant": "Variante",
+    "variant_total": "Total das variantes",
+    "view_cart": "Ver carrinho",
+    "your_cart": "Seu carrinho",
+    "items_added_to_cart": {
+      "one": "Foi adicionado 1 item ao carrinho",
+      "other": "{{ count }} itens adicionados ao carrinho",
+      "many": "{{ count }} itens adicionados ao carrinho"
     }
   },
   "gift_cards": {

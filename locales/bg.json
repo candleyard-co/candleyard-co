@@ -25,7 +25,8 @@
       "comment": "Коментар",
       "post_success": "Благодарим, че се свързахте с нас. Ще се свържем с вас възможно най-скоро.",
       "error_heading": "Коригирайте следното:"
-    }
+    },
+    "slider_label": "Плъзгач"
   },
   "accessibility": {
     "play_model": "Възпроизвеждане на 3D модел",
@@ -69,7 +70,11 @@
     "quantity": "Количество",
     "rating": "Оценката за този продукт е {{ rating }} от 5",
     "nested_product": "{{ product_title }} за {{ parent_title }}",
-    "discount_menu": "Кодове за отстъпка"
+    "discount_menu": "Кодове за отстъпка",
+    "remove": "Премахване",
+    "view_pricing_info": "Преглед на информация за ценообразуването",
+    "open_hotspot": "Отвори горещ точка",
+    "slideshow": "Слайдшоу"
   },
   "actions": {
     "add_to_cart": "Добавяне към количката",
@@ -242,6 +247,29 @@
       "previous": "Предишна",
       "next": "Следваща",
       "page": "Страница {{ page }}"
+    },
+    "volume_pricing_available": "Налице е опция за ценообразуване според обем",
+    "volume_pricing": "Ценообразуване според обем",
+    "at_price_each": "при {{ price }}/бр.",
+    "each": "{{ price }}/бр.",
+    "each_abbreviation": "бр.",
+    "price_at": "при",
+    "price_range": "Ценови диапазон",
+    "item_count_cutoff": "Повече от {{ count }} артикула",
+    "cancel": "Анулиране",
+    "product_subtotal": "Междинна сума за продуктите",
+    "quantity_per_item": "/бр.",
+    "remove_all": "Премахване на всички",
+    "remove_all_items_confirmation": "Премахване на всички {{ count }} артикула от количката?",
+    "remove_one_item_confirmation": "Премахване на 1 артикул от количката?",
+    "total_items": "Общо артикули",
+    "variant": "Вариант",
+    "variant_total": "Обща сума за варианта",
+    "view_cart": "Преглед на количката",
+    "your_cart": "Вашата количка",
+    "items_added_to_cart": {
+      "one": "1 артикул е добавен в количката",
+      "other": "{{ count }} артикула са добавени в количката"
     }
   },
   "gift_cards": {

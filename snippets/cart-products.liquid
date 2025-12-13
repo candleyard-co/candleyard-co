@@ -1,4 +1,6 @@
-{% assign block_settings = block.settings %}
+{% liquid
+  assign block_settings = block.settings
+%}
 
 <script
   src="{{ 'component-cart-items.js' | asset_url }}"
@@ -7,6 +9,11 @@
 ></script>
 <script
   src="{{ 'component-cart-quantity-selector.js' | asset_url }}"
+  type="module"
+  fetchpriority="low"
+></script>
+<script
+  src="{{ 'volume-pricing-info.js' | asset_url }}"
   type="module"
   fetchpriority="low"
 ></script>
@@ -295,14 +302,17 @@
                   {% assign can_update_quantity = item.instructions.can_update_quantity
                     | default: true, allow_false: true
                   %}
-                  {% render 'quantity-selector',
-                    product: item.product,
-                    variant: item.variant,
-                    in_cart_quantity: item.quantity,
-                    line_index: item.index,
-                    class: 'cart-primary-typography',
-                    can_update_quantity: can_update_quantity
-                  %}
+                  <div class="cart-items__quantity-controls">
+                    {% render 'volume-pricing-info', variant: item.variant, unique_id: item.index, quantity: item.quantity %}
+
+                    {% render 'quantity-selector',
+                      product: item.product,
+                      variant: item.variant,
+                      in_cart_quantity: item.quantity,
+                      line_index: item.index,
+                      class: 'cart-primary-typography',
+                      can_update_quantity: can_update_quantity
+                    %}
 
                   <button
                     class="cart-items__remove"
@@ -493,9 +503,20 @@
     width: fit-content;
   }
 
+  .cart-items__quantity-controls {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    gap: var(--gap-xs);
+    width: fit-content;
+  }
+
+  .cart-items__quantity-controls > .volume-pricing-info {
+    margin-inline-start: calc(-1 * var(--minimum-touch-target) - var(--gap-xs));
+  }
+
   .cart-items__quantity .quantity-selector {
     display: inline-flex;
-    flex: 0 1 var(--quantity-selector-width);
     font-size: var(--cart-font-size--sm);
     height: auto;
   }
@@ -623,7 +644,7 @@
   .cart__total-container {
     row-gap: var(--gap-2xs);
 
-    &:has(.cart__installments) {
+    &.cart__total-container--has-installments {
       row-gap: var(--gap-xs);
     }
   }

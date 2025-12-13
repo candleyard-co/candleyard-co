@@ -25,7 +25,8 @@
       "comment": "コメント",
       "post_success": "お問い合わせいただきありがとうございます。早急に返信いたします。",
       "error_heading": "以下を確認してください。"
-    }
+    },
+    "slider_label": "スライダー"
   },
   "accessibility": {
     "play_model": "3Dモデルを再生",
@@ -69,7 +70,11 @@
     "increase_quantity": "数量を増やす",
     "quantity": "数量",
     "rating": "この商品の評価は、5段階中{{ rating }}です",
-    "nested_product": "{{ parent_title }}向けの{{ product_title }}"
+    "nested_product": "{{ parent_title }}向けの{{ product_title }}",
+    "remove": "削除",
+    "view_pricing_info": "価格情報を表示する",
+    "open_hotspot": "ホットスポットを開く",
+    "slideshow": "スライドショー"
   },
   "actions": {
     "add_to_cart": "カートに追加",
@@ -242,6 +247,29 @@
       "previous": "前へ",
       "next": "次へ",
       "page": "{{ page }}ページ"
+    },
+    "volume_pricing_available": "量による価格が利用可能",
+    "volume_pricing": "ボリューム価格設定",
+    "at_price_each": "{{ price }}/ユニットで",
+    "each": "{{ price }}/ユニット",
+    "each_abbreviation": "ユニット",
+    "price_at": "で",
+    "price_range": "価格帯",
+    "item_count_cutoff": "{{ count }}点超のアイテム",
+    "cancel": "キャンセル",
+    "product_subtotal": "商品の小計",
+    "quantity_per_item": "/ユニット",
+    "remove_all": "すべてを削除",
+    "remove_all_items_confirmation": "カートから{{ count }}個のアイテムすべてを削除しますか？",
+    "remove_one_item_confirmation": "カートからアイテムを1個削除しますか？",
+    "total_items": "アイテムの総数",
+    "variant": "バリエーション",
+    "variant_total": "バリエーションの合計額",
+    "view_cart": "カートを見る",
+    "your_cart": "あなたのカート",
+    "items_added_to_cart": {
+      "one": "1個のアイテムがカートに追加されました",
+      "other": "{{ count }}個のアイテムがカートに追加されました"
     }
   },
   "gift_cards": {

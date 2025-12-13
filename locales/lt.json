@@ -25,7 +25,8 @@
       "comment": "Komentaras",
       "post_success": "Dėkojame, kad kreipėtės. Atsakysime kaip galėdami greičiau.",
       "error_heading": "Pakoreguokite toliau pateiktą informaciją:"
-    }
+    },
+    "slider_label": "Slankiklis"
   },
   "accessibility": {
     "play_model": "Paleisti 3D modelį",
@@ -71,7 +72,11 @@
     "rating": "Šio produkto vertinimas: {{ rating }} iš 5",
     "quantity": "Kiekis",
     "nested_product": "{{ product_title }} ({{ parent_title }})",
-    "discount_menu": "Nuolaidų kodai"
+    "discount_menu": "Nuolaidų kodai",
+    "remove": "Pašalinti",
+    "view_pricing_info": "Peržiūrėti kainodaros informaciją",
+    "open_hotspot": "Atverti interneto prieigos tašką",
+    "slideshow": "Skaidrių demonstracija"
   },
   "actions": {
     "add_to_cart": "Įdėti į krepšelį",
@@ -252,7 +257,32 @@
       "previous": "Ankstesnis",
       "next": "Kitas",
       "page": "{{ page }} puslapis"
-    }
+    },
+    "volume_pricing_available": "Galima kiekiu pagrįsta kainodara",
+    "volume_pricing": "Kiekiu pagrįsta kainodara",
+    "at_price_each": "po {{ price }}/vnt.",
+    "each": "{{ price }}/vnt.",
+    "each_abbreviation": "vnt.",
+    "price_at": "po",
+    "price_range": "Kainų intervalas",
+    "cancel": "Atšaukti",
+    "product_subtotal": "Produktų tarpinė suma",
+    "quantity_per_item": "/vnt.",
+    "remove_all": "Pašalinti visus",
+    "remove_all_items_confirmation": "Pašalinti visas {{ count }} prekes (-ių) iš krepšelio?",
+    "remove_one_item_confirmation": "Pašalinti 1 prekę iš krepšelio?",
+    "total_items": "Iš viso prekių",
+    "variant": "Variantas",
+    "variant_total": "Variantų bendroji suma",
+    "view_cart": "Peržiūrėti krepšelį",
+    "your_cart": "Jūsų krepšelis",
+    "items_added_to_cart": {
+      "one": "1 prekė pridėta prie krepšelio",
+      "other": "{{ count }} prekių pridėta prie krepšelio",
+      "few": "{{ count }} prekių pridėta prie krepšelio",
+      "many": "{{ count }} prekių pridėta prie krepšelio"
+    },
+    "item_count_cutoff": "Daugiau kaip {{ count }} prekės (-ių)"
   },
   "gift_cards": {
     "issued": {
@@ -267,36 +297,6 @@
       "copy_code_success": "Kodą pavyko nukopijuoti",
       "expired": "Nebegalioja"
     }
-  },
-  "placeholders": {
-    "password": "Slaptažodis",
-    "search": "Ieškoti",
-    "product_title": "Gaminio pavadinimas",
-    "collection_title": "Kolekcijos pavadinimas",
-    "blog_posts": "Tinklaraščio įrašai",
-    "blog_post_title": "Pavadinimas",
-    "blog_post_author": "Autorius",
-    "blog_post_date": "Data",
-    "blog_post_description": "Jūsų tinklaraščio įrašo turinio ištrauka"
-  },
-  "products": {
-    "product": {
-      "add_to_cart": "Įdėti į krepšelį",
-      "added_to_cart": "Įdėta į krepšelį",
-      "adding_to_cart": "Pridedama…",
-      "add_to_cart_error": "Dedant į krepšelį įvyko klaida",
-      "sold_out": "Išparduota",
-      "unavailable": "Nėra",
-      "quantity_error_max": "Nustatytas didžiausias šios prekės kiekis: {{ maximum }}",
-      "quantity": "Kiekis",
-      "quantity_increments": "Kiekis didėja kas {{ increment }}",
-      "quantity_minimum": "Mažiausiai {{ minimum }}",
-      "quantity_maximum": "Daugiausiai {{ maximum }}",
-      "in_cart": "krepšelyje"
-    }
-  },
-  "fields": {
-    "separator": "iki"
   },
   "blogs": {
     "article": {
@@ -318,6 +318,36 @@
       "post": "Skelbti komentarą",
       "success_moderated": "Komentaras paskelbtas, laukiama moderavimo",
       "success": "Komentaras paskelbtas"
+    }
+  },
+  "fields": {
+    "separator": "iki"
+  },
+  "placeholders": {
+    "password": "Slaptažodis",
+    "search": "Ieškoti",
+    "product_title": "Gaminio pavadinimas",
+    "collection_title": "Kolekcijos pavadinimas",
+    "blog_posts": "Tinklaraščio įrašai",
+    "blog_post_title": "Pavadinimas",
+    "blog_post_author": "Autorius",
+    "blog_post_date": "Data",
+    "blog_post_description": "Jūsų tinklaraščio įrašo turinio ištrauka"
+  },
+  "products": {
+    "product": {
+      "add_to_cart": "Įdėti į krepšelį",
+      "adding_to_cart": "Pridedama…",
+      "added_to_cart": "Įdėta į krepšelį",
+      "add_to_cart_error": "Dedant į krepšelį įvyko klaida",
+      "quantity_error_max": "Nustatytas didžiausias šios prekės kiekis: {{ maximum }}",
+      "sold_out": "Išparduota",
+      "unavailable": "Nėra",
+      "quantity": "Kiekis",
+      "quantity_increments": "Kiekis didėja kas {{ increment }}",
+      "quantity_minimum": "Mažiausiai {{ minimum }}",
+      "quantity_maximum": "Daugiausiai {{ maximum }}",
+      "in_cart": "krepšelyje"
     }
   }
 }

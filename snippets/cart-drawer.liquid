@@ -69,7 +69,7 @@
             </h2>
 
             <div class="cart-drawer__items">
-              {% render 'cart-products' %}
+              {% render 'cart-products', drawer_context: 'drawer' %}
             </div>
           </div>
         {%- else -%}
@@ -105,7 +105,7 @@
             <scroll-hint
               class="cart-drawer__items"
             >
-              {% render 'cart-products' %}
+              {% render 'cart-products', drawer_context: 'drawer' %}
             </scroll-hint>
 
             <div

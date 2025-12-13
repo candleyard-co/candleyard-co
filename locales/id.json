@@ -25,7 +25,8 @@
       "comment": "Komentar",
       "post_success": "Terima kasih sudah menghubungi kami. Kami akan segera menghubungi Anda.",
       "error_heading": "Mohon sesuaikan:"
-    }
+    },
+    "slider_label": "Slider"
   },
   "accessibility": {
     "play_model": "Putar model 3D",
@@ -69,7 +70,11 @@
     "quantity": "Jumlah",
     "rating": "Peringkat produk ini adalah {{ rating }} dari 5",
     "nested_product": "{{ product_title }} untuk {{ parent_title }}",
-    "discount_menu": "Kode Diskon"
+    "discount_menu": "Kode Diskon",
+    "remove": "Hapus",
+    "view_pricing_info": "Lihat informasi harga",
+    "open_hotspot": "Buka hotspot",
+    "slideshow": "Tayangan slide"
   },
   "actions": {
     "add_to_cart": "Tambahkan ke keranjang",
@@ -242,6 +247,29 @@
       "previous": "Sebelumnya",
       "next": "Berikutnya",
       "page": "Halaman {{ page }}"
+    },
+    "volume_pricing_available": "Harga volume tersedia",
+    "volume_pricing": "Harga volume",
+    "at_price_each": "harga {{ price }}/satuan",
+    "each": "{{ price }}/satuan",
+    "each_abbreviation": "satuan",
+    "price_at": "dalam",
+    "price_range": "Kisaran harga",
+    "item_count_cutoff": "Lebih dari {{ count }} item",
+    "cancel": "Batal",
+    "product_subtotal": "Subtotal produk",
+    "quantity_per_item": "/satuan",
+    "remove_all": "Hapus semua",
+    "remove_all_items_confirmation": "Hapus {{ count }} item ini dari keranjang Anda?",
+    "remove_one_item_confirmation": "Hapus 1 item dari keranjang Anda?",
+    "total_items": "Total item",
+    "variant": "Varian",
+    "variant_total": "Total varian",
+    "view_cart": "Lihat keranjang",
+    "your_cart": "Keranjang Anda",
+    "items_added_to_cart": {
+      "one": "1 item ditambahkan ke keranjang",
+      "other": "{{ count }} item ditambahkan ke keranjang"
     }
   },
   "gift_cards": {

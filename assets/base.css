@@ -370,7 +370,7 @@ p:empty {
   /* Utility variable gives the grid's first column width. Provides an offset width for components like carousels */
   --util-page-margin-offset: max(
     var(--page-margin),
-    calc((100% - min(var(--page-content-width), calc(100% - (var(--page-margin) * 2)))) / 2)
+    calc((100% - min(var(--page-content-width), 100% - var(--page-margin) * 2)) / 2)
   );
 
   /* Offset for full-width sections to account for the page margin,
@@ -417,6 +417,12 @@ p:empty {
 /* For full-width sections, content spans all columns */
 .section--full-width > * {
   grid-column: 1 / -1;
+}
+
+@media screen and (max-width: 749px) {
+  .section--mobile-full-width > * {
+    grid-column: 1 / -1;
+  }
 }
 
 /* Some page-width sections should still extend all the way to the right edge of the page, e.g. collection carousel */
@@ -707,27 +713,8 @@ p:empty {
   fill: var(--color-error);
 }
 
-placeholder-image {
-  display: block;
-  height: 100%;
-  aspect-ratio: var(--ratio);
-}
-
-placeholder-image[data-type='product'] {
-  background-color: rgb(var(--color-foreground-rgb) / var(--opacity-15));
-  width: 100%;
-}
-
-/** Placeholder background for the placeholder image, the dimensions are the same as the product images */
-placeholder-image[data-type='product']:not(:has(> img)) {
-  aspect-ratio: var(--ratio);
-  height: 350px;
-}
-
-placeholder-image > img {
-  object-fit: cover;
-  aspect-ratio: var(--ratio);
-  height: 100%;
+.icon-default {
+  fill: currentColor;
 }
 
 [data-placeholder='true'] * {
@@ -1849,7 +1836,7 @@ slideshow-slide .shopify-model-viewer-ui__controls-area.shopify-model-viewer-ui_
 
 .dialog-zoomed-gallery .shopify-model-viewer-ui__controls-area.shopify-model-viewer-ui__controls-area {
   /* Move the controls above the thumbnails. Need to calculate the height of the thumbnails list */
-  bottom: calc(var(--thumbnail-width) / calc(var(--media-preview-ratio)) + var(--padding-lg) * 2);
+  bottom: calc(var(--thumbnail-width) / var(--media-preview-ratio) + var(--padding-lg) * 2);
   right: var(--padding-lg);
 }
 
@@ -1972,7 +1959,6 @@ deferred-media[class] :is(.deferred-media__poster-button img, .deferred-media__p
 .button-shopify-xr > svg {
   width: var(--icon-size-sm);
   height: var(--icon-size-sm);
-  fill: currentcolor;
   margin-inline-end: var(--margin-md);
 }
 
@@ -2023,14 +2009,14 @@ deferred-media[class] :is(.deferred-media__poster-button img, .deferred-media__p
 
   /* width = min(m + sU, (m + s * W'/H' * M'), M) */
   --swatch-width: min(
-    calc(var(--min-width) + calc(var(--scaling-factor) * var(--offset-swatch-width) * 1px)),
+    calc(var(--min-width) + var(--scaling-factor) * var(--offset-swatch-width) * 1px),
     calc(var(--min-width) + var(--offset-scaled-width)),
     var(--max-swatch-size)
   );
 
   /* height = min(m + sV, (m + s * H'/W' * M'), M) */
   --swatch-height: min(
-    calc(var(--min-height) + calc(var(--scaling-factor) * var(--offset-swatch-height) * 1px)),
+    calc(var(--min-height) + var(--scaling-factor) * var(--offset-swatch-height) * 1px),
     calc(var(--min-height) + var(--offset-scaled-height)),
     var(--max-swatch-size)
   );
@@ -2078,6 +2064,10 @@ deferred-media[class] :is(.deferred-media__poster-button img, .deferred-media__p
     --style-border-swatch-width: var(--variant-picker-border-width);
     --style-border-swatch-style: var(--variant-picker-border-style);
     --color-border: rgb(var(--color-foreground-rgb) / var(--variant-picker-border-opacity));
+  }
+
+  &.swatch--variant-image {
+    background-size: cover;
   }
 
   @media screen and (min-width: 750px) {
@@ -2138,15 +2128,6 @@ product-price.text-block:is(.h1, .h2, .h3, .h4, .h5, .h6) > *:not(.tax-note) {
 
 .card-gallery {
   position: relative;
-}
-
-@media screen and (min-width: 750px) {
-  product-card:focus-within .quick-add__button,
-  .card-gallery:hover .quick-add__button {
-    display: grid;
-    will-change: margin, opacity;
-    animation: elementSlideInTop var(--animation-speed) var(--animation-easing);
-  }
 }
 
 @container (max-width: 70px) {
@@ -2509,7 +2490,7 @@ product-price.text-block:is(.h1, .h2, .h3, .h4, .h5, .h6) > *:not(.tax-note) {
     --checkbox-path-opacity: 1;
   }
 
-  &:has(.checkbox__input:disabled) {
+  &.checkbox--disabled {
     --checkbox-cursor: not-allowed;
   }
 }
@@ -2764,23 +2745,84 @@ product-price.text-block:is(.h1, .h2, .h3, .h4, .h5, .h6) > *:not(.tax-note) {
 
 /* Fly to cart animation */
 fly-to-cart {
+  --offset-y: 10px;
+
   position: fixed;
-  width: 40px;
-  height: 40px;
+  width: var(--width, 40px);
+  height: var(--height, 40px);
   left: 0;
   top: 0;
-  border-radius: 50%;
   z-index: calc(infinity);
   pointer-events: none;
-  opacity: 0;
+  border-radius: var(--style-border-radius-buttons-primary);
   overflow: hidden;
-  box-shadow: 0 4px 8px rgb(0 0 0 / 20%);
-  transition: opacity 0.3s ease;
-  background-position: center center;
+  object-fit: cover;
   background-size: cover;
-  background-repeat: no-repeat;
+  background-position: center;
+  opacity: 0;
   background-color: var(--color-foreground);
-  transform: translate(var(--x, 0), var(--y, 0)) scale(var(--scale, 1));
+  translate: var(--start-x, 0) var(--start-y, 0);
+  transform: translate(-50%, -50%);
+  animation-name: travel-x, travel-y, travel-scale;
+  animation-timing-function: var(--x-timing), var(--y-timing), var(--scale-timing);
+  animation-duration: 0.6s;
+  animation-composition: accumulate;
+  animation-fill-mode: both;
+}
+
+fly-to-cart.fly-to-cart--main {
+  --x-timing: cubic-bezier(0.7, -5, 0.98, 0.5);
+  --y-timing: cubic-bezier(0.15, 0.57, 0.9, 1.05);
+  --scale-timing: cubic-bezier(0.85, 0.05, 0.96, 1);
+}
+
+fly-to-cart.fly-to-cart--quick {
+  --x-timing: cubic-bezier(0, -0.1, 1, 0.32);
+  --y-timing: cubic-bezier(0, 0.92, 0.92, 1.04);
+  --scale-timing: cubic-bezier(0.86, 0.08, 0.98, 0.98);
+
+  animation-duration: 0.6s;
+}
+
+fly-to-cart.fly-to-cart--sticky {
+  --x-timing: cubic-bezier(0.98, -0.8, 0.92, 0.5);
+  --y-timing: cubic-bezier(0.14, 0.56, 0.92, 1.04);
+  --scale-timing: cubic-bezier(0.86, 0.08, 0.98, 0.98);
+  --radius: var(--style-border-radius-buttons-primary);
+
+  @media (max-width: 749px) {
+    --x-timing: cubic-bezier(0.98, -0.1, 0.92, 0.5);
+  }
+
+  animation-duration: 0.8s;
+}
+
+@keyframes travel-scale {
+  0% {
+    opacity: var(--start-opacity, 1);
+  }
+
+  5% {
+    opacity: 1;
+  }
+
+  100% {
+    border-radius: 50%;
+    opacity: 1;
+    transform: translate(-50%, calc(-50% + var(--offset-y))) scale(0.25);
+  }
+}
+
+@keyframes travel-x {
+  to {
+    translate: var(--travel-x, 0) 0;
+  }
+}
+
+@keyframes travel-y {
+  to {
+    translate: 0 var(--travel-y, 0);
+  }
 }
 
 /* ------------------------------------------------------------------------------ */
@@ -3176,11 +3218,39 @@ fly-to-cart {
  */
 slideshow-component {
   --cursor: grab;
+  --slide-offset: 6px;
 
   position: relative;
   display: flex;
   flex-direction: column;
   timeline-scope: var(--slideshow-timeline);
+}
+
+slideshow-component.slideshow--content-below-media slideshow-slide {
+  display: grid;
+}
+
+.slideshow--content-below-media slideshow-slide :is(.slide__image-container, .slide__content) {
+  position: static;
+}
+
+.slideshow--content-below-media slideshow-slide {
+  grid-template-rows: var(--grid-template-rows);
+
+  @media screen and (min-width: 750px) {
+    grid-template-rows: var(--grid-template-rows-desktop);
+  }
+}
+
+.slide__content {
+  opacity: 0;
+  animation: slide-reveal both linear;
+  animation-timeline: var(--slideshow-timeline);
+
+  @media (prefers-reduced-motion) {
+    opacity: 1;
+    animation: none;
+  }
 }
 
 .slideshow--single-media {
@@ -3205,6 +3275,7 @@ slideshow-slides {
   scrollbar-width: none;
   gap: var(--slideshow-gap, 0);
   cursor: var(--cursor);
+  min-height: var(--slide-min-height);
 
   @media (prefers-reduced-motion) {
     scroll-behavior: auto;
@@ -3223,30 +3294,8 @@ slideshow-slides {
     border: none;
   }
 
-  &[size='small'] {
-    min-height: 17.5rem;
-  }
-
-  &[size='medium'] {
-    min-height: 21.25rem;
-  }
-
-  &[size='large'] {
-    min-height: 25rem;
-  }
-
   @media screen and (min-width: 750px) {
-    &[size='small'] {
-      min-height: 26.25rem;
-    }
-
-    &[size='medium'] {
-      min-height: 35rem;
-    }
-
-    &[size='large'] {
-      min-height: 45rem;
-    }
+    min-height: var(--slide-min-height-desktop);
   }
 }
 
@@ -3262,13 +3311,16 @@ slideshow-component[mobile-disabled] slideshow-slides {
 
 slideshow-slide {
   position: relative;
-  scroll-snap-align: start;
+  scroll-snap-align: center;
   width: var(--slide-width, 100%);
   max-height: 100%;
   flex-shrink: 0;
+  view-timeline-name: var(--slideshow-timeline);
   view-timeline-axis: inline;
   content-visibility: auto;
   contain-intrinsic-size: auto none;
+  border-radius: var(--corner-radius, 0);
+  overflow: hidden;
 
   slideshow-component[actioned] &,
   &[aria-hidden='false'] {
@@ -3282,6 +3334,15 @@ slideshow-slide {
   &[hidden]:not([reveal]) {
     display: none;
   }
+
+  /* Make inactive slides appear clickable */
+  &[aria-hidden='true'] {
+    cursor: pointer;
+  }
+}
+
+slideshow-slide .slide__image-container--rounded {
+  border-radius: var(--corner-radius, 0);
 }
 
 slideshow-slide.product-media-container--tallest {
@@ -3357,371 +3418,28 @@ slideshow-container {
   container-type: inline-size;
 }
 
-/*
- * Slideshow Controls
- */
-slideshow-controls {
-  flex-shrink: 0;
-  display: flex;
-  justify-content: space-between;
-  scrollbar-width: none;
-  min-height: var(--minimum-touch-target);
-  grid-area: controls;
-
-  &[controls-on-media] {
-    position: absolute;
-    bottom: 0;
-  }
-}
-
-slideshow-controls::-webkit-scrollbar {
-  display: none;
-}
-
-slideshow-controls button {
-  --color: rgb(var(--color-foreground-rgb) / var(--opacity-30));
-  --color-active: var(--color-foreground);
-  --color-hover: rgb(var(--color-foreground-rgb) / var(--opacity-50));
-
-  display: inline-block;
-  height: var(--minimum-touch-target);
-  width: var(--minimum-touch-target);
-  cursor: pointer;
-}
-
-slideshow-controls .icon {
-  width: var(--icon-size-sm);
-  height: var(--icon-size-xs);
-}
-
-slideshow-controls[pagination-position='center'] {
-  align-items: center;
-  justify-content: center;
-}
-
-slideshow-controls[pagination-position='center'][thumbnails] {
-  width: 100%;
-}
-
-slideshow-controls[pagination-position='center']:not([controls-on-media], [thumbnails], [icons-on-media]) {
-  justify-content: space-between;
-}
-
-slideshow-component:has(slideshow-controls[thumbnails]) {
-  &:has(slideshow-controls[pagination-position='right']) {
-    display: grid;
-    grid-template:
-      'container controls' auto
-      'arrows controls' min-content
-      / 1fr auto;
-  }
-
-  &:has(slideshow-controls[pagination-position='left']) {
-    display: grid;
-    grid-template:
-      'controls container' auto
-      'controls arrows' min-content
-      / auto 1fr;
-  }
-
-  slideshow-controls[pagination-position='left'] {
-    order: -1;
-  }
-}
-
-slideshow-controls[thumbnails]:is([pagination-position='right'], [pagination-position='left']) {
-  display: flex;
-  flex-direction: column;
-  height: 0;
-  min-height: 100%;
-
-  .slideshow-controls__thumbnails-container {
-    overflow: hidden auto;
-  }
-
-  &:not([controls-on-media]) {
-    .slideshow-controls__thumbnails-container {
-      position: sticky;
-      top: var(--sticky-header-offset, 0);
+@media screen and (min-width: 750px) {
+  .media-gallery--carousel slideshow-component:has(slideshow-controls[thumbnails]) {
+    &:has(slideshow-controls[pagination-position='right']) {
+      display: grid;
+      grid-template:
+        'container controls' auto
+        'arrows controls' min-content
+        / 1fr auto;
     }
 
-    .slideshow-controls__thumbnails {
-      padding-block-start: var(--focus-outline-offset);
-    }
-  }
-}
-
-slideshow-controls:not([controls-on-media])[icons-on-media] {
-  &[pagination-position='right'] {
-    justify-content: flex-end;
-  }
-
-  &[pagination-position='left'] {
-    justify-content: flex-start;
-  }
-}
-
-slideshow-controls:not([controls-on-media]):is([pagination-position='left'], [pagination-position='right'])
-  .slideshow-controls__thumbnails {
-  padding-block: var(--padding-2xs);
-}
-
-slideshow-controls:not([controls-on-media]) {
-  &:is([pagination-position='right']) {
-    .slideshow-controls__thumbnails {
-      padding-inline-end: var(--slideshow-thumbnails-padding-inline, var(--focus-outline-offset));
-    }
-  }
-
-  &:is([pagination-position='left']) {
-    .slideshow-controls__thumbnails {
-      padding-inline-start: var(--slideshow-thumbnails-padding-inline, var(--focus-outline-offset));
-    }
-  }
-}
-
-slideshow-controls[controls-on-media] {
-  z-index: var(--layer-raised);
-
-  &:has(.slideshow-controls__dots, .slideshow-controls__counter) {
-    --color-foreground: #fff;
-    --color-foreground-rgb: var(--color-white-rgb);
-  }
-
-  &[pagination-position='right'] {
-    right: 0;
-  }
-
-  &[pagination-position='left'] {
-    left: 0;
-  }
-
-  &[pagination-position='center'] {
-    width: 100%;
-  }
-
-  &:not([thumbnails])[pagination-position='left'] {
-    width: fit-content;
-    align-self: flex-start;
-  }
-
-  &:not([thumbnails])[pagination-position='right'] {
-    width: fit-content;
-    align-self: flex-end;
-  }
-}
-
-slideshow-controls:is([pagination-position='right'], [pagination-position='left']) {
-  .slideshow-controls__thumbnails {
-    flex-direction: column;
-  }
-}
-
-.slideshow-controls__arrows {
-  display: flex;
-  justify-content: space-between;
-  height: var(--minimum-touch-target);
-  grid-area: arrows;
-
-  button {
-    padding: 0 var(--padding-xs);
-  }
-}
-
-.slideshow-controls__dots,
-.slideshow-controls__counter {
-  display: inline-flex;
-  justify-content: center;
-  align-items: center;
-  margin: 0;
-  list-style: none;
-
-  button {
-    --color: rgb(var(--color-foreground-rgb) / var(--opacity-30));
-    --color-active: var(--color-foreground);
-    --color-hover: rgb(var(--color-foreground-rgb) / var(--opacity-50));
-  }
-}
-
-slideshow-controls:has(.slideshow-controls__dots),
-slideshow-component[autoplay] slideshow-controls {
-  mix-blend-mode: difference;
-}
-
-.slideshow-controls__dots {
-  gap: 0.6rem;
-  padding: var(--padding-sm) var(--padding-lg);
-  border-radius: 3rem;
-  overflow: hidden;
-
-  button {
-    --size: 0.5rem;
-
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: calc(var(--size) * 2);
-    height: calc(var(--size) * 2);
-    margin: calc(var(--size) / -2);
-    font-size: 0;
-    border-radius: calc(var(--size));
-
-    &::after {
-      content: '';
-      display: block;
-      background-color: var(--color);
-      height: var(--size);
-      width: var(--size);
-
-      /* This is at --size / 2 to remove a visual regression on subpixel rendering displays */
-      border-radius: calc(var(--size) / 2);
-
-      @supports not (view-timeline-axis: inline) {
-        &[aria-selected='true'] {
-          --color: var(--color-active);
-        }
-      }
-
-      &:hover {
-        --color: var(--color-hover);
-      }
+    &:has(slideshow-controls[pagination-position='left']) {
+      display: grid;
+      grid-template:
+        'controls container' auto
+        'controls arrows' min-content
+        / auto 1fr;
     }
 
-    &[aria-selected='true'] {
-      --color: var(--color-active);
+    slideshow-controls[pagination-position='left'] {
+      order: -1;
     }
   }
-}
-
-.slideshow-controls__dots,
-.slideshow-controls__counter {
-  &:only-child {
-    margin-inline: auto;
-  }
-}
-
-.slideshow-controls__counter {
-  color: var(--color-foreground);
-  background-color: rgb(0 0 0 / 40%);
-  width: auto;
-  border-radius: 2rem;
-  padding: 0.3rem var(--padding-sm);
-  margin-inline: var(--margin-sm);
-  backdrop-filter: blur(10px);
-  font-variant-numeric: tabular-nums;
-  font-size: var(--font-size--xs);
-
-  .slash {
-    color: rgb(var(--color-foreground-rgb) / var(--opacity-40));
-    padding-inline: var(--padding-2xs);
-    margin-block-start: -0.1rem;
-  }
-}
-
-.slideshow-control[disabled] {
-  opacity: 0.5;
-  cursor: not-allowed;
-}
-
-.slideshow-control--large {
-  .icon-caret {
-    --icon-stroke-width: 1px;
-  }
-
-  .icon-caret {
-    --icon-stroke-width: 1px;
-  }
-
-  .svg-wrapper,
-  svg {
-    width: var(--slideshow-controls-icon);
-    height: var(--slideshow-controls-icon);
-  }
-}
-
-/* Slideshow control shape styles */
-.button-unstyled.slideshow-control.slideshow-control--shape-square,
-.button-unstyled.slideshow-control.slideshow-control--shape-circle {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  aspect-ratio: 1 / 1;
-  background-color: var(--color-primary-button-background);
-  color: var(--color-primary-button-text);
-}
-
-.button-unstyled.slideshow-control.slideshow-control--shape-circle {
-  border-radius: 50%;
-}
-
-.button-unstyled.slideshow-control.slideshow-control--shape-square {
-  border-radius: 0;
-}
-
-.slideshow-control .icon-caret {
-  rotate: -90deg;
-}
-
-/* Slideshow Thumbnails */
-.slideshow-controls__thumbnails-container {
-  display: flex;
-  width: 100%;
-  max-height: 100%;
-  overflow-x: scroll;
-  scrollbar-width: none;
-}
-
-.slideshow-controls__thumbnails {
-  display: inline-flex;
-  padding-inline: var(--slideshow-thumbnails-padding-inline, var(--padding-sm));
-  padding-block: var(--slideshow-thumbnails-padding-block, var(--padding-sm));
-  gap: var(--gap-xs);
-  margin-inline: auto;
-  height: fit-content;
-
-  .slideshow-control {
-    border-radius: var(--media-radius);
-    width: clamp(44px, 7vw, var(--thumbnail-width));
-    height: auto;
-    aspect-ratio: var(--aspect-ratio);
-
-    img {
-      height: 100%;
-      object-fit: cover;
-      border-radius: var(--media-radius);
-    }
-
-    &:is([aria-selected='true']) {
-      outline: var(--focus-outline-width) solid currentcolor;
-      outline-offset: calc(var(--focus-outline-offset) / 2);
-      border: var(--style-border-width) solid rgb(var(--color-border-rgb) / var(--media-border-opacity));
-    }
-  }
-}
-
-.slideshow-controls__thumbnail {
-  position: relative;
-}
-
-.slideshow-controls__thumbnail-badge {
-  position: absolute;
-  top: var(--padding-2xs);
-  right: var(--padding-2xs);
-  width: clamp(16px, 10%, 20px);
-  height: clamp(16px, 10%, 20px);
-  background-color: var(--color-background);
-  border-radius: var(--style-border-radius-xs);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  box-shadow: 0 0 0 1px rgb(var(--color-foreground-rgb) / var(--opacity-5));
-}
-
-.slideshow-controls__thumbnail-badge svg {
-  width: 60%;
-  height: 60%;
-  fill: var(--color-foreground);
-  opacity: 0.6;
 }
 
 /* Slideshow Play/Pause */
@@ -3804,6 +3522,7 @@ slideshow-arrows .slideshow-control.slideshow-control--style-none {
 
 .media-gallery--carousel slideshow-arrows .slideshow-control {
   padding-inline: 0 var(--padding-md);
+  opacity: 1;
 }
 
 .card-gallery slideshow-arrows .slideshow-control {
@@ -3813,10 +3532,6 @@ slideshow-arrows .slideshow-control.slideshow-control--style-none {
   @container (max-width: 249px) {
     padding-inline: 0 var(--padding-sm);
   }
-}
-
-.media-gallery--carousel slideshow-arrows .slideshow-control {
-  opacity: 1;
 }
 
 :not(.media-gallery--carousel)
@@ -3838,6 +3553,22 @@ slideshow-arrows .slideshow-control.slideshow-control--style-none {
   }
 }
 
+@keyframes slide-reveal {
+  0% {
+    translate: calc(var(--slideshow-slide-offset, 6) * 1rem) 0;
+    opacity: 0;
+  }
+
+  50% {
+    opacity: 1;
+  }
+
+  100% {
+    translate: calc(var(--slideshow-slide-offset, 6) * -1rem) 0;
+    opacity: 0;
+  }
+}
+
 .block-resource-list {
   display: flex;
   flex-direction: column;
@@ -3848,7 +3579,8 @@ slideshow-arrows .slideshow-control.slideshow-control--style-none {
   container-name: resource-list;
 }
 
-.section-resource-list {
+.section-resource-list,
+.section-carousel {
   row-gap: var(--gap);
 }
 
@@ -3869,7 +3601,8 @@ slideshow-arrows .slideshow-control.slideshow-control--style-none {
   display: none;
 }
 
-.section-resource-list.section--full-width product-card-link > .group-block {
+.section-resource-list.section--full-width product-card-link > .group-block,
+.section-carousel.section--full-width product-card-link > .group-block {
   @media screen and (max-width: 749px) {
     padding-inline: max(var(--padding-xs), var(--padding-inline-start))
       max(var(--padding-xs), var(--padding-inline-end));
@@ -4091,6 +3824,12 @@ accordion-custom {
         padding-block var(--animation-speed-slow) var(--animation-easing),
         opacity var(--animation-speed-slow) var(--animation-easing),
         block-size var(--animation-speed-slow) var(--animation-easing);
+    }
+
+    /* Disable transitions when the content toggle is not caused by the direct user interaction, e.g. opening the filters on mobile. */
+    &:not(:focus-within)::details-content,
+    &:not(:focus-within) .details-content {
+      transition: none;
     }
 
     &:not([open]) {

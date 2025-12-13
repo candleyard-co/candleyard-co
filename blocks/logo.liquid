@@ -35,7 +35,7 @@
       {% if image %}
         --logo-width: {{ image.width | times: 1.00 | divided_by: image.height | times: block_settings.pixel_height }}px;
       {% else %}
-        --logo-width: {{ shop.name.size }}ch;
+        --logo-width: {{ shop.name.size | times: 0.65 }}em;
         --logo-height: {{ block_settings.pixel_height }}px;
       {% endif %}
     {% endif %}
@@ -48,7 +48,7 @@
         {% if image %}
           --logo-width-mobile: {{ image.width | times: 1.00 | divided_by: image.height | times: block_settings.pixel_height_mobile }}px;
           {% else %}
-            --logo-width-mobile: {{ shop.name.size }}ch;
+            --logo-width-mobile: {{ shop.name.size | times: 0.65 }}em;
             --logo-height-mobile: {{ block_settings.pixel_height_mobile }}px;
         {% endif %}
       {% endif %}
