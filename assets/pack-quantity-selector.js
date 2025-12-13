@@ -39,10 +39,6 @@ export class PackSelectorComponent extends Component {
     // Update add-to-pack button state on initial load
     this.updateAddToPackButtonState();
     this.updateLimitPackText();
-    
-    // NEW: Initialize grid preview
-    this.updateGridPreviewPack();
-    this.updateGridPreviewPackLayout();
   }
 
   disconnectedCallback() {
@@ -102,6 +98,18 @@ export class PackSelectorComponent extends Component {
     if (!mediaGallery) return null;
     
     return mediaGallery.querySelector('.grid-preview-pack');
+  }
+
+  /**
+   * Gets the image URL for the current pack item
+   * @returns {string | null} The image URL or null
+   */
+  getItemImageUrl() {
+    const packItem = this.closest('.pack-item');
+    if (!packItem) return null;
+    
+    const imageInput = packItem.querySelector('input[name="pack_item_image"]');
+    return imageInput ? imageInput.value : null;
   }
 
   /**
@@ -215,9 +223,9 @@ export class PackSelectorComponent extends Component {
     this.updateHiddenInputState();
     this.updateAddToPackButtonState();
     this.updateLimitPackText();
+    
     // NEW: Update grid preview
     this.updateGridPreviewPack();
-    this.updateGridPreviewPackLayout();
     
     // Update all other selectors
     this.updateAllPackSelectors();
@@ -265,7 +273,6 @@ export class PackSelectorComponent extends Component {
     this.updateLimitPackText();
     // NEW: Update grid preview
     this.updateGridPreviewPack();
-    this.updateGridPreviewPackLayout();
   }
 
   /**
@@ -335,113 +342,138 @@ export class PackSelectorComponent extends Component {
   }
 
 /**
- * Updates the grid preview pack with selected item images
- * Each item gets its own column, even if multiple quantities of the same item
+ * Updates the grid preview pack - fills columns based on add order
+ * Creates an image for each selected item and adds to .preview-pack-item--inner
+ * If removed or quantity is 0, removes the image from the column as well
+ * Automatically shifts images forward to fill empty columns
  */
 updateGridPreviewPack() {
   const gridPreviewPack = this.getGridPreviewPack();
   if (!gridPreviewPack) return;
   
-  const packPicker = this.getPackPicker();
-  if (!packPicker) return;
+  const { value } = this.getCurrentValues();
+  const itemImageUrl = this.getItemImageUrl();
+  const packItem = this.closest('.pack-item');
   
-  // Get all pack items that have quantity > 0
-  const allPackItems = packPicker.querySelectorAll('.pack-item');
+  if (!packItem || !itemImageUrl) return;
   
-  // Clear existing images from the inner containers
-  const previewItems = gridPreviewPack.querySelectorAll('.preview-pack-item');
-  previewItems.forEach(item => {
-    const innerContainer = item.querySelector('.preview-pack-item--inner');
-    if (innerContainer) {
-      innerContainer.innerHTML = ''; // Clear only the inner container
-    }
-  });
+  // Get a consistent unique identifier for this pack item
+  // Check if we've already assigned an ID to this pack item
+  if (!packItem.dataset.packItemId) {
+    // Generate a unique ID once and store it
+    packItem.dataset.packItemId = 'item-' + Math.random().toString(36).substr(2, 9);
+  }
   
-  // Create a map to track which preview item slot we're using
-  let currentSlotIndex = 1; // Start from 1
+  const itemId = packItem.dataset.packItemId;
   
-  // Add images for all items with quantity > 0
-  allPackItems.forEach(packItem => {
-    const selector = packItem.querySelector('pack-selector-component');
-    if (!selector) return;
+  // Find all existing images for this item across all columns
+  const existingImages = gridPreviewPack.querySelectorAll(`img[data-item-id="${itemId}"]`);
+  const existingImageCount = existingImages.length;
+  
+  // Get all columns
+  const columns = gridPreviewPack.querySelectorAll('.preview-pack-item');
+  
+  if (value > existingImageCount) {
+    // Add more images
+    const imagesToAdd = value - existingImageCount;
     
-    // Get value directly from the input element
-    const quantityInput = selector.querySelector('input[name="pack_item_quantity"]');
-    if (!quantityInput) return;
-    
-    const value = parseInt(quantityInput.value) || 0;
-    
-    if (value > 0) {
-      // Get the image URL from the hidden input
-      const imageInput = packItem.querySelector('input[name="pack_item_image"]');
-      if (!imageInput || !imageInput.value) return;
-      
-      // For EACH quantity unit, create a column
-      for (let i = 0; i < value; i++) {
-        // Find the corresponding preview item
-        if (currentSlotIndex <= previewItems.length) {
-          const previewItem = previewItems[currentSlotIndex - 1];
-          const innerContainer = previewItem.querySelector('.preview-pack-item--inner');
+    for (let i = 0; i < imagesToAdd; i++) {
+      // Find the first available empty column
+      for (const column of columns) {
+        const inner = column.querySelector('.preview-pack-item--inner');
+        if (!inner) continue;
+        
+        // Check if column is empty
+        if (inner.children.length === 0) {
+          // Create and add image
+          const img = document.createElement('img');
+          img.src = itemImageUrl;
+          img.alt = 'Pack item preview';
+          img.className = 'preview-image';
+          img.dataset.itemId = itemId;
           
-          if (innerContainer) {
-            // Create and append image to the inner container
-            const img = document.createElement('img');
-            img.src = imageInput.value;
-            img.alt = '';
-            img.className = 'preview-pack-item-image';
-            
-            innerContainer.appendChild(img);
-          }
+          // Add some basic styles
+          img.style.width = '100%';
+          img.style.height = '100%';
+          img.style.display = 'block';
+          img.style.objectFit = 'cover';
+          
+          inner.appendChild(img);
+          break; // Move to next image to add
         }
-        // Note: We don't create new items since they're already in the HTML
-        currentSlotIndex++;
+      }
+    }
+    
+  } else if (value < existingImageCount) {
+    // Remove images
+    const imagesToRemove = existingImageCount - value;
+    
+    // Remove from the end (most recently added images first)
+    for (let i = 0; i < imagesToRemove; i++) {
+      const img = existingImages[existingImages.length - 1 - i];
+      if (img && img.parentElement) {
+        img.remove();
+      }
+    }
+  }
+  
+  // After adding/removing, shift all images forward to fill empty columns
+  this.shiftImagesForward();
+}
+
+/**
+ * Shifts all images forward to fill empty columns
+ * This removes gaps when items are removed from the middle
+ */
+shiftImagesForward() {
+  const gridPreviewPack = this.getGridPreviewPack();
+  if (!gridPreviewPack) return;
+  
+  const columns = gridPreviewPack.querySelectorAll('.preview-pack-item');
+  const images = [];
+  
+  // Collect all images from all columns
+  columns.forEach(column => {
+    const inner = column.querySelector('.preview-pack-item--inner');
+    if (!inner) return;
+    
+    if (inner.children.length > 0) {
+      // Get the first image (should only be one per column)
+      const img = inner.querySelector('img');
+      if (img) {
+        images.push({
+          img: img,
+          column: column,
+          inner: inner
+        });
       }
     }
   });
   
-  // Clear any unused inner containers beyond currentSlotIndex
-  for (let i = currentSlotIndex; i <= previewItems.length; i++) {
-    const previewItem = previewItems[i - 1];
-    const innerContainer = previewItem.querySelector('.preview-pack-item--inner');
-    if (innerContainer) {
-      innerContainer.innerHTML = '';
-    }
-  }
-}
-
-/**
- * Updates the grid preview pack layout based on selected items
- */
-updateGridPreviewPackLayout() {
-  const gridPreviewPack = this.getGridPreviewPack();
-  if (!gridPreviewPack) return;
-  
-  const packPicker = this.getPackPicker();
-  if (!packPicker) return;
-  
-  // Count total selected items (sum of all quantities)
-  let totalSelectedCount = 0;
-  const allSelectors = packPicker.querySelectorAll('pack-selector-component');
-  
-  allSelectors.forEach(selector => {
-    const quantityInput = selector.querySelector('input[name="pack_item_quantity"]');
-    if (!quantityInput) return;
-    
-    const value = parseInt(quantityInput.value) || 0;
-    totalSelectedCount += value;
+  // Sort images by their column order
+  images.sort((a, b) => {
+    const aIndex = Array.from(columns).indexOf(a.column);
+    const bIndex = Array.from(columns).indexOf(b.column);
+    return aIndex - bIndex;
   });
   
-  const packLimit = this.getPackLimit();
-
-  // Update grid layout class based on total count
-  // This now handles multiple quantities per item as separate columns
-  gridPreviewPack.className = `grid-preview-pack grid-preview-pack-${packLimit}`; // Adjust max columns as needed The max columns should always be the limit
+  // Clear all columns first
+  columns.forEach(column => {
+    const inner = column.querySelector('.preview-pack-item--inner');
+    if (inner) {
+      inner.innerHTML = '';
+    }
+  });
   
-  // Also update classes on individual preview items if needed
-  const previewItems = gridPreviewPack.querySelectorAll('.preview-pack-item');
-  previewItems.forEach((item, arrayIndex) => {
-    const itemIndex = arrayIndex + 1; // Convert to 1-based index
-    item.className = `preview-pack-item preview-pack-${itemIndex}`;
+  // Re-add images to columns in order, filling from the beginning
+  images.forEach((imageData, index) => {
+    if (index < columns.length) {
+      const targetColumn = columns[index];
+      const targetInner = targetColumn.querySelector('.preview-pack-item--inner');
+      if (targetInner) {
+        targetInner.appendChild(imageData.img);
+      }
+    }
   });
 }
 
@@ -542,46 +574,41 @@ updateGridPreviewPackLayout() {
     
     // NEW: Update grid preview
     this.updateGridPreviewPack();
-    this.updateGridPreviewPackLayout();
     
     // Update all other selectors in the same pack to reflect new totals
     this.updateAllPackSelectors();
   }
 
-/**
- * Updates all selectors in the same pack to reflect new button states
- * and the add-to-pack button state
- */
-updateAllPackSelectors() {
-  const packPicker = this.getPackPicker();
-  if (!packPicker) return;
+  /**
+   * Updates all selectors in the same pack to reflect new button states
+   * and the add-to-pack button state
+   */
+  updateAllPackSelectors() {
+    const packPicker = this.getPackPicker();
+    if (!packPicker) return;
 
-  const selectors = packPicker.querySelectorAll('pack-selector-component');
-  
-  selectors.forEach(selector => {
-    // Get the component instance
-    const component = customElements.get('pack-selector-component');
-    if (!component) return;
+    const selectors = packPicker.querySelectorAll('pack-selector-component');
     
-    // Skip if it's the same instance
-    if (selector === this) return;
+    selectors.forEach(selector => {
+      // Get the component instance
+      const component = customElements.get('pack-selector-component');
+      if (!component) return;
+      
+      // Skip if it's the same instance
+      if (selector === this) return;
+      
+      // Cast to PackSelectorComponent to access methods
+      const packSelector = /** @type {PackSelectorComponent} */ (selector);
+      
+      // Update button states on other selectors
+      packSelector.updateButtonStates();
+      packSelector.updateHiddenInputState();
+      packSelector.updateLimitPackText();
+    });
     
-    // Cast to PackSelectorComponent to access methods
-    const packSelector = /** @type {PackSelectorComponent} */ (selector);
-    
-    // Update button states on other selectors
-    packSelector.updateButtonStates();
-    packSelector.updateHiddenInputState();
-    packSelector.updateLimitPackText();
-    
-    // Update grid preview
-    packSelector.updateGridPreviewPack();
-    packSelector.updateGridPreviewPackLayout();
-  });
-  
-  // Also update the add-to-pack button
-  this.updateAddToPackButtonState();
-}
+    // Also update the add-to-pack button
+    this.updateAddToPackButtonState();
+  }
 
   /**
    * Gets the quantity input.
