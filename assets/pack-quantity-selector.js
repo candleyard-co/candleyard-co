@@ -336,6 +336,7 @@ export class PackSelectorComponent extends Component {
 
 /**
  * Updates the grid preview pack with selected item images
+ * Each item gets its own column, even if multiple quantities of the same item
  */
 updateGridPreviewPack() {
   const gridPreviewPack = this.getGridPreviewPack();
@@ -347,22 +348,24 @@ updateGridPreviewPack() {
   // Get all pack items that have quantity > 0
   const allPackItems = packPicker.querySelectorAll('.pack-item');
   
-  // Clear existing images from the preview
+  // Clear existing images from the inner containers
   const previewItems = gridPreviewPack.querySelectorAll('.preview-pack-item');
   previewItems.forEach(item => {
-    item.innerHTML = '';
+    const innerContainer = item.querySelector('.preview-pack-item--inner');
+    if (innerContainer) {
+      innerContainer.innerHTML = ''; // Clear only the inner container
+    }
   });
   
-  // Get the first preview item (since it's a single column preview)
-  const firstPreviewItem = previewItems[0];
-  if (!firstPreviewItem) return;
+  // Create a map to track which preview item slot we're using
+  let currentSlotIndex = 1; // Start from 1
   
   // Add images for all items with quantity > 0
   allPackItems.forEach(packItem => {
     const selector = packItem.querySelector('pack-selector-component');
     if (!selector) return;
     
-    // FIX: Get value directly from the input element
+    // Get value directly from the input element
     const quantityInput = selector.querySelector('input[name="pack_item_quantity"]');
     if (!quantityInput) return;
     
@@ -373,15 +376,37 @@ updateGridPreviewPack() {
       const imageInput = packItem.querySelector('input[name="pack_item_image"]');
       if (!imageInput || !imageInput.value) return;
       
-      // Create and append image
-      const img = document.createElement('img');
-      img.src = imageInput.value;
-      img.alt = '';
-      img.className = 'preview-pack-item-image';
-      
-      firstPreviewItem.appendChild(img);
+      // For EACH quantity unit, create a column
+      for (let i = 0; i < value; i++) {
+        // Find the corresponding preview item
+        if (currentSlotIndex <= previewItems.length) {
+          const previewItem = previewItems[currentSlotIndex - 1];
+          const innerContainer = previewItem.querySelector('.preview-pack-item--inner');
+          
+          if (innerContainer) {
+            // Create and append image to the inner container
+            const img = document.createElement('img');
+            img.src = imageInput.value;
+            img.alt = '';
+            img.className = 'preview-pack-item-image';
+            
+            innerContainer.appendChild(img);
+          }
+        }
+        // Note: We don't create new items since they're already in the HTML
+        currentSlotIndex++;
+      }
     }
   });
+  
+  // Clear any unused inner containers beyond currentSlotIndex
+  for (let i = currentSlotIndex; i <= previewItems.length; i++) {
+    const previewItem = previewItems[i - 1];
+    const innerContainer = previewItem.querySelector('.preview-pack-item--inner');
+    if (innerContainer) {
+      innerContainer.innerHTML = '';
+    }
+  }
 }
 
 /**
@@ -394,23 +419,30 @@ updateGridPreviewPackLayout() {
   const packPicker = this.getPackPicker();
   if (!packPicker) return;
   
-  // Count how many items have quantity > 0
-  let selectedCount = 0;
+  // Count total selected items (sum of all quantities)
+  let totalSelectedCount = 0;
   const allSelectors = packPicker.querySelectorAll('pack-selector-component');
   
   allSelectors.forEach(selector => {
-    // FIX: Get value directly from the input element
     const quantityInput = selector.querySelector('input[name="pack_item_quantity"]');
     if (!quantityInput) return;
     
     const value = parseInt(quantityInput.value) || 0;
-    if (value > 0) {
-      selectedCount++;
-    }
+    totalSelectedCount += value;
   });
   
-  // Update grid layout class based on count
-  gridPreviewPack.className = `grid-preview-pack grid-preview-pack-${Math.min(selectedCount, 1)}`;
+  const packLimit = this.getPackLimit();
+
+  // Update grid layout class based on total count
+  // This now handles multiple quantities per item as separate columns
+  gridPreviewPack.className = `grid-preview-pack grid-preview-pack-${packLimit}`; // Adjust max columns as needed The max columns should always be the limit
+  
+  // Also update classes on individual preview items if needed
+  const previewItems = gridPreviewPack.querySelectorAll('.preview-pack-item');
+  previewItems.forEach((item, arrayIndex) => {
+    const itemIndex = arrayIndex + 1; // Convert to 1-based index
+    item.className = `preview-pack-item preview-pack-${itemIndex}`;
+  });
 }
 
   /**

@@ -355,12 +355,16 @@
 
   {% if pack_limit > 0 %}
     <div class="grid-preview-wrapper">
-      <div class="grid-preview-pack grid-preview-pack-{{ pack_limit }}">
-        {% for i in (1..pack_limit) %}
-            <div class="preview-pack-item preview-pack-{{ i }}">
+      <div class="grid-preview-contain">
+        <div class="grid-preview-pack grid-preview-pack-{{ pack_limit }}">
+          {% for i in (1..pack_limit) %}
+              <div class="preview-pack-item preview-pack-{{ i }}">
+                <div class="preview-pack-item--inner">
 
-            </div>
-        {% endfor %}
+                </div>
+              </div>
+          {% endfor %}
+        </div>
       </div>
     </div>
   {% endif %}
@@ -382,36 +386,86 @@
     width: 100%;
     height: 100%;
     z-index: 2;
+
   }
 
-  .grid-preview-pack.grid-preview-pack-1 {
-    display: grid;
-    grid-template-columns: repeat(10,1fr);
-    grid-template-rows: repeat(auto-fill,92px);
-    height: 100%;
+  .grid-preview-pack {
+    display: flex;
+    justify-content: center;
+    align-items: flex-end;
+    height: auto;
+    width: 100%;
+  }
+
+  .grid-preview-contain {
+    position: absolute;
+    left: 0;
+    width: 100%;
+    padding-inline: var(--padding-4xl);
+
+    &:has(.grid-preview-pack-1) {
+      bottom: 10rem;
+    }
+
+    &:has(.grid-preview-pack-3) {
+      bottom: 14.6rem;
+    }
 
     @media (max-width: 750px) {
-      grid-template-rows: repeat(auto-fill, 20px);
+      padding-inline: var(--padding-xl);
+
+      &:has(.grid-preview-pack-3) {
+        bottom: 2.6rem;
+      }
+
+      &:has(.grid-preview-pack-1) {
+        bottom: 1.5rem;
+      }
     }
   }
 
-  .preview-pack-1 {
-    grid-column: 3 / span 6;
-    grid-row: 2 / span 5;
+  .grid-preview-pack.grid-preview-pack-1 {
+
+    .preview-pack-item.preview-pack-1 {
+      max-width: 24rem;
+      position: relative;
+      width: 100%;
+    }
+
+    .preview-pack-item--inner {
+      position: absolute;
+      bottom: 0;
+      width: 100%;
+      height: auto;
+    }
 
     @media (max-width: 750px) {
-      grid-column: 1 / -1;
-      grid-row: 2 / span 5;
+
+      .preview-pack-item.preview-pack-1 {
+        max-width: 8rem;
+      }
+
+    }
+  }
+
+  .grid-preview-pack.grid-preview-pack-3 {
+    gap: 1rem;
+
+    .preview-pack-item {
+      width: calc(33.33% - 1rem * 2/3);
+      max-width: calc(33.33% - 1rem * 2/3);
+      flex-grow: 0;
+
+      @media (max-width: 750px) {
+      }
     }
   }
 
   .preview-pack-item img {
     display: block;
     max-width: 100%;
-    height: 100%;
+    height: auto;
     width: 100%;
-    object-fit: contain;
-    object-position: bottom center;
   }
 
   .product-media__drag-zoom-wrapper {
