@@ -54,6 +54,8 @@
     aria-label="{{ 'accessibility.quantity' | t }}"
     readonly
     onkeydown="return false;"
+    data-mgmt="{{ variant.inventory_management  }}"
+    data-inv="{{ variant.inventory_quantity  }}"
     {% if variant.inventory_management == 'shopify' and variant.inventory_quantity %}
       data-variant-qty="{{ variant.inventory_quantity }}"
     {% endif %}

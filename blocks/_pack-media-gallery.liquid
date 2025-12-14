@@ -415,7 +415,7 @@
       bottom: 8.5cqw;
     }
     &:has(.grid-preview-pack-12) {
-      bottom: 6cqw;
+      top: 7cqw;
     }
 
     @media (max-width: 750px) {
@@ -426,7 +426,7 @@
       }
 
       &:has(.grid-preview-pack-6) {
-        bottom: 8cqw;
+        top: 8.5cqw;
       }
 
       &:has(.grid-preview-pack-3) {
@@ -478,7 +478,7 @@
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     grid-template-rows: 1fr 1fr;
-    gap: 2.5rem 1rem;
+    gap: 4rem 1rem;
 
     @media (max-width: 750px) {
       gap: 0.5rem 1rem !important;
@@ -493,13 +493,22 @@
     grid-template-rows: repeat(3,1fr);
     gap: 2rem 1rem;
 
+    .preview-pack-1,
+    .preview-pack-2,
+    .preview-pack-3,
+    .preview-pack-4 {
+      .preview-pack-item--inner {
+        margin-bottom: -0.5rem;
+      }  
+    }
+
     .preview-pack-5,
     .preview-pack-6,
     .preview-pack-7,
     .preview-pack-8 {
 
       .preview-pack-item--inner {
-        margin-top: -1-rem; /* Adds to existing 2rem gap = 4rem total */
+        margin-bottom: -1rem;
       }
     }
 

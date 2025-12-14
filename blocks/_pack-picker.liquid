@@ -25,7 +25,7 @@
         {% assign item_product = all_products[item.product] %}
         {% assign selected_variant = item_product.selected_or_first_available_variant %}
         {% if item_product != blank %}
-          <div class="pack-item title--aligned-center justify-between {% if item_product.available == false %}oos-pack-item{% endif %}" data-id="{{ selected_variant.id }}">
+          <div class="pack-item title--aligned-center justify-between {% if item_product.available == false %}oos-pack-item{% endif %}" data-id="{{ item.system.id }}">
             <div class="flex pack-item-flex title--aligned-center">
               <div>
                 {% if item.vector_image != blank %}
@@ -76,6 +76,10 @@
     @media (min-width: 751px) {
       height: calc(100% - 215px);
     }
+  }
+
+  .pack-quantity-selector button[disabled] {
+    pointer-events: none;
   }
 
   .stock-label {
