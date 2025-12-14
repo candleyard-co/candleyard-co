@@ -45,6 +45,13 @@ export class PackSelectorComponent extends Component {
 
   disconnectedCallback() {
     super.disconnectedCallback();
+    
+    // Clear preloaded image reference when component disconnects
+    const packItem = this.closest('.pack-item');
+    if (packItem) {
+      packItem._preloadedImage = null;
+      delete packItem._preloadedImage;
+    }
   }
 
   /**
@@ -402,6 +409,11 @@ updateGridPreviewPack() {
   // Get all columns
   const columns = gridPreviewPack.querySelectorAll('.preview-pack-item');
   
+  // Clear preloaded image if URL has changed (for modal re-use)
+  if (packItem._preloadedImage && packItem._preloadedImage.src !== itemImageUrl) {
+    packItem._preloadedImage = null;
+  }
+  
   if (value > existingImageCount) {
     // Add more images
     const imagesToAdd = value - existingImageCount;
@@ -447,11 +459,9 @@ updateGridPreviewPack() {
             img.style.objectFit = 'cover';
             
             // Cache the image for future use on this pack item
-            if (!preloadedImage) {
-              const preloadImg = new Image();
-              preloadImg.src = itemImageUrl;
-              packItem._preloadedImage = preloadImg;
-            }
+            const preloadImg = new Image();
+            preloadImg.src = itemImageUrl;
+            packItem._preloadedImage = preloadImg;
           }
           
           inner.appendChild(img);
