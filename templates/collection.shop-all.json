@@ -220,6 +220,58 @@
         "section_id": ""
       }
     },
+    "collection_buttons_tkJVyx": {
+      "type": "collection-buttons",
+      "blocks": {
+        "item_MCmn6D": {
+          "type": "item",
+          "settings": {
+            "text": "Dessert Candles",
+            "section_id": "dessert-candles"
+          }
+        },
+        "item_ftBK78": {
+          "type": "item",
+          "settings": {
+            "text": "Drink Candles",
+            "section_id": "drink-candles"
+          }
+        },
+        "item_WQqQ7m": {
+          "type": "item",
+          "settings": {
+            "text": "Simplified Candles",
+            "section_id": "simplified-candles"
+          }
+        },
+        "item_rcPeiV": {
+          "type": "item",
+          "settings": {
+            "text": "Laundry Products",
+            "section_id": "laundry-products"
+          }
+        }
+      },
+      "block_order": [
+        "item_MCmn6D",
+        "item_ftBK78",
+        "item_WQqQ7m",
+        "item_rcPeiV"
+      ],
+      "name": "Collection buttons",
+      "settings": {
+        "color_scheme": "",
+        "section_width": "page-narrow",
+        "full_width_on_mobile": true,
+        "padding-block-start": 8,
+        "padding-block-end": 8,
+        "custom_mobile_padding": false,
+        "mobile-padding-block-start": 0,
+        "mobile-padding-block-end": 0,
+        "mobile-padding-inline-start": 0,
+        "mobile-padding-inline-end": 0
+      }
+    },
     "pack_list_ebWKdz": {
       "type": "pack-list",
       "blocks": {
@@ -414,8 +466,8 @@
         "color_scheme": "",
         "padding-block-start": 72,
         "padding-block-end": 72,
-        "add_section_id": false,
-        "section_id": ""
+        "add_section_id": true,
+        "section_id": "dessert-candles"
       }
     },
     "pack_list_3EterY": {
@@ -612,8 +664,8 @@
         "color_scheme": "",
         "padding-block-start": 0,
         "padding-block-end": 72,
-        "add_section_id": false,
-        "section_id": ""
+        "add_section_id": true,
+        "section_id": "simplified-candles"
       }
     },
     "pack_list_aMX4rD": {
@@ -810,8 +862,8 @@
         "color_scheme": "",
         "padding-block-start": 0,
         "padding-block-end": 72,
-        "add_section_id": false,
-        "section_id": ""
+        "add_section_id": true,
+        "section_id": "drink-candles"
       }
     },
     "product_list_xzMARm": {
@@ -1060,7 +1112,9 @@
         "mobile-padding-block-start": 0,
         "mobile-padding-block-end": 0,
         "mobile-padding-inline-start": 0,
-        "mobile-padding-inline-end": 0
+        "mobile-padding-inline-end": 0,
+        "add_section_id": true,
+        "section_id": "laundry-products"
       }
     },
     "product_list_temE3R": {
@@ -1309,7 +1363,9 @@
         "mobile-padding-block-start": 0,
         "mobile-padding-block-end": 0,
         "mobile-padding-inline-start": 0,
-        "mobile-padding-inline-end": 0
+        "mobile-padding-inline-end": 0,
+        "add_section_id": true,
+        "section_id": "bundles"
       }
     },
     "flip_panel_NNaKLE": {
@@ -1802,6 +1858,7 @@
   },
   "order": [
     "section_BVTiWg",
+    "collection_buttons_tkJVyx",
     "pack_list_ebWKdz",
     "pack_list_3EterY",
     "pack_list_aMX4rD",

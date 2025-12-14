@@ -1,0 +1,285 @@
+<div class="section-background color-{{ section.settings.color_scheme }}"></div>
+<div
+  class="section section--{{ section.settings.section_width }} {% if section.settings.full_width_on_mobile %}section--mobile-full-width{% endif %} spacing-style {% if section.settings.color_scheme != blank %}color-{{ section.settings.color_scheme }}{% endif %}"
+  style="{% render 'spacing-padding', settings: section.settings %}"
+>
+    {% capture list_items %}
+        {% for block in section.blocks %}
+            {% capture children %}
+                <div class="collection-buttons-wrapper">
+                    <a href="#{{ block.settings.section_id }}" class=" button--state-collection">
+                        {{ block.settings.text | strip }}
+                    </a>
+                </div>
+            {% endcapture %}
+
+            {% render 'slideshow-slide', index: forloop.index, children: children, class: 'collection-buttons-list__slide' %}
+            {% unless forloop.last %}
+                <!--@list/split-->
+            {% endunless %}
+        {% endfor %}
+    {% endcapture %}
+
+    {% liquid
+        # Create an array from the list items to be used for different layout types
+        assign list_items_array = list_items | strip | split: '<!--@list/split-->'
+
+        assign slideshow_class = 'collection-buttons__list list-unstyled'
+    %}
+
+    {% capture slideshow %}
+        {% render 'slideshow',
+            class: slideshow_class,
+            infinite: false,
+            slides: list_items,
+            slide_count: list_items_array.size | plus: 1,
+            icon_style: 'chevron',
+            slideshow_gutters: 'start end'
+        %}
+    {% endcapture %}
+
+    {% if list_items_array.size >= 10 %}
+        <div class="flex inline-slider-row hidden--mobile title--aligned-center">
+            <div>
+                {{ slideshow }}
+            </div>
+            <div>
+                {% render 'header-slideshow-arrows', section_id: section.id %}
+            </div>
+        </div>
+        <div class="hidden--desktop">
+            {{ slideshow }}
+        </div>
+    {% else %}
+        <div class="flex title--aligned-center">
+            <div style="flex: 1 auto;">
+            {{ slideshow }}
+            </div>
+        </div>
+    {% endif %}
+</div>
+
+{% stylesheet %}
+    .collection-buttons__list {
+      display: flex;
+      overflow-x: auto;
+      overflow-y: hidden;
+      padding-inline: 0;
+      scroll-snap-type: x mandatory;
+      scroll-padding: 0 var(--padding-lg);
+      scrollbar-width: none;
+      -ms-overflow-style: none;
+      animation: search-element-slide-up var(--animation-speed-medium) var(--animation-timing-bounce) backwards;
+      animation-duration: var(--animation-speed-medium);
+      transition: opacity var(--animation-speed-medium) var(--animation-timing-fade-in);
+    }
+
+    .collection-buttons-list__slide {
+        flex: 0 0 auto;
+        scroll-snap-align: start;
+        width: fit-content;
+        scroll-margin-block: calc(var(--title-font-size) + var(--title-margin-block) + var(--padding-sm)) calc(var(--padding-lg) + var(--button-padding-block) * 2);
+        transition: transform var(--animation-speed-medium) var(--animation-timing-default), background-color var(--animation-speed-medium) var(--animation-timing-hover), border-color var(--animation-speed-medium) var(--animation-timing-hover);
+    }
+
+    .collection-buttons-wrapper {
+        position: relative;
+        transition: transform var(--hover-transition-duration) var(--hover-transition-timing), box-shadow var(--hover-transition-duration) var(--hover-transition-timing);
+        will-change: transform, box-shadow;
+        z-index: var(--layer-flat);
+        content-visibility: visible;
+    }
+
+    .collection-buttons__list slideshow-slides {
+        padding-block: var(--padding-md);
+        margin-block: calc(-1 * var(--padding-md));
+        gap: var(--gap-sm);
+        --gutter-slide-width: var(--padding-lg);
+
+        @media (min-width: 750px) {
+            padding-inline-start: 0px;
+        }
+    }
+
+    .collection-buttons-list__slide {
+      @media (min-width: 750px) {
+        &:first-child {
+          margin-inline-start: auto;
+        }
+
+        &:last-child {
+          margin-inline-end: auto;
+        }
+      }
+    }
+
+    .collection-buttons-block {
+        border-bottom: 1px solid var(--color-border);
+        grid-column: 1 / -1;
+
+        @media (min-width: 750px) {
+          padding-bottom: 1.5rem;
+          padding-inline: var(--page-margin);
+        }
+
+        @media (max-width: 749px) {
+            
+            .spacing-style {
+                --padding-block-end: var(--padding-md) !important;
+                --padding-block-start: var(--padding-md) !important;
+            }
+        }
+
+        .button {
+          font-size: var(--font-size--xs);
+          --button-padding-inline: 16px;
+          --button-padding-block: 5px;
+          display: block;
+        }
+
+        .all-trunk-shows, .active {
+          --button-color: var(--color-primary-button-hover-text) !important;
+          --button-background-color: var(--color-primary-button-hover-background) !important;
+          --button-border-color: var(--color-primary-button-hover-border) !important;
+        }
+    }
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "Collection buttons",
+  "settings": [
+    {
+      "type": "color_scheme",
+      "id": "color_scheme",
+      "label": "t:settings.color_scheme",
+      "default": "scheme-1"
+    },
+    {
+      "type": "select",
+      "id": "section_width",
+      "label": "t:settings.width",
+      "options": [
+            {
+            "value": "page-narrow",
+            "label": "Narrow"
+            },
+            {
+            "value": "page-width",
+            "label": "t:options.page"
+            },
+            {
+            "value": "full-width",
+            "label": "t:options.full"
+            }
+      ],
+      "default": "page-width"
+    },
+    {
+      "type": "checkbox",
+      "id": "full_width_on_mobile",
+      "label": "t:settings.full_width_on_mobile",
+      "default": false,
+      "visible_if": "{{ section.settings.section_width == 'page-width' or section.settings.section_width == 'page-narrow' }}"
+    },
+    {
+      "type": "header",
+      "content": "t:content.padding"
+    },
+    {
+      "type": "range",
+      "id": "padding-block-start",
+      "label": "t:settings.top",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "padding-block-end",
+      "label": "t:settings.bottom",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "default": 0
+    },
+    {
+      "type": "checkbox",
+      "id": "custom_mobile_padding",
+      "label": "Custom Mobile Padding",
+      "default": false
+    },
+    {
+      "type": "range",
+      "id": "mobile-padding-block-start",
+      "label": "t:settings.top",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "default": 0,
+      "visible_if": "{{ section.settings.custom_mobile_padding == true }}"
+    },
+    {
+      "type": "range",
+      "id": "mobile-padding-block-end",
+      "label": "t:settings.bottom",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "default": 0,
+      "visible_if": "{{ section.settings.custom_mobile_padding == true }}"
+    },
+    {
+      "type": "range",
+      "id": "mobile-padding-inline-start",
+      "label": "t:settings.left",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "default": 0,
+      "visible_if": "{{ section.settings.custom_mobile_padding == true }}"
+    },
+    {
+      "type": "range",
+      "id": "mobile-padding-inline-end",
+      "label": "t:settings.right",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "default": 0,
+      "visible_if": "{{ section.settings.custom_mobile_padding == true }}"
+    },
+  ],
+  "blocks": [
+    {
+        "type": "item",
+        "name": "Item",
+        "settings": [
+            {
+                "type": "text",
+                "id": "text",
+                "label": "Text"
+            },
+            {
+                "type": "text",
+                "id": "section_id",
+                "label": "Section ID"
+            }
+        ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Collection buttons",
+      "category": "t:categories.layout"
+    }
+  ]
+}
+{% endschema %}

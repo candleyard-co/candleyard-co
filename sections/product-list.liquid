@@ -5,6 +5,9 @@
 <div class="section-background color-{{ section.settings.color_scheme }}"></div>
 <div
   data-testid="product-list"
+  {% if section.settings.add_section_id == true and section.settings.section_id != blank %}
+    data-section-id="{{ section.settings.section_id }}"
+  {% endif %}
   class="
     section
     section--{{ section.settings.section_width }}
@@ -409,6 +412,19 @@
       "unit": "px",
       "default": 0,
       "visible_if": "{{ section.settings.custom_mobile_padding == true }}"
+    },
+    {
+      "type": "checkbox",
+      "id": "add_section_id",
+      "label": "Add section ID",
+      "default": false
+    },
+    {
+      "type": "text",
+      "id": "section_id",
+      "label": "Section ID",
+      "info": "optional",
+      "visible_if": "{{ section.settings.add_section_id == true }}"
     }
   ],
   "presets": [
