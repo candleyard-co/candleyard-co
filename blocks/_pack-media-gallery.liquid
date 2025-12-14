@@ -493,13 +493,6 @@
     display: grid;
     grid-template-columns: repeat(4, 1fr);
     grid-template-rows: repeat(3,auto);
-    gap: 2rem 1rem;
-
-    @media (max-width: 750px) {
-        gap: 0.2rem 1rem !important;
-        max-width: 61cqw;
-        margin-inline: auto;
-    }
   }
 
   #pack-media-dessert-candles .grid-preview-contain {
@@ -523,7 +516,24 @@
     }
   }
 
-  #pack-media-dessert-candles {
+  #pack-media-dessert-candles .grid-preview-pack-12 {
+    gap: 2rem 1rem;
+    
+    @media (max-width: 750px) {
+      gap: 0.2rem 1rem !important;
+      max-width: 61cqw;
+      margin-inline: auto;
+    }
+
+    .preview-pack-1,
+    .preview-pack-2,
+    .preview-pack-3,
+    .preview-pack-4 {
+      .preview-pack-item--inner {
+        margin-bottom: -0.5rem;
+      }  
+    }
+
     .preview-pack-5,
     .preview-pack-6,
     .preview-pack-7,
@@ -548,13 +558,13 @@
     }
 
     &:has(.grid-preview-pack-12) {
-      top: 6cqw;
+      top: 9cqw;
     }
 
     @media (max-width: 750px) {
 
       &:has(.grid-preview-pack-12) {
-        top: 0.5cqw;
+        top: 4cqw;
       }
 
       &:has(.grid-preview-pack-6) {
@@ -563,13 +573,52 @@
     }
   }
 
-  #pack-media-simplified-candles {
+  #pack-media-simplified-candles .grid-preview-pack.grid-preview-pack-6 {
+    gap: 6rem 1rem;
 
-    .grid-preview-pack.grid-preview-pack-6 {
-      gap: 6rem 1rem;
+    @media (max-width: 750px) {
+      gap: .4rem 1rem !important;
+    }
+  }
 
-      @media (max-width: 750px) {
-        gap: .4rem 1rem !important;
+  #pack-media-simplified-candles .grid-preview-pack-12 {
+    gap: 4rem 1rem;
+    
+    @media (max-width: 750px) {
+      gap: 0.2rem 1rem !important;
+      max-width: 61cqw;
+      margin-inline: auto;
+    }
+
+    .preview-pack-1,
+    .preview-pack-2,
+    .preview-pack-3,
+    .preview-pack-4 {
+      .preview-pack-item--inner {
+        margin-bottom: 0.3rem;
+      }  
+
+      @media (min-width: 751px) {
+        .preview-pack-item--inner {
+          margin-bottom: 1.2rem;
+        }
+      }
+    }
+
+    .preview-pack-5,
+    .preview-pack-6,
+    .preview-pack-7,
+    .preview-pack-8 {
+
+      .preview-pack-item--inner {
+        margin-bottom: 0.3rem;
+      }
+
+      
+      @media (min-width: 751px) {
+        .preview-pack-item--inner {
+          margin-bottom: -1rem;
+        }
       }
     }
   }
