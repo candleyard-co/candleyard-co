@@ -220,21 +220,14 @@
         "section_id": ""
       }
     },
-    "collection_buttons_tkJVyx": {
-      "type": "collection-buttons",
+    "page_navigation_tkJVyx": {
+      "type": "page-navigation",
       "blocks": {
         "item_MCmn6D": {
           "type": "item",
           "settings": {
             "text": "Dessert Candles",
             "section_id": "dessert-candles"
-          }
-        },
-        "item_ftBK78": {
-          "type": "item",
-          "settings": {
-            "text": "Drink Candles",
-            "section_id": "drink-candles"
           }
         },
         "item_WQqQ7m": {
@@ -244,27 +237,43 @@
             "section_id": "simplified-candles"
           }
         },
+        "item_ftBK78": {
+          "type": "item",
+          "settings": {
+            "text": "Drink Candles",
+            "section_id": "drink-candles"
+          }
+        },
         "item_rcPeiV": {
           "type": "item",
           "settings": {
             "text": "Laundry Products",
             "section_id": "laundry-products"
           }
+        },
+        "item_TAtidN": {
+          "type": "item",
+          "settings": {
+            "text": "Bundles",
+            "section_id": "bundles"
+          }
         }
       },
       "block_order": [
         "item_MCmn6D",
-        "item_ftBK78",
         "item_WQqQ7m",
-        "item_rcPeiV"
+        "item_ftBK78",
+        "item_rcPeiV",
+        "item_TAtidN"
       ],
-      "name": "Collection buttons",
+      "custom_css": [],
+      "name": "Page Navigation",
       "settings": {
         "color_scheme": "",
         "section_width": "page-narrow",
         "full_width_on_mobile": true,
-        "padding-block-start": 8,
-        "padding-block-end": 8,
+        "padding-block-start": 0,
+        "padding-block-end": 0,
         "custom_mobile_padding": false,
         "mobile-padding-block-start": 0,
         "mobile-padding-block-end": 0,
@@ -1858,7 +1867,7 @@
   },
   "order": [
     "section_BVTiWg",
-    "collection_buttons_tkJVyx",
+    "page_navigation_tkJVyx",
     "pack_list_ebWKdz",
     "pack_list_3EterY",
     "pack_list_aMX4rD",

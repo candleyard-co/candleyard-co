@@ -1,0 +1,260 @@
+<script
+  src="{{ 'page-navigation.js' | asset_url }}"
+  type="module"
+  fetchpriority="low"
+></script>
+<div class="section-background color-{{ section.settings.color_scheme }}"></div>
+<div
+  class="section section--{{ section.settings.section_width }} {% if section.settings.full_width_on_mobile %}section--mobile-full-width{% endif %} page-navigation-buttons-block spacing-style {% if section.settings.color_scheme != blank %}color-{{ section.settings.color_scheme }}{% endif %}"
+  style="{% render 'spacing-padding', settings: section.settings %}"
+>
+  <div class="page-navigation-container">
+    <div class="page-navigation list-unstyled">
+      {% for block in section.blocks %}
+        <div class="page-navigation-buttons-list__slide">
+          <div class="page-navigation-buttons-wrapper">
+            <a href="#{{ block.settings.section_id }}" class="button--state-page-navigation">
+              {{ block.settings.text | strip }}
+            </a>
+          </div>
+        </div>
+      {% endfor %}
+    </div>
+  </div>
+</div>
+
+{% stylesheet %}
+  /* Sticky rules for mobile */
+  @media (max-width: 749px) {
+    .page-navigation-button {
+      position: sticky !important;
+      top: 0;
+      z-index: 100000;
+      background: white; /* Add background so content doesn't show through */
+    }
+
+    body:has(header-component[data-sticky-state="active"]) .page-navigation-button {
+      top: calc(var(--header-static-height, 80px) - 1px);
+    }
+  }
+
+  .page-navigation {
+    display: flex;
+    overflow-x: auto;
+    overflow-y: hidden;
+    padding-inline: 0;
+    scroll-snap-type: x mandatory;
+    scroll-padding: 0 var(--padding-lg);
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+    scroll-behavior: smooth;
+    animation: search-element-slide-up 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55) backwards;
+    animation-duration: 0.3s;
+    transition: opacity 0.3s var(--animation-timing-fade-in);
+  }
+
+  .page-navigation-buttons-list__slide {
+    flex: 0 0 auto;
+    scroll-snap-align: start;
+    width: fit-content;
+    scroll-margin-block: calc(var(--font-size--lg) + var(--margin-xs) + var(--padding-sm)) calc(var(--padding-lg) + var(--button-padding-block) * 2);
+    transition: transform 0.3s var(--animation-timing-default), background-color 0.3s ease-in-out, border-color 0.3s ease-in-out;
+  }
+
+  .page-navigation-buttons-wrapper {
+    position: relative;
+    transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+    will-change: transform, box-shadow;
+    z-index: var(--layer-flat);
+    content-visibility: visible;
+  }
+
+  .page-navigation-buttons-list__slide {
+    @media (min-width: 750px) {
+      &:first-child {
+        margin-inline-start: auto;
+      }
+
+      &:last-child {
+        margin-inline-end: auto;
+      }
+    }
+  }
+
+  .button--state-page-navigation {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: var(--padding-lg);
+    line-height: 1em;
+    position: relative;
+
+    &.active {
+      font-weight: 600;
+    }
+
+    &.active:after {
+      content: '';
+      position: absolute;
+      width: 100%;
+      bottom: 0;
+      left: 0;
+      height: .1rem;
+      display: block;
+      background: var(--button-color);
+    }
+  }
+
+  .page-navigation-button {
+    border-bottom: 1px solid var(--color-border);
+    grid-column: 1 / -1;
+
+    .button {
+      font-size: var(--font-size--xs);
+      --button-padding-inline: 16px;
+      --button-padding-block: 5px;
+      display: block;
+    }
+  }
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "Page Navigation",
+  "class": "page-navigation-button",
+  "settings": [
+    {
+      "type": "color_scheme",
+      "id": "color_scheme",
+      "label": "t:settings.color_scheme",
+      "default": "scheme-1"
+    },
+    {
+      "type": "select",
+      "id": "section_width",
+      "label": "t:settings.width",
+      "options": [
+            {
+            "value": "page-narrow",
+            "label": "Narrow"
+            },
+            {
+            "value": "page-width",
+            "label": "t:options.page"
+            },
+            {
+            "value": "full-width",
+            "label": "t:options.full"
+            }
+      ],
+      "default": "page-width"
+    },
+    {
+      "type": "checkbox",
+      "id": "full_width_on_mobile",
+      "label": "t:settings.full_width_on_mobile",
+      "default": false,
+      "visible_if": "{{ section.settings.section_width == 'page-width' or section.settings.section_width == 'page-narrow' }}"
+    },
+    {
+      "type": "header",
+      "content": "t:content.padding"
+    },
+    {
+      "type": "range",
+      "id": "padding-block-start",
+      "label": "t:settings.top",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "padding-block-end",
+      "label": "t:settings.bottom",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "default": 0
+    },
+    {
+      "type": "checkbox",
+      "id": "custom_mobile_padding",
+      "label": "Custom Mobile Padding",
+      "default": false
+    },
+    {
+      "type": "range",
+      "id": "mobile-padding-block-start",
+      "label": "t:settings.top",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "default": 0,
+      "visible_if": "{{ section.settings.custom_mobile_padding == true }}"
+    },
+    {
+      "type": "range",
+      "id": "mobile-padding-block-end",
+      "label": "t:settings.bottom",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "default": 0,
+      "visible_if": "{{ section.settings.custom_mobile_padding == true }}"
+    },
+    {
+      "type": "range",
+      "id": "mobile-padding-inline-start",
+      "label": "t:settings.left",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "default": 0,
+      "visible_if": "{{ section.settings.custom_mobile_padding == true }}"
+    },
+    {
+      "type": "range",
+      "id": "mobile-padding-inline-end",
+      "label": "t:settings.right",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "default": 0,
+      "visible_if": "{{ section.settings.custom_mobile_padding == true }}"
+    },
+  ],
+  "blocks": [
+    {
+        "type": "item",
+        "name": "Item",
+        "settings": [
+            {
+                "type": "text",
+                "id": "text",
+                "label": "Text"
+            },
+            {
+                "type": "text",
+                "id": "section_id",
+                "label": "Section ID"
+            }
+        ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Page Navigation",
+      "category": "t:categories.layout"
+    }
+  ]
+}
+{% endschema %}
