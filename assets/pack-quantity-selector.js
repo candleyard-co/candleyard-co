@@ -109,7 +109,6 @@ export class PackSelectorComponent extends Component {
   getItemImageUrl() {
     const packItem = this.closest('.pack-item');
     if (!packItem) return null;
-    
     const imageInput = packItem.querySelector('input[name="pack_item_image"]');
     return imageInput ? imageInput.value : null;
   }
@@ -283,9 +282,23 @@ export class PackSelectorComponent extends Component {
    */
   getCurrentValues() {
     const { quantityInput } = this.refs;
+    
+    // Check if data-variant-qty exists
+    const variantQty = quantityInput.dataset.variantQty;
+    
+    // Determine the max value:
+    // 1. If data-variant-qty exists, use it
+    // 2. Otherwise, use the regular max attribute
+    let maxValue = null;
+    if (variantQty) {
+      maxValue = parseInt(variantQty);
+    } else if (quantityInput.max) {
+      maxValue = parseInt(quantityInput.max);
+    }
+    
     return {
       min: quantityInput.min === '' ? 1 : parseInt(quantityInput.min),
-      max: quantityInput.max ? parseInt(quantityInput.max) : null,
+      max: maxValue,
       step: parseInt(quantityInput.step) || 1,
       value: parseInt(quantityInput.value) || 0,
     };
