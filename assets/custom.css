@@ -142,6 +142,10 @@ slideshow-arrows .slideshow-control {
     gap: var(--gap-xs);
 }
 
+.cart-discount .disclosure-trigger {
+    padding-block: 0;
+}
+
 product-price .price {
     font-family: var(--font-accent-2--family);
     font-style: var(--font-accent-2--style);

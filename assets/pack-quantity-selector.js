@@ -95,32 +95,6 @@ export class PackSelectorComponent extends Component {
   }
 
   /**
-   * Gets the grid preview pack element
-   * @returns {HTMLElement | null} The .grid-preview-pack element
-   */
-  getGridPreviewPack() {
-    // Find the media gallery first (it's in the same parent modal/content)
-    const packAddModal = this.closest('#pack-add-modal-content');
-    if (!packAddModal) return null;
-    
-    const mediaGallery = packAddModal.querySelector('media-gallery');
-    if (!mediaGallery) return null;
-    
-    return mediaGallery.querySelector('.grid-preview-pack');
-  }
-
-  /**
-   * Gets the image URL for the current pack item
-   * @returns {string | null} The image URL or null
-   */
-  getItemImageUrl() {
-    const packItem = this.closest('.pack-item');
-    if (!packItem) return null;
-    const imageInput = packItem.querySelector('input[name="pack_item_image"]');
-    return imageInput ? imageInput.value : null;
-  }
-
-  /**
    * NEW — updates the limit count inside the button
    */
   updateLimitPackText() {
@@ -376,172 +350,223 @@ export class PackSelectorComponent extends Component {
     this._preloadedImage = img;
   }
 
-/**
- * Updates the grid preview pack - fills columns based on add order
- * Creates an image for each selected item and adds to .preview-pack-item--inner
- * If removed or quantity is 0, removes the image from the column as well
- * Automatically shifts images forward to fill empty columns
- * Optimized with image preloading for faster rendering
- */
-updateGridPreviewPack() {
-  const gridPreviewPack = this.getGridPreviewPack();
-  if (!gridPreviewPack) return;
-  
-  const { value } = this.getCurrentValues();
-  const itemImageUrl = this.getItemImageUrl();
-  const packItem = this.closest('.pack-item');
-  
-  if (!packItem || !itemImageUrl) return;
-  
-  // Get a consistent unique identifier for this pack item
-  // Check if we've already assigned an ID to this pack item
-  if (!packItem.dataset.packItemId) {
-    // Generate a unique ID once and store it
-    packItem.dataset.packItemId = 'item-' + Math.random().toString(36).substr(2, 9);
-  }
-  
-  const itemId = packItem.dataset.packItemId;
-  
-  // Find all existing images for this item across all columns
-  const existingImages = gridPreviewPack.querySelectorAll(`img[data-item-id="${itemId}"]`);
-  const existingImageCount = existingImages.length;
-  
-  // Get all columns
-  const columns = gridPreviewPack.querySelectorAll('.preview-pack-item');
-  
-  // Clear preloaded image if URL has changed (for modal re-use)
-  if (packItem._preloadedImage && packItem._preloadedImage.src !== itemImageUrl) {
-    packItem._preloadedImage = null;
-  }
-  
-  if (value > existingImageCount) {
-    // Add more images
-    const imagesToAdd = value - existingImageCount;
+
+  /**
+   * Gets the grid preview pack element
+   * @returns {HTMLElement | null} The .grid-preview-pack element
+   */
+  getGridPreviewPack() {
+    // Find the media gallery first (it's in the same parent modal/content)
+    const packAddModal = this.closest('#pack-add-modal-content');
+    if (!packAddModal) return null;
     
-    for (let i = 0; i < imagesToAdd; i++) {
-      // Find the first available empty column
-      for (const column of columns) {
-        const inner = column.querySelector('.preview-pack-item--inner');
-        if (!inner) continue;
-        
-        // Check if column is empty
-        if (inner.children.length === 0) {
-          // Check if we have a preloaded image cached on the pack item
-          let img;
-          const preloadedImage = packItem._preloadedImage;
+    const mediaGallery = packAddModal.querySelector('media-gallery');
+    if (!mediaGallery) return null;
+    
+    return mediaGallery.querySelector('.grid-preview-pack');
+  }
+
+  /**
+   * Gets the image URL for the current pack item
+   * @returns {string | null} The image URL or null
+   */
+  getItemImageUrl() {
+    const packItem = this.closest('.pack-item');
+    if (!packItem) return null;
+    const imageInput = packItem.querySelector('input[name="pack_item_image"]');
+    return imageInput ? imageInput.value : null;
+  }
+
+  getItemImageContain() {
+    const packItem = this.closest('.pack-item');
+    if (!packItem) return false;
+    
+    const imageInput = packItem.querySelector('input[name="pack_item_image"]');
+    
+    // Check if the dataset property exists (returns true/false)
+    return imageInput ? 'contain' in imageInput.dataset : false;
+  }
+
+  /**
+   * Updates the grid preview pack - fills columns based on add order
+   * Creates an image for each selected item and adds to .preview-pack-item--inner
+   * If removed or quantity is 0, removes the image from the column as well
+   * Automatically shifts images forward to fill empty columns
+   * Optimized with image preloading for faster rendering
+   */
+  updateGridPreviewPack() {
+    const gridPreviewPack = this.getGridPreviewPack();
+    if (!gridPreviewPack) return;
+    
+    const { value } = this.getCurrentValues();
+    const itemImageUrl = this.getItemImageUrl();
+    const packItem = this.closest('.pack-item');
+    
+    if (!packItem || !itemImageUrl) return;
+    
+    // Check if this item should use object-fit: contain
+    const shouldContain = this.getItemImageContain();
+    
+    // Get a consistent unique identifier for this pack item
+    // Check if we've already assigned an ID to this pack item
+    if (!packItem.dataset.packItemId) {
+      // Generate a unique ID once and store it
+      packItem.dataset.packItemId = 'item-' + Math.random().toString(36).substr(2, 9);
+    }
+    
+    const itemId = packItem.dataset.packItemId;
+    
+    // Find all existing images for this item across all columns
+    const existingImages = gridPreviewPack.querySelectorAll(`img[data-item-id="${itemId}"]`);
+    const existingImageCount = existingImages.length;
+    
+    // Get all columns
+    const columns = gridPreviewPack.querySelectorAll('.preview-pack-item');
+    
+    // Clear preloaded image if URL has changed (for modal re-use)
+    if (packItem._preloadedImage && packItem._preloadedImage.src !== itemImageUrl) {
+      packItem._preloadedImage = null;
+    }
+    
+    if (value > existingImageCount) {
+      // Add more images
+      const imagesToAdd = value - existingImageCount;
+      
+      for (let i = 0; i < imagesToAdd; i++) {
+        // Find the first available empty column
+        for (const column of columns) {
+          const inner = column.querySelector('.preview-pack-item--inner');
+          if (!inner) continue;
           
-          if (preloadedImage && preloadedImage.complete) {
-            // Clone the preloaded image for instant rendering
-            img = preloadedImage.cloneNode(false);
-            img.alt = 'Pack item preview';
-            img.className = 'preview-image';
-            img.dataset.itemId = itemId;
-            img.loading = 'eager'; // Force immediate loading
+          // Check if column is empty
+          if (inner.children.length === 0) {
+            // Check if we have a preloaded image cached on the pack item
+            let img;
+            const preloadedImage = packItem._preloadedImage;
             
-            // Add some basic styles
-            img.style.width = '100%';
-            img.style.height = '100%';
-            img.style.display = 'block';
-            img.style.objectFit = 'cover';
-          } else {
-            // Create new image with optimization
-            img = document.createElement('img');
-            img.src = itemImageUrl;
-            img.alt = 'Pack item preview';
-            img.className = 'preview-image';
-            img.dataset.itemId = itemId;
-            img.loading = 'eager'; // Force immediate loading
+            if (preloadedImage && preloadedImage.complete) {
+              // Clone the preloaded image for instant rendering
+              img = preloadedImage.cloneNode(false);
+              img.alt = 'Pack item preview';
+              img.className = 'preview-image';
+              img.dataset.itemId = itemId;
+              img.loading = 'eager'; // Force immediate loading
+              
+            } else {
+              // Create new image with optimization
+              img = document.createElement('img');
+              img.src = itemImageUrl;
+              img.alt = 'Pack item preview';
+              img.className = 'preview-image';
+              img.dataset.itemId = itemId;
+              img.loading = 'eager'; // Force immediate loading
+              
+              // Cache the image for future use on this pack item
+              const preloadImg = new Image();
+              preloadImg.src = itemImageUrl;
+              packItem._preloadedImage = preloadImg;
+            }
             
-            // Add some basic styles
-            img.style.width = '100%';
-            img.style.height = '100%';
-            img.style.display = 'block';
-            img.style.objectFit = 'cover';
+            // Add contain class if needed
+            if (shouldContain) {
+              img.classList.add('item-contain');
+            }
             
-            // Cache the image for future use on this pack item
-            const preloadImg = new Image();
-            preloadImg.src = itemImageUrl;
-            packItem._preloadedImage = preloadImg;
+            inner.appendChild(img);
+            break; // Move to next image to add
           }
-          
-          inner.appendChild(img);
-          break; // Move to next image to add
         }
       }
-    }
-    
-  } else if (value < existingImageCount) {
-    // Remove images
-    const imagesToRemove = existingImageCount - value;
-    
-    // Remove from the end (most recently added images first)
-    for (let i = 0; i < imagesToRemove; i++) {
-      const img = existingImages[existingImages.length - 1 - i];
-      if (img && img.parentElement) {
-        img.remove();
+      
+    } else if (value < existingImageCount) {
+      // Remove images
+      const imagesToRemove = existingImageCount - value;
+      
+      // Remove from the end (most recently added images first)
+      for (let i = 0; i < imagesToRemove; i++) {
+        const img = existingImages[existingImages.length - 1 - i];
+        if (img && img.parentElement) {
+          img.remove();
+        }
       }
+    } else {
+      // Value hasn't changed, but we should update existing images if needed
+      existingImages.forEach(img => {
+        if (shouldContain) {
+          img.classList.add('item-contain');
+        } else {
+          img.classList.remove('item-contain');
+        }
+      });
     }
+    
+    // After adding/removing, shift all images forward to fill empty columns
+    this.shiftImagesForward();
   }
-  
-  // After adding/removing, shift all images forward to fill empty columns
-  this.shiftImagesForward();
-}
 
-/**
- * Shifts all images forward to fill empty columns
- * This removes gaps when items are removed from the middle
- */
-shiftImagesForward() {
-  const gridPreviewPack = this.getGridPreviewPack();
-  if (!gridPreviewPack) return;
-  
-  const columns = gridPreviewPack.querySelectorAll('.preview-pack-item');
-  const images = [];
-  
-  // Collect all images from all columns
-  columns.forEach(column => {
-    const inner = column.querySelector('.preview-pack-item--inner');
-    if (!inner) return;
+  /**
+   * Shifts all images forward to fill empty columns
+   * This removes gaps when items are removed from the middle
+   */
+  shiftImagesForward() {
+    const gridPreviewPack = this.getGridPreviewPack();
+    if (!gridPreviewPack) return;
     
-    if (inner.children.length > 0) {
-      // Get the first image (should only be one per column)
-      const img = inner.querySelector('img');
-      if (img) {
-        images.push({
-          img: img,
-          column: column,
-          inner: inner
-        });
+    const columns = gridPreviewPack.querySelectorAll('.preview-pack-item');
+    const images = [];
+    
+    // Collect all images from all columns
+    columns.forEach(column => {
+      const inner = column.querySelector('.preview-pack-item--inner');
+      if (!inner) return;
+      
+      if (inner.children.length > 0) {
+        // Get the first image (should only be one per column)
+        const img = inner.querySelector('img');
+        if (img) {
+          images.push({
+            img: img,
+            column: column,
+            inner: inner,
+            shouldContain: img.classList.contains('item-contain')
+          });
+        }
       }
-    }
-  });
-  
-  // Sort images by their column order
-  images.sort((a, b) => {
-    const aIndex = Array.from(columns).indexOf(a.column);
-    const bIndex = Array.from(columns).indexOf(b.column);
-    return aIndex - bIndex;
-  });
-  
-  // Clear all columns first
-  columns.forEach(column => {
-    const inner = column.querySelector('.preview-pack-item--inner');
-    if (inner) {
-      inner.innerHTML = '';
-    }
-  });
-  
-  // Re-add images to columns in order, filling from the beginning
-  images.forEach((imageData, index) => {
-    if (index < columns.length) {
-      const targetColumn = columns[index];
-      const targetInner = targetColumn.querySelector('.preview-pack-item--inner');
-      if (targetInner) {
-        targetInner.appendChild(imageData.img);
+    });
+    
+    // Sort images by their column order
+    images.sort((a, b) => {
+      const aIndex = Array.from(columns).indexOf(a.column);
+      const bIndex = Array.from(columns).indexOf(b.column);
+      return aIndex - bIndex;
+    });
+    
+    // Clear all columns first
+    columns.forEach(column => {
+      const inner = column.querySelector('.preview-pack-item--inner');
+      if (inner) {
+        inner.innerHTML = '';
       }
-    }
-  });
-}
+    });
+    
+    // Re-add images to columns in order, filling from the beginning
+    images.forEach((imageData, index) => {
+      if (index < columns.length) {
+        const targetColumn = columns[index];
+        const targetInner = targetColumn.querySelector('.preview-pack-item--inner');
+        if (targetInner) {
+          // Reapply contain class if it was present
+          if (imageData.shouldContain) {
+            imageData.img.classList.add('item-contain');
+          } else {
+            imageData.img.classList.remove('item-contain');
+          }
+          
+          targetInner.appendChild(imageData.img);
+        }
+      }
+    });
+  }
 
   /**
    * Updates quantity by a given step

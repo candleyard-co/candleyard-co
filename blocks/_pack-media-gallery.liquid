@@ -351,10 +351,27 @@
     {% endif %}
   </div>
     
-  {% assign pack_limit = closest.product.selected_or_first_available_variant.metafields.custom.pack_limit | plus: 0 %}
+  {% liquid
+    assign selected_variant = selected_product.selected_or_first_available_variant
+    assign pack_limit = selected_variant.metafields.custom.pack_limit | plus: 0
+    assign pack_items = selected_product.metafields.custom.pack_items.value
+    
+    assign lowest_ratio = 999
+    
+    for i in pack_items
+      assign image_ratio = i.vector_image.value.aspect_ratio
+      assign i_product = all_products[i.product]
+      
+      if i_product.available == true
+        if lowest_ratio > image_ratio
+          assign lowest_ratio = image_ratio
+        endif
+      endif
+    endfor
+  %}
 
   {% if pack_limit > 0 %}
-    <div class="grid-preview-wrapper">
+    <div class="grid-preview-wrapper" style="--highest-ratio: {{ lowest_ratio }};">
       <div class="grid-preview-contain">
         <div class="grid-preview-pack grid-preview-pack-{{ pack_limit }}">
           {% for i in (1..pack_limit) %}
@@ -412,21 +429,22 @@
     }
 
     &:has(.grid-preview-pack-6) {
-      bottom: 8.5cqw;
+      top: 6.5cqw;
     }
+
     &:has(.grid-preview-pack-12) {
-      top: 7cqw;
+      top: 6cqw;
     }
 
     @media (max-width: 750px) {
       padding-inline: var(--padding-xl);
 
       &:has(.grid-preview-pack-12) {
-        bottom: 5cqw;
+        top: 0.5cqw;
       }
 
       &:has(.grid-preview-pack-6) {
-        top: 8.5cqw;
+        top: -0.3cqw;
       }
 
       &:has(.grid-preview-pack-3) {
@@ -478,10 +496,10 @@
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     grid-template-rows: 1fr 1fr;
-    gap: 4rem 1rem;
+    gap: 3rem 1rem;
 
     @media (max-width: 750px) {
-      gap: 0.5rem 1rem !important;
+      gap: .2rem 1rem !important;
       max-width: 58cqw;
       margin-inline: auto;
     }
@@ -490,7 +508,7 @@
   .grid-preview-pack.grid-preview-pack-12 {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
-    grid-template-rows: repeat(3,1fr);
+    grid-template-rows: repeat(3,auto);
     gap: 2rem 1rem;
 
     .preview-pack-1,
@@ -508,13 +526,21 @@
     .preview-pack-8 {
 
       .preview-pack-item--inner {
-        margin-bottom: -1rem;
+        margin-bottom: -0.6rem;
+      }
+
+      
+      @media (min-width: 751px) {
+        .preview-pack-item--inner {
+          margin-bottom: -1rem;
+        }
       }
     }
 
+
     @media (max-width: 750px) {
         gap: 0.2rem 1rem !important;
-        max-width: 60cqw;
+        max-width: 61cqw;
         margin-inline: auto;
     }
   }
@@ -539,6 +565,13 @@
     max-width: 100%;
     height: auto;
     width: 100%;
+    object-fit: cover;
+    object-position: bottom center;
+    aspect-ratio: var(--highest-ratio);
+  }
+
+  .item-contain {
+    object-fit: contain !important;
   }
 
   .product-media__drag-zoom-wrapper {

@@ -64,7 +64,7 @@
     "button_border_radius_secondary": 32,
     "type_font_button_secondary": "accent",
     "cart_type": "drawer",
-    "cart_price_font": "subheading",
+    "cart_price_font": "heading",
     "auto_open_cart_drawer": false,
     "show_cart_note": false,
     "show_add_discount_code": true,

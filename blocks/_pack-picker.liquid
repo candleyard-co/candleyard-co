@@ -21,6 +21,21 @@
 >
   <div class="pack-picker--inner">
     <div class="pack-picker-items">
+      {% liquid
+        assign lowest_ratio = 999
+        
+        for i in pack_items
+          assign image_ratio = i.vector_image.value.aspect_ratio
+          assign i_product = all_products[i.product]
+          
+          if i_product.available == true
+            if lowest_ratio > image_ratio
+              assign lowest_ratio = image_ratio
+            endif
+          endif
+        endfor
+      %}
+
       {% for item in pack_items %}
         {% assign item_product = all_products[item.product] %}
         {% assign selected_variant = item_product.selected_or_first_available_variant %}
@@ -48,7 +63,8 @@
                     {{ 'products.product.sold_out' | t }}
                   </span>
                 {% endif %}
-                <input type="hidden" name="pack_item_image" value="{{ item.vector_image.value | image_url: width: '500' }}" form="{{ product_form_id }}" class="pack-item-image">
+
+                <input type="hidden" name="pack_item_image" value="{{ item.vector_image.value | image_url: width: '500' }}" {% if item.vector_image.value.aspect_ratio != highest_ratio %}data-contain{% endif %} form="{{ product_form_id }}" class="pack-item-image">
                 <input type="hidden" name="pack_item" disabled value="{{ selected_variant.id }}" form="{{ product_form_id }}" class="pack-item-input">
               </div>
             </div>
