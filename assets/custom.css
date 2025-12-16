@@ -243,6 +243,12 @@ product-price .price {
     --sidebar-width: 34rem !important;
 }
 
+product-price .price {
+    font-family: var(--font-accent-2--family);
+    font-style: var(--font-accent-2--style);
+    font-weight: var(--font-heading--weight);
+}
+
 @media (min-width: 990px) {
     :root {
         --menu-font-2xl--size: 2.5rem !important;
