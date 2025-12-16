@@ -216,6 +216,13 @@ product-price .price {
     width: 80%;
 }
 
+.menu-label {
+    margin-left: var(--gap-xs);
+    font-family: var(--font-paragraph--family);
+    font-style: var(--font-paragraph--style);
+    font-size: var(--font-paragraph--size);
+}
+
 @media (min-width: 990px) {
     :root {
         --menu-font-2xl--size: 2.5rem !important;
