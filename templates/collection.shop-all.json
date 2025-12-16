@@ -1307,7 +1307,7 @@
       ],
       "name": "Wax Melts",
       "settings": {
-        "bundle_pack": "simplified-candles",
+        "bundle_pack": "wax-melts",
         "layout_type": "grid",
         "carousel_on_mobile": false,
         "columns": 4,
