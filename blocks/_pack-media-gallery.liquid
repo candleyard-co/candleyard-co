@@ -807,7 +807,7 @@
     }
 
     &:has(.grid-preview-pack-6) {
-      top: 1cqw;
+      top: 15cqw;
     }
 
     &:has(.grid-preview-pack-12) {
@@ -820,6 +820,9 @@
       }
       &:has(.grid-preview-pack-3) {
         bottom: 12cqw;
+      }
+      &:has(.grid-preview-pack-6) {
+        top: 4cqw;
       }
     }
   }
@@ -848,6 +851,25 @@
       column-gap: 2rem;
       max-width: 11rem;
       margin: auto;
+    }
+  }
+
+  #pack-media-room-sprays .grid-preview-pack-6 {
+    gap:1rem;
+    grid-template-columns: repeat(6, 1fr);
+    grid-template-rows: 1fr;
+
+    @media (max-width: 750px) {
+      gap: 0.2rem 2rem !important;
+      max-width: 90cqw;
+      margin-inline: auto;
+    }
+
+    @media (min-width: 751px) {
+      .preview-pack-item--inner {
+        max-width: 6rem;
+        margin: auto;
+      }
     }
   }
 
