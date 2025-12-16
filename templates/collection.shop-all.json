@@ -877,204 +877,6 @@
         "section_id": "drink-candles"
       }
     },
-    "pack_list_4Mam38": {
-      "type": "pack-list",
-      "blocks": {
-        "group_WEAzR4": {
-          "type": "group",
-          "name": "t:names.header",
-          "settings": {
-            "link": "",
-            "open_in_new_tab": false,
-            "content_direction": "column",
-            "vertical_on_mobile": true,
-            "reverse_on_mobile": false,
-            "horizontal_alignment": "flex-start",
-            "vertical_alignment": "center",
-            "align_baseline": false,
-            "horizontal_alignment_flex_direction_column": "flex-start",
-            "custom_mobile_alignment": false,
-            "mobile_vertical_alignment": "flex-start",
-            "vertical_alignment_flex_direction_column": "center",
-            "gap": 16,
-            "enable_mobile_gap": false,
-            "mobile_gap": 12,
-            "width": "fill",
-            "custom_width": 100,
-            "width_mobile": "fill",
-            "custom_width_mobile": 100,
-            "height": "fit",
-            "custom_height": 100,
-            "inherit_color_scheme": true,
-            "color_scheme": "",
-            "background_media": "none",
-            "video_position": "cover",
-            "background_image_position": "cover",
-            "border": "none",
-            "border_width": 1,
-            "border_opacity": 100,
-            "border_radius": 0,
-            "enable_mobile_radius": false,
-            "mobile_border_radius": 0,
-            "placeholder": "",
-            "toggle_overlay": false,
-            "overlay_color": "#00000026",
-            "overlay_style": "solid",
-            "gradient_direction": "to top",
-            "padding-block-start": 0,
-            "padding-block-end": 0,
-            "padding-inline-start": 0,
-            "padding-inline-end": 0,
-            "custom_mobile_padding": false,
-            "mobile-padding-block-start": 0,
-            "mobile-padding-block-end": 0,
-            "mobile-padding-inline-start": 0,
-            "mobile-padding-inline-end": 0,
-            "css_class": ""
-          },
-          "blocks": {
-            "text_taUbHy": {
-              "type": "text",
-              "name": "t:names.text",
-              "settings": {
-                "text": "<h2>Car Fresheners</h2>",
-                "width": "fit-content",
-                "max_width": "normal",
-                "alignment": "left",
-                "type_preset": "h3",
-                "font": "var(--font-body--family)",
-                "font_size": "1rem",
-                "enable_mobile_size": true,
-                "mobile_font_size": "1.5rem",
-                "line_height": "normal",
-                "letter_spacing": "normal",
-                "case": "none",
-                "wrap": "pretty",
-                "color": "var(--color-foreground)",
-                "background": false,
-                "background_color": "#00000026",
-                "corner_radius": 0,
-                "padding-block-start": 0,
-                "padding-block-end": 16,
-                "padding-inline-start": 0,
-                "padding-inline-end": 0,
-                "custom_mobile_padding": true,
-                "mobile-padding-block-start": 0,
-                "mobile-padding-block-end": 0,
-                "mobile-padding-inline-start": 0,
-                "mobile-padding-inline-end": 0
-              },
-              "blocks": {}
-            }
-          },
-          "block_order": [
-            "text_taUbHy"
-          ]
-        },
-        "static-pack-card": {
-          "type": "_pack-card",
-          "name": "Pack card",
-          "static": true,
-          "settings": {
-            "placement": "below_image",
-            "horizontal_alignment": "flex-start",
-            "vertical_alignment": "flex-end",
-            "pack_card_gap": 8,
-            "inherit_color_scheme": true,
-            "color_scheme": "",
-            "badge_sale_color_scheme": "scheme-1e7f4c49-7b8d-4440-9f86-4c8ded6ff4db",
-            "border": "none",
-            "border_width": 1,
-            "border_opacity": 100,
-            "border_radius": 0
-          },
-          "blocks": {
-            "pack-card-image": {
-              "type": "_object-image",
-              "static": true,
-              "settings": {
-                "image_ratio": "square",
-                "toggle_overlay": false,
-                "overlay_color": "#00000026",
-                "overlay_style": "solid",
-                "gradient_direction": "to top",
-                "border": "none",
-                "border_width": 1,
-                "border_opacity": 100,
-                "border_radius": 25
-              },
-              "blocks": {}
-            },
-            "object-text": {
-              "type": "_object-text",
-              "name": "Pack Title",
-              "static": true,
-              "settings": {
-                "width": "fit-content",
-                "max_width": "normal",
-                "alignment": "left",
-                "type_preset": "custom",
-                "font": "var(--font-heading--family)",
-                "font_size": "1.25rem",
-                "enable_mobile_size": true,
-                "mobile_font_size": "1rem",
-                "line_height": "tight",
-                "letter_spacing": "normal",
-                "case": "none",
-                "wrap": "pretty",
-                "color": "var(--color-foreground)",
-                "background": false,
-                "background_color": "#00000026",
-                "corner_radius": 0,
-                "padding-block-start": 0,
-                "padding-block-end": 0,
-                "padding-inline-start": 0,
-                "padding-inline-end": 0,
-                "custom_mobile_padding": false,
-                "mobile-padding-block-start": 0,
-                "mobile-padding-block-end": 0,
-                "mobile-padding-inline-start": 0,
-                "mobile-padding-inline-end": 0
-              },
-              "blocks": {}
-            },
-            "price": {
-              "type": "_pack-price",
-              "static": true,
-              "settings": {
-                "show_sale_price_first": true,
-                "type_preset": ""
-              },
-              "blocks": {}
-            }
-          },
-          "block_order": []
-        }
-      },
-      "block_order": [
-        "group_WEAzR4"
-      ],
-      "name": "Car Fresheners",
-      "settings": {
-        "bundle_pack": "drink-candles",
-        "layout_type": "grid",
-        "carousel_on_mobile": false,
-        "columns": 4,
-        "mobile_columns": "1",
-        "mobile_card_size": "60cqw",
-        "columns_gap": 24,
-        "rows_gap": 8,
-        "icons_style": "arrow",
-        "icons_shape": "none",
-        "section_width": "page-narrow",
-        "gap": 12,
-        "color_scheme": "",
-        "padding-block-start": 0,
-        "padding-block-end": 72,
-        "add_section_id": true,
-        "section_id": "drink-candles"
-      }
-    },
     "product_list_xzMARm": {
       "type": "product-list",
       "blocks": {
@@ -1322,6 +1124,204 @@
         "mobile-padding-block-end": 0,
         "mobile-padding-inline-start": 0,
         "mobile-padding-inline-end": 0,
+        "add_section_id": true,
+        "section_id": "drink-candles"
+      }
+    },
+    "pack_list_4Mam38": {
+      "type": "pack-list",
+      "blocks": {
+        "group_WEAzR4": {
+          "type": "group",
+          "name": "t:names.header",
+          "settings": {
+            "link": "",
+            "open_in_new_tab": false,
+            "content_direction": "column",
+            "vertical_on_mobile": true,
+            "reverse_on_mobile": false,
+            "horizontal_alignment": "flex-start",
+            "vertical_alignment": "center",
+            "align_baseline": false,
+            "horizontal_alignment_flex_direction_column": "flex-start",
+            "custom_mobile_alignment": false,
+            "mobile_vertical_alignment": "flex-start",
+            "vertical_alignment_flex_direction_column": "center",
+            "gap": 16,
+            "enable_mobile_gap": false,
+            "mobile_gap": 12,
+            "width": "fill",
+            "custom_width": 100,
+            "width_mobile": "fill",
+            "custom_width_mobile": 100,
+            "height": "fit",
+            "custom_height": 100,
+            "inherit_color_scheme": true,
+            "color_scheme": "",
+            "background_media": "none",
+            "video_position": "cover",
+            "background_image_position": "cover",
+            "border": "none",
+            "border_width": 1,
+            "border_opacity": 100,
+            "border_radius": 0,
+            "enable_mobile_radius": false,
+            "mobile_border_radius": 0,
+            "placeholder": "",
+            "toggle_overlay": false,
+            "overlay_color": "#00000026",
+            "overlay_style": "solid",
+            "gradient_direction": "to top",
+            "padding-block-start": 0,
+            "padding-block-end": 0,
+            "padding-inline-start": 0,
+            "padding-inline-end": 0,
+            "custom_mobile_padding": false,
+            "mobile-padding-block-start": 0,
+            "mobile-padding-block-end": 0,
+            "mobile-padding-inline-start": 0,
+            "mobile-padding-inline-end": 0,
+            "css_class": ""
+          },
+          "blocks": {
+            "text_taUbHy": {
+              "type": "text",
+              "name": "t:names.text",
+              "settings": {
+                "text": "<h2>Car Fresheners</h2>",
+                "width": "fit-content",
+                "max_width": "normal",
+                "alignment": "left",
+                "type_preset": "h3",
+                "font": "var(--font-body--family)",
+                "font_size": "1rem",
+                "enable_mobile_size": true,
+                "mobile_font_size": "1.5rem",
+                "line_height": "normal",
+                "letter_spacing": "normal",
+                "case": "none",
+                "wrap": "pretty",
+                "color": "var(--color-foreground)",
+                "background": false,
+                "background_color": "#00000026",
+                "corner_radius": 0,
+                "padding-block-start": 0,
+                "padding-block-end": 16,
+                "padding-inline-start": 0,
+                "padding-inline-end": 0,
+                "custom_mobile_padding": true,
+                "mobile-padding-block-start": 0,
+                "mobile-padding-block-end": 0,
+                "mobile-padding-inline-start": 0,
+                "mobile-padding-inline-end": 0
+              },
+              "blocks": {}
+            }
+          },
+          "block_order": [
+            "text_taUbHy"
+          ]
+        },
+        "static-pack-card": {
+          "type": "_pack-card",
+          "name": "Pack card",
+          "static": true,
+          "settings": {
+            "placement": "below_image",
+            "horizontal_alignment": "flex-start",
+            "vertical_alignment": "flex-end",
+            "pack_card_gap": 8,
+            "inherit_color_scheme": true,
+            "color_scheme": "",
+            "badge_sale_color_scheme": "scheme-1e7f4c49-7b8d-4440-9f86-4c8ded6ff4db",
+            "border": "none",
+            "border_width": 1,
+            "border_opacity": 100,
+            "border_radius": 0
+          },
+          "blocks": {
+            "pack-card-image": {
+              "type": "_object-image",
+              "static": true,
+              "settings": {
+                "image_ratio": "square",
+                "toggle_overlay": false,
+                "overlay_color": "#00000026",
+                "overlay_style": "solid",
+                "gradient_direction": "to top",
+                "border": "none",
+                "border_width": 1,
+                "border_opacity": 100,
+                "border_radius": 25
+              },
+              "blocks": {}
+            },
+            "object-text": {
+              "type": "_object-text",
+              "name": "Pack Title",
+              "static": true,
+              "settings": {
+                "width": "fit-content",
+                "max_width": "normal",
+                "alignment": "left",
+                "type_preset": "custom",
+                "font": "var(--font-heading--family)",
+                "font_size": "1.25rem",
+                "enable_mobile_size": true,
+                "mobile_font_size": "1rem",
+                "line_height": "tight",
+                "letter_spacing": "normal",
+                "case": "none",
+                "wrap": "pretty",
+                "color": "var(--color-foreground)",
+                "background": false,
+                "background_color": "#00000026",
+                "corner_radius": 0,
+                "padding-block-start": 0,
+                "padding-block-end": 0,
+                "padding-inline-start": 0,
+                "padding-inline-end": 0,
+                "custom_mobile_padding": false,
+                "mobile-padding-block-start": 0,
+                "mobile-padding-block-end": 0,
+                "mobile-padding-inline-start": 0,
+                "mobile-padding-inline-end": 0
+              },
+              "blocks": {}
+            },
+            "price": {
+              "type": "_pack-price",
+              "static": true,
+              "settings": {
+                "show_sale_price_first": true,
+                "type_preset": ""
+              },
+              "blocks": {}
+            }
+          },
+          "block_order": []
+        }
+      },
+      "block_order": [
+        "group_WEAzR4"
+      ],
+      "name": "Car Fresheners",
+      "settings": {
+        "bundle_pack": "car-fresheners",
+        "layout_type": "grid",
+        "carousel_on_mobile": false,
+        "columns": 4,
+        "mobile_columns": "1",
+        "mobile_card_size": "60cqw",
+        "columns_gap": 24,
+        "rows_gap": 8,
+        "icons_style": "arrow",
+        "icons_shape": "none",
+        "section_width": "page-narrow",
+        "gap": 12,
+        "color_scheme": "",
+        "padding-block-start": 0,
+        "padding-block-end": 72,
         "add_section_id": true,
         "section_id": "drink-candles"
       }
