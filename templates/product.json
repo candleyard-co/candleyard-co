@@ -7,8 +7,19 @@
  * made to this file may be overwritten.
  * ------------------------------------------------------------
  */
- {
+{
   "sections": {
+    "custom_liquid_AhCe7b": {
+      "type": "custom-liquid",
+      "name": "Back To Shop Button",
+      "settings": {
+        "custom_liquid": "{%- capture contentForQuerystring -%}{{ content_for_header }}{%- endcapture -%}\n    {%- assign pageUrl = contentForQuerystring\n      | split: '\"pageurl\":\"'\n      | last\n      | split: '\"'\n      | first\n      | split: '.myshopify.com'\n      | last\n      | replace: '\\/', '/'\n      | replace: '%20', ' '\n      | replace: '\\u0026', '&'\n    -%}\n    {% capture finalurl %}https://{{ pageUrl }}{% endcapture %}\n\n  {% if \n    finalurl contains '&from=shop-all'\n  %}\n\n{% style %}\n    .back-shop {\n      display: flex;\n      align-items: center;\n      justify-content: center;\n      gap: var(--gap-2xs);\n    }\n    .back-shop svg {\n      transform: scale(-1);\n      width: var(--icon-size-xs);\n      height: var(--icon-size-xs);\n    }\n\n    @media screen and (min-width: 750px) {\n      .back-shop svg {\n          width: var(--icon-size-lg);\n          height: var(--icon-size-lg);\n      }\n    }\n{% endstyle %}\n\n<a\n  href=\"/collections/shop\"\n  class=\"button button-unstyled back-shop\"\n  aria-label=\"{{ 'products.product.back_button_shop' | t }}\"\n>\n  <span>\n    {{- 'icon-arrow.svg' | inline_asset_content -}}\n  </span>\n  <span>\n    {{ 'products.product.back_button_shop' | t }}\n  </span>\n</a>\n{% endif %}",
+        "color_scheme": "",
+        "section_width": "page-width",
+        "padding-block-start": 12,
+        "padding-block-end": 12
+      }
+    },
     "main": {
       "type": "product-information",
       "blocks": {
@@ -16,17 +27,18 @@
           "type": "_product-media-gallery",
           "static": true,
           "settings": {
-            "media_presentation": "grid",
+            "media_presentation": "carousel",
             "media_columns": "two",
             "image_gap": 4,
             "large_first_image": false,
             "icons_style": "arrow",
-            "slideshow_controls_style": "counter",
-            "slideshow_mobile_controls_style": "dots",
-            "thumbnail_position": "right",
-            "thumbnail_width": 44,
-            "aspect_ratio": "adapt",
-            "constrain_to_viewport": true,
+            "slideshow_controls_style": "thumbnails",
+            "slideshow_mobile_controls_style": "thumbnails",
+            "thumbnail_position": "left",
+            "thumbnail_width": 72,
+            "thumbnail_radius": 0,
+            "aspect_ratio": "1",
+            "constrain_to_viewport": false,
             "media_fit": "contain",
             "media_radius": 0,
             "extend_media": false,
@@ -75,12 +87,17 @@
                 "open_in_new_tab": false,
                 "content_direction": "column",
                 "vertical_on_mobile": true,
+                "reverse_on_mobile": false,
                 "horizontal_alignment": "flex-start",
                 "vertical_alignment": "center",
                 "align_baseline": false,
                 "horizontal_alignment_flex_direction_column": "flex-start",
+                "custom_mobile_alignment": false,
+                "mobile_vertical_alignment": "flex-start",
                 "vertical_alignment_flex_direction_column": "center",
                 "gap": 12,
+                "enable_mobile_gap": false,
+                "mobile_gap": 12,
                 "width": "fill",
                 "custom_width": 100,
                 "width_mobile": "fill",
@@ -96,6 +113,8 @@
                 "border_width": 1,
                 "border_opacity": 100,
                 "border_radius": 0,
+                "enable_mobile_radius": false,
+                "mobile_border_radius": 0,
                 "placeholder": "",
                 "toggle_overlay": false,
                 "overlay_color": "#00000026",
@@ -104,7 +123,13 @@
                 "padding-block-start": 0,
                 "padding-block-end": 0,
                 "padding-inline-start": 0,
-                "padding-inline-end": 0
+                "padding-inline-end": 0,
+                "custom_mobile_padding": false,
+                "mobile-padding-block-start": 0,
+                "mobile-padding-block-end": 0,
+                "mobile-padding-inline-start": 0,
+                "mobile-padding-inline-end": 0,
+                "css_class": ""
               },
               "blocks": {
                 "text_xpVMaM": {
@@ -118,6 +143,8 @@
                     "type_preset": "h3",
                     "font": "var(--font-body--family)",
                     "font_size": "1rem",
+                    "enable_mobile_size": false,
+                    "mobile_font_size": "1rem",
                     "line_height": "normal",
                     "letter_spacing": "normal",
                     "case": "none",
@@ -129,7 +156,12 @@
                     "padding-block-start": 0,
                     "padding-block-end": 0,
                     "padding-inline-start": 0,
-                    "padding-inline-end": 0
+                    "padding-inline-end": 0,
+                    "custom_mobile_padding": false,
+                    "mobile-padding-block-start": 0,
+                    "mobile-padding-block-end": 0,
+                    "mobile-padding-inline-start": 0,
+                    "mobile-padding-inline-end": 0
                   },
                   "blocks": {}
                 },
@@ -232,6 +264,8 @@
                 "type_preset": "rte",
                 "font": "var(--font-primary--family)",
                 "font_size": "",
+                "enable_mobile_size": false,
+                "mobile_font_size": "1rem",
                 "line_height": "normal",
                 "letter_spacing": "normal",
                 "case": "none",
@@ -243,7 +277,12 @@
                 "padding-block-start": 0,
                 "padding-block-end": 0,
                 "padding-inline-start": 0,
-                "padding-inline-end": 0
+                "padding-inline-end": 0,
+                "custom_mobile_padding": false,
+                "mobile-padding-block-start": 0,
+                "mobile-padding-block-end": 0,
+                "mobile-padding-inline-start": 0,
+                "mobile-padding-inline-end": 0
               },
               "blocks": {}
             }
@@ -260,9 +299,10 @@
       "settings": {
         "content_width": "content-center-aligned",
         "desktop_media_position": "left",
-        "equal_columns": false,
-        "limit_details_width": false,
+        "equal_columns": true,
+        "limit_details_width": true,
         "gap": 48,
+        "enable_sticky_add_to_cart": true,
         "color_scheme": "",
         "padding-block-start": 0,
         "padding-block-end": 0
@@ -282,6 +322,8 @@
             "type_preset": "h4",
             "font": "var(--font-primary--family)",
             "font_size": "",
+            "enable_mobile_size": false,
+            "mobile_font_size": "1rem",
             "line_height": "normal",
             "letter_spacing": "normal",
             "case": "none",
@@ -293,7 +335,12 @@
             "padding-block-start": 0,
             "padding-block-end": 0,
             "padding-inline-start": 0,
-            "padding-inline-end": 0
+            "padding-inline-end": 0,
+            "custom_mobile_padding": false,
+            "mobile-padding-block-start": 0,
+            "mobile-padding-block-end": 0,
+            "mobile-padding-inline-start": 0,
+            "mobile-padding-inline-end": 0
           },
           "blocks": {}
         },
@@ -303,6 +350,8 @@
           "static": true,
           "settings": {
             "product_card_gap": 8,
+            "enable_mobile_gap": false,
+            "mobile_gap": 12,
             "inherit_color_scheme": true,
             "color_scheme": "",
             "border": "none",
@@ -341,6 +390,8 @@
                 "type_preset": "rte",
                 "font": "var(--font-body--family)",
                 "font_size": "1rem",
+                "enable_mobile_size": false,
+                "mobile_font_size": "1rem",
                 "line_height": "normal",
                 "letter_spacing": "normal",
                 "case": "none",
@@ -352,7 +403,12 @@
                 "padding-block-start": 4,
                 "padding-block-end": 0,
                 "padding-inline-start": 0,
-                "padding-inline-end": 0
+                "padding-inline-end": 0,
+                "custom_mobile_padding": false,
+                "mobile-padding-block-start": 0,
+                "mobile-padding-block-end": 0,
+                "mobile-padding-inline-start": 0,
+                "mobile-padding-inline-end": 0
               },
               "blocks": {}
             },
@@ -411,6 +467,7 @@
     }
   },
   "order": [
+    "custom_liquid_AhCe7b",
     "main",
     "product_recommendations_qggXJq"
   ]

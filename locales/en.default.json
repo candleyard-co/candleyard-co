@@ -359,6 +359,7 @@
       "save": "Save {{ price }}%",
       "pack_title": "Select {{ limit }} {{ title }}",
       "back_button": "Back",
+      "back_button_shop": "Back to Shop",
       "gift_unlock": "🎁 Your free car freshener awaits!",
       "free_gift_status": "Has free gift"
     }

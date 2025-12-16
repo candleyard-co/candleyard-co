@@ -92,6 +92,15 @@
     "variant_button_width": "equal-width-buttons",
     "button_font_weight_secondary": "default",
     "content_for_index": [],
+    "blocks": {
+      "3667842014806057753": {
+        "type": "shopify://apps/one-click-upsell/blocks/app-embed/bfe6e378-b73a-4871-b8d3-7d6ede22678e",
+        "disabled": false,
+        "settings": {
+          "allowed_templates": ""
+        }
+      }
+    },
     "color_schemes": {
       "scheme-1": {
         "settings": {

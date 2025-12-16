@@ -160,7 +160,7 @@
     <a
       class="contents"
       ref="cardGalleryLink"
-      href="{{ product.selected_or_first_available_variant.url }}"
+      href="{{ product.selected_or_first_available_variant.url }}{% if template.suffix contains 'shop-all' %}&from=shop-all{% endif %}"
       aria-label="{{- product.title -}}"
     >
       {% render 'slideshow',

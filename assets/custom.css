@@ -212,6 +212,10 @@ product-price .price {
     gap: var(--gap-lg) !important;
 }
 
+.cart-items__table-row.cart-items__nested-line td:first-child {
+    width: 80%;
+}
+
 @media (min-width: 990px) {
     :root {
         --menu-font-2xl--size: 2.5rem !important;
@@ -356,5 +360,13 @@ product-price .price {
     .header-actions__cart-icon svg {
         width: 1.3rem !important;
         height: 1.3rem !important;
+    }
+
+    .media-gallery--carousel .slideshow-controls__thumbnails {
+        width: 100% !important;
+    }
+
+    .media-gallery--carousel .slideshow-control {
+        width: 100% !important;
     }
 }
