@@ -802,6 +802,10 @@
 
   #pack-media-room-sprays .grid-preview-contain {
  
+    &:has(.grid-preview-pack-3) {
+      bottom: 13cqw;
+    }
+
     &:has(.grid-preview-pack-6) {
       top: 1cqw;
     }
@@ -812,7 +816,10 @@
 
     @media (max-width: 750px) {
       &:has(.grid-preview-pack-1) {
-        top: 1cqw;
+        bottom: 4cqw;
+      }
+      &:has(.grid-preview-pack-3) {
+        bottom: 12cqw;
       }
     }
   }
@@ -827,6 +834,20 @@
       .preview-pack-item.preview-pack-1 {
         max-width: 3rem;
       }
+    }
+  }
+
+  #pack-media-room-sprays .grid-preview-pack-3 {
+    @media (min-width: 751px) {
+      column-gap: 4rem;
+      max-width: 34rem;
+      margin: auto;
+    }
+
+    @media (max-width: 750px) {
+      column-gap: 2rem;
+      max-width: 11rem;
+      margin: auto;
     }
   }
 
