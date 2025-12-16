@@ -44,7 +44,11 @@
       layout-panel-flex--{{ block_settings.content_direction | default: 'column' }}
       {% if block_settings.vertical_on_mobile %} mobile-column{% endif %}
     "
-    style="{% render 'layout-panel-style', settings: block_settings %}"
+    style="{% render 'layout-panel-style', settings: block_settings %}
+    {% unless block_settings.vertical_on_mobile == true %}
+    --flex-wrap-mobile: nowrap;
+    {% endunless %}
+    "
   >
     {% capture icon %}
       {% if block_settings.use_height != blank %}

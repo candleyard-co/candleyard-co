@@ -390,7 +390,7 @@ product-price .price {
         width: 100% !important;
     }
 
-    .mobile-row-2 .group-block-content {
+    .mobile-row-2 > .group-block-content {
         flex-flow: row wrap !important;
     }
 
