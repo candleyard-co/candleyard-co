@@ -734,6 +734,10 @@
     &:has(.grid-preview-pack-6) {
       top: 1cqw;
     }
+
+    &:has(.grid-preview-pack-12) {
+      top: 4cqw;
+    }
   }
 
   #pack-media-wax-melts .grid-preview-pack-1 {
@@ -763,6 +767,36 @@
       gap: 0.2rem 1rem !important;
       max-width: 42cqw;
       margin-inline: auto;
+    }
+  }
+
+  #pack-media-wax-melts .grid-preview-pack-12 {
+    gap: 1rem 1rem;
+
+
+    @media (min-width: 751px) {
+      max-width: 35rem;
+      margin-inline: auto;
+    }
+
+    @media (max-width: 750px) {
+      gap: 0.2rem 0.5rem !important;
+      grid-template-columns: repeat(6, 1fr);
+      grid-template-rows: repeat(2, auto);
+      max-width: 19rem;
+      margin: auto;
+    }
+
+    .preview-pack-5,
+    .preview-pack-6,
+    .preview-pack-7,
+    .preview-pack-8 {
+
+      @media (min-width: 751px) {
+        .preview-pack-item--inner {
+          margin-bottom: -1rem;
+        }
+      }
     }
   }
 
