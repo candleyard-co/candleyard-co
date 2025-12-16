@@ -67,7 +67,10 @@
   </a>
 
   <div class="pack-card__inner">
-    {{ card_image }}
+    {% if card_image %}
+      {{ card_image }}
+    {% else %}
+    {% endif %}
     <div class="pack-card__content layout-panel-flex--column">
         {% if item.compare_at_price > item.price %}
             <div class="pack-content-title">
