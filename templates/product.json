@@ -196,9 +196,9 @@
                   "type": "_read-more",
                   "name": "Read more",
                   "settings": {
-                    "text": "{{ closest.product.description }}",
+                    "text": "{{ closest.product.metafields.custom.short_description | metafield_tag }}",
                     "enable_read_more": true,
-                    "limit_text": 130,
+                    "limit_text": 150,
                     "width": "100%",
                     "max_width": "none",
                     "alignment": "left",
