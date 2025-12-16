@@ -824,6 +824,9 @@
       &:has(.grid-preview-pack-6) {
         top: 4cqw;
       }
+      &:has(.grid-preview-pack-12) {
+        top: 5cqw;
+      }
     }
   }
 
@@ -870,6 +873,23 @@
         max-width: 6rem;
         margin: auto;
       }
+    }
+  }
+
+  #pack-media-room-sprays .grid-preview-pack-12 {
+    gap: 1rem 1rem;
+    grid-template-columns: repeat(6, 1fr);
+    grid-template-rows: repeat(2, auto);
+
+    @media (min-width: 750px) {
+      max-width: 36rem;
+      margin-inline: auto;
+    }
+
+    @media (max-width: 750px) {
+      gap: 0.5rem !important;
+      max-width: 10rem;
+      margin: auto;
     }
   }
 
