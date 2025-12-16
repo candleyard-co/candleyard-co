@@ -236,6 +236,10 @@ product-price .price {
     --icon-stroke-width: 2.5px !important;
 }
 
+.variant-option {
+    --variant-option-padding-inline: var(--padding-xl) !important;
+}
+
 @media (min-width: 990px) {
     :root {
         --menu-font-2xl--size: 2.5rem !important;
