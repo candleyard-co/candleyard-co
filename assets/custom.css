@@ -107,6 +107,7 @@ slideshow-arrows .slideshow-control {
 .use-height-icon img, .use-height-icon svg {
     width: auto !important;
     height: var(--height) !important;
+    object-fit: contain;
 }
 
 .slideshow-controls__dots button {
@@ -221,6 +222,18 @@ product-price .price {
     font-family: var(--font-paragraph--family);
     font-style: var(--font-paragraph--style);
     font-size: var(--font-paragraph--size);
+}
+
+.variant-option__button-label {
+    min-height: 2.6em !important;
+}
+
+.quantity-selector * {
+    font-weight: 600;
+}
+
+.product-form-buttons .quantity-selector {
+    --icon-stroke-width: 2.5px !important;
 }
 
 @media (min-width: 990px) {
@@ -375,5 +388,13 @@ product-price .price {
 
     .media-gallery--carousel .slideshow-control {
         width: 100% !important;
+    }
+
+    .mobile-row-2 .group-block-content {
+        flex-flow: row wrap !important;
+    }
+
+    .mobile-row-2 .group-block {
+        flex: 1 calc(50% - var(--gap) * 1 / 2) !important;
     }
 }
