@@ -381,7 +381,8 @@
       ],
       "name": "t:names.hero",
       "settings": {
-        "media_type_1": "video",
+        "media_type_1": "image",
+        "image_1": "shopify://shop_images/Website_Banners_The_Candle_Yard_Co.png",
         "video_1": "shopify://files/videos/4124024-uhd_4096_2160_25fps.mp4",
         "media_type_2": "image",
         "stack_media_on_mobile": false,
