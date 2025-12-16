@@ -800,15 +800,32 @@
     }
   }
 
-  #pack-media-wax-melts .grid-preview-pack-1 {
+  #pack-media-room-sprays .grid-preview-contain {
+ 
+    &:has(.grid-preview-pack-6) {
+      top: 1cqw;
+    }
+
+    &:has(.grid-preview-pack-12) {
+      top: 4cqw;
+    }
+
+    @media (max-width: 750px) {
+      &:has(.grid-preview-pack-1) {
+        top: 1cqw;
+      }
+    }
+  }
+
+  #pack-media-room-sprays .grid-preview-pack-1 {
     .preview-pack-item.preview-pack-1 {
-      max-width: 18rem;
+      max-width: 10rem;
     }
 
     @media (max-width: 750px) {
 
       .preview-pack-item.preview-pack-1 {
-        max-width: 4rem;
+        max-width: 3rem;
       }
     }
   }
