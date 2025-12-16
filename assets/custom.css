@@ -239,6 +239,9 @@ product-price .price {
 .variant-option {
     --variant-option-padding-inline: var(--padding-xl) !important;
 }
+.product-information__grid--limit-details .product-details > .group-block {
+    --sidebar-width: 34rem !important;
+}
 
 @media (min-width: 990px) {
     :root {
@@ -291,6 +294,10 @@ product-price .price {
     }
     header-actions {
         gap: var(--gap-sm);
+    }
+
+    .buy-buttons-block .button[id^=BuyButtons-ProductSubmitButton-] {
+        font-size: var(--font-size--lg);
     }
 }
 @media (max-width: 749px) {
