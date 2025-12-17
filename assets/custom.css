@@ -253,6 +253,18 @@ product-price .price {
     padding-block: var(--padding-lg) !important;
 }
 
+.details-content h1,
+.details-content h2,
+.details-content h3,
+.details-content h4,
+.details-content h5 {
+    margin-bottom: 0;
+}
+
+.shadow-box {
+    box-shadow: 3px 3px 3px 3px rgba(0, 0, 0, 0.03);
+}
+
 @media (min-width: 990px) {
     :root {
         --menu-font-2xl--size: 2.5rem !important;
