@@ -354,6 +354,10 @@ product-price .price {
     display: none;
 }
 
+summary .svg-wrapper {
+    min-width: var(--icon-size-sm);
+}
+
 @media (min-width: 990px) {
     :root {
         --menu-font-2xl--size: 2.5rem !important;

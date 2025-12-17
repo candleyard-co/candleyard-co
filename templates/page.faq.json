@@ -1,0 +1,929 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "main": {
+      "type": "main-page",
+      "blocks": {
+        "heading": {
+          "type": "text",
+          "name": "Title",
+          "settings": {
+            "text": "<h1>{{ closest.page.title }}</h1>",
+            "width": "100%",
+            "max_width": "normal",
+            "alignment": "center",
+            "type_preset": "h2",
+            "font": "var(--font-primary--family)",
+            "font_size": "",
+            "enable_mobile_size": false,
+            "mobile_font_size": "1rem",
+            "line_height": "normal",
+            "letter_spacing": "normal",
+            "case": "none",
+            "wrap": "pretty",
+            "color": "",
+            "background": false,
+            "background_color": "#00000026",
+            "corner_radius": 0,
+            "padding-block-start": 0,
+            "padding-block-end": 0,
+            "padding-inline-start": 0,
+            "padding-inline-end": 0,
+            "custom_mobile_padding": false,
+            "mobile-padding-block-start": 0,
+            "mobile-padding-block-end": 0,
+            "mobile-padding-inline-start": 0,
+            "mobile-padding-inline-end": 0
+          },
+          "blocks": {}
+        },
+        "page-content": {
+          "type": "page-content",
+          "settings": {},
+          "blocks": {}
+        }
+      },
+      "block_order": [
+        "heading",
+        "page-content"
+      ],
+      "disabled": true,
+      "settings": {
+        "content_direction": "column",
+        "gap": 32,
+        "color_scheme": "",
+        "padding-block-start": 40,
+        "padding-block-end": 80
+      }
+    },
+    "section_dwz7VA": {
+      "type": "section",
+      "blocks": {
+        "group_RzYGMN": {
+          "type": "group",
+          "name": "t:names.group",
+          "settings": {
+            "link": "",
+            "open_in_new_tab": false,
+            "content_direction": "column",
+            "vertical_on_mobile": true,
+            "reverse_on_mobile": false,
+            "horizontal_alignment": "flex-start",
+            "vertical_alignment": "center",
+            "align_baseline": false,
+            "horizontal_alignment_flex_direction_column": "flex-start",
+            "custom_mobile_alignment": false,
+            "mobile_vertical_alignment": "flex-start",
+            "vertical_alignment_flex_direction_column": "center",
+            "gap": 12,
+            "enable_mobile_gap": false,
+            "mobile_gap": 12,
+            "width": "fill",
+            "custom_width": 100,
+            "width_mobile": "fill",
+            "custom_width_mobile": 100,
+            "height": "fit",
+            "custom_height": 100,
+            "inherit_color_scheme": true,
+            "color_scheme": "",
+            "background_media": "none",
+            "video_position": "cover",
+            "background_image_position": "cover",
+            "border": "none",
+            "border_width": 1,
+            "border_opacity": 100,
+            "border_radius": 0,
+            "enable_mobile_radius": false,
+            "mobile_border_radius": 0,
+            "placeholder": "",
+            "toggle_overlay": false,
+            "overlay_color": "#00000026",
+            "overlay_style": "solid",
+            "gradient_direction": "to top",
+            "padding-block-start": 0,
+            "padding-block-end": 0,
+            "padding-inline-start": 0,
+            "padding-inline-end": 0,
+            "custom_mobile_padding": false,
+            "mobile-padding-block-start": 0,
+            "mobile-padding-block-end": 0,
+            "mobile-padding-inline-start": 0,
+            "mobile-padding-inline-end": 0,
+            "css_class": ""
+          },
+          "blocks": {
+            "text_9c49He": {
+              "type": "text",
+              "name": "t:names.heading",
+              "settings": {
+                "text": "<p>{{ closest.page.title }}</p>",
+                "width": "fit-content",
+                "max_width": "normal",
+                "alignment": "left",
+                "type_preset": "h2",
+                "font": "var(--font-body--family)",
+                "font_size": "1rem",
+                "enable_mobile_size": true,
+                "mobile_font_size": "1.8rem",
+                "line_height": "normal",
+                "letter_spacing": "normal",
+                "case": "none",
+                "wrap": "pretty",
+                "color": "var(--color-foreground)",
+                "background": false,
+                "background_color": "#00000026",
+                "corner_radius": 0,
+                "padding-block-start": 0,
+                "padding-block-end": 0,
+                "padding-inline-start": 0,
+                "padding-inline-end": 0,
+                "custom_mobile_padding": false,
+                "mobile-padding-block-start": 0,
+                "mobile-padding-block-end": 0,
+                "mobile-padding-inline-start": 0,
+                "mobile-padding-inline-end": 0
+              },
+              "blocks": {}
+            },
+            "text_G7TQk8": {
+              "type": "text",
+              "name": "t:names.text",
+              "settings": {
+                "text": "<p>Quick answers to the questions we get asked most.</p>",
+                "width": "fit-content",
+                "max_width": "normal",
+                "alignment": "left",
+                "type_preset": "rte",
+                "font": "var(--font-body--family)",
+                "font_size": "1rem",
+                "enable_mobile_size": false,
+                "mobile_font_size": "1rem",
+                "line_height": "normal",
+                "letter_spacing": "normal",
+                "case": "none",
+                "wrap": "pretty",
+                "color": "var(--color-foreground)",
+                "background": false,
+                "background_color": "#00000026",
+                "corner_radius": 0,
+                "padding-block-start": 0,
+                "padding-block-end": 0,
+                "padding-inline-start": 0,
+                "padding-inline-end": 0,
+                "custom_mobile_padding": false,
+                "mobile-padding-block-start": 0,
+                "mobile-padding-block-end": 0,
+                "mobile-padding-inline-start": 0,
+                "mobile-padding-inline-end": 0
+              },
+              "blocks": {}
+            }
+          },
+          "block_order": [
+            "text_9c49He",
+            "text_G7TQk8"
+          ]
+        },
+        "group_wJ8Qhq": {
+          "type": "group",
+          "name": "t:names.group",
+          "settings": {
+            "link": "",
+            "open_in_new_tab": false,
+            "content_direction": "column",
+            "vertical_on_mobile": true,
+            "reverse_on_mobile": false,
+            "horizontal_alignment": "flex-start",
+            "vertical_alignment": "center",
+            "align_baseline": false,
+            "horizontal_alignment_flex_direction_column": "flex-start",
+            "custom_mobile_alignment": false,
+            "mobile_vertical_alignment": "flex-start",
+            "vertical_alignment_flex_direction_column": "center",
+            "gap": 32,
+            "enable_mobile_gap": false,
+            "mobile_gap": 12,
+            "width": "custom",
+            "custom_width": 68,
+            "width_mobile": "fill",
+            "custom_width_mobile": 100,
+            "height": "fit",
+            "custom_height": 100,
+            "inherit_color_scheme": true,
+            "color_scheme": "",
+            "background_media": "none",
+            "video_position": "cover",
+            "background_image_position": "cover",
+            "border": "none",
+            "border_width": 1,
+            "border_opacity": 100,
+            "border_radius": 0,
+            "enable_mobile_radius": false,
+            "mobile_border_radius": 0,
+            "placeholder": "",
+            "toggle_overlay": false,
+            "overlay_color": "#00000026",
+            "overlay_style": "solid",
+            "gradient_direction": "to top",
+            "padding-block-start": 0,
+            "padding-block-end": 0,
+            "padding-inline-start": 0,
+            "padding-inline-end": 0,
+            "custom_mobile_padding": false,
+            "mobile-padding-block-start": 0,
+            "mobile-padding-block-end": 0,
+            "mobile-padding-inline-start": 0,
+            "mobile-padding-inline-end": 0,
+            "css_class": ""
+          },
+          "blocks": {
+            "text_fz4N9M": {
+              "type": "text",
+              "name": "t:names.heading",
+              "settings": {
+                "text": "<h3>Product</h3>",
+                "width": "fit-content",
+                "max_width": "normal",
+                "alignment": "left",
+                "type_preset": "h3",
+                "font": "var(--font-body--family)",
+                "font_size": "1rem",
+                "enable_mobile_size": true,
+                "mobile_font_size": "1.5rem",
+                "line_height": "normal",
+                "letter_spacing": "normal",
+                "case": "none",
+                "wrap": "pretty",
+                "color": "var(--color-foreground)",
+                "background": false,
+                "background_color": "#00000026",
+                "corner_radius": 0,
+                "padding-block-start": 0,
+                "padding-block-end": 0,
+                "padding-inline-start": 0,
+                "padding-inline-end": 0,
+                "custom_mobile_padding": false,
+                "mobile-padding-block-start": 0,
+                "mobile-padding-block-end": 0,
+                "mobile-padding-inline-start": 0,
+                "mobile-padding-inline-end": 0
+              },
+              "blocks": {}
+            },
+            "accordion_H8kkGx": {
+              "type": "accordion",
+              "name": "t:names.accordion",
+              "settings": {
+                "icon": "caret",
+                "dividers": true,
+                "type_preset": "h4",
+                "inherit_color_scheme": true,
+                "color_scheme": "",
+                "border": "none",
+                "border_width": 1,
+                "border_opacity": 100,
+                "border_radius": 0,
+                "padding-block-start": 0,
+                "padding-block-end": 0,
+                "padding-inline-start": 0,
+                "padding-inline-end": 0
+              },
+              "blocks": {
+                "accordion_row_dynamic_HH8rV8": {
+                  "type": "_accordion-row-dynamic",
+                  "name": "Accordion row (dynamic)",
+                  "settings": {
+                    "heading": "How long do your candles burn?",
+                    "content": "<p>Each candle is designed to burn for approximately 40-50 hours, depending on the size and how well it is maintained. For optimal burn time, we recommend following proper candle care, like trimming the wick before each burn.</p>",
+                    "open_by_default": false,
+                    "icon": "none",
+                    "width": 20,
+                    "add_color_scheme": true,
+                    "color_scheme": "scheme-afb0a2e7-cefb-415e-98ea-f0cc7a8d2dee"
+                  },
+                  "blocks": {}
+                },
+                "accordion_row_dynamic_rzrnam": {
+                  "type": "_accordion-row-dynamic",
+                  "name": "Accordion row (dynamic)",
+                  "settings": {
+                    "heading": "Are these candles safe for use around pets and children?",
+                    "content": "<p>Our candles are crafted with non-toxic ingredients, making them safe to use around pets and children when monitored. However, always keep burning candles out of reach of pets and young children and never leave them unattended.</p>",
+                    "open_by_default": false,
+                    "icon": "none",
+                    "width": 20,
+                    "add_color_scheme": true,
+                    "color_scheme": "scheme-afb0a2e7-cefb-415e-98ea-f0cc7a8d2dee"
+                  },
+                  "blocks": {}
+                },
+                "accordion_row_dynamic_fdd6wg": {
+                  "type": "_accordion-row-dynamic",
+                  "name": "Accordion row (dynamic)",
+                  "settings": {
+                    "heading": "Do you offer refills for the candle jars?",
+                    "content": "<p>We currently do not offer refills, but we encourage reusing our jars once the candle is finished. They make beautiful holders for small plants, pens, or decorative accents.</p>",
+                    "open_by_default": false,
+                    "icon": "none",
+                    "width": 20,
+                    "add_color_scheme": true,
+                    "color_scheme": "scheme-afb0a2e7-cefb-415e-98ea-f0cc7a8d2dee"
+                  },
+                  "blocks": {}
+                },
+                "accordion_row_dynamic_4JpypF": {
+                  "type": "_accordion-row-dynamic",
+                  "name": "Accordion row (dynamic)",
+                  "settings": {
+                    "heading": "How should I care for my candle?",
+                    "content": "<p>For the best burn, trim the wick to 1/4 inch before each use, avoid burning for more than 4 hours at a time, and let the wax melt evenly across the surface to prevent tunneling.</p>",
+                    "open_by_default": false,
+                    "icon": "none",
+                    "width": 20,
+                    "add_color_scheme": true,
+                    "color_scheme": "scheme-afb0a2e7-cefb-415e-98ea-f0cc7a8d2dee"
+                  },
+                  "blocks": {}
+                },
+                "accordion_row_dynamic_9AaLty": {
+                  "type": "_accordion-row-dynamic",
+                  "name": "Accordion row (dynamic)",
+                  "settings": {
+                    "heading": "What is the best way to store the candles?",
+                    "content": "<p>Store your candles in a cool, dry place away from direct sunlight to preserve their fragrance and prevent wax discoloration. Avoid placing candles in areas with extreme temperatures.</p>",
+                    "open_by_default": false,
+                    "icon": "none",
+                    "width": 20,
+                    "add_color_scheme": true,
+                    "color_scheme": "scheme-afb0a2e7-cefb-415e-98ea-f0cc7a8d2dee"
+                  },
+                  "blocks": {}
+                },
+                "accordion_row_dynamic_yt3Ber": {
+                  "type": "_accordion-row-dynamic",
+                  "name": "Accordion row (dynamic)",
+                  "settings": {
+                    "heading": "Can I request a custom scent?",
+                    "content": "<p>At this time, we do not offer custom scents. However, we are always expanding our collection and love hearing your suggestions. Feel free to reach out with ideas for future scents!</p>",
+                    "open_by_default": false,
+                    "icon": "none",
+                    "width": 20,
+                    "add_color_scheme": true,
+                    "color_scheme": "scheme-afb0a2e7-cefb-415e-98ea-f0cc7a8d2dee"
+                  },
+                  "blocks": {}
+                }
+              },
+              "block_order": [
+                "accordion_row_dynamic_HH8rV8",
+                "accordion_row_dynamic_rzrnam",
+                "accordion_row_dynamic_fdd6wg",
+                "accordion_row_dynamic_4JpypF",
+                "accordion_row_dynamic_9AaLty",
+                "accordion_row_dynamic_yt3Ber"
+              ]
+            }
+          },
+          "block_order": [
+            "text_fz4N9M",
+            "accordion_H8kkGx"
+          ]
+        }
+      },
+      "block_order": [
+        "group_RzYGMN",
+        "group_wJ8Qhq"
+      ],
+      "name": "FAQ",
+      "settings": {
+        "content_direction": "column",
+        "vertical_on_mobile": true,
+        "reverse_on_mobile": false,
+        "horizontal_alignment": "flex-start",
+        "vertical_alignment": "center",
+        "align_baseline": false,
+        "horizontal_alignment_flex_direction_column": "flex-start",
+        "vertical_alignment_flex_direction_column": "center",
+        "gap": 42,
+        "enable_mobile_gap": false,
+        "mobile_gap": 12,
+        "section_width": "page-narrow",
+        "full_width_on_mobile": false,
+        "section_height": "",
+        "section_height_custom": 50,
+        "color_scheme": "",
+        "background_media": "none",
+        "video_position": "cover",
+        "background_image_position": "cover",
+        "border": "none",
+        "border_width": 1,
+        "border_opacity": 100,
+        "border_radius": 0,
+        "toggle_overlay": false,
+        "overlay_color": "#00000026",
+        "overlay_style": "solid",
+        "gradient_direction": "to top",
+        "padding-block-start": 72,
+        "padding-block-end": 72,
+        "custom_mobile_padding": false,
+        "mobile-padding-block-start": 0,
+        "mobile-padding-block-end": 0,
+        "mobile-padding-inline-start": 0,
+        "mobile-padding-inline-end": 0,
+        "css_class": "",
+        "add_section_id": false,
+        "section_id": ""
+      }
+    },
+    "section_pJK6Mx": {
+      "type": "section",
+      "blocks": {
+        "group_J3ByMh": {
+          "type": "group",
+          "name": "t:names.group",
+          "settings": {
+            "link": "",
+            "open_in_new_tab": false,
+            "content_direction": "column",
+            "vertical_on_mobile": true,
+            "reverse_on_mobile": false,
+            "horizontal_alignment": "flex-start",
+            "vertical_alignment": "center",
+            "align_baseline": false,
+            "horizontal_alignment_flex_direction_column": "flex-start",
+            "custom_mobile_alignment": false,
+            "mobile_vertical_alignment": "flex-start",
+            "vertical_alignment_flex_direction_column": "center",
+            "gap": 32,
+            "enable_mobile_gap": false,
+            "mobile_gap": 12,
+            "width": "custom",
+            "custom_width": 68,
+            "width_mobile": "fill",
+            "custom_width_mobile": 100,
+            "height": "fit",
+            "custom_height": 100,
+            "inherit_color_scheme": true,
+            "color_scheme": "",
+            "background_media": "none",
+            "video_position": "cover",
+            "background_image_position": "cover",
+            "border": "none",
+            "border_width": 1,
+            "border_opacity": 100,
+            "border_radius": 0,
+            "enable_mobile_radius": false,
+            "mobile_border_radius": 0,
+            "placeholder": "",
+            "toggle_overlay": false,
+            "overlay_color": "#00000026",
+            "overlay_style": "solid",
+            "gradient_direction": "to top",
+            "padding-block-start": 0,
+            "padding-block-end": 0,
+            "padding-inline-start": 0,
+            "padding-inline-end": 0,
+            "custom_mobile_padding": false,
+            "mobile-padding-block-start": 0,
+            "mobile-padding-block-end": 0,
+            "mobile-padding-inline-start": 0,
+            "mobile-padding-inline-end": 0,
+            "css_class": ""
+          },
+          "blocks": {
+            "text_JnBELT": {
+              "type": "text",
+              "name": "t:names.heading",
+              "settings": {
+                "text": "<h3>Return and Refund</h3>",
+                "width": "fit-content",
+                "max_width": "normal",
+                "alignment": "left",
+                "type_preset": "h3",
+                "font": "var(--font-body--family)",
+                "font_size": "1rem",
+                "enable_mobile_size": true,
+                "mobile_font_size": "1.5rem",
+                "line_height": "normal",
+                "letter_spacing": "normal",
+                "case": "none",
+                "wrap": "pretty",
+                "color": "var(--color-foreground)",
+                "background": false,
+                "background_color": "#00000026",
+                "corner_radius": 0,
+                "padding-block-start": 0,
+                "padding-block-end": 0,
+                "padding-inline-start": 0,
+                "padding-inline-end": 0,
+                "custom_mobile_padding": false,
+                "mobile-padding-block-start": 0,
+                "mobile-padding-block-end": 0,
+                "mobile-padding-inline-start": 0,
+                "mobile-padding-inline-end": 0
+              },
+              "blocks": {}
+            },
+            "accordion_HFEdjw": {
+              "type": "accordion",
+              "name": "t:names.accordion",
+              "settings": {
+                "icon": "caret",
+                "dividers": true,
+                "type_preset": "h4",
+                "inherit_color_scheme": true,
+                "color_scheme": "",
+                "border": "none",
+                "border_width": 1,
+                "border_opacity": 100,
+                "border_radius": 0,
+                "padding-block-start": 0,
+                "padding-block-end": 0,
+                "padding-inline-start": 0,
+                "padding-inline-end": 0
+              },
+              "blocks": {
+                "accordion_row_dynamic_yUgHR3": {
+                  "type": "_accordion-row-dynamic",
+                  "name": "Accordion row (dynamic)",
+                  "settings": {
+                    "heading": "What is your refund policy?",
+                    "content": "<p>We offer refunds only if your candle arrives broken or damaged. Please inspect your order upon receipt and contact us immediately if there is an issue.</p>",
+                    "open_by_default": false,
+                    "icon": "none",
+                    "width": 20,
+                    "add_color_scheme": true,
+                    "color_scheme": "scheme-afb0a2e7-cefb-415e-98ea-f0cc7a8d2dee"
+                  },
+                  "blocks": {}
+                },
+                "accordion_row_dynamic_Lq4e7d": {
+                  "type": "_accordion-row-dynamic",
+                  "name": "Accordion row (dynamic)",
+                  "settings": {
+                    "heading": "How do I request a refund for a damaged candle?",
+                    "content": "<p>To request a refund, email us at info@thecandleyard.co within 7 days of delivery with photos of the damage and your order number. We’ll review your request and process the refund if the item is eligible.</p>",
+                    "open_by_default": false,
+                    "icon": "none",
+                    "width": 20,
+                    "add_color_scheme": true,
+                    "color_scheme": "scheme-afb0a2e7-cefb-415e-98ea-f0cc7a8d2dee"
+                  },
+                  "blocks": {}
+                },
+                "accordion_row_dynamic_3wNeA9": {
+                  "type": "_accordion-row-dynamic",
+                  "name": "Accordion row (dynamic)",
+                  "settings": {
+                    "heading": "Will I receive a replacement or refund for a damaged candle?",
+                    "content": "<p>We provide refunds for damaged items rather than replacements. Once approved, the refund will be issued to your original payment method.</p>",
+                    "open_by_default": false,
+                    "icon": "none",
+                    "width": 20,
+                    "add_color_scheme": true,
+                    "color_scheme": "scheme-afb0a2e7-cefb-415e-98ea-f0cc7a8d2dee"
+                  },
+                  "blocks": {}
+                },
+                "accordion_row_dynamic_e7ABeD": {
+                  "type": "_accordion-row-dynamic",
+                  "name": "Accordion row (dynamic)",
+                  "settings": {
+                    "heading": "How long will it take to receive my refund?",
+                    "content": "<p>Once your refund is approved, it will be processed within 5-7 business days, and you’ll receive a confirmation email.</p>",
+                    "open_by_default": false,
+                    "icon": "none",
+                    "width": 20,
+                    "add_color_scheme": true,
+                    "color_scheme": "scheme-afb0a2e7-cefb-415e-98ea-f0cc7a8d2dee"
+                  },
+                  "blocks": {}
+                },
+                "accordion_row_dynamic_z78Nf3": {
+                  "type": "_accordion-row-dynamic",
+                  "name": "Accordion row (dynamic)",
+                  "settings": {
+                    "heading": "Who can I contact for more help?",
+                    "content": "<p>For further assistance, please reach out to our customer service team. Email us at<a href=\"mailto:info@thecandleyard.co\"><span style=\"text-decoration:underline\">info@thecandleyard.co</span></a></p>",
+                    "open_by_default": false,
+                    "icon": "none",
+                    "width": 20,
+                    "add_color_scheme": true,
+                    "color_scheme": "scheme-afb0a2e7-cefb-415e-98ea-f0cc7a8d2dee"
+                  },
+                  "blocks": {}
+                }
+              },
+              "block_order": [
+                "accordion_row_dynamic_yUgHR3",
+                "accordion_row_dynamic_Lq4e7d",
+                "accordion_row_dynamic_3wNeA9",
+                "accordion_row_dynamic_e7ABeD",
+                "accordion_row_dynamic_z78Nf3"
+              ]
+            }
+          },
+          "block_order": [
+            "text_JnBELT",
+            "accordion_HFEdjw"
+          ]
+        }
+      },
+      "block_order": [
+        "group_J3ByMh"
+      ],
+      "name": "FAQ",
+      "settings": {
+        "content_direction": "column",
+        "vertical_on_mobile": true,
+        "reverse_on_mobile": false,
+        "horizontal_alignment": "flex-start",
+        "vertical_alignment": "center",
+        "align_baseline": false,
+        "horizontal_alignment_flex_direction_column": "flex-start",
+        "vertical_alignment_flex_direction_column": "center",
+        "gap": 42,
+        "enable_mobile_gap": false,
+        "mobile_gap": 12,
+        "section_width": "page-narrow",
+        "full_width_on_mobile": false,
+        "section_height": "",
+        "section_height_custom": 50,
+        "color_scheme": "",
+        "background_media": "none",
+        "video_position": "cover",
+        "background_image_position": "cover",
+        "border": "none",
+        "border_width": 1,
+        "border_opacity": 100,
+        "border_radius": 0,
+        "toggle_overlay": false,
+        "overlay_color": "#00000026",
+        "overlay_style": "solid",
+        "gradient_direction": "to top",
+        "padding-block-start": 0,
+        "padding-block-end": 72,
+        "custom_mobile_padding": false,
+        "mobile-padding-block-start": 0,
+        "mobile-padding-block-end": 0,
+        "mobile-padding-inline-start": 0,
+        "mobile-padding-inline-end": 0,
+        "css_class": "",
+        "add_section_id": false,
+        "section_id": ""
+      }
+    },
+    "section_ht8VeP": {
+      "type": "section",
+      "blocks": {
+        "group_yXbqeY": {
+          "type": "group",
+          "name": "t:names.group",
+          "settings": {
+            "link": "",
+            "open_in_new_tab": false,
+            "content_direction": "column",
+            "vertical_on_mobile": true,
+            "reverse_on_mobile": false,
+            "horizontal_alignment": "flex-start",
+            "vertical_alignment": "center",
+            "align_baseline": false,
+            "horizontal_alignment_flex_direction_column": "flex-start",
+            "custom_mobile_alignment": false,
+            "mobile_vertical_alignment": "flex-start",
+            "vertical_alignment_flex_direction_column": "center",
+            "gap": 32,
+            "enable_mobile_gap": false,
+            "mobile_gap": 12,
+            "width": "custom",
+            "custom_width": 68,
+            "width_mobile": "fill",
+            "custom_width_mobile": 100,
+            "height": "fit",
+            "custom_height": 100,
+            "inherit_color_scheme": true,
+            "color_scheme": "",
+            "background_media": "none",
+            "video_position": "cover",
+            "background_image_position": "cover",
+            "border": "none",
+            "border_width": 1,
+            "border_opacity": 100,
+            "border_radius": 0,
+            "enable_mobile_radius": false,
+            "mobile_border_radius": 0,
+            "placeholder": "",
+            "toggle_overlay": false,
+            "overlay_color": "#00000026",
+            "overlay_style": "solid",
+            "gradient_direction": "to top",
+            "padding-block-start": 0,
+            "padding-block-end": 0,
+            "padding-inline-start": 0,
+            "padding-inline-end": 0,
+            "custom_mobile_padding": false,
+            "mobile-padding-block-start": 0,
+            "mobile-padding-block-end": 0,
+            "mobile-padding-inline-start": 0,
+            "mobile-padding-inline-end": 0,
+            "css_class": ""
+          },
+          "blocks": {
+            "text_QAykLE": {
+              "type": "text",
+              "name": "t:names.heading",
+              "settings": {
+                "text": "<h3>Order and Delivery</h3>",
+                "width": "fit-content",
+                "max_width": "normal",
+                "alignment": "left",
+                "type_preset": "h3",
+                "font": "var(--font-body--family)",
+                "font_size": "1rem",
+                "enable_mobile_size": true,
+                "mobile_font_size": "1.5rem",
+                "line_height": "normal",
+                "letter_spacing": "normal",
+                "case": "none",
+                "wrap": "pretty",
+                "color": "var(--color-foreground)",
+                "background": false,
+                "background_color": "#00000026",
+                "corner_radius": 0,
+                "padding-block-start": 0,
+                "padding-block-end": 0,
+                "padding-inline-start": 0,
+                "padding-inline-end": 0,
+                "custom_mobile_padding": false,
+                "mobile-padding-block-start": 0,
+                "mobile-padding-block-end": 0,
+                "mobile-padding-inline-start": 0,
+                "mobile-padding-inline-end": 0
+              },
+              "blocks": {}
+            },
+            "accordion_mNUjzi": {
+              "type": "accordion",
+              "name": "t:names.accordion",
+              "settings": {
+                "icon": "caret",
+                "dividers": true,
+                "type_preset": "h4",
+                "inherit_color_scheme": true,
+                "color_scheme": "",
+                "border": "none",
+                "border_width": 1,
+                "border_opacity": 100,
+                "border_radius": 0,
+                "padding-block-start": 0,
+                "padding-block-end": 0,
+                "padding-inline-start": 0,
+                "padding-inline-end": 0
+              },
+              "blocks": {
+                "accordion_row_dynamic_Y44XLD": {
+                  "type": "_accordion-row-dynamic",
+                  "name": "Accordion row (dynamic)",
+                  "settings": {
+                    "heading": "How long will it take for my order to arrive?",
+                    "content": "<p>Standard shipping typically takes 3-7 business days, while expedited shipping takes 1-3 business days. Delivery times may vary depending on your location and shipping choice.</p>",
+                    "open_by_default": false,
+                    "icon": "none",
+                    "width": 20,
+                    "add_color_scheme": true,
+                    "color_scheme": "scheme-afb0a2e7-cefb-415e-98ea-f0cc7a8d2dee"
+                  },
+                  "blocks": {}
+                },
+                "accordion_row_dynamic_Lnj98b": {
+                  "type": "_accordion-row-dynamic",
+                  "name": "Accordion row (dynamic)",
+                  "settings": {
+                    "heading": "How can I track my order?",
+                    "content": "<p>Once your order ships, you’ll receive an email with tracking details. Use this information to check the status of your shipment on the carrier’s website.</p>",
+                    "open_by_default": false,
+                    "icon": "none",
+                    "width": 20,
+                    "add_color_scheme": true,
+                    "color_scheme": "scheme-afb0a2e7-cefb-415e-98ea-f0cc7a8d2dee"
+                  },
+                  "blocks": {}
+                },
+                "accordion_row_dynamic_7hVq7C": {
+                  "type": "_accordion-row-dynamic",
+                  "name": "Accordion row (dynamic)",
+                  "settings": {
+                    "heading": "Do you ship internationally?",
+                    "content": "<p>Currently, we only ship within United States of America. We hope to expand our shipping options in the future.</p>",
+                    "open_by_default": false,
+                    "icon": "none",
+                    "width": 20,
+                    "add_color_scheme": true,
+                    "color_scheme": "scheme-afb0a2e7-cefb-415e-98ea-f0cc7a8d2dee"
+                  },
+                  "blocks": {}
+                },
+                "accordion_row_dynamic_gNY9nb": {
+                  "type": "_accordion-row-dynamic",
+                  "name": "Accordion row (dynamic)",
+                  "settings": {
+                    "heading": "What should I do if I entered the wrong shipping address?",
+                    "content": "<p>Contact us as soon as possible if you notice an error in your shipping address. We’ll do our best to update it if the order hasn’t shipped yet.</p>",
+                    "open_by_default": false,
+                    "icon": "none",
+                    "width": 20,
+                    "add_color_scheme": true,
+                    "color_scheme": "scheme-afb0a2e7-cefb-415e-98ea-f0cc7a8d2dee"
+                  },
+                  "blocks": {}
+                },
+                "accordion_row_dynamic_TNt6DQ": {
+                  "type": "_accordion-row-dynamic",
+                  "name": "Accordion row (dynamic)",
+                  "settings": {
+                    "heading": "What happens if my order is lost or delayed?",
+                    "content": "<p>If your order is significantly delayed or appears lost, contact our customer support team with your order number. We will work with the carrier to locate your shipment and provide an update.</p>",
+                    "open_by_default": false,
+                    "icon": "none",
+                    "width": 20,
+                    "add_color_scheme": true,
+                    "color_scheme": "scheme-afb0a2e7-cefb-415e-98ea-f0cc7a8d2dee"
+                  },
+                  "blocks": {}
+                }
+              },
+              "block_order": [
+                "accordion_row_dynamic_Y44XLD",
+                "accordion_row_dynamic_Lnj98b",
+                "accordion_row_dynamic_7hVq7C",
+                "accordion_row_dynamic_gNY9nb",
+                "accordion_row_dynamic_TNt6DQ"
+              ]
+            }
+          },
+          "block_order": [
+            "text_QAykLE",
+            "accordion_mNUjzi"
+          ]
+        }
+      },
+      "block_order": [
+        "group_yXbqeY"
+      ],
+      "name": "FAQ",
+      "settings": {
+        "content_direction": "column",
+        "vertical_on_mobile": true,
+        "reverse_on_mobile": false,
+        "horizontal_alignment": "flex-start",
+        "vertical_alignment": "center",
+        "align_baseline": false,
+        "horizontal_alignment_flex_direction_column": "flex-start",
+        "vertical_alignment_flex_direction_column": "center",
+        "gap": 42,
+        "enable_mobile_gap": false,
+        "mobile_gap": 12,
+        "section_width": "page-narrow",
+        "full_width_on_mobile": false,
+        "section_height": "",
+        "section_height_custom": 50,
+        "color_scheme": "",
+        "background_media": "none",
+        "video_position": "cover",
+        "background_image_position": "cover",
+        "border": "none",
+        "border_width": 1,
+        "border_opacity": 100,
+        "border_radius": 0,
+        "toggle_overlay": false,
+        "overlay_color": "#00000026",
+        "overlay_style": "solid",
+        "gradient_direction": "to top",
+        "padding-block-start": 0,
+        "padding-block-end": 72,
+        "custom_mobile_padding": false,
+        "mobile-padding-block-start": 0,
+        "mobile-padding-block-end": 0,
+        "mobile-padding-inline-start": 0,
+        "mobile-padding-inline-end": 0,
+        "css_class": "",
+        "add_section_id": false,
+        "section_id": ""
+      }
+    }
+  },
+  "order": [
+    "main",
+    "section_dwz7VA",
+    "section_pJK6Mx",
+    "section_ht8VeP"
+  ]
+}
