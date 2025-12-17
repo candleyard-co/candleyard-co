@@ -487,3 +487,7 @@ document.addEventListener('DOMContentLoaded', () => {
     shadowElements.forEach(el => observer.observe(el));
   }
 });
+
+if (Zipify) {
+  Zipify.OCU.api.customBuyNowButton = 'desired selector';
+}
