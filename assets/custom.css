@@ -278,7 +278,7 @@ product-price .price {
     box-shadow: 3px 3px 3px 3px rgba(0, 0, 0, 0.03);
 }
 
-accordion-custom .details-content {
+.accordion accordion-custom .details-content {
     padding: var(--padding-xs) var(--padding-md) var(--padding-xl) !important;
 }
 
