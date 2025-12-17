@@ -16,7 +16,11 @@
   {% endif %}
 >
   <details
-    class="details"
+    class="details
+      {% if block.settings.add_color_scheme == true %}
+        colored-accordion color-{{ block.settings.color_scheme }}
+      {% endif %}
+    "
     data-testid="accordion-details"
     {{ block.shopify_attributes }}
   >
@@ -54,6 +58,14 @@
   .details__icon {
     height: auto;
     margin-inline-end: var(--margin-xs);
+  }
+  .colored-accordion.details {
+    border-radius: 1rem;
+    border: calc(var(--style-border-width) * var(--show-fallback-borders)) solid var(--color-border) !important;
+  }
+
+  .colored-accordion .details__header {
+    padding-inline: var(--padding-lg) !important;
   }
 {% endstylesheet %}
 
@@ -341,6 +353,19 @@
       "step": 2,
       "unit": "px",
       "default": 20
+    },
+    {
+      "type": "checkbox",
+      "id": "add_color_scheme",
+      "label": "Add Color scheme",
+      "default": true
+    },
+    {
+      "type": "color_scheme",
+      "id": "color_scheme",
+      "label": "t:settings.color_scheme",
+      "default": "scheme-1",
+      "visible_if": "{{ block.settings.add_color_scheme == true }}"
     }
   ],
   "presets": [

@@ -42,6 +42,10 @@ slideshow-controls.carousel-controls .icon-play {
     height: var(--icon-size-lg) !important;
 }
 
+.mt-auto {
+    margin-top: auto;
+}
+
 header-actions .account-button.header-actions__action {
     height: 100%;
 }
@@ -263,6 +267,23 @@ product-price .price {
 
 .shadow-box {
     box-shadow: 3px 3px 3px 3px rgba(0, 0, 0, 0.03);
+}
+
+accordion-custom .details-content {
+    padding: var(--padding-xs) var(--padding-md) var(--padding-xl) !important;
+}
+
+.accordion:has(.colored-accordion) {
+    gap: var(--gap-sm);
+    display: flex;
+    flex-direction: column;
+}
+
+.details__header {
+    --icon-stroke-width: 2px;
+}
+.accordion summary:hover {
+    color: var(--color-primary) !important;
 }
 
 @media (min-width: 990px) {
