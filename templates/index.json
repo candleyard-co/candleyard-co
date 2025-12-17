@@ -40,7 +40,7 @@
             "padding-inline-end": 62,
             "custom_mobile_padding": true,
             "mobile-padding-block-start": 80,
-            "mobile-padding-block-end": 72,
+            "mobile-padding-block-end": 42,
             "mobile-padding-inline-start": 16,
             "mobile-padding-inline-end": 16
           },
@@ -443,7 +443,7 @@
             "padding-inline-end": 62,
             "custom_mobile_padding": true,
             "mobile-padding-block-start": 80,
-            "mobile-padding-block-end": 72,
+            "mobile-padding-block-end": 42,
             "mobile-padding-inline-start": 16,
             "mobile-padding-inline-end": 16
           },
@@ -638,7 +638,7 @@
                 "vertical_alignment": "center",
                 "align_baseline": false,
                 "horizontal_alignment_flex_direction_column": "center",
-                "custom_mobile_alignment": false,
+                "custom_mobile_alignment": true,
                 "mobile_vertical_alignment": "flex-start",
                 "vertical_alignment_flex_direction_column": "center",
                 "gap": 0,
@@ -692,7 +692,7 @@
                     "style_class": "button",
                     "width": "custom",
                     "custom_width": 20,
-                    "width_mobile": "custom",
+                    "width_mobile": "fit-content",
                     "custom_width_mobile": 100
                   },
                   "blocks": {}
