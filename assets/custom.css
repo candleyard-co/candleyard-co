@@ -249,6 +249,10 @@ product-price .price {
     font-weight: var(--font-heading--weight);
 }
 
+.accordion .details__header {
+    padding-block: var(--padding-lg);
+}
+
 @media (min-width: 990px) {
     :root {
         --menu-font-2xl--size: 2.5rem !important;
