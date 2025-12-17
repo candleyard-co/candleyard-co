@@ -9,17 +9,6 @@
  */
 {
   "sections": {
-    "custom_liquid_AhCe7b": {
-      "type": "custom-liquid",
-      "name": "Back To Shop Button",
-      "settings": {
-        "custom_liquid": "{%- capture contentForQuerystring -%}{{ content_for_header }}{%- endcapture -%}\n    {%- assign pageUrl = contentForQuerystring\n      | split: '\"pageurl\":\"'\n      | last\n      | split: '\"'\n      | first\n      | split: '.myshopify.com'\n      | last\n      | replace: '\\/', '/'\n      | replace: '%20', ' '\n      | replace: '\\u0026', '&'\n    -%}\n    {% capture finalurl %}https://{{ pageUrl }}{% endcapture %}\n\n  {% if \n    finalurl contains '&from=shop-all'\n  %}\n\n{% style %}\n    .back-shop {\n      display: flex;\n      align-items: center;\n      justify-content: center;\n      gap: var(--gap-2xs);\n    }\n    .back-shop svg {\n      transform: scale(-1);\n      width: var(--icon-size-xs);\n      height: var(--icon-size-xs);\n    }\n\n    .shop-back {\n      padding-block: var(--padding-sm);\n    }\n  \n    #shopify-section-{{ section.id }} + .shopify-section .product-information {\n      padding-top: 0 !important;\n    }\n    @media screen and (min-width: 750px) {\n      .back-shop svg {\n          width: var(--icon-size-lg);\n          height: var(--icon-size-lg);\n      }\n      .shop-back {\n        padding-block: var(--padding-lg);\n      }\n    }\n{% endstyle %}\n<div class=\"shop-back\">\n  <a\n    href=\"/collections/shop\"\n    class=\"button button-unstyled back-shop\"\n    aria-label=\"{{ 'products.product.back_button_shop' | t }}\"\n  >\n    <span>\n      {{- 'icon-arrow.svg' | inline_asset_content -}}\n    </span>\n    <span>\n      {{ 'products.product.back_button_shop' | t }}\n    </span>\n  </a>\n</div>\n{% endif %}",
-        "color_scheme": "",
-        "section_width": "page-width",
-        "padding-block-start": 0,
-        "padding-block-end": 0
-      }
-    },
     "main": {
       "type": "product-information",
       "blocks": {
@@ -262,6 +251,7 @@
               "blocks": {
                 "quantity": {
                   "type": "quantity",
+                  "disabled": true,
                   "static": true,
                   "settings": {},
                   "blocks": {}
@@ -763,7 +753,6 @@
     }
   },
   "order": [
-    "custom_liquid_AhCe7b",
     "main"
   ]
 }
