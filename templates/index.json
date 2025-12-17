@@ -7474,7 +7474,7 @@
         "hide_arrows": false,
         "autoplay": false,
         "autoplay_speed": 6,
-        "columns": 4,
+        "columns": 5,
         "peek_desktop": false,
         "mobile_columns": "1",
         "mobile_card_size": "60cqw",
