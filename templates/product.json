@@ -1927,7 +1927,7 @@
               "type": "text",
               "name": "t:names.heading",
               "settings": {
-                "text": "<h4>Hand-Poured in<br/>Small Batches</h4>",
+                "text": "<h4>Hand-Poured in<br/> Small Batches</h4>",
                 "width": "100%",
                 "max_width": "none",
                 "alignment": "center",
@@ -3044,11 +3044,31 @@
           "block_order": [
             "accordion_cXtPRF"
           ]
+        },
+        "button_BUUcnp": {
+          "type": "button",
+          "name": "t:names.button",
+          "settings": {
+            "label": "See all FAQS",
+            "link": "shopify://collections/all",
+            "add_left_icon": false,
+            "left_svg_icon": "",
+            "add_right_icon": false,
+            "right_svg_icon": "",
+            "open_in_new_tab": false,
+            "style_class": "button",
+            "width": "custom",
+            "custom_width": 18,
+            "width_mobile": "fit-content",
+            "custom_width_mobile": 100
+          },
+          "blocks": {}
         }
       },
       "block_order": [
         "group_zDaPBf",
-        "group_GNybrr"
+        "group_GNybrr",
+        "button_BUUcnp"
       ],
       "name": "FAQ",
       "settings": {
