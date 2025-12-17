@@ -1530,7 +1530,7 @@
             "mobile-padding-block-end": 0,
             "mobile-padding-inline-start": 0,
             "mobile-padding-inline-end": 0,
-            "css_class": "shadow-box"
+            "css_class": ""
           },
           "blocks": {
             "text_FeiKH4": {
@@ -1725,7 +1725,7 @@
             "mobile-padding-block-end": 0,
             "mobile-padding-inline-start": 0,
             "mobile-padding-inline-end": 0,
-            "css_class": "shadow-box"
+            "css_class": ""
           },
           "blocks": {
             "text_iHCUMQ": {
@@ -1920,7 +1920,7 @@
             "mobile-padding-block-end": 0,
             "mobile-padding-inline-start": 0,
             "mobile-padding-inline-end": 0,
-            "css_class": "shadow-box"
+            "css_class": ""
           },
           "blocks": {
             "text_LeMLnR": {
@@ -2228,7 +2228,7 @@
         "mobile-padding-block-end": 0,
         "mobile-padding-inline-start": 0,
         "mobile-padding-inline-end": 0,
-        "css_class": "shadow-box",
+        "css_class": "",
         "add_section_id": false,
         "section_id": ""
       }
