@@ -32,12 +32,10 @@ function cartListener(event) {
 
                         // Remove free gift if cart total is $0
                         if (filteredItems.length > 0 && cartData.total_price === 0) {
-                            console.log('Cart total is $0. Removing free gift...');
                             removeItemFromCart(filteredItems[0].key);
                         }
                         // Add free gift if cart has paid items (> $0) and gift not present
                         else if (filteredItems.length === 0 && cartData.total_price > 0) {
-                            console.log('Cart has paid items but no free gift. Adding free gift...');
                             addFreeGiftToCart(storedData.freeGift);
                         }
                     }
