@@ -488,6 +488,7 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 });
 
-// if (Zipify) {
+if (Zipify) {
+  Zipify.OCU.api.customAddToCartButton = '.add-to-pack-button';
 //   Zipify.OCU.api.customBuyNowButton = 'desired selector';
-// }
+}
