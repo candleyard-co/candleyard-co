@@ -29,12 +29,6 @@ function cartListener(event) {
                         const filteredItems = cartData.items.filter(item => 
                             Number(item.variant_id) === freeGiftVariantId
                         );
-                        
-                        console.log('Free gift check:', {
-                            cartTotal: cartData.total_price,
-                            hasFreeGift: filteredItems.length > 0,
-                            cartTotalGreaterThanZero: cartData.total_price > 0
-                        });
 
                         // Remove free gift if cart total is $0
                         if (filteredItems.length > 0 && cartData.total_price === 0) {
