@@ -481,6 +481,7 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 if (Zipify) {
+  ​((o,c,u)=>{o[c]=o[c]||{},o[u]=o[u]||{},o[c].OCU=o[c].OCU||{api:o[u]}})(window,'Zipify','OCUApi');
   Zipify.OCU.api.customAddToCartButton = '.add-to-pack-button';
 //   Zipify.OCU.api.customBuyNowButton = 'desired selector';
 }

@@ -1466,64 +1466,148 @@
             "text_RKFPeB"
           ]
         },
-        "table_4A3Pgd": {
+        "table_dfmifG": {
           "type": "table",
           "name": "Table",
           "settings": {
-            "link": "",
-            "open_in_new_tab": false,
-            "content_direction": "column",
-            "vertical_on_mobile": true,
-            "reverse_on_mobile": false,
-            "horizontal_alignment": "flex-start",
-            "vertical_alignment": "center",
-            "align_baseline": false,
-            "horizontal_alignment_flex_direction_column": "flex-start",
-            "custom_mobile_alignment": false,
-            "mobile_vertical_alignment": "flex-start",
-            "vertical_alignment_flex_direction_column": "center",
-            "gap": 12,
-            "enable_mobile_gap": false,
-            "mobile_gap": 12,
-            "width": "fill",
-            "custom_width": 100,
-            "width_mobile": "fill",
-            "custom_width_mobile": 100,
-            "height": "fit",
-            "custom_height": 100,
-            "inherit_color_scheme": true,
-            "color_scheme": "",
-            "background_media": "none",
-            "video_position": "cover",
-            "background_image_position": "cover",
-            "border": "none",
-            "border_width": 1,
-            "border_opacity": 100,
-            "border_radius": 0,
-            "enable_mobile_radius": false,
-            "mobile_border_radius": 0,
-            "placeholder": "",
-            "toggle_overlay": false,
-            "overlay_color": "#00000026",
-            "overlay_style": "solid",
-            "gradient_direction": "to top",
-            "padding-block-start": 0,
-            "padding-block-end": 0,
-            "padding-inline-start": 0,
-            "padding-inline-end": 0,
-            "custom_mobile_padding": false,
-            "mobile-padding-block-start": 0,
-            "mobile-padding-block-end": 0,
-            "mobile-padding-inline-start": 0,
-            "mobile-padding-inline-end": 0,
-            "css_class": ""
+            "custom_width": 75,
+            "column_bg": "#fffdf6"
           },
-          "blocks": {}
+          "blocks": {
+            "table_row_RNdCNE": {
+              "type": "_table-row",
+              "name": "Table row",
+              "settings": {
+                "text_column_1": "",
+                "center_text_1": false,
+                "text_column_2": "<h4>The Candle Yard</h4>",
+                "center_text_2": true,
+                "use_icon_2": false,
+                "icon_type_2": "check",
+                "text_column_3": "<h4>Others</h4>",
+                "center_text_3": true,
+                "use_icon_3": false,
+                "icon_type_3": "check"
+              },
+              "blocks": {}
+            },
+            "table_row_dqa8tj": {
+              "type": "_table-row",
+              "name": "Table row",
+              "settings": {
+                "text_column_1": "<p>Non Toxic Soy Wax</p>",
+                "center_text_1": false,
+                "text_column_2": "",
+                "center_text_2": false,
+                "use_icon_2": true,
+                "icon_type_2": "check",
+                "text_column_3": "",
+                "center_text_3": false,
+                "use_icon_3": true,
+                "icon_type_3": "cross"
+              },
+              "blocks": {}
+            },
+            "table_row_cnTrVr": {
+              "type": "_table-row",
+              "name": "Table row",
+              "settings": {
+                "text_column_1": "<p>Slow Burn</p>",
+                "center_text_1": false,
+                "text_column_2": "",
+                "center_text_2": false,
+                "use_icon_2": true,
+                "icon_type_2": "check",
+                "text_column_3": "",
+                "center_text_3": false,
+                "use_icon_3": true,
+                "icon_type_3": "cross"
+              },
+              "blocks": {}
+            },
+            "table_row_Xi8Kq8": {
+              "type": "_table-row",
+              "name": "Table row",
+              "settings": {
+                "text_column_1": "<p>Clean Burn</p>",
+                "center_text_1": false,
+                "text_column_2": "",
+                "center_text_2": false,
+                "use_icon_2": true,
+                "icon_type_2": "check",
+                "text_column_3": "",
+                "center_text_3": false,
+                "use_icon_3": true,
+                "icon_type_3": "cross"
+              },
+              "blocks": {}
+            },
+            "table_row_qFz8NT": {
+              "type": "_table-row",
+              "name": "Table row",
+              "settings": {
+                "text_column_1": "<p>Super Cute</p>",
+                "center_text_1": false,
+                "text_column_2": "",
+                "center_text_2": false,
+                "use_icon_2": true,
+                "icon_type_2": "check",
+                "text_column_3": "",
+                "center_text_3": false,
+                "use_icon_3": true,
+                "icon_type_3": "cross"
+              },
+              "blocks": {}
+            },
+            "table_row_L9fQA3": {
+              "type": "_table-row",
+              "name": "Table row",
+              "settings": {
+                "text_column_1": "<p>Crave Worthy</p>",
+                "center_text_1": false,
+                "text_column_2": "",
+                "center_text_2": false,
+                "use_icon_2": true,
+                "icon_type_2": "check",
+                "text_column_3": "",
+                "center_text_3": false,
+                "use_icon_3": true,
+                "icon_type_3": "cross"
+              },
+              "blocks": {}
+            },
+            "table_row_pKergf": {
+              "type": "_table-row",
+              "name": "Table row",
+              "settings": {
+                "text_column_1": "<p>Scent Throw & Smell</p>",
+                "center_text_1": false,
+                "text_column_2": "<p>Strong Crave Worthy Scents</p>",
+                "center_text_2": true,
+                "use_icon_2": false,
+                "icon_type_2": "check",
+                "text_column_3": "<p>Weak & Hard to Smell</p>",
+                "center_text_3": true,
+                "use_icon_3": false,
+                "icon_type_3": "cross"
+              },
+              "blocks": {}
+            }
+          },
+          "block_order": [
+            "table_row_RNdCNE",
+            "table_row_dqa8tj",
+            "table_row_cnTrVr",
+            "table_row_Xi8Kq8",
+            "table_row_qFz8NT",
+            "table_row_L9fQA3",
+            "table_row_pKergf"
+          ]
         }
       },
       "block_order": [
         "group_LwdzdB",
-        "table_4A3Pgd"
+        "table_dfmifG"
       ],
       "name": "Compare Table",
       "settings": {
@@ -1539,7 +1623,7 @@
         "enable_mobile_gap": false,
         "mobile_gap": 12,
         "section_width": "page-narrow",
-        "full_width_on_mobile": false,
+        "full_width_on_mobile": true,
         "section_height": "",
         "section_height_custom": 50,
         "color_scheme": "",

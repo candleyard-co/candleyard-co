@@ -1,0 +1,133 @@
+{% assign block_settings = block.settings %}
+
+<tr {{ block.shopify_attributes }}>
+    <td>
+        {% if block_settings.text_column_1 != blank %}
+            {{ block_settings.text_column_1 }}
+        {% endif %}
+    </td>
+    <td {% if block_settings.center_text_2 == true %}
+        class="text-center"
+    {% endif %}>
+        {% if block_settings.use_icon_2 == true %}
+            {% if block_settings.icon_type_2 == 'check' %}
+                <svg xmlns="http://www.w3.org/2000/svg" width="41" height="31" viewBox="0 0 41 31" fill="none">
+                    <path d="M13.75 29.4531L0.78125 16.4844C0 15.7031 0 14.375 0.78125 13.5938L3.59375 10.7812C4.375 10 5.625 10 6.40625 10.7812L15.2344 19.5312L33.9844 0.78125C34.7656 0 36.0156 0 36.7969 0.78125L39.6094 3.59375C40.3906 4.375 40.3906 5.70312 39.6094 6.48438L16.6406 29.4531C15.8594 30.2344 14.5312 30.2344 13.75 29.4531Z" fill="var(--color-foreground)"/>
+                </svg>
+            {% elsif block_settings.icon_type_2 == 'cross' %}
+                <svg xmlns="http://www.w3.org/2000/svg" width="29" height="29" viewBox="0 0 29 29" fill="none">
+                    <path d="M19.2188 13.9844L27.0312 21.875C28.0469 22.8125 28.0469 24.375 27.0312 25.3125L25.3125 27.0312C24.375 28.0469 22.8125 28.0469 21.875 27.0312L14.0625 19.2188L6.17188 27.0312C5.23438 28.0469 3.67188 28.0469 2.73438 27.0312L1.01562 25.3125C0 24.375 0 22.8125 1.01562 21.875L8.82812 13.9844L1.01562 6.17188C0 5.23438 0 3.67188 1.01562 2.73438L2.73438 1.01562C3.67188 0 5.23438 0 6.17188 1.01562L14.0625 8.82812L21.875 1.01562C22.8125 0 24.375 0 25.3125 1.01562L27.0312 2.73438C28.0469 3.67188 28.0469 5.23438 27.0312 6.17188L19.2188 13.9844Z" fill="var(--color-button)"/>
+                </svg>
+            {% endif %}
+        {% else %}
+            {% if block_settings.text_column_2 != blank %}
+                {{ block_settings.text_column_2 }}
+            {% endif %}
+        {% endif %}
+    </td>
+    <td {% if block_settings.center_text_3 == true %}
+        class="text-center"
+    {% endif %}>
+        {% if block_settings.use_icon_3 == true %}
+            {% if block_settings.icon_type_3 == 'check' %}
+                <svg xmlns="http://www.w3.org/2000/svg" width="41" height="31" viewBox="0 0 41 31" fill="none">
+                    <path d="M13.75 29.4531L0.78125 16.4844C0 15.7031 0 14.375 0.78125 13.5938L3.59375 10.7812C4.375 10 5.625 10 6.40625 10.7812L15.2344 19.5312L33.9844 0.78125C34.7656 0 36.0156 0 36.7969 0.78125L39.6094 3.59375C40.3906 4.375 40.3906 5.70312 39.6094 6.48438L16.6406 29.4531C15.8594 30.2344 14.5312 30.2344 13.75 29.4531Z" fill="var(--color-foreground)"/>
+                </svg>
+            {% elsif block_settings.icon_type_3 == 'cross' %}
+                <svg xmlns="http://www.w3.org/2000/svg" width="29" height="29" viewBox="0 0 29 29" fill="none">
+                    <path d="M19.2188 13.9844L27.0312 21.875C28.0469 22.8125 28.0469 24.375 27.0312 25.3125L25.3125 27.0312C24.375 28.0469 22.8125 28.0469 21.875 27.0312L14.0625 19.2188L6.17188 27.0312C5.23438 28.0469 3.67188 28.0469 2.73438 27.0312L1.01562 25.3125C0 24.375 0 22.8125 1.01562 21.875L8.82812 13.9844L1.01562 6.17188C0 5.23438 0 3.67188 1.01562 2.73438L2.73438 1.01562C3.67188 0 5.23438 0 6.17188 1.01562L14.0625 8.82812L21.875 1.01562C22.8125 0 24.375 0 25.3125 1.01562L27.0312 2.73438C28.0469 3.67188 28.0469 5.23438 27.0312 6.17188L19.2188 13.9844Z" fill="#C5A49F"/>
+                </svg>
+            {% endif %}
+        {% else %}
+            {% if block_settings.text_column_3 != blank %}
+                {{ block_settings.text_column_3 }}
+            {% endif %}
+        {% endif %}
+    </td>
+</tr>
+<!--@list/split-->
+
+{% schema %}
+{
+  "name": "Table row",
+  "tag": null,
+  "settings": [
+    {
+        "type": "richtext",
+        "id": "text_column_1",
+        "label": "Text column 1"
+    },
+    {
+        "type": "checkbox",
+        "id": "center_text_1",
+        "label": "Center text 1",
+        "default": false
+    },
+    {
+        "type": "richtext",
+        "id": "text_column_2",
+        "label": "Text column 2",
+        "visible_if": "{{ block.settings.use_icon_2 == false }}"
+    },
+    {
+        "type": "checkbox",
+        "id": "center_text_2",
+        "label": "Center text 2",
+        "default": false,
+        "visible_if": "{{ block.settings.use_icon_2 == false }}"
+    },
+    {
+        "type": "checkbox",
+        "id": "use_icon_2",
+        "label": "Use Icon for column 2",
+        "default": true
+    },
+    {
+      "type": "select",
+      "id": "icon_type_2",
+      "label": "Icon type",
+      "default": "check",
+      "options": [
+        { "value": "check", "label": "Check" },
+        { "value": "cross", "label": "Cross" }
+      ],
+      "visible_if": "{{ block.settings.use_icon_2 == true }}"
+    },
+    {
+        "type": "richtext",
+        "id": "text_column_3",
+        "label": "Text column 3",
+        "visible_if": "{{ block.settings.use_icon_3 == false }}"
+    },
+    {
+        "type": "checkbox",
+        "id": "center_text_3",
+        "label": "Center text 3",
+        "default": false,
+        "visible_if": "{{ block.settings.use_icon_3 == false }}"
+    },
+    {
+        "type": "checkbox",
+        "id": "use_icon_3",
+        "label": "Use Icon for column 3",
+        "default": true
+    },
+    {
+      "type": "select",
+      "id": "icon_type_3",
+      "label": "Icon type",
+      "default": "check",
+      "options": [
+        { "value": "check", "label": "Check" },
+        { "value": "cross", "label": "Cross" }
+      ],
+      "visible_if": "{{ block.settings.use_icon_3 == true }}"
+    },
+  ],
+  "presets": [
+        {
+            "name": "Table row"
+        }
+    ]
+}
+{% endschema %}
