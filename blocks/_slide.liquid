@@ -9,6 +9,15 @@
       assign preview_image = block_settings.video_1.preview_image
     endif
 
+    assign media_1_mobile = 'none'
+    assign media_image_class = 'slide__image'
+
+    if block_settings.custom_mobile_media and block_settings.image_1_mobile != blank
+      assign media_1_mobile = block_settings.image_1_mobile
+
+      assign media_image_class = media_image_class | append: ' mobile:hidden'
+    endif
+
     assign rounded_image_corners = false
     if block_settings.inherit_color_scheme == true or block_settings.inherit_color_scheme == false and section.settings.color_scheme.settings.background.rgb == block_settings.color_scheme.settings.background.rgb
       assign rounded_image_corners = true
@@ -25,6 +34,15 @@
       #shopify-section-{{ section.id }} slideshow-slide {
         min-height: {{ 1 | divided_by: preview_image.aspect_ratio | times: 100 }}vw;
       }
+
+      {% if block_settings.custom_mobile_media and media_1_mobile != 'none' %}
+        @media (max-width: 749px) {
+          #shopify-section-{{ section.id }} slideshow-slides,
+          #shopify-section-{{ section.id }} slideshow-slide {
+            min-height: {{ 1 | divided_by: media_1_mobile.aspect_ratio | times: 100 }}vw;
+          }
+        }
+      {% endif %}
     {% endstyle %}
   {% endif %}
 
@@ -40,6 +58,14 @@
         assign sizes = '(min-width: 750px) ' | append: media_width_desktop | append: ', ' | append: media_width_mobile
         assign lazy_sizes = 'auto, ' | append: sizes
         assign widths = '832, 1200, 1600, 1920, 2560, 3840'
+
+        if block_settings.custom_mobile_media == true and media_1_mobile != 'none'
+          assign mobile_height = media_1_mobile.width | divided_by: media_1_mobile.aspect_ratio | round
+          assign mobile_media_width_desktop = '100vw'
+          assign mobile_media_width_mobile = '100vw'
+          assign mobile_sizes = '(min-width: 750px) ' | append: mobile_media_width_desktop | append: ', ' | append: mobile_media_width_mobile
+          assign mobile_lazy_sizes = 'auto, ' | append: mobile_sizes
+        endif
       %}
 
       {%- liquid
@@ -48,6 +74,7 @@
         if block_index == 0 and section_index <= 3
           assign loading = 'eager'
           assign sizes = lazy_sizes
+          assign mobile_sizes = mobile_lazy_sizes
         endif
 
         assign fetchpriority = 'low'
@@ -60,8 +87,15 @@
         {{
           block_settings.image_1
           | image_url: width: 3840
-          | image_tag: height: height, sizes: sizes, widths: widths, class: 'slide__image', loading: loading, fetchpriority: fetchpriority
+          | image_tag: height: height, sizes: sizes, widths: widths, class: media_image_class, loading: loading, fetchpriority: fetchpriority
         }}
+        {% if block_settings.custom_mobile_media == true and media_1_mobile != 'none' %}
+          {{
+            media_1_mobile
+            | image_url: width: 3840
+            | image_tag: height: mobile_height, sizes: mobile_sizes, widths: widths, class: 'slide__image desktop:hidden', loading: loading, fetchpriority: fetchpriority
+          }}
+        {% endif %}
       {%- else -%}
         {%- if block_settings.video_1.preview_image -%}
 
@@ -195,6 +229,19 @@
       "id": "image_1",
       "label": "t:settings.image",
       "visible_if": "{{ block.settings.media_type_1 == 'image' }}"
+    },
+    {
+      "type": "checkbox",
+      "id": "custom_mobile_media",
+      "label": "t:settings.custom_mobile_media",
+      "default": false,
+      "visible_if": "{{ block.settings.media_type_1 == 'image' }}"
+    },
+    {
+      "type": "image_picker",
+      "id": "image_1_mobile",
+      "label": "t:settings.image",
+      "visible_if": "{{ block.settings.custom_mobile_media }}"
     },
     {
       "type": "video",

@@ -350,6 +350,9 @@ product-price .price {
     width: 100% !important;
     justify-content: flex-end !important;
 }
+.slideshow-control:is(.icon-pause,.icon-play) {
+    display: none;
+}
 
 @media (min-width: 990px) {
     :root {
