@@ -5364,17 +5364,6 @@
         "padding-block-start": 0,
         "padding-block-end": 32
       }
-    },
-    "custom_liquid_aW3EL3": {
-      "type": "custom-liquid",
-      "name": "Dom-to-image JS (Do not remove)",
-      "settings": {
-        "custom_liquid": "<script src=\"https://cdnjs.cloudflare.com/ajax/libs/dom-to-image/2.6.0/dom-to-image.min.js\" \n      integrity=\"sha512-01CJ9/g7e8cUmY0DFTMcUw/ikS799FHiOA0eyHsUWfOetgbx/t6oV4otQ5zXKQyIrQGTHSmRVPIgrgLcZi/WMA==\" \n      crossorigin=\"anonymous\" \n      referrerpolicy=\"no-referrer\"\n      defer\n    ></script>",
-        "color_scheme": "",
-        "section_width": "page-width",
-        "padding-block-start": 0,
-        "padding-block-end": 0
-      }
     }
   },
   "order": [
@@ -5393,7 +5382,6 @@
     "grid_section_XnWtEb",
     "flip_panel_NNaKLE",
     "custom_liquid_LB67x8",
-    "main",
-    "custom_liquid_aW3EL3"
+    "main"
   ]
 }
