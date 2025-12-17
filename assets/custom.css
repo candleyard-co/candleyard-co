@@ -250,7 +250,7 @@ product-price .price {
 }
 
 .accordion .details__header {
-    padding-block: var(--padding-lg);
+    padding-block: var(--padding-lg) !important;
 }
 
 @media (min-width: 990px) {
