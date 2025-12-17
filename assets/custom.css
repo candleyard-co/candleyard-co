@@ -129,9 +129,12 @@ slideshow-arrows .slideshow-control {
 
     
 .header-actions__cart-icon {
-    --cart-bubble-size: 16px !important;
+    /* --cart-bubble-size: 16px !important; */
     --cart-bubble-top: -4.5px !important;
     --cart-bubble-right: -5.5px !important;
+}
+.cart-bubble__text {
+    font-size: var(--font-size--xs) !important;
 }
 
 .header-actions__cart-icon.header-actions__cart-icon--has-cart svg {
@@ -193,10 +196,10 @@ product-price .price {
     display: none !important;
 }
 .cart-items__title {
-    font-family: var(--font-h3--family);
-    font-style: var(--font-h3--style);
-    font-weight: var(--font-h3--weight);
-    font-size: var(--font-size--sm);
+    font-family: var(--font-heading--family) !important;
+    font-style: var(--font-heading--style) !important;
+    font-weight: var(--font-heading--weight) !important;
+    font-size: var(--font-size--sm) !important;
 }
 
 .cart-items__remove {
