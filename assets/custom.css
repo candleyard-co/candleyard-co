@@ -192,6 +192,12 @@ product-price .price {
 .cart-items__table-row[data-cart-parent] .discounts-allocated, .cart-items__nested-line .discounts-allocated {
     display: none !important;
 }
+.cart-items__title {
+    font-family: var(--font-h3--family);
+    font-style: var(--font-h3--style);
+    font-weight: var(--font-h3--weight);
+    font-size: var(--font-size--sm);
+}
 
 .cart-items__remove {
     border: 0;
