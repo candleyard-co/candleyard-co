@@ -416,7 +416,7 @@
           "type": "_slide",
           "settings": {
             "media_type_1": "image",
-            "image_1": "shopify://shop_images/Website_Banners_The_Candle_Yard_Co_4.png",
+            "image_1": "shopify://shop_images/png_-_2025-12-18T055737.941.png",
             "video_1": "shopify://files/videos/4124024-uhd_4096_2160_25fps.mp4",
             "content_direction": "column",
             "vertical_on_mobile": true,
@@ -719,7 +719,7 @@
         "full_frame_on_mobile": false,
         "slideshow_gap": 12,
         "corner_radius": 0,
-        "slide_height": "medium",
+        "slide_height": "adapt_image",
         "content_position": "on-media",
         "color_scheme": "",
         "icons_style": "none",
