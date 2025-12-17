@@ -184,6 +184,10 @@ product-price .price {
     pointer-events: none;
 }
 
+[data-free-gift] .cart-items__bundle {
+    display: none;
+}
+
 .cart-items__nested-line .cart-items__title {
     font-size: var(--font-size--sm);
 }
