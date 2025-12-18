@@ -516,8 +516,8 @@
                     "style_class": "button",
                     "width": "custom",
                     "custom_width": 18,
-                    "width_mobile": "fit-content",
-                    "custom_width_mobile": 100
+                    "width_mobile": "custom",
+                    "custom_width_mobile": 45
                   },
                   "blocks": {}
                 }
@@ -656,7 +656,7 @@
         "slide_hqDhNT"
       ],
       "custom_css": [
-        "@media (max-width: 749px) {.button {--size-style-width-mobile: auto !important; width: var(--size-style-width-mobile); }}"
+        "@media (max-width: 749px) {.button {width: var(--size-style-width-mobile); }}"
       ],
       "name": "t:names.slideshow_full_frame",
       "settings": {
