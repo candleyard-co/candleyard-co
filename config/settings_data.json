@@ -71,6 +71,7 @@
     "show_add_discount_code": true,
     "show_installments": true,
     "show_accelerated_checkout_buttons": false,
+    "empty_cart_button_link": "shopify://collections/shop",
     "drawer_drop_shadow": true,
     "icon_stroke": "default",
     "input_border_width": 1,
