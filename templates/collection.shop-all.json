@@ -230,13 +230,6 @@
             "section_id": "dessert-candles"
           }
         },
-        "item_kiEzi7": {
-          "type": "item",
-          "settings": {
-            "text": "Milkshake Candles",
-            "section_id": "milkshake-candles"
-          }
-        },
         "item_WQqQ7m": {
           "type": "item",
           "settings": {
@@ -249,6 +242,13 @@
           "settings": {
             "text": "Drink Candles",
             "section_id": "drink-candles"
+          }
+        },
+        "item_kiEzi7": {
+          "type": "item",
+          "settings": {
+            "text": "Milkshake Candles",
+            "section_id": "milkshake-candles"
           }
         },
         "item_GqMBzR": {
@@ -289,9 +289,9 @@
       },
       "block_order": [
         "item_MCmn6D",
-        "item_kiEzi7",
         "item_WQqQ7m",
         "item_ftBK78",
+        "item_kiEzi7",
         "item_GqMBzR",
         "item_RUqkb8",
         "item_rcPeiV",
