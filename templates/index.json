@@ -3991,6 +3991,10 @@
                   },
                   "blocks": {}
                 },
+                "judge_me_reviews_preview_badge_3AfBbV": {
+                  "type": "shopify://apps/judge-me-reviews/blocks/preview_badge/61ccd3b1-a9f2-4160-9fe9-4fec8413e5d8",
+                  "settings": {}
+                },
                 "price_nKHb7L": {
                   "type": "price",
                   "name": "t:names.product_price",
@@ -4017,6 +4021,7 @@
               },
               "block_order": [
                 "product_title_ARxggk",
+                "judge_me_reviews_preview_badge_3AfBbV",
                 "price_nKHb7L"
               ]
             }
