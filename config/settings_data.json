@@ -50,7 +50,7 @@
     "page_width": "narrow",
     "page_transition_enabled": false,
     "transition_to_main_product": false,
-    "add_to_cart_animation": false,
+    "add_to_cart_animation": true,
     "card_hover_effect": "none",
     "badge_position": "top-right",
     "badge_corner_radius": 100,
