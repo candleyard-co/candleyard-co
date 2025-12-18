@@ -186,10 +186,6 @@
                   },
                   "blocks": {}
                 },
-                "judge_me_reviews_preview_badge_jzGfgh": {
-                  "type": "shopify://apps/judge-me-reviews/blocks/preview_badge/61ccd3b1-a9f2-4160-9fe9-4fec8413e5d8",
-                  "settings": {}
-                },
                 "price_HAqw7D": {
                   "type": "price",
                   "name": "t:names.product_price",
@@ -216,7 +212,6 @@
               },
               "block_order": [
                 "product_title_XfaYqF",
-                "judge_me_reviews_preview_badge_jzGfgh",
                 "price_HAqw7D"
               ]
             }
@@ -234,7 +229,7 @@
         "enable_infinite_scroll": true,
         "products_per_page": 24,
         "product_grid_width": "centered",
-        "full_width_on_mobile": true,
+        "full_width_on_mobile": false,
         "columns_gap_horizontal": 16,
         "columns_gap_vertical": 24,
         "padding-inline-start": 0,
