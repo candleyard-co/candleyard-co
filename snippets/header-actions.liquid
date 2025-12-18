@@ -99,7 +99,7 @@
         aria-describedby="cart-bubble-text"
         data-testid="cart-drawer-trigger"
       >
-        {{ cart_icon }}
+        {{ cart_icon }} <span class="cart-text mobile:hidden">{{ 'accessibility.cart' | t }}</span>
       </button>
 
       <dialog
