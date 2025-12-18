@@ -3684,6 +3684,10 @@
                   },
                   "blocks": {}
                 },
+                "judge_me_reviews_preview_badge_Jt3YbP": {
+                  "type": "shopify://apps/judge-me-reviews/blocks/preview_badge/61ccd3b1-a9f2-4160-9fe9-4fec8413e5d8",
+                  "settings": {}
+                },
                 "price_QxBPPa": {
                   "type": "price",
                   "name": "t:names.product_price",
@@ -3710,6 +3714,7 @@
               },
               "block_order": [
                 "product_title_yqgUJY",
+                "judge_me_reviews_preview_badge_Jt3YbP",
                 "price_QxBPPa"
               ]
             }
