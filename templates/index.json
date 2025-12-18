@@ -6848,7 +6848,7 @@
               "type": "group",
               "name": "Item Link",
               "settings": {
-                "link": "shopify://collections/bundle-save",
+                "link": "shopify://collections/hand-soaps",
                 "open_in_new_tab": false,
                 "content_direction": "column",
                 "vertical_on_mobile": true,
