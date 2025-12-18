@@ -1342,10 +1342,6 @@
                   },
                   "blocks": {}
                 },
-                "judge_me_reviews_preview_badge_CeMN7g": {
-                  "type": "shopify://apps/judge-me-reviews/blocks/preview_badge/61ccd3b1-a9f2-4160-9fe9-4fec8413e5d8",
-                  "settings": {}
-                },
                 "price_R9GBFr": {
                   "type": "price",
                   "name": "t:names.product_price",
@@ -1372,7 +1368,6 @@
               },
               "block_order": [
                 "product_title_rAf7Y7",
-                "judge_me_reviews_preview_badge_CeMN7g",
                 "price_R9GBFr"
               ]
             }
@@ -1994,10 +1989,6 @@
                   },
                   "blocks": {}
                 },
-                "judge_me_reviews_preview_badge_cmtkca": {
-                  "type": "shopify://apps/judge-me-reviews/blocks/preview_badge/61ccd3b1-a9f2-4160-9fe9-4fec8413e5d8",
-                  "settings": {}
-                },
                 "price_NfpaYC": {
                   "type": "price",
                   "name": "t:names.product_price",
@@ -2024,7 +2015,6 @@
               },
               "block_order": [
                 "product_title_Y89RwM",
-                "judge_me_reviews_preview_badge_cmtkca",
                 "price_NfpaYC"
               ]
             }
@@ -2448,10 +2438,6 @@
                   },
                   "blocks": {}
                 },
-                "judge_me_reviews_preview_badge_3bVQNi": {
-                  "type": "shopify://apps/judge-me-reviews/blocks/preview_badge/61ccd3b1-a9f2-4160-9fe9-4fec8413e5d8",
-                  "settings": {}
-                },
                 "price_8RYPQQ": {
                   "type": "price",
                   "name": "t:names.product_price",
@@ -2478,7 +2464,6 @@
               },
               "block_order": [
                 "product_title_jchga9",
-                "judge_me_reviews_preview_badge_3bVQNi",
                 "price_8RYPQQ"
               ]
             }
