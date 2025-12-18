@@ -1387,11 +1387,11 @@
             "padding-block-end": 0,
             "padding-inline-start": 0,
             "padding-inline-end": 0,
-            "custom_mobile_padding": false,
+            "custom_mobile_padding": true,
             "mobile-padding-block-start": 0,
             "mobile-padding-block-end": 0,
-            "mobile-padding-inline-start": 0,
-            "mobile-padding-inline-end": 0,
+            "mobile-padding-inline-start": 16,
+            "mobile-padding-inline-end": 16,
             "css_class": ""
           },
           "blocks": {
@@ -1640,7 +1640,7 @@
         "overlay_style": "solid",
         "gradient_direction": "to top",
         "padding-block-start": 72,
-        "padding-block-end": 33,
+        "padding-block-end": 32,
         "custom_mobile_padding": false,
         "mobile-padding-block-start": 0,
         "mobile-padding-block-end": 0,
