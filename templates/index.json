@@ -655,6 +655,9 @@
         "slide_dDjBfp",
         "slide_hqDhNT"
       ],
+      "custom_css": [
+        "@media (max-width: 749px) {.button {width: var(--size-style-width-mobile);}}"
+      ],
       "name": "t:names.slideshow_full_frame",
       "settings": {
         "display_mode": "full_frame",
