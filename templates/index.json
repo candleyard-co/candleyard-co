@@ -7302,7 +7302,7 @@
         "columns_gap": 1,
         "rows_gap": 24,
         "icons_style": "arrow",
-        "icons_shape": "circle",
+        "icons_shape": "none",
         "section_width": "full-width",
         "full_width_on_mobile": false,
         "gap": 1,
