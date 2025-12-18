@@ -255,10 +255,6 @@
                   },
                   "blocks": {}
                 },
-                "judge_me_reviews_preview_badge_bewx98": {
-                  "type": "shopify://apps/judge-me-reviews/blocks/preview_badge/61ccd3b1-a9f2-4160-9fe9-4fec8413e5d8",
-                  "settings": {}
-                },
                 "price_BXNQxy": {
                   "type": "price",
                   "settings": {
@@ -298,7 +294,6 @@
               },
               "block_order": [
                 "product_title_t9HwTp",
-                "judge_me_reviews_preview_badge_bewx98",
                 "price_BXNQxy",
                 "swatches_mxbaAz"
               ]
