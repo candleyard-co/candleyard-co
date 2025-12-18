@@ -479,8 +479,3 @@ document.addEventListener('DOMContentLoaded', () => {
     shadowElements.forEach(el => observer.observe(el));
   }
 });
-
-if (Zipify) {
-  Zipify.OCU.api.customAddToCartButton = '.add-to-pack-button';
-//   Zipify.OCU.api.customBuyNowButton = 'desired selector';
-}
