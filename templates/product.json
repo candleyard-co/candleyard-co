@@ -340,6 +340,7 @@
                 "text_icon_H3DXg8": {
                   "type": "text-icon",
                   "name": "Text Icon",
+                  "disabled": true,
                   "settings": {
                     "icon_position": "left",
                     "icon": "apple",
