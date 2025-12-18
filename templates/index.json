@@ -16,6 +16,7 @@
           "type": "_slide",
           "disabled": true,
           "settings": {
+            "link": "",
             "media_type_1": "video",
             "custom_mobile_media": false,
             "video_1": "shopify://files/videos/4124024-uhd_4096_2160_25fps.mp4",
@@ -417,6 +418,7 @@
         "slide_dDjBfp": {
           "type": "_slide",
           "settings": {
+            "link": "shopify://collections/shop",
             "media_type_1": "image",
             "image_1": "shopify://shop_images/TCYC_Banner_1920_x_700_8a3e187c-b825-415a-a0e8-2e594e214da3.png",
             "custom_mobile_media": true,
@@ -535,6 +537,7 @@
           "type": "_slide",
           "disabled": true,
           "settings": {
+            "link": "",
             "media_type_1": "image",
             "image_1": "shopify://shop_images/png_-_2025-12-18T055737.941.png",
             "custom_mobile_media": true,
