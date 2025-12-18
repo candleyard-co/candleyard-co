@@ -327,7 +327,7 @@
                 "gradient_direction": "to top",
                 "padding-block-start": 10,
                 "padding-block-end": 10,
-                "padding-inline-start": 18,
+                "padding-inline-start": 14,
                 "padding-inline-end": 18,
                 "custom_mobile_padding": true,
                 "mobile-padding-block-start": 18,
