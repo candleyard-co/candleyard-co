@@ -5167,7 +5167,7 @@
       },
       "custom_css": [
         ".section--page-narrow {--page-width: calc(56rem + (var(--page-margin) * 2)) !important;}",
-        "@media screen and (max-height: 700px) {.section--page-narrow {--page-width: calc(35rem + (var(--page-margin) * 2)); }}",
+        "@media screen and (max-height: 700px) {.section--page-narrow {--page-width: calc(35rem + (var(--page-margin) * 2)) !important; }}",
         "@media (min-width: 750px) {.button--icon, .button--icon svg {height: var(--icon-size-md); } .button {font-size: var(--font-size--xl); }}"
       ],
       "name": "Flip Panel",
