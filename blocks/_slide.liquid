@@ -130,6 +130,15 @@
     style="{% render 'spacing-style', settings: block_settings %}"
     {{ block.shopify_attributes }}
   >
+    {%- if block_settings.link != blank -%}
+      <a
+        href="{{ settings.link }}"
+        class="group-block__link"
+        {% if settings.open_in_new_tab %}
+          target="_blank" rel="noopener"
+        {% endif %}
+      ></a>
+    {%- endif -%}
     <div
       class="group-block-content
       layout-panel-flex
@@ -208,6 +217,11 @@
     }
   ],
   "settings": [
+    {
+      "type": "url",
+      "id": "link",
+      "label": "t:settings.link"
+    },
     {
       "type": "select",
       "id": "media_type_1",
