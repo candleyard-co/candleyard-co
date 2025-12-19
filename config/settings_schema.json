@@ -1770,7 +1770,26 @@
         "info": "t:info.checkout_buttons",
         "default": true
       },
-
+      {
+        "type": "checkbox",
+        "id": "enable_cart_upsell",
+        "label": "Enable cart upsell",
+        "default": true
+      },
+      {
+        "type": "header",
+        "content": "Cart Upsell",
+      },
+      {
+        "type": "inline_richtext",
+        "id": "upsell_heading",
+        "label": "Upsell heading"
+      },
+      {
+        "type": "product_list",
+        "id": "upsell_list",
+        "label": "Product upsells"
+      },
       {
         "type": "url",
         "id": "empty_cart_button_link",

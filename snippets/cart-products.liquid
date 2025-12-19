@@ -378,6 +378,9 @@
         </table>
       </div>
     </form>
+    {% if settings.enable_cart_upsell == true and settings.upsell_list != blank %}
+      {% render 'cart-upsell', cart: cart %}
+    {% endif %}
   {%- endif -%}
   <noscript class="cart-data">{{ cart | json }}</noscript>
 </div>

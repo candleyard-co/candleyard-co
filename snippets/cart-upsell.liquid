@@ -1,0 +1,18 @@
+<cart-upsell>
+    {% if settings.upsell_heading != blank %}
+        <span class="upsell-heading h4">
+            {{ settings.upsell_heading }}
+        </span>
+    {% endif %}
+        <div class="cart-upsell-items flex">
+            {% for item in settings.upsell_list %}
+                {%- assign cart_quantity = cart | item_count_for_variant: item.selected_or_first_available_variant.id -%}
+    
+                {% unless cart_quantity > 0 or item.available == false %}
+                    <div class="upsell-item-column">
+                        {% render 'upsell-card', product: item %}
+                    </div>
+                {% endunless %}
+            {% endfor %}
+        </div>
+</cart-upsell>

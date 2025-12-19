@@ -47,6 +47,10 @@ function cartListener(event) {
     }
 }
 
+function cartUpsell() {
+
+}
+
 function addFreeGiftToCart(freeGiftData) {
     const formData = new FormData();
     
@@ -92,14 +96,6 @@ function addFreeGiftToCart(freeGiftData) {
                 formData.append('properties[_giftProductId]', freeGiftData.id.toString());
                 formData.append('properties[_giftHandle]', freeGiftData.handle);
                 
-                console.log('Adding free gift to cart with properties:', {
-                    variantId: freeGiftData.variantId,
-                    parentProduct: mainVariantId,
-                    type: 'Free Gift',
-                    giftProductId: freeGiftData.id,
-                    handle: freeGiftData.handle
-                });
-                
                 // Now make the add request
                 const fetchCfg = fetchConfig('javascript', { body: formData });
                 
@@ -113,7 +109,6 @@ function addFreeGiftToCart(freeGiftData) {
             })
             .then(response => response.json())
             .then(updatedCart => {
-                console.log('Free gift added successfully.');
                 
                 document.dispatchEvent(
                     new CustomEvent(ThemeEvents.cartUpdate, {
@@ -135,7 +130,6 @@ function addFreeGiftToCart(freeGiftData) {
         
         const fetchCfg = fetchConfig('javascript', { body: formData });
         
-        console.log('Adding free gift without parent product reference');
         
         return fetch('/cart/add.js', {
             ...fetchCfg,
@@ -146,7 +140,6 @@ function addFreeGiftToCart(freeGiftData) {
         })
         .then(response => response.json())
         .then(updatedCart => {
-            console.log('Free gift added successfully (no parent reference).');
             
             document.dispatchEvent(
                 new CustomEvent(ThemeEvents.cartUpdate, {
@@ -172,7 +165,6 @@ function removeItemFromCart(itemKey) {
             const itemIndex = cart.items.findIndex(item => item.key === itemKey);
             
             if (itemIndex === -1) {
-                console.log('Item not found in cart by key:', itemKey);
                 // Try finding by properties if key doesn't match
                 const giftItem = cart.items.find(item => 
                     item.properties && 
@@ -218,8 +210,6 @@ function removeItemByLine(lineNumber) {
     
     const fetchCfg = fetchConfig('javascript', { body: formData });
     
-    console.log('Removing item at line:', lineNumber);
-    
     return fetch('/cart/update.js', {
         ...fetchCfg,
         headers: {
@@ -229,7 +219,6 @@ function removeItemByLine(lineNumber) {
     })
     .then(response => response.json())
     .then(updatedCart => {
-        console.log('Item removed successfully via update.js');
         document.dispatchEvent(
             new CustomEvent(ThemeEvents.cartUpdate, {
                 detail: {

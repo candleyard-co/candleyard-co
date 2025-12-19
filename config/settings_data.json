@@ -71,6 +71,11 @@
     "show_add_discount_code": true,
     "show_installments": true,
     "show_accelerated_checkout_buttons": false,
+    "upsell_heading": "Pair It With:",
+    "upsell_list": [
+      "the-cookie-box",
+      "espresso-martini-candle"
+    ],
     "empty_cart_button_link": "shopify://collections/shop",
     "drawer_drop_shadow": true,
     "icon_stroke": "default",
@@ -82,6 +87,7 @@
     "currency_code_enabled_product_cards": false,
     "currency_code_enabled_cart_items": false,
     "quick_add": false,
+    "mobile_quick_add": false,
     "product_corner_radius": 0,
     "card_corner_radius": 0,
     "card_title_case": "default",
