@@ -251,36 +251,116 @@
         {% endform %}
       </span>
     {% endif %}
-    <div class="cart__summary-item tax-note cart-primary-typography">
+    {% comment %} <div class="cart__summary-item tax-note cart-primary-typography">
       {% render 'tax-info', has_discounts_enabled: settings.show_add_discount_code %}
-    </div>
+    </div> {% endcomment %}
   </div>
 </div>
 
 <div class="cart__ctas">
-  <button
-    type="submit"
-    id="checkout"
-    class="cart__checkout-button button"
-    name="checkout"
-    {% if cart == empty %}
-      disabled
-    {% endif %}
-    form="cart-form"
-  >
-    {{ 'content.checkout' | t }}
-  </button>
+    {% liquid
+      assign has_protection = false
+      assign in_cart = 0
+      assign in_cart_key = 0
 
-  {% if additional_checkout_buttons and settings.show_accelerated_checkout_buttons %}
-    <div
-      class="
-        additional-checkout-buttons
-        {% if accelerated_checkout_buttons_layout == 'vertical' %}additional-checkout-buttons--vertical{% endif %}
-      "
-    >
-      {{ content_for_additional_checkout_buttons }}
-    </div>
-  {% endif %}
+      if settings.enable_shipping_protection == true
+        assign protection_product = all_products[settings.protection_product]
+        assign protection_price = protection_product.price | money_without_trailing_zeros
+        assign has_protection = true
+
+        if protection_product
+          assign in_cart = cart | item_count_for_variant: protection_product.selected_or_first_available_variant.id
+          assign in_cart_key = cart.items | where: 'id', protection_product.selected_or_first_available_variant.id
+        endif
+      endif
+    %}
+
+    {% if has_protection == true %}
+      <protection-buttons class="protection--buttons">
+        <div>
+          {% if settings.shipping_protection_text != blank %}
+            <details class="shipping-protection-text">
+                <summary class="shipping-summary">
+                  <div class="flex align-items-center">
+                    <div>
+                      {{ 'content.shipping_protection_label' | t }}
+                    </div>
+                    <div>
+                      {{ 'icon-notice.svg' | inline_asset_content }}
+                    </div>
+                  </div>
+                </summary>
+                <div class="shipping-content">
+                  {{ settings.shipping_protection_text }}
+                </div>
+            </details>
+          {% endif %}
+          <button
+            type="button"
+            data-protection-id="{{ protection_product.selected_or_first_available_variant.id }}"
+            {% if in_cart > 0 %}
+              data-in-cart="{{ in_cart_key[0].key }}"
+            {% endif %}
+            class="protection__checkout-button cart__checkout-button button"
+            {% if cart == empty or cart.total_price == 0 %}
+              disabled
+            {% endif %}
+            form="cart-form"
+          >
+            <span class="button--text">
+              {{ 'content.protection_checkout' | t: price: protection_price }}
+            </span>
+            <span class="loading-button--icon">
+              {{ 'icon-loading.svg' | inline_asset_content }}
+            </span>
+          </button>
+        </div>
+        <div>
+          <button
+            type="button"
+            class="normal__checkout-button"
+            {% if in_cart > 0 %}
+              data-in-cart="{{ in_cart_key[0].variant_id }}"
+            {% endif %}
+            {% if cart == empty or cart.total_price == 0 %}
+              disabled
+            {% endif %}
+            form="cart-form"
+          >
+            <span class="button--text">
+              {{ 'content.checkout_no_protection' | t }}
+            </span>
+            <span class="loading-button--icon">
+              {{ 'icon-loading.svg' | inline_asset_content }}
+            </span>
+          </button>
+        </div>
+      </protection-buttons>
+    {% else %}
+      <button
+        type="submit"
+        id="checkout"
+        class="cart__checkout-button button"
+        name="checkout"
+        {% if cart == empty or cart.total_price == 0 %}
+          disabled
+        {% endif %}
+        form="cart-form"
+      >
+        {{ 'content.checkout' | t }} • {{ cart.total_price | money_without_trailing_zeros }}
+      </button>
+    {% endif %}
+
+    {% if additional_checkout_buttons and settings.show_accelerated_checkout_buttons %}
+      <div
+        class="
+          additional-checkout-buttons
+          {% if accelerated_checkout_buttons_layout == 'vertical' %}additional-checkout-buttons--vertical{% endif %}
+        "
+      >
+        {{ content_for_additional_checkout_buttons }}
+      </div>
+    {% endif %}
 </div>
 
 {% stylesheet %}

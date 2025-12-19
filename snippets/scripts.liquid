@@ -257,6 +257,13 @@
     fetchpriority="low"
   ></script>
 {% endif %}
+{% if settings.enable_shipping_protection == true and settings.upsell_list != blank %}
+  <script
+    src="{{ 'checkout-protection.js' | asset_url }}"
+    type="module"
+    fetchpriority="low"
+  ></script>
+{% endif %}
 
 {% if localization.available_countries.size > 1 or localization.available_languages.size > 1 %}
   <script

@@ -76,7 +76,11 @@
       "the-cookie-box",
       "espresso-martini-candle"
     ],
+    "enable_shipping_protection": true,
+    "shipping_protection_text": "<p>Protect your order from damage, loss, or theft during shipping.</p>",
+    "protection_product": "shipping-protection",
     "empty_cart_button_link": "shopify://collections/shop",
+    "cart_thumbnail_border_radius": 4,
     "drawer_drop_shadow": true,
     "icon_stroke": "default",
     "input_border_width": 1,
@@ -123,7 +127,7 @@
       },
       "3667842014806057753": {
         "type": "shopify://apps/one-click-upsell/blocks/app-embed/bfe6e378-b73a-4871-b8d3-7d6ede22678e",
-        "disabled": true,
+        "disabled": false,
         "settings": {
           "allowed_templates": ""
         }
