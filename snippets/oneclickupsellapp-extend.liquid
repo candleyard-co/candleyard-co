@@ -11,12 +11,11 @@ Zipify.OCU.api.callbackBeforeRedirect = (dispatcher, event) => {
 
             dispatcher._upsellAppInstance().hide();
             setTimeout(() => Zipify.OCU.api.store.set('submitted', false));
-            
-            fetch('/?sections=cart-drawer,cart-icon-bubble').then(res => res.json()).then(res => {
-              cartDrawer.renderContents({sections: res});
-              cartDrawer.classList.remove('is-empty');
-              cartDrawer.open();
-            });
+
+            const cartDrawer = document.querySelector('cart-drawer');
+            await cartDrawer.refreshCartContent();
+            cartDrawer.open();
+
         } catch (e) {
             resolve({});
         }
