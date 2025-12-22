@@ -1,0 +1,26 @@
+{% assign api = shop.metafields.zipifyoneclickupsell | size %}{%- unless api == 0 -%}
+<script>((o,c,u)=>{o[c]=o[c]||{},o[u]=o[u]||{},o[c].OCU=o[c].OCU||{api:o[u]}})(window,'Zipify','OCUApi');</script>
+<script>
+Zipify.OCU.api.callbackBeforeRedirect = (dispatcher, event) => {
+    return new Promise(async (resolve) => {
+        try {
+            if (dispatcher.destination === 'checkout') return resolve({});          
+
+            const { response, type } = event.detail;
+            if (!(type === 'Upgrade' && response.accepted)) return resolve({});
+
+            dispatcher._upsellAppInstance().hide();
+            setTimeout(() => Zipify.OCU.api.store.set('submitted', false));
+            
+            fetch('/?sections=cart-drawer,cart-icon-bubble').then(res => res.json()).then(res => {
+              cartDrawer.renderContents({sections: res});
+              cartDrawer.classList.remove('is-empty');
+              cartDrawer.open();
+            });
+        } catch (e) {
+            resolve({});
+        }
+    });
+};
+</script>
+{%- endunless -%}
