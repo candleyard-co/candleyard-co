@@ -2,7 +2,7 @@
 <script>((o,c,u)=>{o[c]=o[c]||{},o[u]=o[u]||{},o[c].OCU=o[c].OCU||{api:o[u]}})(window,'Zipify','OCUApi');</script>
 <script>
   Zipify.OCU.api.callbackBeforeRedirect = (dispatcher, event) => {
-    return new Promise((resolve) => {
+    return new Promise(async (resolve) => {
         try {
             if (dispatcher.destination === 'checkout') return resolve({});
 
@@ -10,10 +10,9 @@
             if (!(type === 'Upgrade' && response.accepted)) return resolve({});
 
             dispatcher._upsellAppInstance().hide();
-            dispatcher.target.disabled = false;
             setTimeout(() => Zipify.OCU.api.store.set('submitted', false));
-            document.dispatchEvent(new CustomEvent("theme:cart:refresh"));
-            document.dispatchEvent(new CustomEvent("theme:cart:open"));
+
+            monster_refresh();
         } catch (e) {
             resolve({});
         }
