@@ -3,20 +3,21 @@
 <script>
   Zipify.OCU.api.callbackBeforeRedirect = (dispatcher, event) => {
     return new Promise((resolve) => {
-      try {
-          if (dispatcher.destination === 'checkout') return resolve({});
+        try {
+            if (dispatcher.destination === 'checkout') return resolve({});
 
-          const { response, type } = event.detail;
-          if (!(type === 'Upgrade' && response.accepted)) return resolve({});
+            const { response, type } = event.detail;
+            if (!(type === 'Upgrade' && response.accepted)) return resolve({});
 
-          dispatcher._upsellAppInstance().hide();
-          setTimeout(() => Zipify.OCU.api.store.set('submitted', false));
-
-          loadEgCartDrawer();
-      } catch (e) {
-          resolve({});
-      }
+            dispatcher._upsellAppInstance().hide();
+            dispatcher.target.disabled = false;
+            setTimeout(() => Zipify.OCU.api.store.set('submitted', false));
+            document.dispatchEvent(new CustomEvent("theme:cart:refresh"));
+            document.dispatchEvent(new CustomEvent("theme:cart:open"));
+        } catch (e) {
+            resolve({});
+        }
     });
-  };
+};
 </script>
 {%- endunless -%}
