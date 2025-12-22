@@ -2,21 +2,21 @@
 <script>((o,c,u)=>{o[c]=o[c]||{},o[u]=o[u]||{},o[c].OCU=o[c].OCU||{api:o[u]}})(window,'Zipify','OCUApi');</script>
 <script>
   Zipify.OCU.api.callbackBeforeRedirect = (dispatcher, event) => {
-    return new Promise(async (resolve) => {
-        try {
-            if (dispatcher.destination === 'checkout') return resolve({});
+    return new Promise((resolve) => {
+      try {
+          if (dispatcher.destination === 'checkout') return resolve({});
 
-            const { response, type } = event.detail;
-            if (!(type === 'Upgrade' && response.accepted)) return resolve({});
+          const { response, type } = event.detail;
+          if (!(type === 'Upgrade' && response.accepted)) return resolve({});
 
-            dispatcher._upsellAppInstance().hide();
-            setTimeout(() => Zipify.OCU.api.store.set('submitted', false));
+          dispatcher._upsellAppInstance().hide();
+          setTimeout(() => Zipify.OCU.api.store.set('submitted', false));
 
-            monster_refresh();
-        } catch (e) {
-            resolve({});
-        }
+          loadEgCartDrawer();
+      } catch (e) {
+          resolve({});
+      }
     });
-};
+  };
 </script>
 {%- endunless -%}
