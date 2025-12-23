@@ -272,6 +272,13 @@
             "section_id": "laundry-products"
           }
         },
+        "item_8AteDg": {
+          "type": "item",
+          "settings": {
+            "text": "Hand Soaps",
+            "section_id": "hand-soaps"
+          }
+        },
         "item_4E6Ap3": {
           "type": "item",
           "settings": {
@@ -295,6 +302,7 @@
         "item_GqMBzR",
         "item_RUqkb8",
         "item_rcPeiV",
+        "item_8AteDg",
         "item_4E6Ap3",
         "item_TAtidN"
       ],
