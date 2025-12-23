@@ -379,7 +379,7 @@ slideshow-slide > .slide__image-container {
     display: none;
 }
 
-.add-to-cart-icon:not(.sticky-add-to-cart__bar .add-to-cart-icon) {
+.add-to-cart-icon:not(.sticky-add-to-cart__bar .add-to-cart-icon):not(cart-upsell .add-to-cart-icon) {
     display: none;
 }
 
