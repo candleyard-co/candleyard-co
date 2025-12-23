@@ -2,11 +2,12 @@
   assign block_settings = block.settings
   assign product_resource = closest.product
   assign packs = block_settings.packs
+  assign selected_variant = product_resource.selected_or_first_available_variant
 
   if packs.size == 0
     break
   endif
-  
+
   if request.visual_preview_mode and product_resource == blank
     assign product_resource = collections.all.products.first
   endif
@@ -65,6 +66,8 @@
                       {{ block_settings.label | escape -}}:
                     </legend>
                     {%- for item in packs -%}
+                      {% assign quantity = item.quantity | plus: 0 %}
+
                       <label
                           class="packs-option__button-label"
                       >
@@ -75,11 +78,15 @@
                             type="radio"
                             name="quantity"
                             form="{{ product_form_id }}"
-                            value="{{ item.quantity | escape }}"
+                            value="{{ quantity | escape }}"
                             aria-label="{{ item.title }}"
+                            {% if selected_variant.inventory_management == 'shopify' and selected_variant.inventory_quantity < quantity %}
+                              aria-disabled="true"
+                              disabled
+                            {% endif %}
                             data-fieldset-index="{{ fieldset_index }}"
-                            data-price="{{ product.selected_or_first_available_variant.price | times: item.quantity | times: discount_multiplier | money }}"
-                            data-compare-price="{{ product.selected_or_first_available_variant.compare_at_price | default: product.selected_or_first_available_variant.price | times: item.quantity | money }}"
+                            data-price="{{ product.selected_or_first_available_variant.price | times: quantity | times: discount_multiplier | money }}"
+                            data-compare-price="{{ product.selected_or_first_available_variant.compare_at_price | default: product.selected_or_first_available_variant.price | times: quantity | money }}"
                             {% if forloop.first %}
                                 checked
                             {% else %}
@@ -104,6 +111,18 @@
                             </div>{% endif %}
                           </span>
 
+                          {% if selected_variant.inventory_management == 'shopify' and selected_variant.inventory_quantity < quantity %}
+                            <svg
+                              viewBox="0 0 100 46"
+                              preserveAspectRatio="xMidYMid slice"
+                              class="variant-option__strikethrough"
+                            >
+                              {% # 25deg %}
+                              <line x1="100" y1="0" x2="0" y2="46" vector-effect="non-scaling-stroke" />
+                              {% # duplicate line for motion overlay %}
+                              <line x1="100" y1="0" x2="0" y2="46" vector-effect="non-scaling-stroke" />
+                            </svg>
+                          {% endif %}
                           {% comment %} {% if item.discount != blank %}
                             {% assign discount_percentage = item.discount | plus: 0 %}
                             {% assign variant_price = product.selected_or_first_available_variant.price %}
@@ -131,7 +150,7 @@
                 </fieldset>
 
           <script type="application/json">
-              {{ product_resource.selected_or_first_available_variant | json }}
+              {{ selected_variant | json }}
           </script>
         </form>
     </packs-picker>
