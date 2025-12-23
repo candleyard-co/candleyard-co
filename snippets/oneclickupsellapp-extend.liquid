@@ -1,4 +1,4 @@
-{% comment %} {% assign api = shop.metafields.zipifyoneclickupsell | size %}{%- unless api == 0 -%}
+{% assign api = shop.metafields.zipifyoneclickupsell | size %}{%- unless api == 0 -%}
 <script>((o,c,u)=>{o[c]=o[c]||{},o[u]=o[u]||{},o[c].OCU=o[c].OCU||{api:o[u]}})(window,'Zipify','OCUApi');</script>
 <script>
     Zipify.OCU.api.callbackBeforeRedirect = (dispatcher, event) => {
@@ -13,12 +13,14 @@
             dispatcher.target.disabled = false;
             setTimeout(() => Zipify.OCU.api.store.set('submitted', false));
 
-            const cartDrawer = document.querySelector('cart-drawer-component');
-            cartDrawer.open()
+            {% comment %} const cartDrawer = document.querySelector('cart-drawer-component');
+            cartDrawer.open() {% endcomment %}
+            document.dispatchEvent(new CustomEvent('cart:update', { detail: { source: 'console' } }));
+
         } catch (e) {
             resolve({});
         }
     });
 };
 </script>
-{%- endunless -%} {% endcomment %}
+{%- endunless -%}
