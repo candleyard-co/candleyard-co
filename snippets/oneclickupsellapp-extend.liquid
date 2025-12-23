@@ -12,9 +12,9 @@
             dispatcher._upsellAppInstance().hide();
             dispatcher.target.disabled = false;
             setTimeout(() => Zipify.OCU.api.store.set('submitted', false));
-{% comment %} 
+
             const cartDrawer = document.querySelector('cart-drawer-component');
-            cartDrawer.open(); {% endcomment %}
+            cartDrawer.open();
         } catch (e) {
             resolve({});
         }
