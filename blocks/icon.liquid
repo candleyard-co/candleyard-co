@@ -3,7 +3,7 @@
 
 
 {% if block_settings.use_height != blank %}
-  <div class="use-height-icon" style="--height: {{ block_settings.height }}px;{% if block_settings.custom_mobile_height == true %}--mobile-height: {{ block_settings.custom_mobile_height }}px;{% endif %}">
+  <div class="use-height-icon" style="--height: {{ block_settings.height }}px;{% if block_settings.custom_mobile_height == true %}--mobile-height: {{ block_settings.mobile-height }}px;{% endif %}">
 {% endif %}
   {% capture icon %}
     {% render 'icon-or-image',

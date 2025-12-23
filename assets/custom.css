@@ -25,7 +25,7 @@ slideshow-controls.carousel-controls .icon-play {
     text-wrap: unset !important;
 }
  
-.button {
+.button,.button-secondary {
     font-weight: var(--font-accent--weight);
 }
 
@@ -544,6 +544,18 @@ details {
 .jdgm-horizon-widget:has([data-number-of-reviews="0"]) {
     display: none;
 } */
+
+.bt-only {
+    border-left: 0;
+    border-right: 0;
+    border-top: 0;
+}
+
+.br-only {
+    border-top: 0;
+    border-left: 0;
+    border-bottom: 0;
+}
 
 @media (min-width: 990px) {
     :root {
