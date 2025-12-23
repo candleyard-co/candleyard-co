@@ -1,0 +1,677 @@
+{% liquid
+  assign block_settings = block.settings
+  assign product_resource = closest.product
+  assign packs = block_settings.packs
+
+  if packs.size == 0
+    break
+  endif
+  
+  if request.visual_preview_mode and product_resource == blank
+    assign product_resource = collections.all.products.first
+  endif
+-%}
+{% liquid
+    assign button_background_brightness = section.settings.color_scheme.settings.foreground | color_brightness
+
+    if button_background_brightness < 105
+        assign strikethrough_color_mix = '#000'
+    else
+        assign strikethrough_color_mix = '#fff'
+    endif
+%}
+
+<script
+  src="{{ 'packs-picker.js' | asset_url }}"
+  type="module"
+  fetchpriority="low"
+></script>
+
+{% unless packs == blank %}
+    <packs-picker
+    class="packs-picker spacing-style packs-picker--{{ block_settings.alignment }}"
+    style="--color-strikethrough-mix: {{ strikethrough_color_mix }}; {% render 'spacing-style', settings: block_settings %}"
+    data-section-id="{{ section.id }}"
+    data-product-id="{{ product_resource.id }}"
+    data-block-id="{{ block.id }}"
+    data-product-url="{{ product_resource.url }}"
+    ref="mainPacksPicker"
+    {% if product.id == product_resource.id %}
+        data-template-product-match="true"
+    {% endif %}
+    {{ block.shopify_attributes }}
+    {% if request.visual_preview_mode %}
+        data-shopify-visual-preview
+    {% endif %}
+    >
+        <form class="packs-picker__form">
+              {%- liquid
+                assign fieldset_id = section.id | append: '-' | append: '-' | append: block_settings.label | handleize
+                assign option_id_attribute = 'data-option-id="' | append: fieldset_id | append: '"'
+                assign longest_value = 0
+                
+                assign product_form_id = 'BuyButtons-ProductForm-' | append: section.id
+              -%}
+
+                {%- assign fieldset_index = 1 -%}
+
+                <fieldset
+                    class="packs-option packs-option--buttons packs-option--equal-width-buttons"
+                    data-fieldset-index="{{ fieldset_index }}"
+                    ref="fieldsets[]"
+                    {{ option_id_attribute }}
+                >
+                    <legend>
+                      {{ block_settings.label | escape -}}:
+                    </legend>
+                    {%- for item in packs -%}
+                      <label
+                          class="packs-option__button-label"
+                      >
+                          {% assign discount_percentage = item.discount | plus: 0 %}
+                          {% assign discount_multiplier = 100 | minus: discount_percentage | divided_by: 100.0 %}
+
+                          <input
+                            type="radio"
+                            name="quantity"
+                            form="{{ product_form_id }}"
+                            value="{{ item.quantity | escape }}"
+                            aria-label="{{ item.title }}"
+                            data-fieldset-index="{{ fieldset_index }}"
+                            data-price="{{ product.selected_or_first_available_variant.price | times: item.quantity | times: discount_multiplier | money }}"
+                            data-compare-price="{{ product.selected_or_first_available_variant.compare_at_price | default: product.selected_or_first_available_variant.price | times: item.quantity | money }}"
+                            {% if forloop.first %}
+                                checked
+                            {% else %}
+                                data-current-checked="false"
+                            {% endif %}
+                          >
+                          <span
+                            class="packs-option__button-label__pill"
+                            data-key="variant-option-pill"
+                          ></span>
+                          <span
+                              class="packs-option__button-label__text"
+                              data-key="packs-option-text"
+                          >
+                              {{- item.title | escape -}}{% if item.discount != blank %}<div
+                              class="
+                                packs-badges__badge packs-badges__badge--rectangle
+                                color-{{ block_settings.badge_sale_color_scheme }}
+                              "
+                            >
+                              {{ 'products.product.save' | t: price: discount_percentage }}
+                            </div>{% endif %}
+                          </span>
+
+                          {% comment %} {% if item.discount != blank %}
+                            {% assign discount_percentage = item.discount | plus: 0 %}
+                            {% assign variant_price = product.selected_or_first_available_variant.price %}
+                            {% assign pack_price = variant_price | times: item.quantity %}
+                            {% assign discount_amount = pack_price | times: discount_percentage | divided_by: 100.0 | money_without_trailing_zeros %}
+
+                            <div
+                              class="
+                                packs-badges__badge packs-badges__badge--rectangle
+                                color-{{ settings.badge_sale_color_scheme }}
+                              "
+                            >
+                              {{ 'products.product.save' | t: price: discount_percentage }}
+                            </div>
+                          {% endif %} {% endcomment %}
+                      </label>
+                    {%- endfor -%}
+                    {% if option_id_attribute %}
+                      {% style %}
+                          [data-option-id="{{ fieldset_id }}"] {
+                          --packs-ch: {{ longest_value | times: 0.65 }}em;
+                          }
+                      {% endstyle %}
+                    {% endif %}
+                </fieldset>
+
+          <script type="application/json">
+              {{ product_resource.selected_or_first_available_variant | json }}
+          </script>
+        </form>
+    </packs-picker>
+{% endunless %}
+
+{% stylesheet %}
+  .packs-picker {
+    width: 100%;
+
+    @media (max-width: 749px) {
+      --variant-picker-button-radius: 12px;
+
+      .packs-option__button-label {
+        padding-block: var(--padding-xs);
+        padding-inline: var(--padding-xs);
+      }
+    }
+  }
+
+  .packs-badges__badge {
+    --badge-border-radius: 30px;
+    --badge-font-size: var(--font-size--xs);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    color: var(--color-foreground);
+    background: var(--color-background);
+    font-size: var(--badge-font-size);
+    font-family: var(--badge-font-family);
+    font-weight: var(--badge-font-weight);
+    text-transform: var(--badge-text-transform);
+    border-radius: var(--badge-border-radius);
+    line-height: 1em;
+  }
+
+  .packs-badges__badge--rectangle {
+    position: relative;
+    --badge-rectangle-padding-block: 4px;
+    font-weight: 600;
+    padding-block: var(--badge-rectangle-padding-block);
+    padding-inline: var(--badge-rectangle-padding-inline);
+  }
+
+  /* .product-details:has(.packs-picker) product-price {
+    display: none;
+  }
+  .product-details:has(.packs-picker) .product-header .group-block-content {
+    --gap: 0px !important;
+  } */
+
+  .packs-picker__form {
+    width: 100%;
+  }
+
+  .packs-picker[data-shopify-visual-preview] {
+    min-width: 300px;
+    padding-inline-start: max(4px, var(--padding-inline-start));
+  }
+
+  .packs-option {
+    --options-border-radius: var(--variant-picker-button-radius);
+    --options-border-width: var(--variant-picker-button-border-width);
+    --packs-option-padding-inline: var(--padding-lg);
+  }
+
+  .packs-option + .packs-option {
+    margin-top: var(--padding-lg);
+  }
+
+  .packs-option--buttons {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--gap-sm);
+    margin: 0;
+    padding: 0;
+    border: none;
+  }
+
+  .packs-option--buttons legend {
+    padding: 0;
+    margin-block-end: var(--margin-xs);
+  }
+
+  .packs-option__swatch-value {
+    padding-inline-start: var(--padding-xs);
+    color: rgb(var(--color-foreground-rgb) / var(--opacity-70));
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    .packs-option__button-label,
+    .packs-option__select-wrapper,
+    .packs-option__button-label::before,
+    .packs-option__button-label::after,
+    .packs-option__button-label:has([data-previous-checked='true'], [data-current-checked='true'])
+    .packs-option__button-label__pill,
+    .packs-option__button-label:not(.packs-option__button-label--has-swatch) svg line:last-of-type {
+      transition-duration: var(--animation-speed);
+      transition-timing-function: var(--animation-easing);
+    }
+
+    .packs-option__button-label__pill {
+      transition-property: transform;
+    }
+
+    .packs-option__button-label:not(.packs-option__button-label--has-swatch) svg line:last-of-type {
+      transition-property: clip-path;
+    }
+
+    .packs-option__button-label:has([data-previous-checked='true'], [data-current-checked='true'])
+      .packs-option__button-label__pill {
+      transition-property: transform;
+    }
+
+    .packs-option__button-label::after {
+      transition-property: clip-path;
+    }
+
+    .packs-option__button-label::before {
+      transition-property: border-color;
+    }
+
+    .packs-option__select-wrapper,
+    .packs-option__button-label {
+      transition-property: background-color, border-color, color;
+    }
+  }
+
+  .packs-option__button-label {
+    --packs-picker-stroke-color: var(--color-variant-border);
+
+    cursor: pointer;
+    display: flex;
+    flex: 0 0 3.25em;
+    align-items: center;
+    position: relative;
+    padding-block: var(--padding-sm);
+    padding-inline: var(--padding-lg);
+    border: var(--options-border-width) solid var(--color-variant-border);
+    border-radius: var(--options-border-radius);
+    overflow: clip;
+    justify-content: center;
+    min-height: 3.25em;
+    min-width: fit-content;
+    white-space: nowrap;
+    background-color: var(--color-variant-background);
+    color: var(--color-variant-text);
+
+    &:hover,
+    &:hover:has([aria-disabled='true']):has([data-option-available='false']) {
+      background-color: var(--color-variant-hover-background);
+      border-color: var(--color-variant-hover-border);
+      color: var(--color-variant-hover-text);
+    }
+
+    /* we need something like overflow-clip-margin to use the pseudoelement but it doesn't work in Safari */
+
+    /* so instead use the layered background image trick */
+    &:not(.packs-option__button-label--has-swatch):has([data-option-available='false']) {
+      border-width: 0;
+    }
+
+    /* ::after/::before act as a fake border for the button style packs */
+
+    /* ::after is the unavailable packs border that clips in */
+    &:not(.packs-option__button-label--has-swatch)::before,
+    &:has([data-option-available='false']):not(.packs-option__button-label--has-swatch)::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      border: var(--options-border-width) solid var(--color-selected-variant-border);
+      border-radius: inherit;
+      pointer-events: none;
+      z-index: 2;
+      /* stylelint-disable-next-line plugin/no-unsupported-browser-features */
+      clip-path: inset(var(--clip, 0 0 0 0));
+    }
+
+    &:has([data-option-available='false']):not(.packs-option__button-label--has-swatch)::before {
+      inset: 0;
+    }
+
+    &:not(.packs-option__button-label--has-swatch)::before {
+      /* stylelint-disable-next-line plugin/no-unsupported-browser-features */
+      clip-path: inset(0 0 0 0);
+      border-color: var(--color-variant-border);
+      inset: calc(var(--options-border-width) * -1);
+    }
+
+    &:has(:checked):not(.packs-option__button-label--has-swatch, :has([data-option-available='false']))::before {
+      border-color: var(--color-selected-variant-border);
+    }
+
+    /* setting left/right accounts for packs buttons of different widths */
+    &:not(:has(:checked)):has(~ label > :checked),
+    &:has(:checked):has(~ label > [data-previous-checked='true']) {
+      .packs-option__button-label__pill {
+        right: 0;
+        left: unset;
+      }
+    }
+
+    &:has([data-previous-checked='true']) ~ label:has([data-current-checked='true']),
+    &:has(:checked) ~ label {
+      .packs-option__button-label__pill {
+        left: 0;
+        right: unset;
+      }
+    }
+
+    &:not(:has(:checked)):has(~ label > :checked) {
+      --pill-offset: calc(100% + 1px);
+    }
+
+    &:has(:checked) ~ label {
+      --pill-offset: calc(-100% - 1px);
+    }
+
+    &:has([data-current-checked='true']):first-of-type
+      ~ label:last-of-type:not(.packs-option__button-label--has-swatch),
+    &:not(:has(:checked)):has(~ label > :checked):not(.packs-option__button-label--has-swatch) {
+      --clip: 0 0 0 100%;
+    }
+
+    &:not(:has([data-current-checked='true'])):first-of-type:has(~ label:last-of-type > :checked):not(
+        .packs-option__button-label--has-swatch
+      ),
+    &:has(:checked) ~ label:not(.packs-option__button-label--has-swatch) {
+      --clip: 0 100% 0 0;
+    }
+
+    &:has([data-previous-checked='true'], [data-current-checked='true']) .packs-option__button-label__pill {
+      width: max(var(--pill-width-current, 100%), var(--pill-width-previous, 100%));
+    }
+
+    @media screen and (min-width: 750px) {
+      padding: var(--padding-xs) var(--packs-option-padding-inline);
+    }
+  }
+
+  /* wrap around only for 3 or more packss in a row */
+
+  /* the more complex selector rules here produce the wrap around effect for first/last packss */
+  .packs-option--buttons:has(:nth-of-type(3)) {
+    .packs-option__button-label:has([data-current-checked='true']):first-of-type ~ label:last-of-type {
+      --pill-offset: calc(100% + 1px);
+    }
+
+    .packs-option__button-label:not(:has([data-current-checked='true'])):first-of-type:has(
+        ~ label:last-of-type > :checked
+      ) {
+      --pill-offset: calc(-100% - 1px);
+    }
+  }
+
+  .packs-option__button-label__pill {
+    background: var(--color-selected-variant-background);
+    position: absolute;
+    top: calc(var(--options-border-width) * -1);
+    bottom: calc(var(--options-border-width) * -1);
+    border-radius: inherit;
+    pointer-events: none;
+    width: 100%;
+    transform: translateX(var(--pill-offset, 0));
+  }
+
+  .packs-option__button-label__text {
+    pointer-events: none;
+    text-align: start;
+    text-wrap: auto;
+    z-index: 2;
+    width: 100%;
+  }
+
+  .packs-option__button-label__text:has(.packs-badges__badge) {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+
+    @media (max-width: 749px) {
+      flex-direction: column;
+    }
+  }
+
+  .packs-option--equal-width-buttons {
+    --packs-min-width: clamp(44px, calc(var(--packs-option-padding-inline) * 2 + var(--packs-ch)), 100%);
+
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(var(--packs-min-width), 1fr));
+
+
+    /* @media (max-width: 749px) {
+      grid-template-columns: 1fr;
+    } */
+
+    .packs-option__button-label {
+      min-width: var(--packs-min-width);
+    }
+
+    .packs-option__button-label__text {
+      text-align: center;
+      text-wrap: balance;
+    }
+  }
+
+  .packs-option__button-label:has(:focus-visible) {
+    --packs-picker-stroke-color: var(--color-foreground);
+
+    border-color: var(--color-foreground);
+    outline: var(--focus-outline-width) solid var(--color-foreground);
+    outline-offset: var(--focus-outline-offset);
+  }
+
+  .packs-option__button-label:has(:checked) {
+    color: var(--color-selected-variant-text);
+    border-color: var(--color-selected-variant-border);
+  }
+
+  /* .packs-option__button-label:has(:checked):hover {
+    border-color: var(--color-selected-variant-hover-border);
+    color: var(--color-selected-variant-hover-text);
+
+    .packs-option__button-label__pill {
+      background-color: var(--color-selected-variant-hover-background);
+    }
+  } */
+
+  .packs-option__button-label:has([data-option-available='false']) {
+    color: rgb(var(--color-variant-text-rgb) / var(--opacity-60));
+  }
+
+  .packs-option__button-label--has-swatch:hover {
+    outline: var(--focus-outline-width) solid rgb(var(--color-foreground-rgb) / var(--opacity-35-55));
+    outline-offset: var(--focus-outline-offset);
+  }
+
+  .packs-option__button-label--has-swatch:has(:checked) {
+    --focus-outline: var(--focus-outline-width) solid var(--color-foreground);
+
+    outline: var(--focus-outline);
+    outline-offset: var(--focus-outline-offset);
+  }
+
+  .packs-option__button-label:has([data-option-available='false']):has(:checked) {
+    background-color: inherit;
+    color: rgb(var(--color-variant-text-rgb) / var(--opacity-60));
+  }
+
+  .packs-option__button-label input,
+  .packs-option--images input {
+    /* remove the checkbox from the page flow */
+    position: absolute;
+
+    /* set the dimensions to match those of the label */
+    inset: 0;
+
+    /* hide it */
+    opacity: 0;
+    margin: 0;
+    cursor: pointer;
+    width: 100%;
+    height: 100%;
+  }
+
+  .packs-option__button-label svg {
+    position: absolute;
+    left: var(--options-border-width);
+    top: var(--options-border-width);
+    height: calc(100% - (var(--options-border-width) * 2));
+    width: calc(100% - (var(--options-border-width) * 2));
+    cursor: pointer;
+    pointer-events: none;
+    stroke-width: var(--style-border-width);
+    stroke: var(--packs-picker-stroke-color);
+  }
+
+  .packs-option__button-label:not(.packs-option__button-label--has-swatch) svg {
+    stroke: var(--color-variant-border);
+
+    line {
+      stroke-width: var(--options-border-width);
+    }
+
+    line:last-of-type {
+      /* stylelint-disable-next-line plugin/no-unsupported-browser-features */
+      clip-path: inset(var(--clip, 0 0 0 0));
+      stroke: rgb(var(--color-variant-text-rgb) / 1);
+    }
+  }
+
+  .packs-option__select-wrapper {
+    display: flex;
+    position: relative;
+    border: var(--style-border-width-inputs) solid var(--color-border);
+    border-radius: var(--style-border-radius-inputs);
+    align-items: center;
+    margin-top: var(--margin-2xs);
+    overflow: clip;
+  }
+
+  .packs-option__select-wrapper:hover {
+    border-color: var(--color-packs-hover-border);
+  }
+
+  .packs-option__select:focus-visible {
+    outline: var(--focus-outline-width) solid currentcolor;
+    outline-offset: var(--focus-outline-offset);
+  }
+
+  .packs-option__select {
+    padding-block: var(--padding-md);
+    padding-inline: var(--padding-lg) calc(var(--padding-lg) + var(--icon-size-2xs));
+    appearance: none;
+    border: 0;
+    width: 100%;
+    margin: 0;
+    cursor: pointer;
+  }
+
+  .packs-option__select-wrapper .icon {
+    position: absolute;
+    right: var(--padding-md);
+    top: 50%;
+    transform: translateY(-50%);
+    width: var(--icon-size-2xs);
+    height: var(--icon-size-2xs);
+    pointer-events: none;
+  }
+
+  .packs-option__select--has-swatch {
+    padding-inline-start: calc((2 * var(--padding-sm)) + var(--packs-picker-swatch-width));
+  }
+
+  .packs-option__select-wrapper .swatch {
+    position: absolute;
+    top: 50%;
+    left: var(--padding-md);
+    transform: translateY(-50%);
+  }
+
+  .packs-picker--center,
+  .packs-picker--center .packs-option {
+    text-align: center;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+  }
+
+  .packs-picker--right,
+  .packs-picker--right .packs-option {
+    text-align: right;
+    justify-content: right;
+  }
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "Packs Picker",
+  "tag": null,
+  "settings": [
+    {
+        "type": "metaobject_list",
+        "id": "packs",
+        "label": "Packs",
+        "metaobject_type": "pack_single_product"
+    },
+    {
+      "type": "color_scheme",
+      "id": "badge_sale_color_scheme",
+      "label": "t:settings.badge_sale_color_scheme",
+      "default": "scheme-4"
+    },
+    {
+      "type": "text",
+      "id": "label",
+      "label": "Label"
+    },
+    {
+      "type": "paragraph",
+      "content": "t:content.resource_reference_product_variant_picker"
+    },
+    {
+      "type": "paragraph",
+      "content": "t:content.edit_variants_in_theme_settings"
+    },
+    {
+      "type": "text_alignment",
+      "id": "alignment",
+      "label": "t:settings.alignment",
+      "default": "left"
+    },
+    {
+      "type": "header",
+      "content": "t:content.padding"
+    },
+    {
+      "type": "range",
+      "id": "padding-block-start",
+      "label": "t:settings.top",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "padding-block-end",
+      "label": "t:settings.bottom",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "default": 8
+    },
+    {
+      "type": "range",
+      "id": "padding-inline-start",
+      "label": "t:settings.left",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "padding-inline-end",
+      "label": "t:settings.right",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "default": 0
+    }
+  ],
+  "presets": [
+    {
+      "name": "Packs Picker"
+    }
+  ]
+}
+{% endschema %}

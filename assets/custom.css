@@ -241,7 +241,7 @@ product-price .price {
     font-size: var(--font-paragraph--size);
 }
 
-.variant-option__button-label {
+.variant-option__button-label,.packs-option__button-label {
     min-height: 2.6em !important;
 }
 
@@ -379,7 +379,7 @@ slideshow-slide > .slide__image-container {
     display: none;
 }
 
-.add-to-cart-icon {
+.add-to-cart-icon:not(.sticky-add-to-cart__bar .add-to-cart-icon) {
     display: none;
 }
 
@@ -535,11 +535,15 @@ details {
 }
 
 .shipping-content {
-    padding: var(--padding-xs);
+    padding: var(--padding-xs) 0 var(--padding-lg);
     padding-top: 0;
     margin-top: calc(-1 * var(--margin-xs));
     font-size: var(--font-size--sm);
 }
+/* 
+.jdgm-horizon-widget:has([data-number-of-reviews="0"]) {
+    display: none;
+} */
 
 @media (min-width: 990px) {
     :root {

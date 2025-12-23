@@ -165,6 +165,7 @@
     "shipping_protection_label": "Shipping Protection",
     "protection_checkout": "Protected Checkout + {{ price }}",
     "checkout_no_protection": "Checkout without protection",
+    "choose": "Choose",
     "collection_placeholder": "Collection title",
     "discount_code": "Discount code",
     "shipping_discount_error": "Shipping discounts are shown at checkout after adding an address",

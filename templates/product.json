@@ -96,7 +96,7 @@
                 "custom_mobile_alignment": false,
                 "mobile_vertical_alignment": "flex-start",
                 "vertical_alignment_flex_direction_column": "center",
-                "gap": 12,
+                "gap": 8,
                 "enable_mobile_gap": false,
                 "mobile_gap": 12,
                 "width": "fill",
@@ -243,6 +243,21 @@
                 "alignment": "left",
                 "padding-block-start": 0,
                 "padding-block-end": 0,
+                "padding-inline-start": 0,
+                "padding-inline-end": 0
+              },
+              "blocks": {}
+            },
+            "packs_picker_gtjQ9J": {
+              "type": "packs-picker",
+              "name": "Packs Picker",
+              "settings": {
+                "packs": "{{ closest.product.metafields.custom.pack_single_product.value }}",
+                "badge_sale_color_scheme": "scheme-1e7f4c49-7b8d-4440-9f86-4c8ded6ff4db",
+                "label": "Choose a Pack",
+                "alignment": "left",
+                "padding-block-start": 0,
+                "padding-block-end": 8,
                 "padding-inline-start": 0,
                 "padding-inline-end": 0
               },
@@ -734,6 +749,7 @@
           "block_order": [
             "group_icgrde",
             "variant_picker_R3rGDr",
+            "packs_picker_gtjQ9J",
             "buy_buttons_eYQEYi",
             "group_WNh3MV",
             "accordion_Fg4Lqa",
