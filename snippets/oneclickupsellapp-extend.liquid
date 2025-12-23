@@ -13,6 +13,8 @@
             dispatcher.target.disabled = false;
             setTimeout(() => Zipify.OCU.api.store.set('submitted', false));
 
+            console.log(event, 'event')
+
             const cartDrawer = document.querySelector('cart-drawer-component');
             cartDrawer.open();
         } catch (e) {
