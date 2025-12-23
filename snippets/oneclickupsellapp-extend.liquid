@@ -13,12 +13,8 @@
             dispatcher.target.disabled = false;
             setTimeout(() => Zipify.OCU.api.store.set('submitted', false));
 
-    document.dispatchEvent(new CustomEvent('cart:update', {
-  detail: { source: 'external' },
-  bubbles: true,
-}));
-
-
+            const cartDrawer = document.querySelector('cart-drawer-component');
+            cartDrawer.open()
         } catch (e) {
             resolve({});
         }
