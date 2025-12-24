@@ -7,7 +7,10 @@
                 if (dispatcher.destination === 'checkout') return resolve({});
                 
             const { response, type } = event.detail;
-            debugger;
+
+            console.log(response, 'response');
+            console.log(type, 'type');
+            console.log(event, 'event');
             if (!(type === 'Upgrade' && response.accepted)) return resolve({});
 
             dispatcher._upsellAppInstance().hide();
