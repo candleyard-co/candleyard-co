@@ -1,4 +1,4 @@
-{% assign api = shop.metafields.zipifyoneclickupsell | size %}{%- unless api == 0 -%}
+{% comment %} {% assign api = shop.metafields.zipifyoneclickupsell | size %}{%- unless api == 0 -%}
 <script>((o,c,u)=>{o[c]=o[c]||{},o[u]=o[u]||{},o[c].OCU=o[c].OCU||{api:o[u]}})(window,'Zipify','OCUApi');</script>
 <script>
     Zipify.OCU.api.callbackBeforeRedirect = (dispatcher, event) => {
@@ -17,14 +17,27 @@
             dispatcher.target.disabled = false;
             setTimeout(() => Zipify.OCU.api.store.set('submitted', false));
 
-            console.log(dispatcher, 'dispatcher')
+            fetch(`${window.location.pathname}?sections=cart-drawer,cart-upsell`)
+                .then(r => r.json())
+                .then(sections => {
+                    document.dispatchEvent(
+                    new CustomEvent('cart:update', {
+                        detail: {
+                        data: { sections },
+                        source: 'console'
+                        }
+                    })
+                    );
+                })
+                .then(() => {
+                    const cartDrawer = document.querySelector('cart-drawer-component');
+                    cartDrawer.open();
+                });
 
-            const cartDrawer = document.querySelector('cart-drawer-component');
-            cartDrawer.open();
         } catch (e) {
             resolve({});
         }
     });
 };
 </script>
-{%- endunless -%}
+{%- endunless -%} {% endcomment %}
