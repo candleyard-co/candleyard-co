@@ -263,18 +263,6 @@
               },
               "blocks": {}
             },
-            "subscriptions_app_block_mhbNpW": {
-              "type": "shopify://apps/subscriptions/blocks/app-block/a3bfe9ec-96f8-4508-a003-df608a36d2ad",
-              "settings": {
-                "color_text_body": "#6D7175",
-                "dividers_color": "#8F8D8D",
-                "bacgkround_color": "#FFFFFF",
-                "border_thickness": 1,
-                "border_radius": 0,
-                "subscription_policy_url": "",
-                "product": "{{product}}"
-              }
-            },
             "buy_buttons_eYQEYi": {
               "type": "buy-buttons",
               "settings": {
@@ -762,7 +750,6 @@
             "group_icgrde",
             "variant_picker_R3rGDr",
             "packs_picker_gtjQ9J",
-            "subscriptions_app_block_mhbNpW",
             "buy_buttons_eYQEYi",
             "group_WNh3MV",
             "accordion_Fg4Lqa",
@@ -2619,10 +2606,10 @@
         "section_id": ""
       }
     },
-    "scrolling_carousel_F7Hn4A": {
+    "scrolling_carousel_WkWhRg": {
       "type": "scrolling-carousel",
       "blocks": {
-        "carousel_card_VpTC96": {
+        "carousel_card_CfgKN3": {
           "type": "_carousel-card",
           "name": "Carousel Item",
           "settings": {
@@ -2663,12 +2650,12 @@
             "css_class": ""
           },
           "blocks": {
-            "video_AKTjFR": {
+            "video_qK4rxk": {
               "type": "video",
               "name": "t:names.video",
               "settings": {
                 "source": "uploaded",
-                "video": "shopify://files/videos/995518387a2f42c1b0b7ae0c597cc2a2.webm",
+                "video": "shopify://files/videos/995518387a2f42c1b0b7ae0c597cc2a2.mp4",
                 "video_url": "",
                 "video_autoplay": true,
                 "video_loop": true,
@@ -2689,10 +2676,10 @@
             }
           },
           "block_order": [
-            "video_AKTjFR"
+            "video_qK4rxk"
           ]
         },
-        "carousel_card_wRY8nE": {
+        "carousel_card_Qy9teE": {
           "type": "_carousel-card",
           "name": "Carousel Item",
           "settings": {
@@ -2733,12 +2720,12 @@
             "css_class": ""
           },
           "blocks": {
-            "video_CjpGke": {
+            "video_EWXtWX": {
               "type": "video",
               "name": "t:names.video",
               "settings": {
                 "source": "uploaded",
-                "video": "shopify://files/videos/5ee4300445ec4e3ba8c0fcb61008beb6.webm",
+                "video": "shopify://files/videos/5ee4300445ec4e3ba8c0fcb61008beb6.mp4",
                 "video_url": "",
                 "video_autoplay": true,
                 "video_loop": true,
@@ -2759,10 +2746,10 @@
             }
           },
           "block_order": [
-            "video_CjpGke"
+            "video_EWXtWX"
           ]
         },
-        "carousel_card_wX3Ece": {
+        "carousel_card_dBLV9E": {
           "type": "_carousel-card",
           "name": "Carousel Item",
           "settings": {
@@ -2803,12 +2790,12 @@
             "css_class": ""
           },
           "blocks": {
-            "video_jbKbeF": {
+            "video_yFAP99": {
               "type": "video",
               "name": "t:names.video",
               "settings": {
                 "source": "uploaded",
-                "video": "shopify://files/videos/acbce0f8b04240bca76e03422e02b694.webm",
+                "video": "shopify://files/videos/acbce0f8b04240bca76e03422e02b694.mp4",
                 "video_url": "",
                 "video_autoplay": true,
                 "video_loop": true,
@@ -2829,10 +2816,10 @@
             }
           },
           "block_order": [
-            "video_jbKbeF"
+            "video_yFAP99"
           ]
         },
-        "carousel_card_pEexJP": {
+        "carousel_card_BMjzmC": {
           "type": "_carousel-card",
           "name": "Carousel Item",
           "settings": {
@@ -2873,12 +2860,12 @@
             "css_class": ""
           },
           "blocks": {
-            "video_FmBWnx": {
+            "video_Th8CVB": {
               "type": "video",
               "name": "t:names.video",
               "settings": {
                 "source": "uploaded",
-                "video": "shopify://files/videos/15c0e4af56034df2adb472a4a77cce3b.webm",
+                "video": "shopify://files/videos/15c0e4af56034df2adb472a4a77cce3b.mp4",
                 "video_url": "",
                 "video_autoplay": true,
                 "video_loop": true,
@@ -2899,10 +2886,10 @@
             }
           },
           "block_order": [
-            "video_FmBWnx"
+            "video_Th8CVB"
           ]
         },
-        "carousel_card_7Px4ic": {
+        "carousel_card_JAJnbM": {
           "type": "_carousel-card",
           "name": "Carousel Item",
           "settings": {
@@ -2943,7 +2930,7 @@
             "css_class": ""
           },
           "blocks": {
-            "video_A94iFg": {
+            "video_jeFYNw": {
               "type": "video",
               "name": "t:names.video",
               "settings": {
@@ -2969,7 +2956,7 @@
             }
           },
           "block_order": [
-            "video_A94iFg"
+            "video_jeFYNw"
           ]
         },
         "static-header": {
@@ -3010,7 +2997,7 @@
             "mobile-padding-inline-end": 0
           },
           "blocks": {
-            "text_RXmE4x": {
+            "text_jqh89K": {
               "type": "text",
               "name": "t:names.heading",
               "settings": {
@@ -3045,24 +3032,24 @@
             }
           },
           "block_order": [
-            "text_RXmE4x"
+            "text_jqh89K"
           ]
         }
       },
       "block_order": [
-        "carousel_card_VpTC96",
-        "carousel_card_wRY8nE",
-        "carousel_card_wX3Ece",
-        "carousel_card_pEexJP",
-        "carousel_card_7Px4ic"
+        "carousel_card_CfgKN3",
+        "carousel_card_Qy9teE",
+        "carousel_card_dBLV9E",
+        "carousel_card_BMjzmC",
+        "carousel_card_JAJnbM"
       ],
       "custom_css": [
-        ".deferred-media__poster-button {--video-aspect-ratio: 0.75 !important;}"
+        "video-media {--size-style-aspect-ratio: 0.75 !important; --video-aspect-ratio: 0.75 !important;}"
       ],
       "name": "Scrolling Carousel",
       "settings": {
         "marquee_duration_rate": 1,
-        "columns": 4,
+        "columns": 5,
         "mobile_columns": "2",
         "columns_gap": 24,
         "enable_mobile_column_gap": true,
@@ -3392,7 +3379,7 @@
           "name": "t:names.button",
           "settings": {
             "label": "See all FAQS",
-            "link": "shopify://collections/all",
+            "link": "shopify://pages/faq",
             "add_left_icon": false,
             "left_svg_icon": "",
             "add_right_icon": false,
@@ -6037,7 +6024,7 @@
     "1765937569aa4866ef",
     "section_9V99VN",
     "grid_section_Ch4fab",
-    "scrolling_carousel_F7Hn4A",
+    "scrolling_carousel_WkWhRg",
     "section_xk9bgz",
     "product_recommendations_qggXJq",
     "grid_section_C6jtLG"

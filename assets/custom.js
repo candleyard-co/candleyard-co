@@ -468,3 +468,42 @@ document.addEventListener('DOMContentLoaded', () => {
     shadowElements.forEach(el => observer.observe(el));
   }
 });
+
+
+class VideoMedia extends HTMLElement {
+    constructor() {
+      super();
+      this.init();
+    }
+  
+    init() {
+      if (this.getAttribute('loaded')) return;
+
+      new IntersectionObserver(([entry], observer) => {
+        if (!entry.isIntersecting) return;
+        
+        this.loadContent();
+        observer.disconnect();
+      }, { threshold: 0.1, once: true }).observe(this);
+    }
+
+    loadContent() {
+      this.setAttribute('loaded', true);
+      this.querySelector('img')?.remove();
+  
+      // Extract content from <noscript> and parse it
+      const templateString = this.querySelector('noscript')?.textContent.trim();
+      if (!templateString) return;
+  
+      const parser = new DOMParser();
+      const doc = parser.parseFromString(templateString, 'text/html');
+      const video = doc.querySelector('video');
+  
+      if (video) {
+        this.appendChild(video);
+        video.play().catch(err => console.warn("Autoplay failed:", err));
+      }
+    }
+}
+  
+customElements.define('video-media', VideoMedia);

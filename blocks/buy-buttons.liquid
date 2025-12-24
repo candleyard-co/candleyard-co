@@ -24,6 +24,10 @@
     if variant.available
       assign can_add_to_cart = true
       assign add_to_cart_text = 'products.product.add_to_cart' | t
+
+      if product.requires_selling_plan == true and product.selling_plan_groups[0].selling_plans[0].id != blank
+        assign add_to_cart_text = 'products.product.subscribe_now' | t
+      endif
     elsif inventory_managed and inventory_quantity <= 0 and inventory_policy == 'deny' or quantity_rule_soldout
       assign can_add_to_cart = false
       assign add_to_cart_text = 'products.product.sold_out' | t
@@ -62,6 +66,9 @@
           ref="variantId"
           value="{{ product.selected_or_first_available_variant.id }}"
         >
+        {% if product.requires_selling_plan == true and product.selling_plan_groups[0].selling_plans[0].id != blank %}
+          <input type="hidden" name="selling_plan" value="{{ product.selling_plan_groups[0].selling_plans[0].id }}">
+        {% endif %}
         {%- if block_settings.gift_card_form and product.gift_card? -%}
           {%- render 'gift-card-recipient-form', product: product, form: form, section: section, block: block -%}
         {%- endif -%}

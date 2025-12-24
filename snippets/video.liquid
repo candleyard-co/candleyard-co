@@ -124,7 +124,26 @@
   {% endcapture %}
 {% endif %}
 
-{% if video != blank %}
+{% if video != blank and video_from_url == blank and video_autoplay == true %}
+    <video-media
+        class="{{ video_class }}"
+        style="
+        --video-aspect-ratio: {{ video.aspect_ratio }}
+        {{ video_style }}"
+        data-video-src="{{ video.sources[0].url }}"
+    >
+    {% if video_preview_image != blank %}
+      {{
+        video_preview_image
+        | image_url: width: 3840
+        | image_tag: widths: widths, sizes: sizes, loading: loading, class: 'deferred-media__poster-image'
+      }}
+    {% endif %}
+        <noscript>
+          {{ video_tag }}
+        </noscript>
+    </video-media>
+{% elsif video != blank %}
   <deferred-media
     class="{{ video_class }}"
     style="{{ video_style }}"

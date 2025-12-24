@@ -4014,10 +4014,10 @@
         "section_id": ""
       }
     },
-    "scrolling_carousel_LbK8gz": {
+    "scrolling_carousel_nxJq6J": {
       "type": "scrolling-carousel",
       "blocks": {
-        "carousel_card_DV7jQe": {
+        "carousel_card_QiGVM3": {
           "type": "_carousel-card",
           "name": "Carousel Item",
           "settings": {
@@ -4058,12 +4058,12 @@
             "css_class": ""
           },
           "blocks": {
-            "video_qjLdJN": {
+            "video_MbaYNg": {
               "type": "video",
               "name": "t:names.video",
               "settings": {
                 "source": "uploaded",
-                "video": "shopify://files/videos/995518387a2f42c1b0b7ae0c597cc2a2.webm",
+                "video": "shopify://files/videos/995518387a2f42c1b0b7ae0c597cc2a2.mp4",
                 "video_url": "",
                 "video_autoplay": true,
                 "video_loop": true,
@@ -4084,10 +4084,10 @@
             }
           },
           "block_order": [
-            "video_qjLdJN"
+            "video_MbaYNg"
           ]
         },
-        "carousel_card_gTkwTt": {
+        "carousel_card_rBxRry": {
           "type": "_carousel-card",
           "name": "Carousel Item",
           "settings": {
@@ -4128,12 +4128,12 @@
             "css_class": ""
           },
           "blocks": {
-            "video_6trTDK": {
+            "video_eDQ8yH": {
               "type": "video",
               "name": "t:names.video",
               "settings": {
                 "source": "uploaded",
-                "video": "shopify://files/videos/5ee4300445ec4e3ba8c0fcb61008beb6.webm",
+                "video": "shopify://files/videos/5ee4300445ec4e3ba8c0fcb61008beb6.mp4",
                 "video_url": "",
                 "video_autoplay": true,
                 "video_loop": true,
@@ -4154,10 +4154,10 @@
             }
           },
           "block_order": [
-            "video_6trTDK"
+            "video_eDQ8yH"
           ]
         },
-        "carousel_card_hnCnay": {
+        "carousel_card_98PaCM": {
           "type": "_carousel-card",
           "name": "Carousel Item",
           "settings": {
@@ -4198,12 +4198,12 @@
             "css_class": ""
           },
           "blocks": {
-            "video_MM6LYP": {
+            "video_CtUaCY": {
               "type": "video",
               "name": "t:names.video",
               "settings": {
                 "source": "uploaded",
-                "video": "shopify://files/videos/acbce0f8b04240bca76e03422e02b694.webm",
+                "video": "shopify://files/videos/acbce0f8b04240bca76e03422e02b694.mp4",
                 "video_url": "",
                 "video_autoplay": true,
                 "video_loop": true,
@@ -4224,10 +4224,10 @@
             }
           },
           "block_order": [
-            "video_MM6LYP"
+            "video_CtUaCY"
           ]
         },
-        "carousel_card_RBUkNh": {
+        "carousel_card_JhGQak": {
           "type": "_carousel-card",
           "name": "Carousel Item",
           "settings": {
@@ -4268,12 +4268,12 @@
             "css_class": ""
           },
           "blocks": {
-            "video_XTwVjp": {
+            "video_UA7UYq": {
               "type": "video",
               "name": "t:names.video",
               "settings": {
                 "source": "uploaded",
-                "video": "shopify://files/videos/15c0e4af56034df2adb472a4a77cce3b.webm",
+                "video": "shopify://files/videos/15c0e4af56034df2adb472a4a77cce3b.mp4",
                 "video_url": "",
                 "video_autoplay": true,
                 "video_loop": true,
@@ -4294,10 +4294,10 @@
             }
           },
           "block_order": [
-            "video_XTwVjp"
+            "video_UA7UYq"
           ]
         },
-        "carousel_card_EYE6Am": {
+        "carousel_card_paCrDN": {
           "type": "_carousel-card",
           "name": "Carousel Item",
           "settings": {
@@ -4338,7 +4338,7 @@
             "css_class": ""
           },
           "blocks": {
-            "video_nYryWD": {
+            "video_eff7b3": {
               "type": "video",
               "name": "t:names.video",
               "settings": {
@@ -4364,7 +4364,7 @@
             }
           },
           "block_order": [
-            "video_nYryWD"
+            "video_eff7b3"
           ]
         },
         "static-header": {
@@ -4405,7 +4405,7 @@
             "mobile-padding-inline-end": 0
           },
           "blocks": {
-            "text_Q6RBE8": {
+            "text_fikT3a": {
               "type": "text",
               "name": "t:names.heading",
               "settings": {
@@ -4440,24 +4440,24 @@
             }
           },
           "block_order": [
-            "text_Q6RBE8"
+            "text_fikT3a"
           ]
         }
       },
       "block_order": [
-        "carousel_card_DV7jQe",
-        "carousel_card_gTkwTt",
-        "carousel_card_hnCnay",
-        "carousel_card_RBUkNh",
-        "carousel_card_EYE6Am"
+        "carousel_card_QiGVM3",
+        "carousel_card_rBxRry",
+        "carousel_card_98PaCM",
+        "carousel_card_JhGQak",
+        "carousel_card_paCrDN"
       ],
       "custom_css": [
-        ".deferred-media__poster-button {--video-aspect-ratio: 0.75 !important;}"
+        "video-media {--size-style-aspect-ratio: 0.75 !important; --video-aspect-ratio: 0.75 !important;}"
       ],
       "name": "Scrolling Carousel",
       "settings": {
         "marquee_duration_rate": 1,
-        "columns": 4,
+        "columns": 5,
         "mobile_columns": "2",
         "columns_gap": 24,
         "enable_mobile_column_gap": true,
@@ -7297,7 +7297,7 @@
     "hero_AngCmL",
     "product_list_qLdpYV",
     "product_list_epdK3P",
-    "scrolling_carousel_LbK8gz",
+    "scrolling_carousel_nxJq6J",
     "section_k4dxbM",
     "section_6ftTic",
     "grid_section_4YFewk"
