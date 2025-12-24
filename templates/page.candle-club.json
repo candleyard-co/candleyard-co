@@ -3464,7 +3464,7 @@
               "type": "text",
               "name": "t:names.text",
               "settings": {
-                "text": "<ul><li>Billed monthly on your subscription date</li><li>Ships between the 15th–20th of each month</li><li>Small batch, in-house production</li><li>Curated exclusive or early access candle<br/><em><strong>Disclaimer:</strong></em><em> Items and scents change monthly</em></li></ul>",
+                "text": "<ul><li>Billed monthly on your subscription date</li><li>Ships between the 15th–20th of each month</li><li>Small batch, in-house production</li><li>Curated exclusive or early access candle<br/></li></ul><p><strong>Disclaimer:</strong> Items and scents change monthly</p>",
                 "width": "fit-content",
                 "max_width": "normal",
                 "alignment": "left",
@@ -3666,7 +3666,7 @@
                     "icon": "none",
                     "width": 20,
                     "add_color_scheme": true,
-                    "color_scheme": "scheme-afb0a2e7-cefb-415e-98ea-f0cc7a8d2dee"
+                    "color_scheme": "scheme-1"
                   },
                   "blocks": {}
                 },
@@ -3680,7 +3680,7 @@
                     "icon": "none",
                     "width": 20,
                     "add_color_scheme": true,
-                    "color_scheme": "scheme-afb0a2e7-cefb-415e-98ea-f0cc7a8d2dee"
+                    "color_scheme": "scheme-1"
                   },
                   "blocks": {}
                 },
@@ -3708,7 +3708,7 @@
                     "icon": "none",
                     "width": 20,
                     "add_color_scheme": true,
-                    "color_scheme": "scheme-afb0a2e7-cefb-415e-98ea-f0cc7a8d2dee"
+                    "color_scheme": "scheme-1"
                   },
                   "blocks": {}
                 }
@@ -3731,7 +3731,8 @@
         }
       },
       "custom_css": [
-        ".text-block ul {padding: 0; list-style-position: inside;}"
+        ".text-block ul {padding: 0; list-style-position: inside;}",
+        "[ref=\"productTitleLink\"] {pointer-events: none;}"
       ],
       "name": "t:names.featured_product_information",
       "settings": {
@@ -3742,11 +3743,11 @@
         "limit_details_width": true,
         "gap": 48,
         "color_scheme": "scheme-afb0a2e7-cefb-415e-98ea-f0cc7a8d2dee",
-        "padding-block-start": 62,
-        "padding-block-end": 62,
+        "padding-block-start": 80,
+        "padding-block-end": 80,
         "custom_mobile_padding": true,
         "mobile-padding-block-start": 0,
-        "mobile-padding-block-end": 0
+        "mobile-padding-block-end": 52
       }
     },
     "section_pLiaJD": {
