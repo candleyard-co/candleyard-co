@@ -262,15 +262,28 @@
       assign has_protection = false
       assign in_cart = 0
       assign in_cart_key = 0
+      assign empty_cart = false
 
       if settings.enable_shipping_protection == true
         assign protection_product = all_products[settings.protection_product]
         assign protection_price = protection_product.price | money_without_trailing_zeros
         assign has_protection = true
+        assign free_gift_in_cart = false
+
+        for item in cart.items
+          if item.properties['_type'] == 'Free Gift'
+            assign free_gift_in_cart = true
+            break
+          endif
+        endfor
 
         if protection_product
           assign in_cart = cart | item_count_for_variant: protection_product.selected_or_first_available_variant.id
           assign in_cart_key = cart.items | where: 'id', protection_product.selected_or_first_available_variant.id
+
+          if cart.item_count <= 2 and in_cart > 0 and free_gift_in_cart == true
+            assign empty_cart = true
+          endif
         endif
       endif
     %}
@@ -302,7 +315,7 @@
               data-in-cart="{{ in_cart_key[0].key }}"
             {% endif %}
             class="protection__checkout-button cart__checkout-button button"
-            {% if cart == empty or cart.total_price == 0 %}
+            {% if cart == empty or cart.total_price == 0 or empty_cart == true %}
               disabled
             {% endif %}
             form="cart-form"
@@ -322,7 +335,7 @@
             {% if in_cart > 0 %}
               data-in-cart="{{ in_cart_key[0].variant_id }}"
             {% endif %}
-            {% if cart == empty or cart.total_price == 0 %}
+            {% if cart == empty or cart.total_price == 0 or empty_cart == true %}
               disabled
             {% endif %}
             form="cart-form"

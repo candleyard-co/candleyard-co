@@ -471,6 +471,11 @@ cart-upsell:has(.upsell-item-column) {
   bottom: -0.1rem;
 }
 
+.normal__checkout-button[disabled] {
+    opacity: .5;
+    cursor: not-allowed;
+}
+
 .loading-button--icon {
     display: none;
     width: 100%;
