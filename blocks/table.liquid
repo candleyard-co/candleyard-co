@@ -12,11 +12,10 @@
   <div class="table-wrapper" style="--width: {{ block.settings.custom_width }}%; --column-bg: {{ block.settings.column_bg }};">
     <table>
       <tbody>
-
+        {% for item in list_items_array %}
+          {{ item }}
+        {% endfor %}
       </tbody>
-      {% for item in list_items_array %}
-        {{ item }}
-      {% endfor %}
     </table>
   </div>
 {% endif %}
@@ -81,7 +80,7 @@
     /* ===== 2nd COLUMN STYLING ===== */
     tr td:nth-child(2) {
       background-color: var(--column-bg);
-      border: none; // remove all borders
+      border: none;
     }
 
     /* remove the left border of 3rd column so it doesn’t show next to 2nd column */
