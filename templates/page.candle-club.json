@@ -582,7 +582,7 @@
               "name": "t:names.button",
               "settings": {
                 "label": "Join The Candle Club",
-                "link": "#",
+                "link": "#candle-club",
                 "add_left_icon": false,
                 "left_svg_icon": "",
                 "add_right_icon": false,
@@ -601,7 +601,7 @@
               "name": "t:names.button",
               "settings": {
                 "label": "See How It Works",
-                "link": "#",
+                "link": "#how-it-works",
                 "add_left_icon": false,
                 "left_svg_icon": "",
                 "add_right_icon": false,
@@ -2072,8 +2072,8 @@
         "mobile-padding-inline-start": 0,
         "mobile-padding-inline-end": 0,
         "css_class": "",
-        "add_section_id": false,
-        "section_id": ""
+        "add_section_id": true,
+        "section_id": "how-it-works"
       }
     },
     "scrolling_carousel_LNh8bd": {
