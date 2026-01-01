@@ -81,6 +81,9 @@
 
 <div class="section-background color-{{ settings.color_scheme }}"></div>
 <div
+  {% if settings.add_section_id == true and settings.section_id != blank %}
+    data-section-id="{{ settings.section_id }}"
+  {% endif %}
   class="product-information section section--{{ content_width }} spacing-style color-{{ settings.color_scheme }} relative"
   style="{% render 'spacing-style', settings: settings %} --gap: {{ settings.gap }}px;"
   data-testid="product-information"

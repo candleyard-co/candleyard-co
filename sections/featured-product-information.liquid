@@ -168,6 +168,19 @@
       "unit": "px",
       "default": 0,
       "visible_if": "{{ section.settings.custom_mobile_padding == true }}"
+    },
+    {
+      "type": "checkbox",
+      "id": "add_section_id",
+      "label": "Add section ID",
+      "default": false
+    },
+    {
+      "type": "text",
+      "id": "section_id",
+      "label": "Section ID",
+      "info": "optional",
+      "visible_if": "{{ section.settings.add_section_id == true }}"
     }
   ],
   "presets": [
