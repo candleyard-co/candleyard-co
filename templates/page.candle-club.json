@@ -4048,7 +4048,9 @@
         "padding-block-end": 80,
         "custom_mobile_padding": true,
         "mobile-padding-block-start": 0,
-        "mobile-padding-block-end": 52
+        "mobile-padding-block-end": 52,
+        "add_section_id": true,
+        "section_id": "candle-club"
       }
     },
     "section_pLiaJD": {
