@@ -631,7 +631,7 @@
             "image_upload": "shopify://shop_images/badge_1_2x_3440b4c4-e6f6-4c89-a137-9de5382c5e06.png",
             "icon_width": 24,
             "use_height": true,
-            "height": 24,
+            "height": 20,
             "custom_mobile_height": false,
             "mobile-height": 24,
             "text": "<p>Trusted by boutiques, gift shops, and lifestyle stores nationwide.</p>",
