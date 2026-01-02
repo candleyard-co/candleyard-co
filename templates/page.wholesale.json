@@ -751,7 +751,7 @@
       ],
       "custom_css": [
         "@media (min-width: 750px) {.hero__image {object-position: top center; }}",
-        "@media (max-width: 749px) {.hero__content-wrapper {--vertical-alignment-mobile: flex-start !important; }}"
+        "@media (max-width: 749px) {.hero__content-wrapper {--vertical-alignment-mobile: flex-start !important; } {--section-height-large: 45rem; }}"
       ],
       "name": "t:names.hero",
       "settings": {
