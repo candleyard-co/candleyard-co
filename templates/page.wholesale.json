@@ -692,6 +692,7 @@
         "text_icon_eVrq4g"
       ],
       "custom_css": [
+        "@media (min-width: 750px) {.hero__image {object-position: top center; }}",
         "@media (max-width: 749px) {.hero__content-wrapper {--vertical-alignment-mobile: flex-start !important; }}"
       ],
       "name": "t:names.hero",
