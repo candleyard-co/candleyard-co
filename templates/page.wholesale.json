@@ -488,12 +488,12 @@
             "text_icon_PzAGUb": {
               "type": "text-icon",
               "name": "Text Icon",
-              "disabled": true,
               "settings": {
                 "icon_position": "left",
                 "icon": "none",
+                "image_upload": "shopify://shop_images/badge_1_2x_3440b4c4-e6f6-4c89-a137-9de5382c5e06.png",
                 "icon_width": 24,
-                "use_height": false,
+                "use_height": true,
                 "height": 24,
                 "custom_mobile_height": false,
                 "mobile-height": 24,
@@ -523,7 +523,7 @@
                 "custom_mobile_alignment": false,
                 "mobile_vertical_alignment": "flex-start",
                 "vertical_alignment_flex_direction_column": "center",
-                "gap": 12,
+                "gap": 6,
                 "enable_mobile_gap": false,
                 "mobile_gap": 12,
                 "inherit_color_scheme": true,
@@ -550,6 +550,7 @@
             },
             "text_8wgJ6p": {
               "type": "text",
+              "disabled": true,
               "settings": {
                 "text": "<p><em>Trusted by boutiques, gift shops, and lifestyle stores nationwide.</em></p>",
                 "width": "fit-content",
