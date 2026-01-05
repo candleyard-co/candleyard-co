@@ -354,7 +354,7 @@ product-price .price {
     display: none;
 }
 
-summary .svg-wrapper {
+summary .svg-wrapper.icon-caret {
     min-width: var(--icon-size-sm);
 }
 
