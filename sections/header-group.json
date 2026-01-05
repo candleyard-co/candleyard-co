@@ -19,8 +19,8 @@
           "settings": {
             "text": "Dessert Candles - 15% Off Today",
             "link": "shopify://collections/shop",
-            "font": "var(--font-heading--family)",
-            "font_size": "1rem",
+            "font": "var(--font-subheading--family)",
+            "font_size": "0.875rem",
             "weight": "",
             "letter_spacing": "normal",
             "case": "none"
@@ -32,8 +32,8 @@
           "settings": {
             "text": "Free shipping on orders $75+",
             "link": "shopify://collections/shop",
-            "font": "var(--font-heading--family)",
-            "font_size": "1rem",
+            "font": "var(--font-subheading--family)",
+            "font_size": "0.875rem",
             "weight": "",
             "letter_spacing": "normal",
             "case": "none"
@@ -51,8 +51,8 @@
         "section_width": "page-width",
         "color_scheme": "scheme-1e7f4c49-7b8d-4440-9f86-4c8ded6ff4db",
         "divider_width": 1,
-        "padding-block-start": 14,
-        "padding-block-end": 14
+        "padding-block-start": 12,
+        "padding-block-end": 12
       }
     },
     "header_section": {
