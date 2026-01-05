@@ -849,7 +849,7 @@
         "padding-block-end": 80,
         "custom_mobile_padding": true,
         "mobile-padding-block-start": 60,
-        "mobile-padding-block-end": 46,
+        "mobile-padding-block-end": 52,
         "mobile-padding-inline-start": 0,
         "mobile-padding-inline-end": 0,
         "add_section_id": false,
@@ -859,7 +859,127 @@
     "grid_section_DmUwUr": {
       "type": "grid-section",
       "blocks": {
-        "carousel_card_cQAGKL": {
+        "static-header": {
+          "type": "_product-list-content",
+          "name": "t:names.header",
+          "static": true,
+          "settings": {
+            "content_direction": "column",
+            "vertical_on_mobile": false,
+            "horizontal_alignment": "space-between",
+            "vertical_alignment": "flex-end",
+            "align_baseline": true,
+            "horizontal_alignment_flex_direction_column": "center",
+            "vertical_alignment_flex_direction_column": "center",
+            "gap": 12,
+            "width": "fill",
+            "custom_width": 100,
+            "width_mobile": "fill",
+            "custom_width_mobile": 100,
+            "height": "fit",
+            "custom_height": 100,
+            "inherit_color_scheme": true,
+            "color_scheme": "",
+            "background_media": "none",
+            "video_position": "cover",
+            "background_image_position": "cover",
+            "border": "none",
+            "border_width": 1,
+            "border_opacity": 100,
+            "border_radius": 0,
+            "padding-block-start": 0,
+            "padding-block-end": 24,
+            "padding-inline-start": 0,
+            "padding-inline-end": 0,
+            "custom_mobile_padding": true,
+            "mobile-padding-block-start": 0,
+            "mobile-padding-block-end": 18,
+            "mobile-padding-inline-start": 0,
+            "mobile-padding-inline-end": 0
+          },
+          "blocks": {
+            "product_list_text_dNi7j9": {
+              "type": "_product-list-text",
+              "name": "t:names.collection_title",
+              "settings": {
+                "text": "<p>Why Customers Love Candle Yard Candles</p>",
+                "width": "fit-content",
+                "max_width": "normal",
+                "alignment": "left",
+                "type_preset": "h3",
+                "font": "var(--font-body--family)",
+                "font_size": "1rem",
+                "enable_mobile_size": true,
+                "mobile_font_size": "1.5rem",
+                "line_height": "normal",
+                "letter_spacing": "normal",
+                "case": "none",
+                "wrap": "pretty",
+                "color": "var(--color-foreground)",
+                "background": false,
+                "background_color": "#00000026",
+                "corner_radius": 0,
+                "padding-block-start": 0,
+                "padding-block-end": 0,
+                "padding-inline-start": 0,
+                "padding-inline-end": 0
+              },
+              "blocks": {}
+            }
+          },
+          "block_order": [
+            "product_list_text_dNi7j9"
+          ]
+        }
+      },
+      "custom_css": [
+        ".section-resource-list {--page-margin: 16px; --full-page-grid-central-column-width: min( 100% - var(--page-margin) * 2, calc(100% - var(--page-margin) * 2) );}",
+        "@media (min-width: 990px) {.slideshow-control--previous {margin-inline-start: calc(-1 * var(--gap-sm)) !important; } .slideshow-control--next {margin-inline-end: calc(-1 * var(--gap-sm)) !important; }}"
+      ],
+      "name": "Carousel",
+      "settings": {
+        "alignment": "left",
+        "layout_type": "carousel",
+        "carousel_on_mobile": false,
+        "enable_dots": true,
+        "hide_arrows": true,
+        "autoplay": false,
+        "autoplay_speed": 6,
+        "columns": 4,
+        "peek_desktop": false,
+        "mobile_columns": "1",
+        "mobile_card_size": "60cqw",
+        "columns_gap": 16,
+        "rows_gap": 24,
+        "icons_style": "arrows_large",
+        "icons_shape": "none",
+        "section_width": "page-width",
+        "full_width_on_mobile": true,
+        "gap": 0,
+        "color_scheme": "",
+        "background_media": "none",
+        "video_position": "cover",
+        "background_image_position": "cover",
+        "toggle_overlay": false,
+        "overlay_color": "#00000026",
+        "overlay_style": "solid",
+        "gradient_direction": "to top",
+        "padding-block-start": 32,
+        "padding-block-end": 80,
+        "custom_mobile_padding": true,
+        "mobile-padding-block-start": 0,
+        "mobile-padding-block-end": 52,
+        "mobile-padding-inline-start": 0,
+        "mobile-padding-inline-end": 0,
+        "css_class": "",
+        "add_section_id": false,
+        "section_id": ""
+      }
+    },
+    "grid_section_hMnWKz": {
+      "type": "grid-section",
+      "blocks": {
+        "carousel_card_jXqa4x": {
           "type": "_carousel-card",
           "name": "Carousel Item",
           "settings": {
@@ -900,7 +1020,7 @@
             "css_class": ""
           },
           "blocks": {
-            "group_EMcQAA": {
+            "group_yehQqm": {
               "type": "group",
               "name": "Item Link",
               "settings": {
@@ -953,7 +1073,7 @@
                 "css_class": ""
               },
               "blocks": {
-                "image_fGrHYG": {
+                "image_UghNiy": {
                   "type": "image",
                   "settings": {
                     "image": "shopify://shop_images/DSC01923-2.jpg",
@@ -975,7 +1095,7 @@
                   },
                   "blocks": {}
                 },
-                "group_BLiQYp": {
+                "group_ePzMjg": {
                   "type": "group",
                   "settings": {
                     "link": "",
@@ -1027,7 +1147,7 @@
                     "css_class": ""
                   },
                   "blocks": {
-                    "text_pM8GCP": {
+                    "text_Hm4fCG": {
                       "type": "text",
                       "name": "t:names.heading",
                       "settings": {
@@ -1062,21 +1182,21 @@
                     }
                   },
                   "block_order": [
-                    "text_pM8GCP"
+                    "text_Hm4fCG"
                   ]
                 }
               },
               "block_order": [
-                "image_fGrHYG",
-                "group_BLiQYp"
+                "image_UghNiy",
+                "group_ePzMjg"
               ]
             }
           },
           "block_order": [
-            "group_EMcQAA"
+            "group_yehQqm"
           ]
         },
-        "carousel_card_E6EJm4": {
+        "carousel_card_KzbHwt": {
           "type": "_carousel-card",
           "name": "Carousel Item",
           "settings": {
@@ -1117,7 +1237,7 @@
             "css_class": ""
           },
           "blocks": {
-            "group_dJV4Pb": {
+            "group_QKa6WK": {
               "type": "group",
               "name": "Item Link",
               "settings": {
@@ -1170,7 +1290,7 @@
                 "css_class": ""
               },
               "blocks": {
-                "image_TTHftw": {
+                "image_FyEXDf": {
                   "type": "image",
                   "settings": {
                     "image": "shopify://shop_images/d18c6f06-b2a5-4565-971b-ff88259cc184.png",
@@ -1192,7 +1312,7 @@
                   },
                   "blocks": {}
                 },
-                "group_tjbtdX": {
+                "group_9YQQ8p": {
                   "type": "group",
                   "settings": {
                     "link": "",
@@ -1244,7 +1364,7 @@
                     "css_class": ""
                   },
                   "blocks": {
-                    "text_Be6jGJ": {
+                    "text_pWeJet": {
                       "type": "text",
                       "name": "t:names.heading",
                       "settings": {
@@ -1279,21 +1399,21 @@
                     }
                   },
                   "block_order": [
-                    "text_Be6jGJ"
+                    "text_pWeJet"
                   ]
                 }
               },
               "block_order": [
-                "image_TTHftw",
-                "group_tjbtdX"
+                "image_FyEXDf",
+                "group_9YQQ8p"
               ]
             }
           },
           "block_order": [
-            "group_dJV4Pb"
+            "group_QKa6WK"
           ]
         },
-        "carousel_card_YjJ6iQ": {
+        "carousel_card_ktmPVF": {
           "type": "_carousel-card",
           "name": "Carousel Item",
           "settings": {
@@ -1334,7 +1454,7 @@
             "css_class": ""
           },
           "blocks": {
-            "group_awpdVh": {
+            "group_CfEUDF": {
               "type": "group",
               "name": "Item Link",
               "settings": {
@@ -1387,7 +1507,7 @@
                 "css_class": ""
               },
               "blocks": {
-                "image_jM3Agt": {
+                "image_ULJwKz": {
                   "type": "image",
                   "settings": {
                     "image": "shopify://shop_images/DSC03088.jpg",
@@ -1409,7 +1529,7 @@
                   },
                   "blocks": {}
                 },
-                "group_HjpqnC": {
+                "group_dJXbeC": {
                   "type": "group",
                   "settings": {
                     "link": "",
@@ -1461,7 +1581,7 @@
                     "css_class": ""
                   },
                   "blocks": {
-                    "text_8pfVjR": {
+                    "text_6CxY3d": {
                       "type": "text",
                       "name": "t:names.heading",
                       "settings": {
@@ -1496,21 +1616,21 @@
                     }
                   },
                   "block_order": [
-                    "text_8pfVjR"
+                    "text_6CxY3d"
                   ]
                 }
               },
               "block_order": [
-                "image_jM3Agt",
-                "group_HjpqnC"
+                "image_ULJwKz",
+                "group_dJXbeC"
               ]
             }
           },
           "block_order": [
-            "group_awpdVh"
+            "group_CfEUDF"
           ]
         },
-        "carousel_card_9VJxBa": {
+        "carousel_card_mxXrHB": {
           "type": "_carousel-card",
           "name": "Carousel Item",
           "settings": {
@@ -1551,7 +1671,7 @@
             "css_class": ""
           },
           "blocks": {
-            "group_rMQLTq": {
+            "group_Nfnkgj": {
               "type": "group",
               "name": "Item Link",
               "settings": {
@@ -1604,7 +1724,7 @@
                 "css_class": ""
               },
               "blocks": {
-                "image_ictjN9": {
+                "image_ENrWyD": {
                   "type": "image",
                   "settings": {
                     "image": "shopify://shop_images/DSC00135.jpg",
@@ -1626,7 +1746,7 @@
                   },
                   "blocks": {}
                 },
-                "group_Fp6QM3": {
+                "group_H6M9NF": {
                   "type": "group",
                   "settings": {
                     "link": "",
@@ -1678,7 +1798,7 @@
                     "css_class": ""
                   },
                   "blocks": {
-                    "text_FfxYUq": {
+                    "text_z3bEtR": {
                       "type": "text",
                       "name": "t:names.heading",
                       "settings": {
@@ -1713,21 +1833,21 @@
                     }
                   },
                   "block_order": [
-                    "text_FfxYUq"
+                    "text_z3bEtR"
                   ]
                 }
               },
               "block_order": [
-                "image_ictjN9",
-                "group_Fp6QM3"
+                "image_ENrWyD",
+                "group_H6M9NF"
               ]
             }
           },
           "block_order": [
-            "group_rMQLTq"
+            "group_Nfnkgj"
           ]
         },
-        "carousel_card_iCwhME": {
+        "carousel_card_d4MTrA": {
           "type": "_carousel-card",
           "name": "Carousel Item",
           "settings": {
@@ -1768,7 +1888,7 @@
             "css_class": ""
           },
           "blocks": {
-            "group_8HYgHg": {
+            "group_jxqaef": {
               "type": "group",
               "name": "Item Link",
               "settings": {
@@ -1821,7 +1941,7 @@
                 "css_class": ""
               },
               "blocks": {
-                "image_QFPMNn": {
+                "image_ETDPgR": {
                   "type": "image",
                   "settings": {
                     "image": "shopify://shop_images/DSC02680.jpg",
@@ -1843,7 +1963,7 @@
                   },
                   "blocks": {}
                 },
-                "group_3mitFd": {
+                "group_epTtqx": {
                   "type": "group",
                   "settings": {
                     "link": "",
@@ -1895,7 +2015,7 @@
                     "css_class": ""
                   },
                   "blocks": {
-                    "text_cfKPLJ": {
+                    "text_GQWQ3Q": {
                       "type": "text",
                       "name": "t:names.heading",
                       "settings": {
@@ -1930,21 +2050,21 @@
                     }
                   },
                   "block_order": [
-                    "text_cfKPLJ"
+                    "text_GQWQ3Q"
                   ]
                 }
               },
               "block_order": [
-                "image_QFPMNn",
-                "group_3mitFd"
+                "image_ETDPgR",
+                "group_epTtqx"
               ]
             }
           },
           "block_order": [
-            "group_8HYgHg"
+            "group_jxqaef"
           ]
         },
-        "carousel_card_qwA6NU": {
+        "carousel_card_rBX7Ca": {
           "type": "_carousel-card",
           "name": "Carousel Item",
           "settings": {
@@ -1985,7 +2105,7 @@
             "css_class": ""
           },
           "blocks": {
-            "group_nQU9wd": {
+            "group_mMhVDH": {
               "type": "group",
               "name": "Item Link",
               "settings": {
@@ -2038,7 +2158,7 @@
                 "css_class": ""
               },
               "blocks": {
-                "image_6pE4wF": {
+                "image_CjFN9R": {
                   "type": "image",
                   "settings": {
                     "image": "shopify://shop_images/DSC01687_1.jpg",
@@ -2060,7 +2180,7 @@
                   },
                   "blocks": {}
                 },
-                "group_78YUEk": {
+                "group_NnDWA8": {
                   "type": "group",
                   "settings": {
                     "link": "",
@@ -2112,7 +2232,7 @@
                     "css_class": ""
                   },
                   "blocks": {
-                    "text_TTLpRw": {
+                    "text_hUVURM": {
                       "type": "text",
                       "name": "t:names.heading",
                       "settings": {
@@ -2147,21 +2267,21 @@
                     }
                   },
                   "block_order": [
-                    "text_TTLpRw"
+                    "text_hUVURM"
                   ]
                 }
               },
               "block_order": [
-                "image_6pE4wF",
-                "group_78YUEk"
+                "image_CjFN9R",
+                "group_NnDWA8"
               ]
             }
           },
           "block_order": [
-            "group_nQU9wd"
+            "group_mMhVDH"
           ]
         },
-        "carousel_card_EYFjfg": {
+        "carousel_card_jwEeMf": {
           "type": "_carousel-card",
           "name": "Carousel Item",
           "settings": {
@@ -2202,7 +2322,7 @@
             "css_class": ""
           },
           "blocks": {
-            "group_nYKLGP": {
+            "group_Y3MjbX": {
               "type": "group",
               "name": "Item Link",
               "settings": {
@@ -2255,7 +2375,7 @@
                 "css_class": ""
               },
               "blocks": {
-                "image_GrzV9y": {
+                "image_gixBVU": {
                   "type": "image",
                   "settings": {
                     "image": "shopify://shop_images/DSC08560_1.jpg",
@@ -2277,7 +2397,7 @@
                   },
                   "blocks": {}
                 },
-                "group_AjGrFE": {
+                "group_cW7mj3": {
                   "type": "group",
                   "settings": {
                     "link": "",
@@ -2329,7 +2449,7 @@
                     "css_class": ""
                   },
                   "blocks": {
-                    "text_kziejJ": {
+                    "text_geCYhy": {
                       "type": "text",
                       "name": "t:names.heading",
                       "settings": {
@@ -2364,21 +2484,21 @@
                     }
                   },
                   "block_order": [
-                    "text_kziejJ"
+                    "text_geCYhy"
                   ]
                 }
               },
               "block_order": [
-                "image_GrzV9y",
-                "group_AjGrFE"
+                "image_gixBVU",
+                "group_cW7mj3"
               ]
             }
           },
           "block_order": [
-            "group_nYKLGP"
+            "group_Y3MjbX"
           ]
         },
-        "carousel_card_CbiEYx": {
+        "carousel_card_Q6FRGr": {
           "type": "_carousel-card",
           "name": "Carousel Item",
           "settings": {
@@ -2419,7 +2539,7 @@
             "css_class": ""
           },
           "blocks": {
-            "group_NfPrP9": {
+            "group_NM4ixF": {
               "type": "group",
               "name": "Item Link",
               "settings": {
@@ -2472,7 +2592,7 @@
                 "css_class": ""
               },
               "blocks": {
-                "image_C8Lxe7": {
+                "image_aafRwi": {
                   "type": "image",
                   "settings": {
                     "image": "shopify://shop_images/6b57c261-1c62-4a17-adf1-9c12498ec8b9.png",
@@ -2494,7 +2614,7 @@
                   },
                   "blocks": {}
                 },
-                "group_WLCGxt": {
+                "group_Jx33wa": {
                   "type": "group",
                   "settings": {
                     "link": "",
@@ -2546,7 +2666,7 @@
                     "css_class": ""
                   },
                   "blocks": {
-                    "text_FbLzmD": {
+                    "text_hgjfH6": {
                       "type": "text",
                       "name": "t:names.heading",
                       "settings": {
@@ -2581,21 +2701,21 @@
                     }
                   },
                   "block_order": [
-                    "text_FbLzmD"
+                    "text_hgjfH6"
                   ]
                 }
               },
               "block_order": [
-                "image_C8Lxe7",
-                "group_WLCGxt"
+                "image_aafRwi",
+                "group_Jx33wa"
               ]
             }
           },
           "block_order": [
-            "group_NfPrP9"
+            "group_NM4ixF"
           ]
         },
-        "carousel_card_WiYgGh": {
+        "carousel_card_nkCn3L": {
           "type": "_carousel-card",
           "name": "Carousel Item",
           "settings": {
@@ -2636,7 +2756,7 @@
             "css_class": ""
           },
           "blocks": {
-            "group_7FLtFC": {
+            "group_RQ6UVU": {
               "type": "group",
               "name": "Item Link",
               "settings": {
@@ -2689,7 +2809,7 @@
                 "css_class": ""
               },
               "blocks": {
-                "image_AfBVCA": {
+                "image_zGXdqN": {
                   "type": "image",
                   "settings": {
                     "image": "shopify://shop_images/DSC01631.jpg",
@@ -2711,7 +2831,7 @@
                   },
                   "blocks": {}
                 },
-                "group_R4f7Bh": {
+                "group_qDxAyM": {
                   "type": "group",
                   "settings": {
                     "link": "",
@@ -2763,7 +2883,7 @@
                     "css_class": ""
                   },
                   "blocks": {
-                    "text_483TbY": {
+                    "text_3p3xYi": {
                       "type": "text",
                       "name": "t:names.heading",
                       "settings": {
@@ -2798,18 +2918,18 @@
                     }
                   },
                   "block_order": [
-                    "text_483TbY"
+                    "text_3p3xYi"
                   ]
                 }
               },
               "block_order": [
-                "image_AfBVCA",
-                "group_R4f7Bh"
+                "image_zGXdqN",
+                "group_qDxAyM"
               ]
             }
           },
           "block_order": [
-            "group_7FLtFC"
+            "group_RQ6UVU"
           ]
         },
         "static-header": {
@@ -2851,7 +2971,7 @@
             "mobile-padding-inline-end": 0
           },
           "blocks": {
-            "product_list_text_dNi7j9": {
+            "product_list_text_eRCWzq": {
               "type": "_product-list-text",
               "name": "t:names.collection_title",
               "settings": {
@@ -2881,20 +3001,20 @@
             }
           },
           "block_order": [
-            "product_list_text_dNi7j9"
+            "product_list_text_eRCWzq"
           ]
         }
       },
       "block_order": [
-        "carousel_card_cQAGKL",
-        "carousel_card_E6EJm4",
-        "carousel_card_YjJ6iQ",
-        "carousel_card_9VJxBa",
-        "carousel_card_iCwhME",
-        "carousel_card_qwA6NU",
-        "carousel_card_EYFjfg",
-        "carousel_card_CbiEYx",
-        "carousel_card_WiYgGh"
+        "carousel_card_jXqa4x",
+        "carousel_card_KzbHwt",
+        "carousel_card_ktmPVF",
+        "carousel_card_mxXrHB",
+        "carousel_card_d4MTrA",
+        "carousel_card_rBX7Ca",
+        "carousel_card_jwEeMf",
+        "carousel_card_Q6FRGr",
+        "carousel_card_nkCn3L"
       ],
       "custom_css": [
         ".section-resource-list {--page-margin: 16px; --full-page-grid-central-column-width: min( 100% - var(--page-margin) * 2, calc(100% - var(--page-margin) * 2) );}",
@@ -3158,7 +3278,7 @@
                   "type": "_accordion-row",
                   "settings": {
                     "heading": "NATURAL SOY WAX BLEND",
-                    "open_by_default": false,
+                    "open_by_default": true,
                     "icon": "none",
                     "image_upload": "shopify://shop_images/soy-wax.svg",
                     "width": 28
@@ -3363,6 +3483,7 @@
       "custom_css": [
         ".details__header {--icon-stroke-width: 1px;}",
         "summary .svg-wrapper {min-width: var(--icon-size-xs);}",
+        ".accordion accordion-custom .details-content {padding-inline: 0 !important;}",
         "@media (min-width: 750px) {.details__icon {margin-inline-end: var(--margin-sm); }}"
       ],
       "name": "t:names.image_with_text",
@@ -3397,8 +3518,8 @@
         "padding-block-start": 0,
         "padding-block-end": 80,
         "custom_mobile_padding": true,
-        "mobile-padding-block-start": 40,
-        "mobile-padding-block-end": 40,
+        "mobile-padding-block-start": 52,
+        "mobile-padding-block-end": 52,
         "mobile-padding-inline-start": 0,
         "mobile-padding-inline-end": 0,
         "css_class": "",
@@ -3598,7 +3719,7 @@
         "full_width_on_mobile": false,
         "section_height": "",
         "section_height_custom": 50,
-        "color_scheme": "scheme-afb0a2e7-cefb-415e-98ea-f0cc7a8d2dee",
+        "color_scheme": "scheme-1e7f4c49-7b8d-4440-9f86-4c8ded6ff4db",
         "background_media": "none",
         "video_position": "cover",
         "background_image_position": "cover",
@@ -3613,8 +3734,8 @@
         "padding-block-start": 80,
         "padding-block-end": 80,
         "custom_mobile_padding": true,
-        "mobile-padding-block-start": 40,
-        "mobile-padding-block-end": 40,
+        "mobile-padding-block-start": 52,
+        "mobile-padding-block-end": 52,
         "mobile-padding-inline-start": 0,
         "mobile-padding-inline-end": 0,
         "css_class": "",
@@ -3761,9 +3882,7 @@
         "group_rWpWgx",
         "shopvid_mp_tiktok_block_XbnUYh"
       ],
-      "custom_css": [
-        ".Shopvid__VideoBlock .Shopvid__VideoLib__Logo {display: none;}"
-      ],
+      "custom_css": [],
       "name": "Shoppable Videos",
       "settings": {
         "content_direction": "column",
@@ -3779,7 +3898,7 @@
         "mobile_gap": 12,
         "section_width": "page-narrow",
         "full_width_on_mobile": false,
-        "section_height": "small",
+        "section_height": "",
         "section_height_custom": 50,
         "color_scheme": "",
         "background_media": "none",
@@ -3793,11 +3912,11 @@
         "overlay_color": "#00000026",
         "overlay_style": "solid",
         "gradient_direction": "to top",
-        "padding-block-start": 0,
+        "padding-block-start": 52,
         "padding-block-end": 0,
-        "custom_mobile_padding": false,
-        "mobile-padding-block-start": 0,
-        "mobile-padding-block-end": 0,
+        "custom_mobile_padding": true,
+        "mobile-padding-block-start": 52,
+        "mobile-padding-block-end": 52,
         "mobile-padding-inline-start": 0,
         "mobile-padding-inline-end": 0,
         "css_class": "",
@@ -7702,6 +7821,7 @@
     "slideshow_aDPMnJ",
     "product_list_fa6P9H",
     "grid_section_DmUwUr",
+    "grid_section_hMnWKz",
     "section_APadaC",
     "section_ytQbm9",
     "section_eG4i37",
