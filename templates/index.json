@@ -3159,7 +3159,8 @@
                   "settings": {
                     "heading": "NATURAL SOY WAX BLEND",
                     "open_by_default": false,
-                    "icon": "carrot",
+                    "icon": "none",
+                    "image_upload": "shopify://shop_images/soy-wax.svg",
                     "width": 28
                   },
                   "blocks": {
@@ -3206,7 +3207,8 @@
                     "heading": "PREMIUM FRAGRANCE OILS",
                     "open_by_default": false,
                     "icon": "none",
-                    "width": 20
+                    "image_upload": "shopify://shop_images/fragrance.svg",
+                    "width": 28
                   },
                   "blocks": {
                     "text_q9Dbrw": {
@@ -3252,7 +3254,8 @@
                     "heading": "LEAD-FREE WICKS",
                     "open_by_default": false,
                     "icon": "none",
-                    "width": 20
+                    "image_upload": "shopify://shop_images/wick.svg",
+                    "width": 28
                   },
                   "blocks": {
                     "text_mfXkrY": {
@@ -3298,7 +3301,8 @@
                     "heading": "CRUELTY FREE",
                     "open_by_default": false,
                     "icon": "none",
-                    "width": 20
+                    "image_upload": "shopify://shop_images/cruelty.svg",
+                    "width": 30
                   },
                   "blocks": {
                     "text_hT43fN": {
@@ -3359,7 +3363,7 @@
       "custom_css": [
         ".details__header {--icon-stroke-width: 1px;}",
         "summary .svg-wrapper {min-width: var(--icon-size-xs);}",
-        ".accordion .details__header {padding-block: var(--padding-xl) !important;}"
+        "@media (min-width: 750px) {.details__icon {margin-inline-end: var(--margin-sm); }}"
       ],
       "name": "t:names.image_with_text",
       "settings": {
