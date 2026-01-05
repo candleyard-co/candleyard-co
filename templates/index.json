@@ -3882,9 +3882,7 @@
         "group_rWpWgx",
         "shopvid_mp_tiktok_block_XbnUYh"
       ],
-      "custom_css": [
-        ".Shopvid__VideoBlock .Shopvid__VideoLib__Logo {display: none;}"
-      ],
+      "custom_css": [],
       "name": "Shoppable Videos",
       "settings": {
         "content_direction": "column",
