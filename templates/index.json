@@ -3363,6 +3363,7 @@
       "custom_css": [
         ".details__header {--icon-stroke-width: 1px;}",
         "summary .svg-wrapper {min-width: var(--icon-size-xs);}",
+        ".accordion accordion-custom .details-content {padding-inline: 0 !important;}",
         "@media (min-width: 750px) {.details__icon {margin-inline-end: var(--margin-sm); }}"
       ],
       "name": "t:names.image_with_text",
