@@ -1790,7 +1790,7 @@
         "carousel_on_mobile": false,
         "enable_dots": true,
         "hide_arrows": true,
-        "autoplay": false,
+        "autoplay": true,
         "autoplay_speed": 6,
         "columns": 1,
         "peek_desktop": false,
