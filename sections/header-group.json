@@ -17,8 +17,8 @@
         "announcement_BxgCk9": {
           "type": "_announcement",
           "settings": {
-            "text": "Dessert Candles — 15% Off Today",
-            "link": "",
+            "text": "Dessert Candles - 15% Off Today",
+            "link": "shopify://collections/shop",
             "font": "var(--font-subheading--family)",
             "font_size": "1rem",
             "weight": "",
@@ -37,8 +37,8 @@
         "section_width": "page-width",
         "color_scheme": "scheme-1e7f4c49-7b8d-4440-9f86-4c8ded6ff4db",
         "divider_width": 1,
-        "padding-block-start": 15,
-        "padding-block-end": 15
+        "padding-block-start": 14,
+        "padding-block-end": 14
       }
     },
     "header_section": {
