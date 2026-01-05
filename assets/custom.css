@@ -618,6 +618,10 @@ video-media video {
     text-decoration-thickness: 1px !important;
 }
 
+.slideshow-controls__dots button {
+    --size: .4rem;
+}
+
 @media (min-width: 990px) {
     :root {
         --menu-font-2xl--size: 2.5rem !important;
