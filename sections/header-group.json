@@ -23,7 +23,7 @@
             "font_size": "0.875rem",
             "weight": "",
             "letter_spacing": "normal",
-            "case": "none"
+            "case": "uppercase"
           },
           "blocks": {}
         },
@@ -36,7 +36,7 @@
             "font_size": "0.875rem",
             "weight": "",
             "letter_spacing": "normal",
-            "case": "none"
+            "case": "uppercase"
           },
           "blocks": {}
         }
