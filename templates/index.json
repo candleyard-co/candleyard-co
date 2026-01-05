@@ -3158,7 +3158,7 @@
                   "type": "_accordion-row",
                   "settings": {
                     "heading": "NATURAL SOY WAX BLEND",
-                    "open_by_default": false,
+                    "open_by_default": true,
                     "icon": "none",
                     "image_upload": "shopify://shop_images/soy-wax.svg",
                     "width": 28
