@@ -4562,7 +4562,7 @@
         "vertical_alignment_flex_direction_column": "center",
         "gap": 32,
         "enable_mobile_gap": true,
-        "mobile_gap": 12,
+        "mobile_gap": 32,
         "section_width": "page-narrow",
         "full_width_on_mobile": false,
         "section_height": "",
