@@ -560,15 +560,43 @@
             "mobile-padding-inline-end": 0
           },
           "blocks": {
+            "product_list_text_YFtzcL": {
+              "type": "_product-list-text",
+              "name": "t:names.collection_title",
+              "settings": {
+                "text": "<h2>Best Sellers</h2>",
+                "width": "100%",
+                "max_width": "normal",
+                "alignment": "center",
+                "type_preset": "h3",
+                "font": "var(--font-body--family)",
+                "font_size": "",
+                "enable_mobile_size": true,
+                "mobile_font_size": "1.5rem",
+                "line_height": "normal",
+                "letter_spacing": "normal",
+                "case": "none",
+                "wrap": "pretty",
+                "color": "var(--color-foreground)",
+                "background": false,
+                "background_color": "#00000026",
+                "corner_radius": 0,
+                "padding-block-start": 0,
+                "padding-block-end": 0,
+                "padding-inline-start": 0,
+                "padding-inline-end": 0
+              },
+              "blocks": {}
+            },
             "text_Vzmk6K": {
               "type": "text",
               "name": "t:names.text",
               "settings": {
-                "text": "<p>Hot Right Now!</p>",
+                "text": "<p>Shop our bestselling viral dessert candles</p>",
                 "width": "fit-content",
                 "max_width": "normal",
                 "alignment": "left",
-                "type_preset": "custom",
+                "type_preset": "rte",
                 "font": "var(--font-body--family)",
                 "font_size": "1.125rem",
                 "enable_mobile_size": false,
@@ -593,34 +621,6 @@
               },
               "blocks": {}
             },
-            "product_list_text_YFtzcL": {
-              "type": "_product-list-text",
-              "name": "t:names.collection_title",
-              "settings": {
-                "text": "<p>Grab These Fast-Selling Picks!</p>",
-                "width": "100%",
-                "max_width": "normal",
-                "alignment": "center",
-                "type_preset": "h3",
-                "font": "var(--font-body--family)",
-                "font_size": "",
-                "enable_mobile_size": true,
-                "mobile_font_size": "1.5rem",
-                "line_height": "normal",
-                "letter_spacing": "normal",
-                "case": "none",
-                "wrap": "pretty",
-                "color": "var(--color-foreground)",
-                "background": false,
-                "background_color": "#00000026",
-                "corner_radius": 0,
-                "padding-block-start": 0,
-                "padding-block-end": 0,
-                "padding-inline-start": 0,
-                "padding-inline-end": 0
-              },
-              "blocks": {}
-            },
             "product_list_button_MWeP9V": {
               "type": "_product-list-button",
               "name": "t:names.product_list_button",
@@ -638,8 +638,8 @@
             }
           },
           "block_order": [
-            "text_Vzmk6K",
             "product_list_text_YFtzcL",
+            "text_Vzmk6K",
             "product_list_button_MWeP9V"
           ]
         },
