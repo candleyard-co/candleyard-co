@@ -619,7 +619,7 @@ video-media video {
 }
 
 .slideshow-controls__dots button {
-    --size: .4rem;
+    --size: .4rem !important;
 }
 
 @media (min-width: 990px) {
