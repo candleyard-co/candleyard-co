@@ -789,7 +789,7 @@
       "custom_css": [],
       "name": "t:names.featured_collection",
       "settings": {
-        "collection": "dessert-candle",
+        "collection": "best-sellers",
         "layout_type": "grid",
         "carousel_on_mobile": true,
         "max_products": 4,
