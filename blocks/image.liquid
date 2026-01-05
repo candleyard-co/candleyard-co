@@ -7,6 +7,8 @@
       assign ratio = '16 / 9'
     when 'portrait'
       assign ratio = '4 / 5'
+    when 'classic'
+      assign ratio = '7 / 5'
     when 'adapt'
       assign ratio = block_settings.image.aspect_ratio
   endcase
@@ -142,6 +144,10 @@
         {
           "value": "square",
           "label": "t:options.square"
+        },
+        {
+          "value": "classic",
+          "label": "Classic"
         },
         {
           "value": "landscape",
