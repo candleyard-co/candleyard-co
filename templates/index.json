@@ -1218,6 +1218,7 @@
       ],
       "custom_css": [
         ".section-resource-list {--page-margin: 16px; --full-page-grid-central-column-width: min( 100% - var(--page-margin) * 2, calc(100% - var(--page-margin) * 2) );}",
+        ".customer-name .text-block {flex: 1 auto;}",
         "@media (min-width: 990px) {.slideshow-control--previous {margin-inline-start: calc(-1 * var(--gap-sm)) !important; } .slideshow-control--next {margin-inline-end: calc(-1 * var(--gap-sm)) !important; }}"
       ],
       "name": "Carousel",
