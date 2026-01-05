@@ -26,10 +26,24 @@
             "case": "none"
           },
           "blocks": {}
+        },
+        "announcement_7pLLpk": {
+          "type": "_announcement",
+          "settings": {
+            "text": "Free shipping on orders $75+",
+            "link": "shopify://collections/shop",
+            "font": "var(--font-subheading--family)",
+            "font_size": "1rem",
+            "weight": "",
+            "letter_spacing": "normal",
+            "case": "none"
+          },
+          "blocks": {}
         }
       },
       "block_order": [
-        "announcement_BxgCk9"
+        "announcement_BxgCk9",
+        "announcement_7pLLpk"
       ],
       "name": "t:names.announcement_bar",
       "settings": {
