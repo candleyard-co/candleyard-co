@@ -19,7 +19,7 @@
           "settings": {
             "text": "Dessert Candles - 15% Off Today",
             "link": "shopify://collections/shop",
-            "font": "var(--font-subheading--family)",
+            "font": "var(--font-heading--family)",
             "font_size": "1rem",
             "weight": "",
             "letter_spacing": "normal",
@@ -32,7 +32,7 @@
           "settings": {
             "text": "Free shipping on orders $75+",
             "link": "shopify://collections/shop",
-            "font": "var(--font-subheading--family)",
+            "font": "var(--font-heading--family)",
             "font_size": "1rem",
             "weight": "",
             "letter_spacing": "normal",
