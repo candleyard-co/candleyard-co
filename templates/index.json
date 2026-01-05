@@ -3663,13 +3663,13 @@
             "css_class": ""
           },
           "blocks": {
-            "video_MbaYNg": {
-              "type": "video",
-              "name": "t:names.video",
+            "shoppable_video_CFaadb": {
+              "type": "shoppable-video",
+              "name": "Shoppable Video",
+              "disabled": true,
               "settings": {
                 "source": "uploaded",
                 "video": "shopify://files/videos/995518387a2f42c1b0b7ae0c597cc2a2.mp4",
-                "video_url": "",
                 "video_autoplay": true,
                 "video_loop": true,
                 "alt": "",
@@ -3689,7 +3689,7 @@
             }
           },
           "block_order": [
-            "video_MbaYNg"
+            "shoppable_video_CFaadb"
           ]
         },
         "carousel_card_rBxRry": {
@@ -4090,9 +4090,8 @@
         "carousel_card_JhGQak",
         "carousel_card_paCrDN"
       ],
-      "custom_css": [
-        "video-media {--size-style-aspect-ratio: 0.75 !important; --video-aspect-ratio: 0.75 !important; --border-color: rgb(var(--color-primary-button-background)) !important;}"
-      ],
+      "disabled": true,
+      "custom_css": [],
       "name": "Scrolling Carousel",
       "settings": {
         "marquee_duration_rate": 1,
