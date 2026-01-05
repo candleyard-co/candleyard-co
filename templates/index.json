@@ -1139,7 +1139,7 @@
             "group_DEkXd3"
           ]
         },
-        "carousel_card_zEYWVB": {
+        "carousel_card_HbmiQN": {
           "type": "_carousel-card",
           "name": "Carousel Item",
           "settings": {
@@ -1180,7 +1180,7 @@
             "css_class": ""
           },
           "blocks": {
-            "image_MRgGP4": {
+            "image_Q73myd": {
               "type": "image",
               "name": "t:names.image",
               "settings": {
@@ -1203,7 +1203,7 @@
               },
               "blocks": {}
             },
-            "text_zdXdgb": {
+            "text_KQ7dRD": {
               "type": "text",
               "name": "t:names.heading",
               "settings": {
@@ -1236,7 +1236,7 @@
               },
               "blocks": {}
             },
-            "text_prCNhn": {
+            "text_bReaGt": {
               "type": "text",
               "name": "t:names.text",
               "settings": {
@@ -1244,8 +1244,8 @@
                 "width": "fit-content",
                 "max_width": "normal",
                 "alignment": "left",
-                "type_preset": "rte",
-                "font": "var(--font-accent--family)",
+                "type_preset": "custom",
+                "font": "var(--font-accent-2--family)",
                 "font_size": "1.125rem",
                 "enable_mobile_size": false,
                 "mobile_font_size": "1rem",
@@ -1257,7 +1257,7 @@
                 "background": false,
                 "background_color": "#00000026",
                 "corner_radius": 0,
-                "padding-block-start": 0,
+                "padding-block-start": 12,
                 "padding-block-end": 0,
                 "padding-inline-start": 0,
                 "padding-inline-end": 0,
@@ -1269,7 +1269,7 @@
               },
               "blocks": {}
             },
-            "group_9d9qcq": {
+            "group_rQVcQA": {
               "type": "group",
               "name": "Verified",
               "settings": {
@@ -1285,7 +1285,7 @@
                 "custom_mobile_alignment": false,
                 "mobile_vertical_alignment": "flex-start",
                 "vertical_alignment_flex_direction_column": "center",
-                "gap": 4,
+                "gap": 6,
                 "enable_mobile_gap": false,
                 "mobile_gap": 12,
                 "width": "fit-content",
@@ -1322,7 +1322,7 @@
                 "css_class": "customer-name"
               },
               "blocks": {
-                "text_qhkDCp": {
+                "text_iWnfzL": {
                   "type": "text",
                   "name": "t:names.text",
                   "settings": {
@@ -1355,7 +1355,7 @@
                   },
                   "blocks": {}
                 },
-                "icon_pnPtgx": {
+                "icon_eNRdii": {
                   "type": "icon",
                   "name": "t:names.icon",
                   "settings": {
@@ -1371,7 +1371,7 @@
                   },
                   "blocks": {}
                 },
-                "text_Ucjhdd": {
+                "text_6c8M48": {
                   "type": "text",
                   "name": "t:names.text",
                   "settings": {
@@ -1406,17 +1406,17 @@
                 }
               },
               "block_order": [
-                "text_qhkDCp",
-                "icon_pnPtgx",
-                "text_Ucjhdd"
+                "text_iWnfzL",
+                "icon_eNRdii",
+                "text_6c8M48"
               ]
             }
           },
           "block_order": [
-            "image_MRgGP4",
-            "text_zdXdgb",
-            "text_prCNhn",
-            "group_9d9qcq"
+            "image_Q73myd",
+            "text_KQ7dRD",
+            "text_bReaGt",
+            "group_rQVcQA"
           ]
         },
         "static-header": {
@@ -1495,7 +1495,7 @@
       },
       "block_order": [
         "carousel_card_nG6PFY",
-        "carousel_card_zEYWVB"
+        "carousel_card_HbmiQN"
       ],
       "custom_css": [
         ".section-resource-list {--page-margin: 16px; --full-page-grid-central-column-width: min( 100% - var(--page-margin) * 2, calc(100% - var(--page-margin) * 2) );}",
