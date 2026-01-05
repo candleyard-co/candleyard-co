@@ -991,7 +991,7 @@
             },
             "group_DEkXd3": {
               "type": "group",
-              "name": "t:names.group",
+              "name": "Verified",
               "settings": {
                 "link": "",
                 "open_in_new_tab": false,
@@ -1039,7 +1039,7 @@
                 "mobile-padding-block-end": 0,
                 "mobile-padding-inline-start": 0,
                 "mobile-padding-inline-end": 0,
-                "css_class": ""
+                "css_class": "customer-name"
               },
               "blocks": {
                 "text_kNrAz4": {
