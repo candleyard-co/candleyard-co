@@ -136,7 +136,7 @@
                   data-cart-parent
                 {% endif %}
 
-                {% if item.properties['_type'] and item.properties['_type'] == 'Free Gift' %}
+                {% if item.properties['_type'] and item.properties['_type'] == 'Free Gift' or item.price == 0 %}
                   data-free-gift
                 {% endif %}
 
