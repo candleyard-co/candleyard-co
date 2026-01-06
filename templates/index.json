@@ -6154,7 +6154,7 @@
             "content_direction": "row",
             "vertical_on_mobile": false,
             "horizontal_alignment": "space-between",
-            "vertical_alignment": "flex-end",
+            "vertical_alignment": "center",
             "align_baseline": true,
             "horizontal_alignment_flex_direction_column": "flex-start",
             "vertical_alignment_flex_direction_column": "center",
@@ -6246,8 +6246,8 @@
         "carousel_card_yUwUTT"
       ],
       "custom_css": [
-        ".section-resource-list__header .button {--button-padding-inline: 14px; --button-padding-block: 5px;}",
-        "@media (max-width: 989px) {.section-resource-list__header .button {--button-padding-inline: 8px; --button-padding-block: 2px; font-size: var(--font-size--xs); }}"
+        ".section-resource-list__header .button {--button-padding-inline: 24px; --button-padding-block: 5px;}",
+        "@media (max-width: 989px) {.section-resource-list__header .button {--button-padding-inline: 14px; --button-padding-block: 2px; font-size: var(--font-size--xs); }}"
       ],
       "name": "Carousel",
       "settings": {
@@ -6287,6 +6287,102 @@
         "css_class": "",
         "add_section_id": false,
         "section_id": ""
+      }
+    },
+    "collage_YD6nc4": {
+      "type": "collage",
+      "blocks": {
+        "image_RbqiKz": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/DSC01924.jpg"
+          }
+        },
+        "image_rE88Fn": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/DSC08510.jpg"
+          }
+        },
+        "image_tLU7KM": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/DSC01573.jpg"
+          }
+        },
+        "image_wWUHGt": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/DSC00399.jpg"
+          }
+        },
+        "image_fUPVKe": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/DSC09919.jpg"
+          }
+        },
+        "image_YampfR": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/DSC00276-Edit.jpg"
+          }
+        },
+        "image_XtRPVM": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/DSC01687_2.jpg"
+          }
+        },
+        "image_GyH64V": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/DSC00323.jpg"
+          }
+        },
+        "image_QYzywD": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/DSC00135_1.jpg"
+          }
+        },
+        "image_FbbRGF": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/DSC02609_1.jpg"
+          }
+        }
+      },
+      "block_order": [
+        "image_RbqiKz",
+        "image_rE88Fn",
+        "image_tLU7KM",
+        "image_wWUHGt",
+        "image_fUPVKe",
+        "image_YampfR",
+        "image_XtRPVM",
+        "image_GyH64V",
+        "image_QYzywD",
+        "image_FbbRGF"
+      ],
+      "custom_css": [
+        ".section-page-width {--page-margin: 16px; --full-page-grid-central-column-width: min( 100% - var(--page-margin) * 2, calc(100% - var(--page-margin) * 2) );}"
+      ],
+      "name": "Collage",
+      "settings": {
+        "ratio": "square",
+        "border_radius": 6,
+        "section_width": "page-width",
+        "color_scheme": "",
+        "padding-block-start": 80,
+        "padding-block-end": 80,
+        "custom_mobile_padding": true,
+        "mobile-padding-block-start": 40,
+        "mobile-padding-block-end": 40,
+        "mobile-padding-inline-start": 0,
+        "mobile-padding-inline-end": 0,
+        "gap_between_elements": 16,
+        "mobile_gap": 8
       }
     },
     "grid_section_4YFewk": {
@@ -8676,6 +8772,7 @@
     "section_3D3UBD",
     "scrolling_carousel_nxJq6J",
     "grid_section_abzHyQ",
+    "collage_YD6nc4",
     "grid_section_4YFewk"
   ]
 }

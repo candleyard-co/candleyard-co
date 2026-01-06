@@ -1,0 +1,278 @@
+<div class="section-background color-{{ section.settings.color_scheme }}"></div>
+<div
+  class="section  {% if section.settings.full_width_on_mobile %}section--mobile-full-width{% endif %} section--{{ section.settings.section_width }} spacing-style gap-style color-{{ section.settings.color_scheme }}"
+  style="
+    {%- render 'spacing-style', settings: section.settings %};
+  "
+>
+
+  <div
+    class="collage__wrapper"
+    style="
+        --gap: {{ section.settings.gap_between_elements }}px;
+        --mobile-gap: {{ section.settings.mobile_gap }}px;
+        --radius: {{ section.settings.border_radius }}px;
+    "
+  >
+    {% for block in section.blocks %}
+        {% liquid
+            assign ratio = 1
+
+            case section.settings.image_ratio
+                when 'landscape'
+                    assign ratio = '16 / 9'
+                when 'portrait'
+                    assign ratio = '4 / 5'
+                when 'classic'
+                    assign ratio = '6 / 4.8'
+                when 'adapt'
+                    assign ratio = block.settings.image.aspect_ratio
+            endcase
+        %}
+        <div class="collage-item"
+            style="--ratio: {{ ratio }};"
+            {{ block.shopify_attributes }}>
+            <div class="collage-image">
+                {% render 'image', image: block.settings.image %}
+            </div>
+        </div>
+    {% endfor %}
+  </div>
+</div>
+
+{% stylesheet %}
+    .collage__wrapper {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        grid-column-gap: var(--gap);
+        grid-row-gap: var(--gap);
+
+        @media (max-width: 989px) {
+            grid-column-gap: var(--mobile-gap);
+            grid-row-gap: var(--mobile-gap);
+            grid-template-columns: repeat(2, 1fr);
+        }
+    }
+
+    .collage-item {
+        grid-column: span 1;
+        grid-row: span 1;
+
+        @media (min-width: 990px) {
+            &:nth-child(3) {
+                grid-column: span 2;
+                grid-row: span 2;
+            }
+
+            &:nth-child(10) {
+                grid-column-start: 1;
+                grid-column-end: 3;
+                grid-row-start: 3;
+                grid-row-end: 5;
+            }
+        }
+
+        @media (max-width: 989px) {
+            &:nth-child(n+7) {
+                display: none;
+            }
+        }
+
+        .collage-image {
+            border-radius: var(--radius);
+            aspect-ratio: var(--ratio);
+            overflow: hidden;
+            height: 100%;
+            width: 100%;
+        }
+    }
+
+    .collage-image img {
+        display: block;
+        aspect-ratio: var(--ratio);
+        height: 100%;
+        width: 100%;
+        max-width: 100%;
+    } 
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "Collage",
+  "disabled_on": {
+    "groups": ["header","footer"]
+  },
+  "blocks": [
+    {
+      "type": "image",
+      "name": "Image",
+      "limit": 10,
+      "settings": [
+        {
+            "type": "image_picker",
+            "id": "image",
+            "label": "Image"
+        }
+      ]
+    }
+  ],
+  "settings": [
+    {
+      "type": "select",
+      "id": "ratio",
+      "label": "t:settings.ratio",
+      "options": [
+        {
+          "value": "portrait",
+          "label": "t:options.portrait"
+        },
+        {
+          "value": "square",
+          "label": "t:options.square"
+        },
+        {
+          "value": "landscape",
+          "label": "t:options.landscape"
+        }
+      ],
+      "default": "portrait"
+    },
+    {
+      "type": "range",
+      "id": "border_radius",
+      "label": "t:settings.corner_radius",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "default": 0
+    },
+    {
+      "type": "select",
+      "id": "section_width",
+      "label": "t:settings.width",
+      "options": [
+        {
+          "value": "page-narrow",
+          "label": "Narrow"
+        },
+        {
+          "value": "page-width",
+          "label": "t:options.page"
+        },
+        {
+          "value": "full-width",
+          "label": "t:options.full"
+        }
+      ],
+      "default": "page-width"
+    },
+    {
+      "type": "color_scheme",
+      "id": "color_scheme",
+      "label": "t:settings.color_scheme",
+      "default": "scheme-1"
+    },
+    {
+      "type": "header",
+      "content": "t:content.padding"
+    },
+    {
+      "type": "range",
+      "id": "padding-block-start",
+      "label": "t:settings.top",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "default": 24
+    },
+    {
+      "type": "range",
+      "id": "padding-block-end",
+      "label": "t:settings.bottom",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "default": 24
+    },
+    {
+      "type": "checkbox",
+      "id": "custom_mobile_padding",
+      "label": "Custom Mobile Padding",
+      "default": false
+    },
+    {
+      "type": "range",
+      "id": "mobile-padding-block-start",
+      "label": "t:settings.top",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "default": 0,
+      "visible_if": "{{ section.settings.custom_mobile_padding == true }}"
+    },
+    {
+      "type": "range",
+      "id": "mobile-padding-block-end",
+      "label": "t:settings.bottom",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "default": 0,
+      "visible_if": "{{ section.settings.custom_mobile_padding == true }}"
+    },
+    {
+      "type": "range",
+      "id": "mobile-padding-inline-start",
+      "label": "t:settings.left",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "default": 0,
+      "visible_if": "{{ section.settings.custom_mobile_padding == true }}"
+    },
+    {
+      "type": "range",
+      "id": "mobile-padding-inline-end",
+      "label": "t:settings.right",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "default": 0,
+      "visible_if": "{{ section.settings.custom_mobile_padding == true }}"
+    },
+    {
+      "type": "range",
+      "id": "gap_between_elements",
+      "label": "t:settings.gap",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "default": 24
+    },
+    {
+      "type": "range",
+      "id": "mobile_gap",
+      "label": "Mobile gap",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "default": 12
+    }
+  ],
+  "presets": [
+    {
+      "name": "Collage",
+      "category": "t:categories.layout"
+    }
+  ]
+}
+{% endschema %}
