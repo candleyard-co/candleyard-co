@@ -874,7 +874,7 @@
       ],
       "custom_css": [
         "@media (min-width: 990px) {.menu__heading {padding: 0; } .social-icons__wrapper {gap: var(--gap-xl); } .footer-content {grid-template-columns: 1fr; } .details-content ul li {margin: 0 !important; } .details-content ul {display: flex; flex-direction: row; gap: var(--gap-3xl); } .details-content {margin: 0 !important; } .menu__details {display: flex; justify-content: center; gap: var(--gap-3xl); }}",
-        "@media (max-width: 989px) {.social-icons__wrapper {width: 100%; }}"
+        "@media (max-width: 989px) {.social-icons__wrapper {width: 100%; } summary {padding-block: var(--padding-lg);}}"
       ],
       "name": "t:names.footer",
       "settings": {
