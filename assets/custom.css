@@ -354,7 +354,7 @@ product-price .price {
     display: none;
 }
 
-summary .svg-wrapper {
+summary .svg-wrapper.icon-caret {
     min-width: var(--icon-size-sm);
 }
 
@@ -371,7 +371,7 @@ slideshow-slide > .slide__image-container {
 }
 
 .slideshow-controls__dots button:after {
-    box-shadow: inset 0 0 0 1.5px var(--color) !important;
+    box-shadow: none !important;
 }
 
 .quick-add__button .add-to-cart-text__content .dot-price,
@@ -379,7 +379,7 @@ slideshow-slide > .slide__image-container {
     display: none;
 }
 
-.add-to-cart-icon:not(.sticky-add-to-cart__bar .add-to-cart-icon):not(cart-upsell .add-to-cart-icon) {
+.add-to-cart-icon:not(.sticky-add-to-cart__bar .add-to-cart-icon):not(cart-upsell .add-to-cart-icon):not(.quick-add__product-form-component .add-to-cart-icon) {
     display: none;
 }
 
@@ -579,6 +579,47 @@ video-media video {
   object-fit: cover;
   height: 100%;
   aspect-ratio: var(--size-style-aspect-ratio, auto);
+}
+
+.product-card__content .dot-price, .product-card__content .add-to-cart-price {
+    display: none;
+}
+
+.product-card__content .product-form-buttons button {
+    width: fit-content;
+    padding-block: var(--padding-xs) !important;
+    margin-inline: auto;
+    height: auto;
+    font-size: var(--font-size--sm) !important;
+    padding-inline: var(--padding-xl);
+}
+
+.product-card .product-badges__badge--rectangle {
+    position: relative;
+    --badge-rectangle-padding-block: 4px;
+    margin-right: 13px;
+    font-weight: 600;
+}
+
+/* right rectangle extension with V-notch cut */
+.product-card .product-badges__badge--rectangle::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    right: -13px;
+    width: 14px;
+    height: 100%;
+    background: inherit; /* inherits the badge background color */
+    clip-path: polygon(0 0, 100% 0, 50% 50%, 100% 100%, 0 100%);
+}
+
+.compare-at-price {
+    opacity: .6 !important;
+    text-decoration-thickness: 1px !important;
+}
+
+.slideshow-controls__dots button {
+    --size: .4rem !important;
 }
 
 @media (min-width: 990px) {
