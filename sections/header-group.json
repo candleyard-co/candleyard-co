@@ -17,49 +17,35 @@
         "announcement_BxgCk9": {
           "type": "_announcement",
           "settings": {
-            "text": "Dessert Candles - 15% Off Today",
-            "link": "shopify://collections/shop",
+            "text": "Welcome to our store",
+            "link": "",
             "font": "var(--font-subheading--family)",
-            "font_size": "0.875rem",
+            "font_size": "0.75rem",
             "weight": "",
-            "letter_spacing": "loose",
-            "case": "uppercase"
-          },
-          "blocks": {}
-        },
-        "announcement_7pLLpk": {
-          "type": "_announcement",
-          "settings": {
-            "text": "Free shipping on orders $75+",
-            "link": "shopify://collections/shop",
-            "font": "var(--font-subheading--family)",
-            "font_size": "0.875rem",
-            "weight": "",
-            "letter_spacing": "loose",
-            "case": "uppercase"
+            "letter_spacing": "normal",
+            "case": "none"
           },
           "blocks": {}
         }
       },
       "block_order": [
-        "announcement_BxgCk9",
-        "announcement_7pLLpk"
+        "announcement_BxgCk9"
       ],
       "disabled": true,
       "name": "t:names.announcement_bar",
       "settings": {
         "speed": 5,
         "section_width": "page-width",
-        "color_scheme": "scheme-1e7f4c49-7b8d-4440-9f86-4c8ded6ff4db",
-        "divider_width": 0,
-        "padding-block-start": 12,
-        "padding-block-end": 12
+        "color_scheme": "scheme-1",
+        "divider_width": 1,
+        "padding-block-start": 15,
+        "padding-block-end": 15
       }
     },
-    "marquee_Fp9LHx": {
+    "marquee_tWar9E": {
       "type": "marquee",
       "blocks": {
-        "group_jVbkz8": {
+        "group_3NdLzy": {
           "type": "group",
           "name": "t:names.group",
           "settings": {
@@ -112,7 +98,7 @@
             "css_class": ""
           },
           "blocks": {
-            "text_mwXipW": {
+            "text_wEEwgA": {
               "type": "text",
               "settings": {
                 "text": "<p>Dessert Candles - 15% Off Today</p>",
@@ -146,10 +132,10 @@
             }
           },
           "block_order": [
-            "text_mwXipW"
+            "text_wEEwgA"
           ]
         },
-        "group_7MVP3B": {
+        "group_diUFdi": {
           "type": "group",
           "name": "t:names.group",
           "settings": {
@@ -202,7 +188,7 @@
             "css_class": ""
           },
           "blocks": {
-            "text_Ac6qrU": {
+            "text_XKMNzB": {
               "type": "text",
               "settings": {
                 "text": "<p>Free shipping on orders $75+</p>",
@@ -236,13 +222,13 @@
             }
           },
           "block_order": [
-            "text_Ac6qrU"
+            "text_XKMNzB"
           ]
         }
       },
       "block_order": [
-        "group_jVbkz8",
-        "group_7MVP3B"
+        "group_3NdLzy",
+        "group_diUFdi"
       ],
       "name": "t:names.marquee_section",
       "settings": {
@@ -326,7 +312,7 @@
   },
   "order": [
     "header_announcements_9jGBFp",
-    "marquee_Fp9LHx",
+    "marquee_tWar9E",
     "header_section"
   ]
 }
