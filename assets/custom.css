@@ -626,6 +626,15 @@ video-media video {
     --size: .4rem !important;
 }
 
+.shopify-section-group-header-group .marquee__repeated-items .group-block:after {
+    content: '•';
+    position: absolute;
+    top: 41%;
+    transform: translateY(-50%);
+    left: calc(-1 * calc(var(--marquee-gap) / 2 + 4px));
+    line-height: 1em;
+}
+
 @media (min-width: 990px) {
     :root {
         --menu-font-2xl--size: 2.5rem !important;
