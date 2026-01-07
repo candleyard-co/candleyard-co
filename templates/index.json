@@ -4548,7 +4548,7 @@
       ],
       "custom_css": [
         "@media (min-width: 750px) {.button {font-size: var(--font-size--lg); }}",
-        "@media (max-width: 749px) {{--max-width--body-normal: 100%; --width: 100% !important; }}"
+        "@media (max-width: 749px) {{--max-width--body-normal: 100%; }.text-block br {display: none;}}"
       ],
       "name": "t:names.image_with_text",
       "settings": {
