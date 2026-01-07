@@ -6218,7 +6218,7 @@
               "name": "t:names.button",
               "settings": {
                 "label": "Discover Now",
-                "link": "shopify://collections/all",
+                "link": "shopify://collections/shop",
                 "add_left_icon": false,
                 "left_svg_icon": "",
                 "add_right_icon": false,
