@@ -4487,7 +4487,7 @@
             "text_YVEdL7": {
               "type": "text",
               "settings": {
-                "text": "<p>Shop & Save with Dessert Candles!<br/>Plus, enjoy a FREE GIFT!</p>",
+                "text": "<p>Shop & Save with Dessert Candles! <br/>Plus, enjoy a FREE GIFT!</p>",
                 "width": "fit-content",
                 "max_width": "normal",
                 "alignment": "left",
@@ -4548,7 +4548,7 @@
       ],
       "custom_css": [
         "@media (min-width: 750px) {.button {font-size: var(--font-size--lg); }}",
-        "@media (max-width: 749px) {{--max-width--body-normal: 100%; }.text-block br {display: none;}}"
+        "@media (max-width: 749px) {{--max-width--body-normal: 100%; } .text-block br {display: none; }}"
       ],
       "name": "t:names.image_with_text",
       "settings": {
