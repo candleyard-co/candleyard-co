@@ -34,7 +34,21 @@
       data-testid="cart-bubble"
     >
       {%- if limit == blank or cart.item_count < limit %}
-        {{- cart.item_count -}}
+        {% liquid
+          assign custom_cart_count = 0
+
+          for cart_item in cart.items
+            unless cart_item.parent_relationship != null 
+              assign custom_cart_count = custom_cart_count | plus: 1
+            endunless
+          endfor
+        %}
+
+        {% if custom_cart_count > 0 %}
+          {{ custom_cart_count }}
+        {% else %}
+          {{- cart.item_count -}}
+        {% endif %}
       {%- endif -%}
     </span>
   </span>
