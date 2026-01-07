@@ -13,11 +13,13 @@
   {% endif %}
 {% endstyle %}
 
+{% assign item_image = item.metafields.custom.pack_image | default: item.featured_image %}
+
 {% capture card_image %}
   {% content_for 'block',
     type: '_object-image',
     id: 'pack-card-image',
-    image_source: item.featured_image,
+    image_source: item_image,
     parent_block_id: block.id %}
 {% endcapture %}
 
@@ -41,7 +43,6 @@
   card_price: card_price,
   block: block,
   item: item,
-  card_title: card_title,
   section: section
 %}
 
