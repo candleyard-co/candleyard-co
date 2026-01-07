@@ -314,7 +314,7 @@ product-price .price {
         "media error " !important;
 }
 
-[data-cart-parent] .cart-items__quantity-controls {
+/* [data-cart-parent] .cart-items__quantity-controls {
     gap: 0 !important;
 }
 
@@ -339,7 +339,7 @@ product-price .price {
     "details quantity"
     "error error" !important;
     grid-template-columns: minmax(0, 1fr) minmax(var(--cart-item-price-width), auto) !important;
-}
+} */
 
 .cart-items__quantity-controls {
     width: 100% !important;
