@@ -40,7 +40,9 @@
             {{ 'content.product_badge_sold_out' | t }}
           {%- elsif product.compare_at_price > product.price -%}
             {% assign saved_price = product.compare_at_price | minus: product.price | money_without_trailing_zeros %}
-            {{ 'content.product_badge_sale' | t: saved_price: saved_price }}
+            {% assign percent_off = product.compare_at_price | minus: product.price | times: 100.0 | divided_by: product.compare_at_price | ceil | append: '%' %}
+
+            {{ 'content.product_badge_sale' | t: saved_price: percent_off }}
           {%- endif -%}
         </div>
       {%- endif -%}
