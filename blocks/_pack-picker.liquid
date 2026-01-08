@@ -40,7 +40,7 @@
         {% assign item_product = all_products[item.product] %}
         {% assign selected_variant = item_product.selected_or_first_available_variant %}
         {% if item_product != blank %}
-          <div class="pack-item title--aligned-center justify-between {% if item_product.available == false %}oos-pack-item{% endif %}" data-id="{{ item.system.id }}">
+          <div class="pack-item {% if item_product.available == false %}oos-pack-item{% endif %}" data-id="{{ item.system.id }}">
             <div class="flex pack-item-flex title--aligned-center">
               <div>
                 {% if item.vector_image != blank %}
@@ -206,6 +206,9 @@
   .pack-item {
     padding-block: var(--padding-xs);
     width: 100%;
+    display: grid;
+    grid-template-columns: 1fr max-content;
+    gap: 1rem;
 
     &:not(:last-child) {
       border-bottom: var(--style-border-width-inputs) solid var(--color-input-border);
