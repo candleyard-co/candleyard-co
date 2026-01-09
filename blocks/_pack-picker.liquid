@@ -20,7 +20,8 @@
   data-limit="{{ current_product.selected_or_first_available_variant.metafields.custom.pack_limit | plus: 0 }}"
 >
   {% assign choose_text = 'actions.choose_scents' | t %}
-  {% if pack_items.count == 1 %}
+
+  {% if current_product.selected_or_first_available_variant.metafields.custom.pack_limit == 1 %}
     {% assign choose_text = 'actions.choose_a_scent' | t %}
   {% endif %}
 
