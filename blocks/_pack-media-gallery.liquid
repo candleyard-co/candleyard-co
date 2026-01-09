@@ -108,6 +108,10 @@
 {%- endif -%}
 
 {% style %}
+  .product-media-container:has(.pack-media) {
+    aspect-ratio: unset;
+  }
+
   {% unless block_settings.aspect_ratio == 'adapt' %}
     .product-media-container {
       --media-preview-ratio: {{ block_settings.aspect_ratio }};

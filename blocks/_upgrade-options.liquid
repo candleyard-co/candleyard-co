@@ -1,7 +1,14 @@
 {% liquid 
     assign block_settings = block.settings
     assign selected_variant = product.selected_or_first_available_variant
-    assign upgrade_options = selected_variant.metafields.custom.upgrade_options.value
+    assign block_product = all_products[block_settings.product]
+
+    if block_product != blank and block_product.metafields.custom.upgrade_options != blank
+        assign upgrade_options = block_product.metafields.custom.upgrade_options.value
+    else
+        assign upgrade_options = selected_variant.metafields.custom.upgrade_options.value
+    endif
+    
 %}
 
 {% if upgrade_options == blank %}
@@ -18,9 +25,10 @@
 ></script>
 
 <upgrade-options class="upgrade-options spacing-style"
-  style="{% render 'spacing-style', settings: block_settings %}">
-    {% if selected_variant.metafields.custom.upgrade_widget_heading %}
-        {% content_for 'block', id: 'object-text', type: '_object-text', text: selected_variant.metafields.custom.upgrade_widget_heading %}
+  style="{% render 'spacing-style', settings: block_settings %}"
+  {{ block.shopify_attributes }}>
+    {% if block_settings.heading %}
+        {% content_for 'block', id: 'object-text', type: '_object-text', text: block_settings.heading %}
     {% endif %}
 
     <div class="upgrade__items">
@@ -40,7 +48,8 @@
         {% endfor %}
     </div>
 </upgrade-options>
-
+{% if block_product != blank and block_product.metafields.custom.upgrade_options != blank %}
+{% endif %}
 
 {% stylesheet %}
     .upgrade__items {
@@ -64,6 +73,10 @@
             background: linear-gradient(68deg,#ffffff 0%,#ffffff 20%,var(--color-background) 20%,var(--color-background) 100%) !important;
         }
     }
+
+    .product-details:has(upgrade-options) .product-form-buttons .quantity-selector-wrapper {
+        display: none;
+    }
 {% endstylesheet %}
 
 {% schema %}
@@ -71,6 +84,16 @@
     "name": "Upgrade Options",
     "tag": null,
     "settings": [
+        {
+            "type": "product",
+            "id": "product",
+            "label": "Product"
+        },
+        {
+            "type": "text",
+            "id": "heading",
+            "label": "Heading"
+        },
         {
             "type": "header",
             "content": "t:content.padding"

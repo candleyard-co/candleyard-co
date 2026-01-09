@@ -97,6 +97,8 @@
               "type": "_upgrade-options",
               "static": true,
               "settings": {
+                "product": "",
+                "heading": "Craving more? Upgrade to add more candles",
                 "padding-block-start": 10,
                 "padding-block-end": 0,
                 "padding-inline-start": 0,
