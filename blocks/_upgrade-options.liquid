@@ -1,0 +1,175 @@
+{% liquid 
+    assign block_settings = block.settings
+    assign selected_variant = product.selected_or_first_available_variant
+    assign upgrade_options = selected_variant.metafields.custom.upgrade_options.value
+%}
+
+{% if upgrade_options == blank %}
+    {% break %}
+{% endif %}
+
+<script
+    src="{{ 'pack-card.js' | asset_url }}"
+    type="module"
+></script>
+<script
+    src="{{ 'pack-quantity-selector.js' | asset_url }}"
+    type="module"
+></script>
+
+<upgrade-options class="upgrade-options spacing-style"
+  style="{% render 'spacing-style', settings: block_settings %}">
+    {% if selected_variant.metafields.custom.upgrade_widget_heading %}
+        {% content_for 'block', id: 'object-text', type: '_object-text', text: selected_variant.metafields.custom.upgrade_widget_heading %}
+    {% endif %}
+
+    <div class="upgrade__items">
+        {% for item in upgrade_options %}
+            {% assign variant = item.pack_variant.value %}
+            {% assign subtext = item.subtext %}
+            {% assign title = item.title %}
+            {% if selected_variant.price < variant.price %}
+                {% assign upgrade_price = variant.price | minus: selected_variant.price | money_without_trailing_zeros %}
+            {% endif %}
+
+            {% if variant != blank %}
+                <div class="upgrade-item">
+                    {% content_for 'block', type: '_pack-card', id: 'horizontal-pack-card', horizontal: true, upgrade_price: upgrade_price, item: variant, card_title: title, subtext: subtext %}
+                </div>
+            {% endif %}
+        {% endfor %}
+    </div>
+</upgrade-options>
+
+
+{% stylesheet %}
+    .upgrade__items {
+        display: flex;
+        flex-direction: column;
+        gap: var(--gap-xs);
+    }
+    .upgrade-item .horizontal-pack-card {
+        padding: var(--padding-xs);
+        border-radius: 8px;
+
+        @media (min-width: 750px) {
+            padding: var(--padding-sm);
+        }
+    }
+
+    .upgrade-item .horizontal-pack-card {
+        background: linear-gradient(55deg, #ffffff 0%, #ffffff 16%, var(--color-background) 16%, var(--color-background) 100%) !important;
+
+        @media (max-width: 749px) {
+            background: linear-gradient(68deg,#ffffff 0%,#ffffff 20%,var(--color-background) 20%,var(--color-background) 100%) !important;
+        }
+    }
+{% endstylesheet %}
+
+{% schema %}
+{
+    "name": "Upgrade Options",
+    "tag": null,
+    "settings": [
+        {
+            "type": "header",
+            "content": "t:content.padding"
+        },
+        {
+            "type": "range",
+            "id": "padding-block-start",
+            "label": "t:settings.top",
+            "min": 0,
+            "max": 100,
+            "step": 1,
+            "unit": "px",
+            "default": 0
+        },
+        {
+            "type": "range",
+            "id": "padding-block-end",
+            "label": "t:settings.bottom",
+            "min": 0,
+            "max": 100,
+            "step": 1,
+            "unit": "px",
+            "default": 0
+        },
+        {
+            "type": "range",
+            "id": "padding-inline-start",
+            "label": "t:settings.left",
+            "min": 0,
+            "max": 100,
+            "step": 1,
+            "unit": "px",
+            "default": 0
+        },
+        {
+            "type": "range",
+            "id": "padding-inline-end",
+            "label": "t:settings.right",
+            "min": 0,
+            "max": 100,
+            "step": 1,
+            "unit": "px",
+            "default": 0
+        },
+        {
+            "type": "checkbox",
+            "id": "custom_mobile_padding",
+            "label": "Custom Mobile Padding",
+            "default": false
+        },
+        {
+            "type": "range",
+            "id": "mobile-padding-block-start",
+            "label": "t:settings.top",
+            "min": 0,
+            "max": 100,
+            "step": 1,
+            "unit": "px",
+            "default": 0,
+            "visible_if": "{{ block.settings.custom_mobile_padding == true }}"
+        },
+        {
+            "type": "range",
+            "id": "mobile-padding-block-end",
+            "label": "t:settings.bottom",
+            "min": 0,
+            "max": 100,
+            "step": 1,
+            "unit": "px",
+            "default": 0,
+            "visible_if": "{{ block.settings.custom_mobile_padding == true }}"
+        },
+        {
+            "type": "range",
+            "id": "mobile-padding-inline-start",
+            "label": "t:settings.left",
+            "min": 0,
+            "max": 100,
+            "step": 1,
+            "unit": "px",
+            "default": 0,
+            "visible_if": "{{ block.settings.custom_mobile_padding == true }}"
+        },
+        {
+            "type": "range",
+            "id": "mobile-padding-inline-end",
+            "label": "t:settings.right",
+            "min": 0,
+            "max": 100,
+            "step": 1,
+            "unit": "px",
+            "default": 0,
+            "visible_if": "{{ block.settings.custom_mobile_padding == true }}"
+        }
+    ],
+    "presets": [
+        {
+            "name": "Upgrade Options"
+        }
+    ]
+}
+{% endschema %}

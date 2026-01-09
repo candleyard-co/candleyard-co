@@ -66,6 +66,8 @@
     "apply": "Apply",
     "back": "Back",
     "choose": "Choose",
+    "choose_a_scent": "Choose a scent:",
+    "choose_scents": "Choose scents:",
     // Button to reset current selection or input
     "clear": "Clear",
     // Button to remove all applied product filters

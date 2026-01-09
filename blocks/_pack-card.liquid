@@ -3,6 +3,10 @@
   Intended for collection-card.liquid block.
 
   @param {object} item - The item source
+  @param {string} card_title - The title
+  @param {boolean} [horizontal] - The card state
+  @param {string} [subtext] - The subtext
+  @param {string} [upgrade_price] - The upgrade price
 {%- enddoc -%}
 
 {% style %}
@@ -16,18 +20,34 @@
 {% assign item_image = item.metafields.custom.pack_image | default: item.featured_image %}
 
 {% capture card_image %}
-  {% content_for 'block',
-    type: '_object-image',
-    id: 'pack-card-image',
-    image_source: item_image,
-    parent_block_id: block.id %}
+  <div class="pack-card-image">
+    {% unless horizontal == true %}
+      {% if item.metafields.custom.badge_text != blank %}
+        <span class="card-badge product-badges__badge product-badges__badge--ribbon color-{{ block.settings.badge_card_color_scheme }}"
+          style="
+            --badge-border-radius: {{ settings.badge_corner_radius }}px;
+            --badge-font-family: var(--font-{{ settings.badge_font_family }}--family); --badge-font-weight: var(--font-{{ settings.badge_font_family }}--weight); --badge-text-transform: uppercase;
+          "
+        >
+          {{ item.metafields.custom.badge_text }}
+        </span>
+      {% endif %}
+    {% endunless %}
+
+    {% content_for 'block',
+      type: '_object-image',
+      id: 'pack-card-image',
+      image_source: item_image,
+      parent_block_id: block.id %}
+  </div>
 {% endcapture %}
 
 {% capture card_title %}
+  {% assign title = card_title | default: item.title %}
   {% content_for 'block',
     type: '_object-text',
     id: 'object-text',
-    text: item.title %}
+    text: title %}
 {% endcapture %}
 
 {% capture card_price %}
@@ -37,14 +57,27 @@
     item: item %}
 {% endcapture %}
 
-{% render 'pack-card',
-  card_image: card_image,
-  card_title: card_title,
-  card_price: card_price,
-  block: block,
-  item: item,
-  section: section
-%}
+{% if horizontal %}
+  {% render 'horizontal-pack-card',
+    card_image: card_image,
+    card_title: card_title,
+    card_price: card_price,
+    upgrade_price: upgrade_price,
+    subtext: subtext,
+    block: block,
+    item: item,
+    section: section
+  %}
+{% else %}
+  {% render 'pack-card',
+    card_image: card_image,
+    card_title: card_title,
+    card_price: card_price,
+    block: block,
+    item: item,
+    section: section
+  %}
+{% endif %}
 
 {% schema %}
 {
@@ -146,6 +179,12 @@
       "type": "color_scheme",
       "id": "badge_sale_color_scheme",
       "label": "t:settings.badge_sale_color_scheme",
+      "default": "scheme-4"
+    },
+    {
+      "type": "color_scheme",
+      "id": "badge_card_color_scheme",
+      "label": "Card badge",
       "default": "scheme-4"
     },
     {

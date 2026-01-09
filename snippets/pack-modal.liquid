@@ -272,7 +272,7 @@
     padding: 0;
 
     @media (max-width: 749px) {
-      margin-bottom: var(--padding-lg);
+      margin-bottom: var(--padding-xs);
     }
     /* Prevent overlap between title and close button */
   }
@@ -317,6 +317,10 @@
       product-price *,
       product-inventory,
       product-inventory *,
+      .product-subtext,
+      .product-subtext *,
+      upgrade-options,
+      upgrade-options *,
       .view-more-details__wrapper,
       .view-more-details__wrapper *
     ) {
@@ -465,7 +469,7 @@
     top: 0;
   }
 
-  .pack-add-modal__content .text-block.rte:not(product-price),
+  /* .pack-add-modal__content .text-block.rte:not(product-price), */
   .pack-add-modal__content .view-more-details__wrapper {
     display: none;
   }

@@ -31,6 +31,18 @@
           {{ 'products.product.pack_title' | t: limit: pack_limit, title: title }}
         </a> 
     </div>
+    {% if product.metafields.custom.short_description != blank %}
+      {% assign subtext = product.metafields.custom.short_description | metafield_tag %}
+      {% render 'text', fallback_text: subtext, class: 'product-subtext' %}
+    {% endif %}
+
+    {% if selected_variant.compare_at_price > selected_variant.price %}
+      {% content_for 'block',
+      type: 'price',
+      id: 'price' %}
+    {% endif %}
+
+    {% content_for 'block', type: '_upgrade-options', id: 'upgrade-options', current_product: closest.product %}
     {% content_for 'block', type: '_pack-picker', id: 'pack-picker', current_product: closest.product %}
     {% content_for 'block', type: '_pack-buttons', id: 'pack-buttons' %}
   {% endcapture %}
@@ -45,6 +57,19 @@
     @media (max-width: 750px) {
       --height-buy-buttons: calc(var(--padding-lg) * 2 + var(--icon-size-xs));
     }
+  }
+
+  .product-subtext {
+    margin-top: calc(-1 * calc(var(--gap) / 2));
+
+    @media (max-width: 749px) {
+      font-size: var(--font-size--xs);
+      margin-bottom: var(--margin-xs);
+    }
+  }
+
+  .product-subtext > .metafield-rich_text_field * {
+      margin: 0;
   }
 
   @media screen and (min-width: 750px) {

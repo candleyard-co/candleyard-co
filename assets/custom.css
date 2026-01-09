@@ -635,6 +635,10 @@ video-media video {
     line-height: 1em;
 }
 
+.cart-drawer__inner:has(shipping-bar) #cart-drawer-header {
+    padding-bottom: 0;
+}
+
 @media (min-width: 990px) {
     :root {
         --menu-font-2xl--size: 2.5rem !important;

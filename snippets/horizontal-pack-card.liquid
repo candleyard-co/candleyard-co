@@ -5,12 +5,14 @@
   @param {string} card_image - The image to display in the collection card
   @param {object} item - The item to render the card for
   @param {string} card_title - The card title
+  @param {string} [subtext] - The subtext
+  @param {string} [upgrade_price] - The upgrade price
   @param {string} card_price - The card price
   @param {object} block - The block object
   @param {object} section - The section object
 
   @example
-  {% render 'pack-card',
+  {% render 'upgrade-card',
     card_image: card_image,
     children: children,
     block: block,
@@ -36,6 +38,7 @@
 
   class="
     pack-card
+    horizontal-pack-card
     border-style
     {% if block_settings.placement == 'on_image' %}pack-card--image-bg{% endif %}
     {% if section.settings.layout_type == 'bento' %}pack-card--image-height-fixed{% endif %}
@@ -71,27 +74,30 @@
     {% else %}
     {% endif %}
     <div class="pack-card__content layout-panel-flex--column">
-        {% if item.compare_at_price > item.price %}
-            <div class="pack-content-title">
-                <div>
-                    {{ card_title }}
-                </div>
-                <div>
-                  {% assign discount = item.compare_at_price | minus: item.price | times: 100.0 | divided_by: item.compare_at_price | round %}
-                  <div
-                    class="
-                      product-badges__badge product-badges__badge--rectangle
-                      color-{{ block.settings.badge_sale_color_scheme }}
-                    "
-                  >
-                    {{ 'products.product.save' | t: price: discount }}
-                  </div>
-                </div>
+        {{ card_title }}
+
+        <div class="flex align-items-center">
+          {% if upgrade_price %}
+            <div>
+              <span class="price-upgrade">
+                +{{ upgrade_price }}
+              </span>
             </div>
-        {% else %}
-            {{ card_title }}
-        {% endif %}
-        {{ card_price }}
+          {% endif %}
+          {% if subtext %}
+            <div>
+              <span class="upgrade-subtext">
+                {{ subtext }}
+              </span>
+            </div>
+          {% endif %}
+        </div>
+
+        <span class="upgrade-icon">
+          <span class="svg-wrapper icon-caret icon-caret--forward">
+            {{- 'icon-caret.svg' | inline_asset_content -}}
+          </span>
+        </span>
     </div>
   </div>
 </pack-card>
@@ -112,7 +118,6 @@
 
     .pack-card-image {
       position: relative;
-      width: 100%;
     }
 
     @media (max-width: 749px) {
@@ -325,5 +330,61 @@
     &:not(.pack-card--image-bg) .pack-card__content {
       height: auto;
     }
+  }
+
+  .horizontal-pack-card .pack-card__inner {
+    flex-direction: row;
+    gap: 2rem !important;
+  }
+
+  .horizontal-pack-card .pack-card__image {
+    width: 50px;
+  }
+
+  .horizontal-pack-card .pack-card-image {
+    width: 50px;
+
+    @media (max-width: 749px) {
+      width: 50px !important;
+      max-width: 50px !important;
+
+      .image-block {
+        --border-radius: 6px !important;
+      }
+    }
+  }
+
+  .horizontal-pack-card .pack-card__content {
+    gap: 0;
+  }
+
+  .upgrade-subtext {
+    line-height: 1em;
+    font-style: italic;
+  }
+
+  .price-upgrade, .upgrade-subtext {
+    font-size: var(--font-size--sm);
+  }
+
+
+  .upgrade-icon {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    right: 0;
+  }
+
+  .upgrade-icon > .svg-wrapper {
+    width: fit-content;
+    display: block;
+  }
+  
+  .upgrade-icon > .svg-wrapper svg {
+    width: fit-content;
+  }
+
+  .price-upgrade {
+    font-weight: var(--font-heading--weight);
   }
 {% endstylesheet %}
