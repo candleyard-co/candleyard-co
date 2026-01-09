@@ -19,9 +19,9 @@
   data-section-id="{{ section.id }}"
   data-limit="{{ current_product.selected_or_first_available_variant.metafields.custom.pack_limit | plus: 0 }}"
 >
-  {% assign choose_text = 'actions.choose_a_scent' | t %}
+  {% assign choose_text = 'actions.choose_scents' | t %}
   {% if pack_items.count == 1 %}
-    {% assign choose_text = 'actions.choose_scents' | t %}
+    {% assign choose_text = 'actions.choose_a_scent' | t %}
   {% endif %}
 
   {% content_for 'block', id: 'object-text', type: '_object-text', text: choose_text %}
