@@ -11,7 +11,7 @@
   <div class="page-navigation-container">
     <div class="page-navigation list-unstyled">
       {% for block in section.blocks %}
-        <div class="page-navigation-buttons-list__slide">
+        <div class="page-navigation-buttons-list__slide" {{ block.shopify_attributes }}>
           <div class="page-navigation-buttons-wrapper">
             <a href="#{{ block.settings.section_id }}" class="button--state-page-navigation">
               {{ block.settings.text | strip }}

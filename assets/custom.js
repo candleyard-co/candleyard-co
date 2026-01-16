@@ -428,8 +428,6 @@ function updateHeaderHeight() {
   // Update CSS variables
   document.body.style.setProperty('--header-static-height', `${headerHeight}px`);
   document.body.style.setProperty('--header-total-height', `${headerHeight}px`);
-  
-  console.log('Header height updated:', headerHeight, 'px');
 }
 
 // Simple debounce

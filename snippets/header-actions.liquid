@@ -27,7 +27,9 @@
   {{- block.shopify_attributes -}}
 >
   {% if shop.customer_accounts_enabled %}
-    <script
+    {% render 'account-button' with 'account-popover' as popover_id, tag: 'a' %}
+
+    {% comment %} <script
       src="{{ 'dialog.js' | asset_url }}"
       type="module"
     ></script>
@@ -74,7 +76,7 @@
         </button>
         {% render 'account-actions' %}
       </dialog>
-    </dialog-component>
+    </dialog-component> {% endcomment %}
   {% endif %}
 
   {% if settings.cart_type == 'drawer' and template.name != 'cart' %}

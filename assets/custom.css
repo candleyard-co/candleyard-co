@@ -46,6 +46,10 @@ slideshow-controls.carousel-controls .icon-play {
     margin-top: auto;
 }
 
+header-actions {
+    align-items: center;
+}
+
 header-actions .account-button.header-actions__action {
     height: 100%;
 }

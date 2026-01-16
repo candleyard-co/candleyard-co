@@ -11,12 +11,16 @@
 <{{ tag }}
   class="account-button header-actions__action"
   aria-label="{{ 'accessibility.account' | t }}"
-  aria-haspopup="dialog"
-  {%- if popover_id -%}
-    popovertarget="{{ popover_id }}"
-    popovertargetaction="{{ popover_action | default: 'toggle' }}"
+  {% if tag == 'a' %}
+    href="{{ routes.account_url }}"
+  {% else %}
+    aria-haspopup="dialog"
+    {%- if popover_id -%}
+      popovertarget="{{ popover_id }}"
+      popovertargetaction="{{ popover_action | default: 'toggle' }}"
+    {%- endif -%}
+    ref="trigger"
   {%- endif -%}
-  ref="trigger"
   {{ attributes }}
 >
   {%- if customer.has_avatar? -%}
