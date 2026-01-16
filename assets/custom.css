@@ -871,6 +871,10 @@ video-media video {
         gap: var(--gap-xl);
     }
 
+    .product-details .flex-wholesale-price .price-w-label {
+        text-align: left;
+    }
+
     .flex-wholesale-price .price-w-label {
         gap: 0;
     }
