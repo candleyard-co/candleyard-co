@@ -322,19 +322,20 @@
                       can_update_quantity: can_update_quantity
                     %}
 
-                  <button
-                    class="cart-items__remove"
-                    type="button"
-                    aria-label="{{ 'accessibility.remove_item' | t: title: item.title | escape }}"
-                    on:click="/onLineItemRemove/{{ item.index | plus: 1 }}"
-                    {% assign can_remove = item.instructions.can_remove | default: true, allow_false: true %}
-                    {% if can_remove == false %}
-                      hidden
-                    {% endif %}
-                  >
-                    {{ 'accessibility.remove' | t | escape }}
-                    <span class="visually-hidden">Remove</span>
-                  </button>
+                    <button
+                      class="cart-items__remove"
+                      type="button"
+                      aria-label="{{ 'accessibility.remove_item' | t: title: item.title | escape }}"
+                      on:click="/onLineItemRemove/{{ item.index | plus: 1 }}"
+                      {% assign can_remove = item.instructions.can_remove | default: true, allow_false: true %}
+                      {% if can_remove == false %}
+                        hidden
+                      {% endif %}
+                    >
+                      {{ 'accessibility.remove' | t | escape }}
+                      <span class="visually-hidden">Remove</span>
+                    </button>
+                  </div>
                 </td>
                 <td
                   class="cart-items__error hidden"
@@ -382,7 +383,24 @@
         </table>
       </div>
     </form>
-    {% if settings.enable_cart_upsell == true and settings.upsell_list != blank %}
+    {% liquid
+      assign has_tag = 0
+
+      assign customer_tag_shop = shop.metafields.custom.customer_discounts.value
+
+      if customer and customer_tag_shop.size > 0
+        for tag in customer.tags
+          assign found_tag = customer_tag_shop | where: 'customer_tag' , tag
+
+          if found_tag.size > 0
+            assign has_tag = 1
+            break
+          endif
+        endfor
+      endif
+    %}
+
+    {% if has_tag == 0 and settings.enable_cart_upsell == true and settings.upsell_list != blank %}
       {% render 'cart-upsell', cart: cart %}
     {% endif %}
   {%- endif -%}

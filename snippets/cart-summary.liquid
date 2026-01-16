@@ -263,6 +263,7 @@
       assign in_cart = 0
       assign in_cart_key = 0
       assign empty_cart = false
+      assign has_tag = 0
 
       assign customer_tag_shop = shop.metafields.custom.customer_discounts.value
 
@@ -272,12 +273,13 @@
 
           if found_tag.size > 0
             assign has_protection = false
+            assign has_tag = 1
             break
           endif
         endfor
       endif
 
-      if settings.enable_shipping_protection == true and found_tag == blank
+      if settings.enable_shipping_protection == true and has_tag == 0
         assign protection_product = all_products[settings.protection_product]
         assign protection_price = protection_product.price | money_without_trailing_zeros
         assign has_protection = true
@@ -300,6 +302,16 @@
         endif
       endif
     %}
+    
+    {% if has_tag == 1 and found_tag != blank and found_tag[0].minimum_order %}
+      {% assign order_minimum = 0 %}
+
+      {% if customer.orders.size == 0 %}
+        {% assign order_minimum = found_tag[0].minimum_order.value %}
+      {% else %}
+        {% assign order_minimum = found_tag[0].minimum_order_returning.value %}
+      {% endif %}
+    {% endif %}
 
     {% if has_protection == true %}
       <protection-buttons class="protection--buttons">
@@ -363,18 +375,35 @@
         </div>
       </protection-buttons>
     {% else %}
-      <button
-        type="submit"
-        id="checkout"
-        class="cart__checkout-button button"
-        name="checkout"
-        {% if cart == empty or cart.total_price == 0 %}
-          disabled
-        {% endif %}
-        form="cart-form"
-      >
-        {{ 'content.checkout' | t }} • {{ cart.total_price | money_without_trailing_zeros }}
-      </button>
+      {% if order_minimum != blank and cart.total_price < order_minimum %}
+        <span class="cart-notice">
+          {% assign minimum_price =  order_minimum | money_without_trailing_zeros %}
+          {{ 'content.minimum_note_html' | t: price: minimum_price }}
+        </span>
+
+        <button
+          type="button"
+          on:click="cart-drawer-component/close"
+          id="checkout"
+          class="cart__checkout-button button"
+          form="cart-form"
+        >
+          {{ 'actions.continue_shopping' | t }}
+        </button>
+      {% else %}
+        <button
+          type="submit"
+          id="checkout"
+          class="cart__checkout-button button"
+          name="checkout"
+          {% if cart == empty or cart.total_price == 0 %}
+            disabled
+          {% endif %}
+          form="cart-form"
+        >
+          {{ 'content.checkout' | t }} • {{ cart.total_price | money_without_trailing_zeros }}
+        </button>
+      {% endif %}
     {% endif %}
 
     {% if additional_checkout_buttons and settings.show_accelerated_checkout_buttons %}

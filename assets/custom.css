@@ -666,6 +666,13 @@ video-media video {
     text-align: center;
 }
 
+.cart-notice {
+    font-size: var(--font-size--sm);
+    font-style: italic;
+    line-height: 1.2em;
+    margin-bottom: var(--margin-lg);
+}
+
 @media (min-width: 990px) {
     :root {
         --menu-font-2xl--size: 2.5rem !important;
