@@ -423,7 +423,7 @@
                 "vertical_alignment": "center",
                 "align_baseline": false,
                 "horizontal_alignment_flex_direction_column": "center",
-                "vertical_alignment_flex_direction_column": "center",
+                "vertical_alignment_flex_direction_column": "flex-start",
                 "gap": 8,
                 "width": "fill",
                 "custom_width": 100,
@@ -747,7 +747,7 @@
                 "vertical_alignment": "center",
                 "align_baseline": false,
                 "horizontal_alignment_flex_direction_column": "center",
-                "vertical_alignment_flex_direction_column": "center",
+                "vertical_alignment_flex_direction_column": "flex-start",
                 "gap": 8,
                 "width": "fill",
                 "custom_width": 100,
@@ -1071,7 +1071,7 @@
                 "vertical_alignment": "center",
                 "align_baseline": false,
                 "horizontal_alignment_flex_direction_column": "center",
-                "vertical_alignment_flex_direction_column": "center",
+                "vertical_alignment_flex_direction_column": "flex-start",
                 "gap": 8,
                 "width": "fill",
                 "custom_width": 100,
@@ -1395,7 +1395,7 @@
                 "vertical_alignment": "center",
                 "align_baseline": false,
                 "horizontal_alignment_flex_direction_column": "center",
-                "vertical_alignment_flex_direction_column": "center",
+                "vertical_alignment_flex_direction_column": "flex-start",
                 "gap": 8,
                 "width": "fill",
                 "custom_width": 100,
@@ -1668,6 +1668,9 @@
       },
       "block_order": [
         "custom_liquid_zyDb8F"
+      ],
+      "custom_css": [
+        "@media (max-width: 749px) {h2 {font-size: var(--font-size--h3) !important; } h3 {font-size: var(--font-size--h4) !important; }}"
       ],
       "name": "t:names.custom_section",
       "settings": {
