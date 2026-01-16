@@ -649,6 +649,10 @@ video-media video {
     gap: var(--gap-2xl);
 }
 
+.product-details .flex-wholesale-price {
+    justify-content: flex-start;
+}
+
 .price-label {
     font-size: var(--font-size--xs);
     font-weight: 500;
