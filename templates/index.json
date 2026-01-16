@@ -4250,7 +4250,7 @@
                 "height": 90,
                 "custom_mobile_height": true,
                 "mobile-height": 50,
-                "text": "<h3>Hand<br/>Designed</h3>",
+                "text": "<h3>Hand <br/>Designed</h3>",
                 "text_width": "fit-content",
                 "max_width": "normal",
                 "alignment": "left",
