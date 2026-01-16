@@ -643,6 +643,29 @@ video-media video {
     padding-bottom: 0;
 }
 
+.flex-wholesale-price {
+    display: flex;
+    justify-content: center;
+    gap: var(--gap-2xl);
+}
+
+.price-label {
+    font-size: var(--font-size--xs);
+    font-weight: 500;
+    text-transform: uppercase;
+    display: block;
+    opacity: .6;
+}
+
+.price-w-label {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    justify-content: space-between;
+    gap: var(--gap-3xs);
+    text-align: center;
+}
+
 @media (min-width: 990px) {
     :root {
         --menu-font-2xl--size: 2.5rem !important;
@@ -823,5 +846,19 @@ video-media video {
     .quick-add__button .add-to-cart-icon {
         height: calc(var(--button-size-xs) - 4px) !important;
         width: calc(var(--button-size-xs) - 4px) !important;
+    }
+
+    .flex-wholesale-price {
+        gap: var(--gap-2xs);
+        flex-direction: row;
+    }
+
+    .flex-wholesale-price .price-w-label {
+        gap: 0;
+    }
+
+    .flex-wholesale-price .price-label {
+        font-size: var(--font-size--2xs);
+        gap: 0;
     }
 }

@@ -12,11 +12,13 @@
   assign customer_tag_shop = shop.metafields.custom.customer_discounts.value
 
   if customer and customer_tag_shop.size > 0
+    assign wholesale_discount = blank
+
     for tag in customer.tags
       assign found_tag = customer_tag_shop | where: 'customer_tag' , tag
 
       if found_tag.size > 0
-        assign discount = found_tag[0].discount
+        assign wholesale_discount = found_tag[0].discount
         break
       endif
     endfor
@@ -33,8 +35,8 @@
   assign price = selected_variant.price
   assign compare_at_price = selected_variant.compare_at_price
 
-  if discount
-    assign discount_percentage = discount | plus: 0
+  if wholesale_discount
+    assign discount_percentage = wholesale_discount | plus: 0
     assign discount_multiplier = 100 | minus: discount_percentage
 
     assign discounted_price = price | times: discount_multiplier | divided_by: 100
@@ -115,28 +117,48 @@
       <span class="price price-range price--large">{{ price_min }} - {{ price_max }}</span>
     </span>
   {% else %}
-    {% comment %} Standard pricing display {% endcomment %}
-    {% if show_sale_price_first == false and show_compare_price %}
-      <span role="group">
-        <span class="visually-hidden">{{ 'content.price_regular' | t }}&nbsp;</span>
-        <span class="compare-at-price">{{- compare_at_price -}}</span>
-      </span>
-    {% endif %}
+    {% if wholesale_discount != blank %}
+      {% if show_compare_price %}
+        <div class="flex-wholesale-price">
+          <div>
+            <span class="price-w-label">
+              <span class="price-label">{{ 'content.wholesale_price' | t }}</span>
+              <span class="price">{{ price | default: '&nbsp;' }}</span>
+            </span>
+          </div>
+          <div>
+            <span class="price-w-label">
+              <span class="price-label">{{ 'content.msrp' | t }}</span>
+              <span class="price">{{ compare_at_price | default: '&nbsp;' }}</span>
+            </span>
+          </div>
+        </div>
 
-    {% if show_compare_price %}
-      <span role="group">
-        <span class="visually-hidden">{{ 'content.price_sale' | t }}&nbsp;</span>
-        <span class="price">{{ price | default: '&nbsp;' }}</span>
-      </span>
+      {% endif %}
     {% else %}
-      <span class="price">{{ price | default: '&nbsp;' }}</span>
-    {% endif %}
+      {% comment %} Standard pricing display {% endcomment %}
+      {% if show_sale_price_first == false and show_compare_price %}
+        <span role="group">
+          <span class="visually-hidden">{{ 'content.price_regular' | t }}&nbsp;</span>
+          <span class="compare-at-price">{{- compare_at_price -}}</span>
+        </span>
+      {% endif %}
 
-    {% if show_sale_price_first == true and show_compare_price %}
-      <span role="group">
-        <span class="visually-hidden">{{ 'content.price_regular' | t }}&nbsp;</span>
-        <span class="compare-at-price">{{- compare_at_price -}}</span>
-      </span>
+      {% if show_compare_price %}
+        <span role="group">
+          <span class="visually-hidden">{{ 'content.price_sale' | t }}&nbsp;</span>
+          <span class="price">{{ price | default: '&nbsp;' }}</span>
+        </span>
+      {% else %}
+        <span class="price">{{ price | default: '&nbsp;' }}</span>
+      {% endif %}
+
+      {% if show_sale_price_first == true and show_compare_price %}
+        <span role="group">
+          <span class="visually-hidden">{{ 'content.price_regular' | t }}&nbsp;</span>
+          <span class="compare-at-price">{{- compare_at_price -}}</span>
+        </span>
+      {% endif %}
     {% endif %}
   {% endif %}
   {%- if selected_variant.unit_price and show_unit_price %}

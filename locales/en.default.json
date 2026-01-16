@@ -225,6 +225,8 @@
     "price_from": "From {{ price }}",
     "price_regular": "Regular price",
     "price_sale": "Sale price",
+    "wholesale_price": "Wholesale Price",
+    "msrp": "MSRP",
     "price_filter_html": "The highest price is {{ price }}",
     "product_image": "Product image",
     "product_information": "Product information",
