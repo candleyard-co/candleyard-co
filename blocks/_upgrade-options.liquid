@@ -1,6 +1,8 @@
 {% liquid 
     assign block_settings = block.settings
     assign selected_variant = product.selected_or_first_available_variant
+    assign first_variant = product.first_available_variant
+
     assign block_product = all_products[block_settings.product]
 
     if block_product != blank and block_product.metafields.custom.upgrade_options != blank
@@ -36,13 +38,17 @@
             {% assign variant = item.pack_variant.value %}
             {% assign subtext = item.subtext %}
             {% assign title = item.title %}
-            {% if selected_variant.price < variant.price %}
-                {% assign upgrade_price = variant.price | minus: selected_variant.price | money_without_trailing_zeros %}
-            {% endif %}
+            {% assign discount_label = blank %}
+            {%- assign per_candle_price = variant.price | divided_by: variant.metafields.custom.pack_limit -%}
+            {%- assign savings = first_variant.price | minus: per_candle_price | money_without_trailing_zeros -%}
+
+            {%- assign discount_label = item.discount_label
+                | replace: '[price]', savings
+            -%}
 
             {% if variant != blank %}
                 <div class="upgrade-item">
-                    {% content_for 'block', type: '_pack-card', id: 'horizontal-pack-card', horizontal: true, upgrade_price: upgrade_price, item: variant, card_title: title, subtext: subtext %}
+                    {% content_for 'block', type: '_pack-card', id: 'horizontal-pack-card', horizontal: true, upgrade_price: discount_label, item: variant, card_title: title, subtext: subtext %}
                 </div>
             {% endif %}
         {% endfor %}
