@@ -9,6 +9,19 @@
 {%- enddoc -%}
 
 {%- liquid
+  assign customer_tag_shop = shop.metafields.custom.customer_discounts.value
+
+  if customer and customer_tag_shop.size > 0
+    for tag in customer.tags
+      assign found_tag = customer_tag_shop | where: 'customer_tag' , tag
+
+      if found_tag.size > 0
+        assign discount = found_tag[0].discount
+        break
+      endif
+    endfor
+  endif
+
   assign show_unit_price = show_unit_price | default: false
   assign show_sale_price_first = show_sale_price_first | default: false
   assign selected_variant = product_resource.selected_or_first_available_variant
@@ -19,6 +32,16 @@
 
   assign price = selected_variant.price
   assign compare_at_price = selected_variant.compare_at_price
+
+  if discount
+    assign discount_percentage = discount | plus: 0
+    assign discount_multiplier = 100 | minus: discount_percentage
+
+    assign discounted_price = price | times: discount_multiplier | divided_by: 100
+
+    assign compare_at_price = price
+    assign price = discounted_price
+  endif
 
   assign show_compare_price = false
   if compare_at_price > price

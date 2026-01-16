@@ -10,6 +10,18 @@
           assign tag_badges = tag_badges | plus: 1
         endif
       endfor
+
+      assign customer_tag_shop = shop.metafields.custom.customer_discounts.value
+
+      if customer and customer_tag_shop.size > 0
+        for tag in customer.tags
+          assign found_tag = customer_tag_shop | where: 'customer_tag' , tag
+
+          if found_tag.size > 0
+            break
+          endif
+        endfor
+      endif
     %}
 
     <div
@@ -29,7 +41,7 @@
         {% endif %}
       {% endfor %}
 
-      {%- if tag_badges == 0 and product.available == false or product.compare_at_price > product.price and product.available -%}
+      {%- if found_tag == blank and tag_badges == 0 and product.available == false or product.compare_at_price > product.price and product.available -%}
         <div
           class="
             product-badges__badge product-badges__badge--rectangle
@@ -46,6 +58,17 @@
           {%- endif -%}
         </div>
       {%- endif -%}
+
+      {% if found_tag.size > 0 and found_tag[0].discount_label != blank %}
+        <div
+          class="
+            product-badges__badge product-badges__badge--rectangle
+            color-{{ settings.badge_sale_color_scheme }}
+          "
+        >
+          {{ found_tag[0].discount_label }}
+        </div>
+      {% endif %}
     </div>
     {%  if settings.quick_add or settings.mobile_quick_add %}
       {% render 'quick-add', product: product, section_id: section.id %}

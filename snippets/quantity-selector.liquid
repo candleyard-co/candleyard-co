@@ -27,6 +27,19 @@
   else
     assign min_quantity = variant.quantity_rule.min | default: 1
   endif
+
+  assign customer_tag_shop = shop.metafields.custom.customer_discounts.value
+
+  if customer and customer_tag_shop.size > 0
+    for tag in customer.tags
+      assign found_tag = customer_tag_shop | where: 'customer_tag' , tag
+
+      if found_tag.size > 0
+        assign min_quantity = found_tag[0].minimum_qty
+        break
+      endif
+    endfor
+  endif
 %}
 
 <div
@@ -61,6 +74,9 @@
     <input
       type="number"
       name="{% if line_index %}updates[]{% else %}quantity{% endif %}"
+      {% if found_tag.size > 0 and found_tag[0].minimum_qty %}
+        data-wholesale-qty="{{ found_tag[0].minimum_qty }}"
+      {% endif %}
       value="{{ in_cart_quantity | default: variant.quantity_rule.min | default: 1 }}"
       data-cart-quantity="{{ cart | item_count_for_variant: variant.id }}"
       min="{{ min_quantity }}"

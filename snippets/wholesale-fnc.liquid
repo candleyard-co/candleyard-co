@@ -1,0 +1,104 @@
+{% liquid
+  assign customer_tag_shop = shop.metafields.custom.customer_discounts.value
+
+  if customer and customer_tag_shop.size > 0
+    for tag in customer.tags
+      assign found_tag = customer_tag_shop | where: 'customer_tag' , tag
+
+      if found_tag.size > 0
+        break
+      endif
+    endfor
+  endif
+%}
+
+{% if found_tag.size == 0 %}
+    {% break %}
+{% endif %}
+
+{% style %}
+    shipping-bar,
+    .shopify-section-group-header-group:not(.header-section),
+    header-drawer,
+    .search-action,
+    cart-upsell,
+    upgrade-options,
+    #popupButton {
+        display: none !important;
+    }
+    
+    product-card-link {
+        -webkit-tap-highlight-color: transparent;
+    }
+    
+    .product-card__link {
+        -webkit-tap-highlight-color: transparent;
+    }
+
+    .product-card__content .quantity-selector button {
+        padding-inline: var(--padding-md) !important;
+    }
+
+    .product-card__content:has(.quantity-selector) .product-form-buttons {
+        flex-direction: row;
+    }
+    .product-card__content:has(.quantity-selector) .product-form-text__error {
+        order: -1;
+        font-size: var(--font-size--xs);
+    }
+    .product-card__content:has(.quantity-selector) .quantity-selector {
+        height: unset;
+        --style-border-radius-inputs: 25px;
+    }
+    .product-card__content:has(.quantity-selector) .product-form-text__error .svg-wrapper {
+        width: var(--icon-size-xs);
+        height: var(--icon-size-xs);
+    }
+    .product-details .product-form-buttons .quantity-selector-wrapper {
+        display: flex !important;
+    }
+    .shopify-section-group-footer-group {
+        display: none;
+    }
+
+    @media (min-width: 750px) {
+        .product-card__content:has(.quantity-selector) .product-form-buttons add-to-cart-component button {
+            width: 100%;
+        }
+
+        .product-card__content:has(.quantity-selector) .product-form-buttons > * {
+            width: calc(50% - var(--gap-sm) / 2);
+            flex: 0 calc(50% - var(--gap-sm) / 2);
+        }
+    }
+
+    @media (max-width: 749px) {
+        .product-card__content:has(.quantity-selector) .product-form-buttons {
+            justify-content: center;
+        }
+    }
+{% endstyle %}
+<script>
+    const pathname = window.location.pathname;
+
+    // If we are on /pages/wholesale-access, remove localStorage
+    if (pathname === '/pages/wholesale-access') {
+      localStorage.removeItem('free-gift-selection');
+    } 
+    // If we are NOT on /pages/wholesale-access and NOT on /products/*, redirect there
+    else if (!pathname.startsWith('/products/')) {
+      window.location.href = '/pages/wholesale-access';
+    }
+
+document.addEventListener('DOMContentLoaded', function() {
+    const wholesaleElements = document.querySelectorAll('[data-wholesale-qty]');
+
+    // Loop through each element
+    wholesaleElements.forEach(el => {
+        // Get the value from dataset
+        const qty = el.dataset.wholesaleQty;
+
+        el.value = qty;
+    });
+});
+</script>
