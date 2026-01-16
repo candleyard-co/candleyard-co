@@ -864,8 +864,11 @@ video-media video {
     }
 
     .flex-wholesale-price {
-        gap: var(--gap-2xs);
         flex-direction: row;
+    }
+
+    .product-details .flex-wholesale-price {
+        gap: var(--gap-xl);
     }
 
     .flex-wholesale-price .price-w-label {
