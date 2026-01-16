@@ -264,7 +264,20 @@
       assign in_cart_key = 0
       assign empty_cart = false
 
-      if settings.enable_shipping_protection == true
+      assign customer_tag_shop = shop.metafields.custom.customer_discounts.value
+
+      if customer and customer_tag_shop.size > 0
+        for tag in customer.tags
+          assign found_tag = customer_tag_shop | where: 'customer_tag' , tag
+
+          if found_tag.size > 0
+            assign has_protection = false
+            break
+          endif
+        endfor
+      endif
+
+      if settings.enable_shipping_protection == true and found_tag == blank
         assign protection_product = all_products[settings.protection_product]
         assign protection_price = protection_product.price | money_without_trailing_zeros
         assign has_protection = true
