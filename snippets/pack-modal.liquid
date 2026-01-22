@@ -136,7 +136,7 @@
       gap: var(--gap-lg);
       flex: 1;
       min-height: 0;
-      overflow-y: auto;
+      /* overflow-y: auto; */
       height: 100%; /* Prevent a bug in Safari where height:fit-content is not respected */
     }
 
@@ -228,7 +228,6 @@
     @media screen and (max-width: 750px) {
       grid-column: 1 / -1;
       grid-row: span 1;
-      overflow-y: auto;
       height: auto;
       padding-inline: var(--padding-lg);
       padding-bottom: 8svh;
@@ -255,11 +254,14 @@
     --product-swatches-padding-block-end: 0px;
 
     flex: 1 1 auto;
-    overflow-y: auto;
     min-height: 0;
     padding-block-end: calc(
       var(--product-swatches-padding-block-end) + var(--focus-outline-offset) + var(--focus-outline-width)
     );
+
+    @media (min-width: 751px) {
+      overflow-y: auto;
+    }
   }
 
   .pack-add-modal__content .variant-option--swatches {
@@ -397,8 +399,14 @@
     top: 0;
     /* animation: fadeIn 0.4s var(--animation-timing-fade-in) both; */
 
-    @media screen and (min-width: 750px) {
+    @media screen and (min-width: 751px) {
       grid-column: 1 / 4;
+    }
+
+    @media screen and (max-width: 750px) {
+      position: sticky;
+      top: 0;
+      z-index: 2;
     }
 
     &::-webkit-scrollbar {
