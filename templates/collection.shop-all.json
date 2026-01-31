@@ -267,6 +267,7 @@
         },
         "item_rcPeiV": {
           "type": "item",
+          "disabled": true,
           "settings": {
             "text": "Laundry Products",
             "section_id": "laundry-products"
@@ -2038,6 +2039,7 @@
           ]
         }
       },
+      "disabled": true,
       "custom_css": [
         "@media (max-width: 749px) {.resource-list__item:not(:last-child) .product-card {border-bottom: 1px solid rgb(var(--color-border-rgb) / 0.05); } .product-card {--ratio: 1 / 1; padding-block: var(--padding-sm); } .product-card__content {flex-flow: row nowrap; gap: var(--gap-md); align-items: center; } .card-gallery {width: 58%; max-width: 58%; --border-radius: 14px !important; }}"
       ],
@@ -2289,6 +2291,7 @@
           ]
         }
       },
+      "disabled": true,
       "custom_css": [
         "@media (max-width: 749px) {.resource-list__item:not(:last-child) .product-card {border-bottom: 1px solid rgb(var(--color-border-rgb) / 0.05); } .product-card {--ratio: 1 / 1; padding-block: var(--padding-sm); } .product-card__content {flex-flow: row nowrap; gap: var(--gap-md); align-items: center; } .card-gallery {width: 58%; max-width: 58%; --border-radius: 14px !important; }}"
       ],
