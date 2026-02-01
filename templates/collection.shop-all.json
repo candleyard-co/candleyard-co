@@ -275,6 +275,7 @@
         },
         "item_8AteDg": {
           "type": "item",
+          "disabled": true,
           "settings": {
             "text": "Hand Soaps",
             "section_id": "hand-soaps"
