@@ -267,6 +267,7 @@
         },
         "item_rcPeiV": {
           "type": "item",
+          "disabled": true,
           "settings": {
             "text": "Laundry Products",
             "section_id": "laundry-products"
@@ -274,6 +275,7 @@
         },
         "item_8AteDg": {
           "type": "item",
+          "disabled": true,
           "settings": {
             "text": "Hand Soaps",
             "section_id": "hand-soaps"
@@ -2038,6 +2040,7 @@
           ]
         }
       },
+      "disabled": true,
       "custom_css": [
         "@media (max-width: 749px) {.resource-list__item:not(:last-child) .product-card {border-bottom: 1px solid rgb(var(--color-border-rgb) / 0.05); } .product-card {--ratio: 1 / 1; padding-block: var(--padding-sm); } .product-card__content {flex-flow: row nowrap; gap: var(--gap-md); align-items: center; } .card-gallery {width: 58%; max-width: 58%; --border-radius: 14px !important; }}"
       ],
@@ -2289,6 +2292,7 @@
           ]
         }
       },
+      "disabled": true,
       "custom_css": [
         "@media (max-width: 749px) {.resource-list__item:not(:last-child) .product-card {border-bottom: 1px solid rgb(var(--color-border-rgb) / 0.05); } .product-card {--ratio: 1 / 1; padding-block: var(--padding-sm); } .product-card__content {flex-flow: row nowrap; gap: var(--gap-md); align-items: center; } .card-gallery {width: 58%; max-width: 58%; --border-radius: 14px !important; }}"
       ],
@@ -4013,6 +4017,7 @@
         "carousel_card_c7RK8U": {
           "type": "_carousel-card",
           "name": "Carousel Item",
+          "disabled": true,
           "settings": {
             "content_direction": "row",
             "vertical_on_mobile": true,
@@ -4507,6 +4512,7 @@
         "carousel_card_GKanTp": {
           "type": "_carousel-card",
           "name": "Carousel Item",
+          "disabled": true,
           "settings": {
             "content_direction": "row",
             "vertical_on_mobile": true,
