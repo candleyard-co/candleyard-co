@@ -694,10 +694,6 @@ video-media video {
     height: var(--icon-size-md) !important;
 }
 
-.menu-drawer__list-item--divider .menu-drawer__menu-item:not(.menu-drawer__menu-item--child) {
-    min-height: calc(2 * var(--padding-xl) + var(--icon-size-xs)) !important;
-}
-
 .menu-drawer__close-button {
     width: 2.5rem !important;
     padding: 0 !important;
@@ -721,6 +717,10 @@ video-media video {
 
 .menu-drawer__nav-buttons .menu-drawer__close-button {
     margin-top: 0;
+}
+
+.menu-drawer__list-item--deep accordion-custom .details-content {
+    margin-bottom: 0 !important;
 }
 
 @media (min-width: 990px) {
