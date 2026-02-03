@@ -346,60 +346,60 @@ export class FreeGift extends Component {
   }
 
   async loadFreeGiftTitle() {
-    try {
-      // Handle null case explicitly
-      const storedData = localStorage.getItem('free-gift-selection');
-      const localData = storedData ? JSON.parse(storedData) : null;
-      const handle = this.dataset.productHandle || localData?.freeGift?.handle;
+      try {
+        // Handle null case explicitly
+        const storedData = sessionStorage.getItem('free-gift-selection');
+        const sessionData = storedData ? JSON.parse(storedData) : null;
+        const handle = this.dataset.productHandle || sessionData?.freeGift?.handle;
 
-      if (!handle) {
-        console.warn('FreeGift: No product handle found');
-        return;
-      }
-
-      // Fetch product data
-      const response = await fetch(
-        `${window.Shopify.routes.root}products/${handle}.js`
-      );
-
-      if (!response.ok) {
-        console.warn('FreeGift: Product fetch failed');
-        return;
-      }
-
-      const product = await response.json();
-
-      // Update title
-      const cleanTitle = product.title
-        .replace(/free/gi, '')
-        .replace(/\s+/g, ' ')
-        .trim();
-
-      const titleEl = this.querySelector('.free-gift-title');
-      if (titleEl) titleEl.textContent = cleanTitle;
-      
-      // Update image
-      const image = this.querySelector('.gift-image-preview');
-      if (image && !image.querySelector('.img-gift') && product.featured_image) {
-        const img = document.createElement('img');
-        img.classList.add('img-gift');
-        
-        const originalSrc = product.featured_image.src || product.featured_image;
-        img.src = originalSrc.replace(/\/([^/]+)\.(png|jpg|jpeg|webp|gif)/i, '/$1_60x.png');
-        
-        if (product.featured_image.alt) {
-          img.alt = product.featured_image.alt;
+        if (!handle) {
+          console.warn('FreeGift: No product handle found');
+          return;
         }
-        
-        image.appendChild(img);
-      }
 
-      // Success! Remove the hidden attribute to show the component
-      this.removeAttribute('hidden');
-      
-    } catch (err) {
-      console.error('FreeGift failed to load:', err);
-    }
+        // Fetch product data
+        const response = await fetch(
+          `${window.Shopify.routes.root}products/${handle}.js`
+        );
+
+        if (!response.ok) {
+          console.warn('FreeGift: Product fetch failed');
+          return;
+        }
+
+        const product = await response.json();
+
+        // Update title
+        const cleanTitle = product.title
+          .replace(/free/gi, '')
+          .replace(/\s+/g, ' ')
+          .trim();
+
+        const titleEl = this.querySelector('.free-gift-title');
+        if (titleEl) titleEl.textContent = cleanTitle;
+        
+        // Update image
+        const image = this.querySelector('.gift-image-preview');
+        if (image && !image.querySelector('.img-gift') && product.featured_image) {
+          const img = document.createElement('img');
+          img.classList.add('img-gift');
+          
+          const originalSrc = product.featured_image.src || product.featured_image;
+          img.src = originalSrc.replace(/\/([^/]+)\.(png|jpg|jpeg|webp|gif)/i, '/$1_60x.png');
+          
+          if (product.featured_image.alt) {
+            img.alt = product.featured_image.alt;
+          }
+          
+          image.appendChild(img);
+        }
+
+        // Success! Remove the hidden attribute to show the component
+        this.removeAttribute('hidden');
+        
+      } catch (err) {
+        console.error('FreeGift failed to load:', err);
+      }
   }
 }
 

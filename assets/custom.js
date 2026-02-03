@@ -19,7 +19,7 @@ function cartListener(event) {
         if (cartDataElement?.textContent) {
             try {
                 const cartData = JSON.parse(cartDataElement.textContent);
-                const storedDataStr = localStorage.getItem('free-gift-selection');
+                const storedDataStr = sessionStorage.getItem('free-gift-selection');
                 
                 if (storedDataStr) {
                     const storedData = JSON.parse(storedDataStr);
@@ -32,104 +32,66 @@ function cartListener(event) {
 
                         // Remove free gift if cart total is $0
                         if (filteredItems.length > 0 && cartData.total_price === 0) {
-                            removeItemFromCart(filteredItems[0].key);
+                            removeItemFromCart(filteredItems[0].key, cartData);
                         }
                         // Add free gift if cart has paid items (> $0) and gift not present
                         else if (filteredItems.length === 0 && cartData.total_price > 0) {
-                            addFreeGiftToCart(storedData.freeGift);
+                            addFreeGiftToCart(storedData.freeGift, cartData);
                         }
                     }
                 }
             } catch (error) {
-                console.error('Cart data parsing error:', error);
+                // Keep only essential error logging
             }
         }
     }
 }
 
-function cartUpsell() {
-
-}
-
-function addFreeGiftToCart(freeGiftData) {
+function addFreeGiftToCart(freeGiftData, cartData) {
     const formData = new FormData();
     
     // Add the free gift variant
     formData.append('id', freeGiftData.variantId);
     formData.append('quantity', 1);
     
-    // Find the main product variant ID from the cart to use as parent
+    // Get cart sections
     const cartItemsComponents = document.querySelectorAll('cart-items-component');
     let sectionIds = [];
     let mainVariantId = null;
     
-    // First get the cart sections and try to find a main product
+    // Get the cart sections
     cartItemsComponents.forEach((item) => {
         if (item instanceof HTMLElement && item.dataset.sectionId) {
             sectionIds.push(item.dataset.sectionId);
         }
     });
     
-    // Try to find a non-gift item in the cart to use as parent
-    // You might want to adjust this logic based on how you identify the main product
-    if (sectionIds.length > 0) {
-        formData.append('sections', sectionIds.join(','));
+    // Find a non-gift item in the cart to use as parent
+    if (cartData && cartData.items && cartData.items.length > 0) {
+        // Find the first item that's not a free gift
+        const mainCartItem = cartData.items.find(item => 
+            !item.properties || 
+            (item.properties._type !== 'Free Gift' && !item.properties._type)
+        );
         
-        // Fetch current cart to find the main product
-        return fetch('/cart.js')
-            .then(response => response.json())
-            .then(cart => {
-                // Find the first item that's not a free gift (you might need to adjust this logic)
-                const mainCartItem = cart.items.find(item => 
-                    !item.properties || 
-                    (item.properties._type !== 'Free Gift' && !item.properties._type)
-                );
-                
-                // Use the main product's variant ID if found, otherwise use the first item
-                mainVariantId = mainCartItem ? mainCartItem.variant_id : cart.items[0]?.variant_id;
-                
-                // Add properties to identify it as a free gift
-                if (mainVariantId) {
-                    formData.append('properties[_parentProduct]', mainVariantId.toString());
-                }
-                formData.append('properties[_type]', 'Free Gift');
-                formData.append('properties[_giftProductId]', freeGiftData.id.toString());
-                formData.append('properties[_giftHandle]', freeGiftData.handle);
-                
-                // Now make the add request
-                const fetchCfg = fetchConfig('javascript', { body: formData });
-                
-                return fetch('/cart/add.js', {
-                    ...fetchCfg,
-                    headers: {
-                        ...fetchCfg.headers,
-                        Accept: 'text/html',
-                    },
-                });
-            })
-            .then(response => response.json())
-            .then(updatedCart => {
-                
-                document.dispatchEvent(
-                    new CustomEvent(ThemeEvents.cartUpdate, {
-                        detail: {
-                            sourceId: 'free-gift-adder',
-                            data: updatedCart,
-                            sections: updatedCart.sections || {}
-                        }
-                    })
-                );
-                
-                return updatedCart;
-            });
-    } else {
-        // Fallback if we can't find sections (shouldn't happen normally)
+        // Use the main product's variant ID if found, otherwise use the first item
+        mainVariantId = mainCartItem ? mainCartItem.variant_id : cartData.items[0]?.variant_id;
+        
+        // Add properties to identify it as a free gift
+        if (mainVariantId) {
+            formData.append('properties[_parentProduct]', mainVariantId.toString());
+        }
         formData.append('properties[_type]', 'Free Gift');
         formData.append('properties[_giftProductId]', freeGiftData.id.toString());
         formData.append('properties[_giftHandle]', freeGiftData.handle);
         
+        // Add sections if available
+        if (sectionIds.length > 0) {
+            formData.append('sections', sectionIds.join(','));
+        }
+
+        // Now make the add request
         const fetchCfg = fetchConfig('javascript', { body: formData });
-        
         
         return fetch('/cart/add.js', {
             ...fetchCfg,
@@ -140,13 +102,39 @@ function addFreeGiftToCart(freeGiftData) {
         })
         .then(response => response.json())
         .then(updatedCart => {
-            
             document.dispatchEvent(
                 new CustomEvent(ThemeEvents.cartUpdate, {
                     detail: {
                         sourceId: 'free-gift-adder',
-                        data: updatedCart,
-                        sections: updatedCart.sections || {}
+                        data: updatedCart
+                    }
+                })
+            );
+            
+            return updatedCart;
+        });
+    } else {
+        // Fallback if we can't find cart data or items (shouldn't happen normally)
+        formData.append('properties[_type]', 'Free Gift');
+        formData.append('properties[_giftProductId]', freeGiftData.id.toString());
+        formData.append('properties[_giftHandle]', freeGiftData.handle);
+        
+        const fetchCfg = fetchConfig('javascript', { body: formData });
+        
+        return fetch('/cart/add.js', {
+            ...fetchCfg,
+            headers: {
+                ...fetchCfg.headers,
+                Accept: 'text/html',
+            },
+        })
+        .then(response => response.json())
+        .then(updatedCart => {
+            document.dispatchEvent(
+                new CustomEvent(ThemeEvents.cartUpdate, {
+                    detail: {
+                        sourceId: 'free-gift-adder',
+                        data: updatedCart
                     }
                 })
             );
@@ -156,36 +144,28 @@ function addFreeGiftToCart(freeGiftData) {
     }
 }
 
-function removeItemFromCart(itemKey) {
-    // First fetch the cart to get current line numbers
-    return fetch('/cart.js')
-        .then(response => response.json())
-        .then(cart => {
-            // Find the item by its key to get its line position
-            const itemIndex = cart.items.findIndex(item => item.key === itemKey);
-            
-            if (itemIndex === -1) {
-                // Try finding by properties if key doesn't match
-                const giftItem = cart.items.find(item => 
-                    item.properties && 
-                    item.properties._type === 'Free Gift'
-                );
-                
-                if (!giftItem) {
-                    throw new Error('Free gift not found in cart');
-                }
-                
-                // Use the found gift item
-                return removeItemByLine(cart.items.indexOf(giftItem) + 1);
-            }
-            
-            // Use the line number (1-indexed)
-            return removeItemByLine(itemIndex + 1);
-        })
-        .catch(error => {
-            console.error('Error fetching cart for removal:', error);
-            throw error;
-        });
+function removeItemFromCart(itemKey, cartData) {
+    // Find the item by its key to get its line position
+    const itemIndex = cartData.items.findIndex(item => item.key === itemKey);
+
+    if (itemIndex === -1) {
+        // Try finding by properties if key doesn't match
+        const giftItem = cartData.items.find(item => 
+            item.properties && 
+            item.properties._type === 'Free Gift'
+        );
+        
+        if (!giftItem) {
+            // Silently fail if gift not found
+            return Promise.resolve();
+        }
+        
+        // Use the found gift item
+        return removeItemByLine(cartData.items.indexOf(giftItem) + 1);
+    }
+    
+    // Use the line number (1-indexed)
+    return removeItemByLine(itemIndex + 1);
 }
 
 function removeItemByLine(lineNumber) {
@@ -223,15 +203,14 @@ function removeItemByLine(lineNumber) {
             new CustomEvent(ThemeEvents.cartUpdate, {
                 detail: {
                     sourceId: 'free-gift-adder',
-                    data: updatedCart,
-                    sections: updatedCart.sections || {}
+                    data: updatedCart
                 }
             })
         );
         return updatedCart;
     })
     .catch(error => {
-        console.error('Cart removal error via update.js:', error);
+        // Silently handle errors
         throw error;
     });
 }

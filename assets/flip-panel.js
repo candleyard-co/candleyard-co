@@ -6,65 +6,106 @@ import { Component } from '@theme/component';
 
 export default class FlipPanel extends Component {
   connectedCallback() {
-    /** @type {number} */
-    this.pickLimit = Number(this.dataset.pickLimit) || 1;
+      /** @type {number} */
+      this.pickLimit = Number(this.dataset.pickLimit) || 1;
 
-    /** @type {FlipCard[]} */
-    this.cards = Array.from(this.querySelectorAll('.flip-card'));
+      /** @type {FlipCard[]} */
+      this.cards = Array.from(this.querySelectorAll('.flip-card'));
 
-    /** @type {Set<FlipCard>} */
-    this.selectedCards = new Set();
+      /** @type {Set<FlipCard>} */
+      this.selectedCards = new Set();
 
-    /** @type {HTMLButtonElement | null} */
-    this.submitButton = this.querySelector('.flip-panel-button');
-    
-    /** 
-     * @type {Array<Object>} 
-     */
-    this.productList = [];
+      /** @type {HTMLButtonElement | null} */
+      this.submitButton = this.querySelector('.flip-panel-button');
+      
+      /** 
+       * @type {Array<Object>} 
+       */
+      this.productList = [];
 
-    const productDataEl = document.querySelector('.product-list-data');
-    if (productDataEl && productDataEl.textContent) {
-      try {
-        this.productList = JSON.parse(productDataEl.textContent);
-      } catch (error) {
-        console.error('Invalid JSON in .product-list-data', error);
-      }
-    }
-
-    // Show flip panel only if no free gift selected yet
-    if (!this.hasFreeGiftSelection() && !Shopify.designMode) {
-      this.classList.add('active');
-    }
-
-    // Ensure button starts disabled
-    if (this.submitButton) {
-      this.submitButton.setAttribute('disabled', '');
-      this.submitButton.addEventListener('click', () => {
-        this.classList.remove('active');
-
-        // Only assign random product if no free gift selected
-        if (!this.hasFreeGiftSelection() && this.productList.length > 0) {
-          const randomIndex = Math.floor(Math.random() * this.productList.length);
-          const randomProductId = this.productList[randomIndex].id;
-          const randomVariantId = this.productList[randomIndex].variants[0].id;
-          const randomProductHandle = this.productList[randomIndex].handle;
-
-          // Store using the new structure
-          this.setFreeGiftSelection(randomProductId, randomVariantId, randomProductHandle);
+      const productDataEl = document.querySelector('.product-list-data');
+      if (productDataEl && productDataEl.textContent) {
+        try {
+          this.productList = JSON.parse(productDataEl.textContent);
+        } catch (error) {
+          console.error('Invalid JSON in .product-list-data', error);
         }
+      }
+
+      // Check if free gift is already in cart
+      const cartDataEl = document.querySelector('.cart-data');
+      let hasFreeGiftInCart = false;
+      let freeGiftInCart = null;
+      
+      if (cartDataEl?.textContent) {
+        try {
+          const cartData = JSON.parse(cartDataEl.textContent);
+          
+          // Find the first free gift in cart
+          freeGiftInCart = cartData.items.find(item => 
+            item.price === 0 || (item.properties && item.properties._type === "Free Gift")
+          );
+          
+          hasFreeGiftInCart = !!freeGiftInCart;
+
+          if (freeGiftInCart) {
+            // Extract the free gift data from cart item properties
+            const giftProductId = freeGiftInCart.properties?._giftProductId || freeGiftInCart.product_id;
+            const giftVariantId = freeGiftInCart.properties?._giftVariantId || freeGiftInCart.variant_id;
+            const giftHandle = freeGiftInCart.properties?._giftHandle || freeGiftInCart.handle;
+            
+            // Set the free gift selection in sessionStorage from cart data
+            this.setFreeGiftSelection(
+              String(giftProductId), 
+              String(giftVariantId), 
+              giftHandle
+            );
+            console.log('Free gift selection set from cart:', { giftProductId, giftVariantId, giftHandle });
+          }
+        } catch (error) {
+          console.error('Error parsing cart data:', error);
+        }
+      }
+
+      // Show flip panel only if:
+      // 1. No free gift selected in sessionStorage AND
+      // 2. No free gift already in cart AND
+      // 3. Not in Shopify design mode
+      if (!this.hasFreeGiftSelection() && !hasFreeGiftInCart && !Shopify.designMode) {
+        this.classList.add('active');
+      } else {
+        // Hide the flip panel if free gift already exists
+        this.classList.remove('active');
+      }
+
+      // Ensure button starts disabled
+      if (this.submitButton) {
+        this.submitButton.setAttribute('disabled', '');
+        this.submitButton.addEventListener('click', () => {
+          this.classList.remove('active');
+
+          // Only assign random product if no free gift selected
+          if (!this.hasFreeGiftSelection() && this.productList.length > 0) {
+            const randomIndex = Math.floor(Math.random() * this.productList.length);
+            const randomProductId = this.productList[randomIndex].id;
+            const randomVariantId = this.productList[randomIndex].variants[0].id;
+            const randomProductHandle = this.productList[randomIndex].handle;
+
+            // Store using the new structure
+            this.setFreeGiftSelection(randomProductId, randomVariantId, randomProductHandle);
+          }
+        });
+      }
+
+      // Add click listener for each card
+      this.cards.forEach((card) => {
+        card.addEventListener('click', () => this.handleFlip(card));
       });
+
+      document.body.classList.add('shop-show');
     }
 
-    // Add click listener for each card
-    this.cards.forEach((card) => {
-      card.addEventListener('click', () => this.handleFlip(card));
-    });
-
-    document.body.classList.add('shop-show');
-  }
-
-  /**
+/**
    * Check if free gift has been selected
    * @returns {boolean}
    */
@@ -74,12 +115,12 @@ export default class FlipPanel extends Component {
   }
 
   /**
-   * Get free gift selection from localStorage
+   * Get free gift selection from sessionStorage
    * @returns {Object|null}
    */
   getFreeGiftSelection() {
     try {
-      const storedData = localStorage.getItem('free-gift-selection');
+      const storedData = sessionStorage.getItem('free-gift-selection');
       if (!storedData) return null;
       
       return JSON.parse(storedData);
@@ -90,13 +131,13 @@ export default class FlipPanel extends Component {
   }
 
   /**
-   * Store free gift selection in localStorage
+   * Store free gift selection in sessionStorage
    * @param {string} productId
    * @param {string} variantId
    * @param {string} handle
    */
   setFreeGiftSelection(productId, variantId, handle) {
-    localStorage.setItem(
+    sessionStorage.setItem(
       'free-gift-selection',
       JSON.stringify({
         freeGift: {
@@ -110,10 +151,10 @@ export default class FlipPanel extends Component {
   }
 
   /**
-   * Clear free gift selection from localStorage
+   * Clear free gift selection from sessionStorage
    */
   clearFreeGiftSelection() {
-    localStorage.removeItem('free-gift-selection');
+    sessionStorage.removeItem('free-gift-selection');
   }
 
   /**

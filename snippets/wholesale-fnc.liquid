@@ -87,8 +87,8 @@
 
     // If we are on /pages/wholesale-access, remove localStorage
     if (pathname === '/pages/wholesale-access') {
-      localStorage.removeItem('free-gift-selection');
-    } 
+        sessionStorage.removeItem('free-gift-selection');
+    }
     // If we are NOT on /pages/wholesale-access and NOT on /products/*, redirect there
     else if (!pathname.startsWith('/products/')) {
       window.location.href = '/pages/wholesale-access';

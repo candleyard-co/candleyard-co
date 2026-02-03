@@ -8,9 +8,6 @@ export class CartUpsell extends Component {
   }
 
   handleCartUpdate(event) {
-    console.log('Cart update event received:', event);
-    console.log('Event detail:', event.detail);
-    
     // Get the HTML for the cart-upsell section from the event
     const sections = event.detail?.data?.sections;
     if (!sections) return;
@@ -30,22 +27,12 @@ export class CartUpsell extends Component {
       const newCartUpsell = tempDiv.querySelector('cart-upsell');
       
       if (newCartUpsell && cartUpsellElement) {
-        console.log('Found new cart-upsell in section:', sectionId);
         
         // Replace the entire cart-upsell element
         cartUpsellElement.replaceWith(newCartUpsell);
-        
-        // Reinitialize the new element if needed
-        this.reinitializeCartUpsell(newCartUpsell);
         break;
       }
     }
-  }
-  
-  reinitializeCartUpsell(element) {
-    // If your cart-upsell needs reinitialization after being replaced
-    // Add any reinitialization logic here
-    console.log('Cart-upsell replaced and reinitialized');
   }
 }
 
