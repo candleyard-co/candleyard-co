@@ -715,6 +715,14 @@ video-media video {
     height: var(--icon-size-xs) !important;
 }
 
+.menu-drawer__nav-buttons {
+    padding-top: var(--padding-md);
+}
+
+.menu-drawer__nav-buttons .menu-drawer__close-button {
+    margin-top: 0;
+}
+
 @media (min-width: 990px) {
     :root {
         --menu-font-2xl--size: 2.5rem !important;
