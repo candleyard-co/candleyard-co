@@ -164,8 +164,8 @@
   {% endif %}
 
   {% if show_saved_price == true and show_compare_price %}
-    {% assign saved_price = product.compare_at_price | minus: product.price | money_without_trailing_zeros %}
-    {% assign percent_off = product.compare_at_price | minus: product.price | times: 100.0 | divided_by: product.compare_at_price | ceil | append: '%' %}
+    {% assign saved_price = compare_at_price | minus: price | money_without_trailing_zeros %}
+    {% assign percent_off = compare_at_price | minus: price | times: 100.0 | divided_by: compare_at_price | ceil | append: '%' %}
 
     <span role="group" class="saved-price-block">
       <span>{{ 'content.product_badge_sale' | t: saved_price: saved_price }}</span>
