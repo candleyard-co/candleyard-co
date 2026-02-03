@@ -5,6 +5,7 @@
   @param {product} product_resource - The product to render
   @param {boolean} [show_unit_price] - Whether to show the unit price
   @param {boolean} [show_sale_price_first] - Whether to show the sale price first
+  @param {boolean} [show_saved_price] - Whether to show the sale price first
   @param {object} [custom_selected_variant] - Custom selected variant
 {%- enddoc -%}
 
@@ -160,6 +161,15 @@
         </span>
       {% endif %}
     {% endif %}
+  {% endif %}
+
+  {% if show_saved_price == true and show_compare_price %}
+    {% assign saved_price = product.compare_at_price | minus: product.price | money_without_trailing_zeros %}
+    {% assign percent_off = product.compare_at_price | minus: product.price | times: 100.0 | divided_by: product.compare_at_price | ceil | append: '%' %}
+
+    <span role="group" class="saved-price-block">
+      <span>{{ 'content.product_badge_sale' | t: saved_price: saved_price }}</span>
+    </span>
   {% endif %}
   {%- if selected_variant.unit_price and show_unit_price %}
     {%- liquid

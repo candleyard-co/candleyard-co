@@ -723,6 +723,14 @@ video-media video {
     margin-bottom: 0 !important;
 }
 
+.saved-price-block {
+    font-size: var(--font-size--md);
+    font-weight: 400;
+    margin-inline-start: var(--gap-2xs);
+    top: calc(-1 * 1px);
+    position: relative;
+}
+
 @media (min-width: 990px) {
     :root {
         --menu-font-2xl--size: 2.5rem !important;
