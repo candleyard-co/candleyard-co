@@ -681,8 +681,12 @@ video-media video {
     margin-bottom: var(--margin-lg);
 }
 
+.menu-drawer__menu-item--child {
+    --menu-child-font-size: var(--menu-font-lg--size) !important;
+}
+
 .menu-drawer__menu-item--parent {
-    font-size:  var(--menu-font-lg--size) !important;
+    font-size:  var(--menu-font-xl--size) !important;
 }
 
 .menu-drawer__menu-item--mainlist svg {
