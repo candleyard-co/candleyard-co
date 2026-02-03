@@ -681,6 +681,10 @@ video-media video {
     margin-bottom: var(--margin-lg);
 }
 
+.menu-drawer__menu-item--parent {
+    font-size:  var(--menu-font-lg--size) !important;
+}
+
 @media (min-width: 990px) {
     :root {
         --menu-font-2xl--size: 2.5rem !important;
