@@ -725,7 +725,6 @@ video-media video {
 
 .saved-price-block {
     font-size: var(--font-size--md);
-    font-weight: 400;
     margin-inline-start: var(--gap-2xs);
     top: calc(-1 * 1px);
     position: relative;
