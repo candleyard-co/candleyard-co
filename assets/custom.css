@@ -694,8 +694,25 @@ video-media video {
     height: var(--icon-size-md) !important;
 }
 
+.menu-drawer__list-item--divider .menu-drawer__menu-item:not(.menu-drawer__menu-item--child) {
+    min-height: calc(2 * var(--padding-xl) + var(--icon-size-xs)) !important;
+}
+
+.menu-drawer__close-button {
+    width: 2.5rem !important;
+    padding: 0 !important;
+    min-width: 2.5rem;
+    min-height: 2.5rem;
+    height: 2.5rem !important;
+}
+
 .menu-drawer__menu-item--parent {
     --menu-parent-font-color: rgb(var(--color-foreground-rgb)) !important;
+}
+
+.header-drawer-icon.header-drawer-icon--close {
+    width: var(--icon-size-xs) !important;
+    height: var(--icon-size-xs) !important;
 }
 
 @media (min-width: 990px) {
