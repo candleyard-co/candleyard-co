@@ -685,9 +685,22 @@ video-media video {
     font-size:  var(--menu-font-lg--size) !important;
 }
 
+.menu-drawer__menu-item--mainlist svg {
+    width: var(--icon-size-md) !important;
+    height: var(--icon-size-md) !important;
+}
+
+.menu-drawer__menu-item--parent {
+    --menu-parent-font-color: rgb(var(--color-foreground-rgb)) !important;
+}
+
 @media (min-width: 990px) {
     :root {
         --menu-font-2xl--size: 2.5rem !important;
+    }
+    .menu-drawer__menu-item--mainlist svg {
+        width: var(--icon-size-lg) !important;
+        height: var(--icon-size-lg) !important;
     }
 }
 
