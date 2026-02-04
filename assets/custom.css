@@ -752,6 +752,10 @@ video-media video {
   gap: 8px;
 }
 
+[data-free-gift] .cart-items__media-image {
+    object-fit: contain;
+}
+
 @media (min-width: 990px) {
     :root {
         --menu-font-2xl--size: 2.5rem !important;
