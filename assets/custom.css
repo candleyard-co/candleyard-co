@@ -753,7 +753,7 @@ video-media video {
 }
 
 [data-free-gift] .cart-items__media-image {
-    object-fit: contain;
+    object-fit: contain !important;
 }
 
 @media (min-width: 990px) {
