@@ -126,7 +126,6 @@
     // }
 
     function trackEvent(eventType, eventData) {
-      console.log("Track It!")
       const payload = {
         eventType: eventType,
         eventData: eventData,

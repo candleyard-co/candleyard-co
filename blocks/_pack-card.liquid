@@ -3,7 +3,7 @@
   Intended for collection-card.liquid block.
 
   @param {object} item - The item source
-  @param {string} card_title - The title
+  @param {string} [card_title] - The title
   @param {boolean} [horizontal] - The card state
   @param {string} [subtext] - The subtext
   @param {string} [upgrade_price] - The upgrade price
@@ -44,6 +44,10 @@
 
 {% capture card_title %}
   {% assign title = card_title | default: item.title %}
+  {% if block.settings.show_parent_title == true %}
+    {% assign title = title | prepend: ' - ' | prepend: item.product.title %}
+  {% endif %}
+
   {% content_for 'block',
     type: '_object-text',
     id: 'object-text',
@@ -84,6 +88,30 @@
   "name": "Pack card",
   "tag": null,
   "settings": [
+    {
+      "type": "checkbox",
+      "id": "show_parent_title",
+      "label": "Show parent title",
+      "default": false
+    },
+    {
+      "type": "checkbox",
+      "id": "horizontal_on_mobile",
+      "label": "Horizontal on mobile",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "enable_button",
+      "label": "Enable button",
+      "default": false
+    },
+    {
+      "type": "text",
+      "id": "button_text",
+      "label": "Button text",
+      "visible_if": "{{ block.settings.enable_button == true }}"
+    },
     {
       "type": "paragraph",
       "content": "t:content.resource_reference_collection_card"
@@ -157,6 +185,23 @@
       "step": 1,
       "unit": "px",
       "default": 8
+    },
+    {
+      "type": "checkbox",
+      "id": "enable_mobile_gap",
+      "label": "Custom mobile gap",
+      "default": false
+    },
+    {
+      "type": "range",
+      "id": "mobile_gap",
+      "label": "Mobile gap",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "default": 12,
+      "visible_if": "{{ block.settings.enable_mobile_gap == true }}"
     },
     {
       "type": "header",

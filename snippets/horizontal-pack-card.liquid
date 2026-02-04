@@ -68,7 +68,7 @@
     <span class="visually-hidden">{{ item.title }}</span>
   </a>
 
-  <div class="pack-card__inner">
+  <div class="pack-card__inner horizontal-mobile">
     {% if card_image %}
       {{ card_image }}
     {% else %}
@@ -112,7 +112,9 @@
         display: block;
 
         @media (max-width: 749px) {
-          padding-block: var(--padding-sm);
+          &:has(.horizontal-mobile) {
+            padding-block: var(--padding-sm);
+          }
         }
     }
 
@@ -151,7 +153,7 @@
     aspect-ratio: var(--ratio);
   }
 
-  .pack-card__inner {
+  .horizontal-pack-card .pack-card__inner {
     width: 100%;
     overflow: hidden;
     position: relative;
@@ -333,7 +335,7 @@
   }
 
   .horizontal-pack-card .pack-card__inner {
-    flex-direction: row;
+    flex-direction: row !important;
     gap: 2rem !important;
   }
 

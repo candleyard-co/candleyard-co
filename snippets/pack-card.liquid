@@ -52,6 +52,7 @@
     --vertical-alignment: {{ block_settings.vertical_alignment }};
     --background-overlay-color: {{ block_settings.overlay_color }};
     --pack-card-gap: {{ block_settings.pack_card_gap }}px;
+    --pack-card-mobile-gap: {{ block_settings.mobile_gap }}px;
   "
   {{- block.shopify_attributes -}}
 >
@@ -65,7 +66,7 @@
     <span class="visually-hidden">{{ item.title }}</span>
   </a>
 
-  <div class="pack-card__inner">
+  <div class="pack-card__inner {% if block_settings.horizontal_on_mobile %}horizontal-mobile{% endif %}">
     {% if card_image %}
       {{ card_image }}
     {% else %}
@@ -92,6 +93,12 @@
             {{ card_title }}
         {% endif %}
         {{ card_price }}
+
+        {% if block_settings.enable_button == true and block_settings.button_text != blank %}
+          <button type="button" class="button add-to-pack-card-button">
+            {{ block_settings.button_text }}
+          </button>
+        {% endif %}
     </div>
   </div>
 </pack-card>
@@ -105,9 +112,33 @@
         cursor: pointer;
         display: block;
 
-        @media (max-width: 749px) {
-          padding-block: var(--padding-sm);
+        &:has(.add-to-pack-card-button) {
+          height: 100%;
         }
+
+        @media (max-width: 749px) {
+          &:has(.horizontal-mobile) {
+            padding-block: var(--padding-sm);
+          }
+        }
+    }
+
+    .main-collection-grid .add-to-pack-card-button {
+      margin-top: auto;
+
+      @media (max-width: 749px) {
+        & {
+          margin-top: calc(var(--gap-sm) / 2)
+        }
+      }
+    }
+
+    .add-to-pack-card-button {
+        padding-block: var(--padding-xs) !important;
+        margin-inline: auto;
+        height: auto;
+        font-size: var(--font-size--sm) !important;
+        padding-inline: var(--padding-xl);
     }
 
     .pack-card-image {
@@ -146,7 +177,26 @@
     aspect-ratio: var(--ratio);
   }
 
+  
   .pack-card__inner {
+    z-index: var(--layer-flat);
+    pointer-events: none;
+    height: 100%;
+
+    &[style*="--pack-card-mobile-gap"] {
+      @media (max-width: 749px) {
+        gap: var(--pack-card-mobile-gap);
+      }
+    }
+
+    a,
+    button {
+      /* only allow interactive elements to be clickable separate from .pack-card__link */
+      pointer-events: auto;
+    }
+  }
+
+  .horizontal-mobile.pack-card__inner {
     width: 100%;
     overflow: hidden;
     position: relative;
@@ -171,16 +221,6 @@
     height: 100%;
   }
 
-  .pack-card__inner {
-    z-index: var(--layer-flat);
-    pointer-events: none;
-
-    a,
-    button {
-      /* only allow interactive elements to be clickable separate from .pack-card__link */
-      pointer-events: auto;
-    }
-  }
 
   /* allow all blocks to be selectable in editor preview */
   .shopify-design-mode .pack-card__content * {

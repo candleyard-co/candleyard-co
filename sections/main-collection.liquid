@@ -20,6 +20,27 @@
   }
 {% endjavascript %}
 
+
+{% liquid
+
+  if section.settings.bundle_pack != blank
+    assign pack_object = section.settings.bundle_pack
+    assign parent_product = all_products[pack_object.parent_product]
+  endif
+%}
+
+{% if parent_product.variants.size > 0 %}
+  <script
+    src="{{ 'pack-card.js' | asset_url }}"
+    type="module"
+  ></script>
+  <script
+    src="{{ 'pack-quantity-selector.js' | asset_url }}"
+    type="module"
+  ></script>
+  {% render 'pack-modal' %}
+{% endif %}
+
 {% comment %} We always render this full-width, as the child blocks have width: page/full settings {% endcomment %}
 <div class="section-background color-{{ section.settings.color_scheme }}"></div>
 <results-list
@@ -48,6 +69,23 @@
 
     {% paginate collection.products by products_per_page %}
       {% capture children %}
+        {% for item in parent_product.variants %}
+          {% assign exclude_packs = section.settings.exclude_packs | newline_to_br | split: '<br />' %}
+          {% assign found_exclude = exclude_packs | where: item.title %}
+
+          {% unless found_exclude.size > 0 %}
+            <li
+              id="{{ section.id }}-{{ item.id }}"
+              class="product-grid__item product-grid__item--{{ forloop.index0 }}"
+              data-page="{{ paginate.current_page }}"
+              data-product-id="{{ item.id }}"
+              ref="cards[]"
+            >
+              {% content_for 'block', type: '_pack-card', id: 'static-pack-card', item: item %}
+            </li>
+          {% endunless %}
+        {% endfor %}
+
         {% for product in collection.products %}
           <li
             id="{{ section.id }}-{{ product.id }}"
@@ -156,6 +194,19 @@
   },
   "settings": [
     {
+      "type": "metaobject",
+      "id": "bundle_pack",
+      "label": "Bundle Pack",
+      "metaobject_type": "bundle_pack"
+    },
+    {
+      "type": "textarea",
+      "id": "exclude_packs",
+      "label": "Exclude pack variants",
+      "info": "Use line break per item",
+      "visible_if": "{{ section.settings.bundle_pack != blank }}"
+    },
+    {
       "type": "select",
       "id": "layout_type",
       "label": "t:settings.type",
@@ -237,6 +288,10 @@
       "id": "product_grid_width",
       "label": "t:settings.width",
       "options": [
+        {
+          "value": "page-narrow",
+          "label": "Narrow"
+        },
         {
           "value": "centered",
           "label": "t:options.page"

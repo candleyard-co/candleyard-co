@@ -523,3 +523,21 @@ class VideoMedia extends HTMLElement {
 }
   
 customElements.define('video-media', VideoMedia);
+
+
+function scrollToActiveNavButton(containerSelector = '.navigation--buttons') {
+  const nav = document.querySelector(containerSelector);
+  if (!nav) return;
+
+  const activeBtn = nav.querySelector('a.active');
+  if (!activeBtn) return;
+
+  nav.scrollLeft =
+    activeBtn.offsetLeft -
+    (nav.clientWidth / 2) +
+    (activeBtn.offsetWidth / 2);
+}
+
+// call
+scrollToActiveNavButton();
+

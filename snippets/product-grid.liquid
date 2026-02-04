@@ -84,7 +84,7 @@
   "
 
   style="
-    --grid--margin--mobile: 0{% if section.settings.product_grid_width == 'centered' and section.settings.full_width_on_mobile == false %} var(--margin-lg){% else %} 0{% endif %};
+    --grid--margin--mobile: 0{% if section.settings.product_grid_width == 'centered' or section.settings.product_grid_width == 'page-narrow' and section.settings.full_width_on_mobile == false %} var(--margin-lg){% else %} 0{% endif %};
     --grid-column--desktop: var(--{% if section.settings.product_grid_width == 'centered' %}centered{% else %}full-width{% endif %});
     --grid-column--mobile: var(--{% if section.settings.full_width_on_mobile %}full-width{% else %}{% if section.settings.product_grid_width == 'centered' %}centered{% else %}full-width{% endif %}{% endif %});
     --padding-inline-start: {{ section.settings.padding-inline-start }}px;
@@ -94,7 +94,7 @@
   <div
     style="
       grid-column: var(--full-width);
-      --product-grid-gap-mobile: {{ section.settings.columns_gap_vertical | at_most: 12 }}px {{ section.settings.columns_gap_horizontal | at_most: 12 }}px;
+      --product-grid-gap-mobile: {{ section.settings.columns_gap_vertical | at_most: 24 }}px {{ section.settings.columns_gap_horizontal | at_most: 12 }}px;
       --product-grid-gap-desktop: {{ section.settings.columns_gap_vertical }}px {{ section.settings.columns_gap_horizontal }}px;
       container-type: inline-size;
       container-name: product-grid;
