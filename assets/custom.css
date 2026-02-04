@@ -816,6 +816,9 @@ video-media video {
     .cart-drawer__summary {
         --cart-drawer-summary-padding: var(--padding-lg) var(--padding-2xl) !important;
     }
+    .facets .column-options-wrapper {
+        display: none !important;
+    }
 }
 
 @media (max-width: 749px) {
