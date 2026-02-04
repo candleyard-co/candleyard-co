@@ -415,6 +415,43 @@
             "group_jEimjk"
           ]
         },
+        "slide_BkC3bg": {
+          "type": "_slide",
+          "settings": {
+            "link": "shopify://collections/shop",
+            "media_type_1": "image",
+            "image_1": "shopify://shop_images/TCYC_Banner_1920_x_700_7.png",
+            "custom_mobile_media": true,
+            "image_1_mobile": "shopify://shop_images/Mobile_Site_Banner.png",
+            "video_1": "shopify://files/videos/4124024-uhd_4096_2160_25fps.mp4",
+            "content_direction": "column",
+            "vertical_on_mobile": true,
+            "horizontal_alignment": "flex-start",
+            "vertical_alignment": "center",
+            "align_baseline": false,
+            "horizontal_alignment_flex_direction_column": "center",
+            "vertical_alignment_flex_direction_column": "flex-end",
+            "custom_mobile_alignment": false,
+            "mobile_vertical_alignment": "center",
+            "gap": 18,
+            "inherit_color_scheme": false,
+            "color_scheme": "scheme-6",
+            "toggle_overlay": false,
+            "overlay_color": "#4d4d4d75",
+            "overlay_style": "solid",
+            "gradient_direction": "to top",
+            "padding-block-start": 100,
+            "padding-block-end": 72,
+            "padding-inline-start": 62,
+            "padding-inline-end": 62,
+            "custom_mobile_padding": true,
+            "mobile-padding-block-start": 80,
+            "mobile-padding-block-end": 42,
+            "mobile-padding-inline-start": 16,
+            "mobile-padding-inline-end": 16
+          },
+          "blocks": {}
+        },
         "slide_dDjBfp": {
           "type": "_slide",
           "settings": {
@@ -493,6 +530,7 @@
       },
       "block_order": [
         "slide_iNBK4e",
+        "slide_BkC3bg",
         "slide_dDjBfp",
         "slide_hqDhNT"
       ],
@@ -755,6 +793,7 @@
                   "name": "t:names.product_price",
                   "settings": {
                     "show_sale_price_first": true,
+                    "show_saved_price": false,
                     "show_installments": false,
                     "show_tax_info": false,
                     "type_preset": "h6",
