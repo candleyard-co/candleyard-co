@@ -22,7 +22,7 @@
 
 {% if block_settings.enable_text_hover == true and block_settings.hover_text != blank %}
   <div class="pack-text-hover">
-    <div class="pack-text--inner hover-overlay hover-overlay--{{ block_settings.hover_overlay_style | default: 'gradient' }}"
+    <div class="pack-text--inner hidden--mobile hover-overlay hover-overlay--{{ block_settings.hover_overlay_style | default: 'gradient' }}"
       style="
         --text-color: {{ block_settings.hover_text_color }};
         --overlay-layer: {{ layer | default: 'var(--layer-flat)' }};
