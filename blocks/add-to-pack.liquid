@@ -62,6 +62,9 @@
                 {{- 'actions.added' | t -}}
             </span>
             </span>
+            <span class="loading-button--icon">
+              {{ 'icon-loading.svg' | inline_asset_content }}
+            </span>
         </button>
     </add-to-cart-component>
 </span>
@@ -76,6 +79,22 @@
     animation-timing-function: var(--animation-easing);
     animation-fill-mode: forwards;
     transition: opacity var(--animation-speed) var(--animation-easing);
+  }
+
+  .add-to-pack-button .loading-button--icon {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
+
+  .add-to-pack-button[data-added="true"] .loading-button--icon {
+    display: block;
+  }
+
+  .add-to-pack-button[data-added="true"] > *:not(.loading-button--icon) {
+    opacity: 0;
+    visibility: hidden;
   }
 
   .add-to-pack-button {
