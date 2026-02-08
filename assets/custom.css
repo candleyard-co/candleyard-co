@@ -764,6 +764,22 @@ video-media video {
         width: var(--icon-size-lg) !important;
         height: var(--icon-size-lg) !important;
     }
+
+    .product-card:has(.buy-buttons-block) {
+        height: 100%;
+    }
+
+    .product-card:has(.buy-buttons-block) .product-card__content > .group-block--height-fit {
+        flex-grow: 1 !important;
+    }
+
+    .product-card:has(.buy-buttons-block) .buy-buttons-block {
+        margin-top: auto;
+    }
+
+    .active-desktop-drawer {
+        display: block !important;
+    }
 }
 
 
@@ -822,6 +838,15 @@ video-media video {
     }
     .facets .column-options-wrapper {
         display: none !important;
+    }
+}
+
+@media (max-width: 989px) {
+    #header-component[data-menu-style=drawer] .header__columns {
+        grid-template-areas: "leftA rightA center leftB rightB" !important;
+    }
+    .menu-drawer-container .header__icon--summary {
+        padding-right: var(--padding-2xs) !important;
     }
 }
 
