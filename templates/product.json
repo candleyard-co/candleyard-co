@@ -133,6 +133,10 @@
                 "css_class": "product-header"
               },
               "blocks": {
+                "judge_me_reviews_preview_badge_mKd3hE": {
+                  "type": "shopify://apps/judge-me-reviews/blocks/preview_badge/61ccd3b1-a9f2-4160-9fe9-4fec8413e5d8",
+                  "settings": {}
+                },
                 "text_xpVMaM": {
                   "type": "text",
                   "name": "t:names.title",
@@ -166,14 +170,11 @@
                   },
                   "blocks": {}
                 },
-                "judge_me_reviews_preview_badge_mKd3hE": {
-                  "type": "shopify://apps/judge-me-reviews/blocks/preview_badge/61ccd3b1-a9f2-4160-9fe9-4fec8413e5d8",
-                  "settings": {}
-                },
                 "price_tVjtKg": {
                   "type": "price",
                   "settings": {
                     "show_sale_price_first": true,
+                    "show_saved_price": false,
                     "show_installments": false,
                     "show_tax_info": false,
                     "type_preset": "custom",
@@ -229,8 +230,8 @@
                 }
               },
               "block_order": [
-                "text_xpVMaM",
                 "judge_me_reviews_preview_badge_mKd3hE",
+                "text_xpVMaM",
                 "price_tVjtKg",
                 "read_more_yHgEkH"
               ]
@@ -316,10 +317,16 @@
                   "type": "_pack-card",
                   "static": true,
                   "settings": {
+                    "show_parent_title": false,
+                    "horizontal_on_mobile": true,
+                    "enable_button": false,
+                    "button_text": "",
                     "placement": "below_image",
                     "horizontal_alignment": "flex-start",
                     "vertical_alignment": "center",
                     "pack_card_gap": 8,
+                    "enable_mobile_gap": false,
+                    "mobile_gap": 12,
                     "inherit_color_scheme": false,
                     "color_scheme": "scheme-1e7f4c49-7b8d-4440-9f86-4c8ded6ff4db",
                     "badge_sale_color_scheme": "scheme-78ca2595-92ff-4a5f-ad47-b4accdeca379",
@@ -334,6 +341,12 @@
                       "type": "_object-image",
                       "static": true,
                       "settings": {
+                        "enable_text_hover": false,
+                        "hover_text": "",
+                        "hover_text_color": "#000000",
+                        "hover_overlay_color": "#00000026",
+                        "hover_overlay_style": "solid",
+                        "hover_gradient_direction": "to top",
                         "image_ratio": "square",
                         "toggle_overlay": false,
                         "overlay_color": "#00000026",
@@ -4416,6 +4429,7 @@
                   "type": "price",
                   "settings": {
                     "show_sale_price_first": true,
+                    "show_saved_price": false,
                     "show_installments": false,
                     "show_tax_info": false,
                     "type_preset": "h6",
