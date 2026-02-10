@@ -21,24 +21,30 @@ function cartListener(event) {
                 const cartData = JSON.parse(cartDataElement.textContent);
                 const storedDataStr = sessionStorage.getItem('free-gift-selection');
                 
-                if (storedDataStr) {
-                    const storedData = JSON.parse(storedDataStr);
-                    
-                    if (storedData?.freeGift?.variantId) {
-                        const freeGiftVariantId = Number(storedData.freeGift.variantId);
-                        const filteredItems = cartData.items.filter(item => 
-                            Number(item.variant_id) === freeGiftVariantId
-                        );
-
-                        // Remove free gift if cart total is $0
-                        if (filteredItems.length > 0 && cartData.total_price === 0) {
-                            removeItemFromCart(filteredItems[0].key, cartData);
-                        }
-                        // Add free gift if cart has paid items (> $0) and gift not present
-                        else if (filteredItems.length === 0 && cartData.total_price > 0) {
+                // Check if cart already has ANY free gift (not just from current session)
+                const existingFreeGifts = cartData.items.filter(item => 
+                    item.properties && item.properties._type === 'Free Gift'
+                );
+                
+                const hasPaidItems = cartData.total_price > 0;
+                
+                // Remove ALL free gifts if cart has no paid items
+                if (existingFreeGifts.length > 0 && !hasPaidItems) {
+                    removeAllFreeGifts(cartData, existingFreeGifts);
+                }
+                // Add free gift if cart has paid items and NO free gifts exist
+                else if (hasPaidItems && existingFreeGifts.length === 0) {
+                    // Only add if we have gift data in session storage
+                    if (storedDataStr) {
+                        const storedData = JSON.parse(storedDataStr);
+                        if (storedData?.freeGift?.variantId) {
                             addFreeGiftToCart(storedData.freeGift, cartData);
                         }
                     }
+                }
+                // If free gifts already exist and cart has paid items, ensure only ONE exists
+                else if (hasPaidItems && existingFreeGifts.length > 1) {
+                    removeExcessFreeGifts(cartData, existingFreeGifts);
                 }
             } catch (error) {
                 // Keep only essential error logging
@@ -114,7 +120,7 @@ function addFreeGiftToCart(freeGiftData, cartData) {
             return updatedCart;
         });
     } else {
-        // Fallback if we can't find cart data or items (shouldn't happen normally)
+        // Fallback if we can't find cart data or items
         formData.append('properties[_type]', 'Free Gift');
         formData.append('properties[_giftProductId]', freeGiftData.id.toString());
         formData.append('properties[_giftHandle]', freeGiftData.handle);
@@ -144,28 +150,32 @@ function addFreeGiftToCart(freeGiftData, cartData) {
     }
 }
 
-function removeItemFromCart(itemKey, cartData) {
-    // Find the item by its key to get its line position
-    const itemIndex = cartData.items.findIndex(item => item.key === itemKey);
-
-    if (itemIndex === -1) {
-        // Try finding by properties if key doesn't match
-        const giftItem = cartData.items.find(item => 
-            item.properties && 
-            item.properties._type === 'Free Gift'
-        );
-        
-        if (!giftItem) {
-            // Silently fail if gift not found
-            return Promise.resolve();
+function removeAllFreeGifts(cartData, freeGiftItems) {
+    // Remove all free gifts in the cart
+    const removePromises = freeGiftItems.map((item) => {
+        const itemIndex = cartData.items.indexOf(item);
+        if (itemIndex !== -1) {
+            return removeItemByLine(itemIndex + 1);
         }
-        
-        // Use the found gift item
-        return removeItemByLine(cartData.items.indexOf(giftItem) + 1);
-    }
+        return Promise.resolve();
+    });
     
-    // Use the line number (1-indexed)
-    return removeItemByLine(itemIndex + 1);
+    return Promise.all(removePromises);
+}
+
+function removeExcessFreeGifts(cartData, freeGiftItems) {
+    // Keep only the first free gift, remove the rest
+    const giftsToRemove = freeGiftItems.slice(1); // All except the first
+    
+    const removePromises = giftsToRemove.map((item) => {
+        const itemIndex = cartData.items.indexOf(item);
+        if (itemIndex !== -1) {
+            return removeItemByLine(itemIndex + 1);
+        }
+        return Promise.resolve();
+    });
+    
+    return Promise.all(removePromises);
 }
 
 function removeItemByLine(lineNumber) {
@@ -215,6 +225,7 @@ function removeItemByLine(lineNumber) {
     });
 }
 
+// Initialize the event listener
 document.addEventListener(ThemeEvents.cartUpdate, cartListener);
 
 document.querySelectorAll('.slider-scrollings').forEach((scrollingElement) => {
