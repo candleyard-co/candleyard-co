@@ -489,6 +489,7 @@
                   "name": "t:names.product_price",
                   "settings": {
                     "show_sale_price_first": true,
+                    "show_saved_price": false,
                     "show_installments": false,
                     "show_tax_info": false,
                     "type_preset": "h6",
@@ -594,7 +595,8 @@
       },
       "custom_css": [
         "a {pointer-events: none;}",
-        ".product-card__link {display: none !important;}"
+        ".product-card__link {display: none !important;}",
+        ".product-form-buttons {justify-content: center;}"
       ],
       "name": "t:names.products_grid",
       "settings": {
@@ -813,6 +815,7 @@
                   "name": "t:names.product_price",
                   "settings": {
                     "show_sale_price_first": true,
+                    "show_saved_price": false,
                     "show_installments": false,
                     "show_tax_info": false,
                     "type_preset": "h6",
@@ -918,7 +921,8 @@
       },
       "custom_css": [
         "a {pointer-events: none;}",
-        ".product-card__link {display: none !important;}"
+        ".product-card__link {display: none !important;}",
+        ".product-form-buttons {justify-content: center;}"
       ],
       "name": "t:names.products_grid",
       "settings": {
@@ -1137,6 +1141,7 @@
                   "name": "t:names.product_price",
                   "settings": {
                     "show_sale_price_first": true,
+                    "show_saved_price": false,
                     "show_installments": false,
                     "show_tax_info": false,
                     "type_preset": "h6",
@@ -1242,7 +1247,8 @@
       },
       "custom_css": [
         "a {pointer-events: none;}",
-        ".product-card__link {display: none !important;}"
+        ".product-card__link {display: none !important;}",
+        ".product-form-buttons {justify-content: center;}"
       ],
       "name": "t:names.products_grid",
       "settings": {
@@ -1461,6 +1467,7 @@
                   "name": "t:names.product_price",
                   "settings": {
                     "show_sale_price_first": true,
+                    "show_saved_price": false,
                     "show_installments": false,
                     "show_tax_info": false,
                     "type_preset": "h6",
@@ -1566,7 +1573,8 @@
       },
       "custom_css": [
         "a {pointer-events: none;}",
-        ".product-card__link {display: none !important;}"
+        ".product-card__link {display: none !important;}",
+        ".product-form-buttons {justify-content: center;}"
       ],
       "name": "t:names.products_grid",
       "settings": {
