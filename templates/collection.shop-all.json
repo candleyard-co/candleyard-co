@@ -176,6 +176,7 @@
       "block_order": [
         "group_fCHiRn"
       ],
+      "disabled": true,
       "custom_css": [
         "@media (max-width: 749px) {.background-image-container img {object-position: 17% 10%; }}"
       ],
