@@ -5520,6 +5520,7 @@
           "block_order": []
         }
       },
+      "disabled": true,
       "custom_css": [
         ".section--page-narrow {--page-width: calc(56rem + (var(--page-margin) * 2)) !important;}",
         "@media screen and (max-height: 700px) and (min-width: 750px) {.section--page-narrow {--page-width: calc(35rem + (var(--page-margin) * 2)) !important; } .resource-list {--resource-list-column-gap: 24px !important; } .flip-card-title {font-size: var(--font-size--sm); margin-top: auto; } h2 {font-size: var(--font-h3--size); }}",
