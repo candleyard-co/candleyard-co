@@ -131,30 +131,10 @@
         "disabled": false,
         "settings": {}
       },
-      "1768834845299682660": {
-        "type": "shopify://apps/subscriptions/blocks/app-embed-block/a3bfe9ec-96f8-4508-a003-df608a36d2ad",
-        "disabled": false,
-        "settings": {
-          "color_text_title": "#6D7175",
-          "color_text_body": "#6D7175",
-          "dividers_color": "#8F8D8D",
-          "bacgkround_color": "#FFFFFF",
-          "border_thickness": 1,
-          "border_radius": 0,
-          "subscription_policy_url": ""
-        }
-      },
       "14020781649437803805": {
         "type": "shopify://apps/shopvid/blocks/app_embed/1216543a-6237-4445-a5f2-61991cd76022",
         "disabled": false,
         "settings": {}
-      },
-      "3667842014806057753": {
-        "type": "shopify://apps/one-click-upsell/blocks/app-embed/bfe6e378-b73a-4871-b8d3-7d6ede22678e",
-        "disabled": false,
-        "settings": {
-          "allowed_templates": "index,blog"
-        }
       },
       "13768625480086291342": {
         "type": "shopify://apps/forms/blocks/forms/8744a304-fcb1-4347-b211-bb6b4759a76a",
@@ -163,7 +143,7 @@
       },
       "855628211100114053": {
         "type": "shopify://apps/klaviyo-email-marketing-sms/blocks/klaviyo-onsite-embed/2632fe16-c075-4321-a88b-50b567f42507",
-        "disabled": false,
+        "disabled": true,
         "settings": {}
       }
     },
