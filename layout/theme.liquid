@@ -47,12 +47,14 @@
     {% if customer %}
       {% render 'wholesale-fnc' %}
     {% endif %}
+    {% comment %} AvidAI disabled: store closed Nov 2026
     <!-- AvidAI Widgets Script - DO NOT REMOVE THIS LINE -->
 <script src="{{ 'avidai-widgets.js' | asset_url }}" defer></script>
 <!-- End AvidAI Widgets Script - DO NOT REMOVE THIS LINE -->
 <!-- AvidAI Tracking Script - DO NOT REMOVE THIS LINE -->
 <script src="{{ 'avidai-tracking.js' | asset_url }}" defer></script>
 <!-- End AvidAI Tracking Script - DO NOT REMOVE THIS LINE -->
+    {% endcomment %}
 
   </head>
 
